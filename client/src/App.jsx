@@ -1,10 +1,17 @@
-import { useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
+import Signup from './pages/Signup'
+import Login from './pages/Login'
+import Index from './pages/Index'
 
 function App() {
   return (
     <>
-        <h1 className='text-3xl'>hi</h1>
+      <Routes>
+        <Route path='/' element={<Index />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </>
   )
 }
