@@ -54,7 +54,7 @@ const Signup = () => {
                             </div>
                         </form>
                         <div className='p-4'>
-                            <p>By clicking the Sign Up button below, you agree to the GoFundMe 
+                            <p className='text-slate-500'>By clicking the Sign Up button below, you agree to the GoFundMe 
                                 <Link className='underline'> Terms of Service </Link>
                                  and acknowledge the 
                                  <Link className='underline'> Privacy Notice</Link>
