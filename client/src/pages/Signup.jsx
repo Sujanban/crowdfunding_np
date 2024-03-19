@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import axios from "axios";
 import { toast } from 'react-hot-toast'
 
 const Signup = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -39,6 +40,7 @@ const Signup = () => {
                     email: '',
                     password: ''
                 })
+                navigate('/login');
             }
         } catch (error) {
             console.log('Error from catch bloxk' + error)

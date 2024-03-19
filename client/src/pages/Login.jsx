@@ -1,10 +1,50 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AiOutlineEye,AiOutlineEyeInvisible  } from "react-icons/ai";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import {toast} from 'react-hot-toast';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+
+
+    // handling user login data
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if(!formData.email || !formData.password){
+            toast.error('All fields are required');
+            return;
+        }
+        const response = await axios.post('/login', formData);
+        console.log('Login successful:', response.data);
+        console.log(formData)
+        if(response.data.error){
+            toast.error(response.data.error);
+            return;
+        }
+        if(response.data.message){
+            toast.success(response.data.message);
+            setFormData({
+                email: '',
+                password: ''
+            });
+
+            setTimeout(() => {
+                navigate('/');
+            }, 2000)
+
+            return;
+        }
+        
+        // console.log(formData)
+    }
 
     return (
         <div className='w-full h-screen bg-stone-100'>
@@ -27,42 +67,55 @@ const Login = () => {
                     </div>
                     <div className='md:px-8 md:py-16'>
                         <h2 className='hidden md:block p-4 text-xl'>Your account details</h2>
-                        <form className=' w-full lg:max-w-2xl px-4 md:py-4 block gap-2'>
-                            <div className='py-2 grid'>
-                                <input className='text-md font-light border border-stone-600 p-4 rounded-md' type="text" placeholder='Email Address' />
+                        <form className='' onSubmit={handleSubmit}>
+                            <div className=' w-full lg:max-w-2xl px-4 md:py-4 block gap-2'>
+                                <div className='py-2 grid'>
+                                    <input 
+                                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                    value={formData.email}
+                                    className='text-md font-light border border-stone-600 p-4 rounded-md' 
+                                    type="text" 
+                                    placeholder='Email Address' />
+                                </div>
+                                <div className='py-2 grid relative'>
+                                    <input 
+                                    onChange={(e) => setFormData({...formData, password: e.target.value})}
+                                    value={formData.password}
+                                    className='text-md font-light border border-stone-600 p-4 rounded-md' 
+                                    type={showPassword ? "text" : "password"} 
+                                    placeholder='Password' />
+
+                                    {
+                                        showPassword ?
+                                            <AiOutlineEyeInvisible
+                                                onClick={() => setShowPassword(!showPassword)}
+                                                color='gray'
+                                                size={25}
+                                                className='absolute right-4 top-1/2 -translate-y-1/2' />
+                                            :
+                                            <AiOutlineEye
+                                                onClick={() => setShowPassword(!showPassword)}
+                                                size={25}
+                                                color='gray'
+                                                className='absolute right-4 top-1/2 -translate-y-1/2' />
+                                    }
+                                </div>
+                                <div className='py-4'>
+                                    <Link className='underline'>Forgot your password?</Link>
+                                </div>
                             </div>
-                            <div className='py-2 grid relative'>
-                                <input className='text-md font-light border border-stone-600 p-4 rounded-md' type={showPassword ? "text" : "password"} placeholder='Password' />
-                                
-                                {
-                                    showPassword ? 
-                                    <AiOutlineEyeInvisible
-                                    onClick={() => setShowPassword(!showPassword)}
-                                    color='gray'
-                                     size={25}
-                                    className='absolute right-4 top-1/2 -translate-y-1/2'/>
-                                    :
-                                    <AiOutlineEye
-                                    onClick={() => setShowPassword(!showPassword)}
-                                     size={25}
-                                     color='gray'
-                                    className='absolute right-4 top-1/2 -translate-y-1/2'/>
-                                }
+
+                            <div className='p-4'>
+                                <p className='text-slate-500'>By clicking the Sign In button below, you agree to the Collab
+                                    <Link className='underline'> Terms of Service </Link>
+                                    and acknowledge the
+                                    <Link className='underline'> Privacy Notice</Link>
+                                    .</p>
                             </div>
-                            <div className='py-4'>
-                              <Link className='underline'>Forgot your password?</Link>
+                            <div className='p-4 block md:flex justify-end '>
+                                <button type='submit' className='w-full lg:w-auto px-5 py-3 bg-slate-800 text-white rounded-md'>Sign In</button>
                             </div>
                         </form>
-                        <div className='p-4'>
-                            <p className='text-slate-500'>By clicking the Sign In button below, you agree to the Collab 
-                                <Link className='underline'> Terms of Service </Link>
-                                 and acknowledge the 
-                                 <Link className='underline'> Privacy Notice</Link>
-                                 .</p>
-                        </div>
-                        <div className='p-4 block md:flex justify-end '>
-                            <button className='w-full lg:w-auto px-5 py-3 bg-slate-800 text-white rounded-md'>Sign In</button>
-                        </div>
                     </div>
                 </div>
             </div>
