@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const { test,handleRegister,handleLogin } = require('../controllers/authController')
+const { test,handleRegister,handleLogin,handleLogout,verifyUser } = require('../controllers/authController')
 
 
 // middleware
@@ -20,9 +20,8 @@ router.use(
 router.get('/', test)
 router.post('/register', handleRegister)
 router.post('/login', handleLogin)
-
-
-
+router.get('/logout', handleLogout)
+router.get('/user', verifyUser)
 
 
 

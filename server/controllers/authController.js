@@ -1,10 +1,13 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const validator = require("email-validator");
+const jwt = require("jsonwebtoken");
 const test = (req, res) => {
   res.json("test is working");
 };
 
+
+// handling user registration
 const handleRegister = async (req, res) => {
   try {
     const { firstName, lastName, email, password } = req.body;
@@ -38,6 +41,7 @@ const handleRegister = async (req, res) => {
   }
 };
 
+//login controller
 const handleLogin = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -50,7 +54,7 @@ const handleLogin = async (req, res) => {
       res.json({ error: "Email is not valid" });
       return;
     }
-    const validUser = await User.findOne({email});
+    const validUser = await User.findOne({ email });
     if (!validUser) {
       res.json({ error: "User does not exist" });
       return;
@@ -60,7 +64,62 @@ const handleLogin = async (req, res) => {
       res.json({ error: "Invalid credentials" });
       return;
     }
+
+    // creating jwt token
+    const token = jwt.sign({ _id: validUser._id }, process.env.SECRETE_KEY, {
+      expiresIn: "1h",
+    });
+    res.cookie("token", token, { httpOnly: true });
+
     res.json({ message: "Login successful" });
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+};
+
+
+
+// accessing user data
+const verifyUser = async (req, res, next) => {
+  try {
+    const { token } = req.cookies;
+    if (!token) {
+      return res.json({ error: "Unauthorized" });
+    }
+    if (token) {
+      const validUser = jwt.verify(token, process.env.SECRETE_KEY);
+      const user = await User.findById(validUser._id);
+      if(!user){
+
+        return res.json({ error: "Unauthorized" });
+      }else{
+        // return res.json({message: "User exists"});
+        res.json(user);
+        next();
+      }
+      // res.json({user});
+    }
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+};
+
+
+// handling protected dashboard
+// const handleDashboard = (req,verifyUser,res) => {
+//   try {
+//     res.json({message: "Dashboard"});
+//   } catch (error) {
+//     res.json({error: error.message})
+//   }
+// }
+
+
+// handeling user logout
+const handleLogout = async (req, res) => {
+  try {
+    res.clearCookie("token");
+    res.json({ message: "Logout successful" });
   } catch (error) {
     res.json({ error: error.message });
   }
@@ -70,4 +129,7 @@ module.exports = {
   test,
   handleRegister,
   handleLogin,
+  handleLogout,
+  verifyUser,
+  // handleDashboard
 };

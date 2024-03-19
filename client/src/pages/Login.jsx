@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import {toast} from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,31 +18,27 @@ const Login = () => {
     // handling user login data
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(!formData.email || !formData.password){
+        if (!formData.email || !formData.password) {
             toast.error('All fields are required');
             return;
         }
         const response = await axios.post('/login', formData);
-        console.log('Login successful:', response.data);
-        console.log(formData)
-        if(response.data.error){
+        // console.log('Login successful:', response.data);
+        // console.log(formData)
+        if (response.data.error) {
             toast.error(response.data.error);
             return;
         }
-        if(response.data.message){
+        if (response.data.message) {
             toast.success(response.data.message);
             setFormData({
                 email: '',
                 password: ''
             });
-
-            setTimeout(() => {
-                navigate('/');
-            }, 2000)
-
+            navigate('/dashboard');
             return;
         }
-        
+
         // console.log(formData)
     }
 
@@ -70,20 +66,20 @@ const Login = () => {
                         <form className='' onSubmit={handleSubmit}>
                             <div className=' w-full lg:max-w-2xl px-4 md:py-4 block gap-2'>
                                 <div className='py-2 grid'>
-                                    <input 
-                                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                                    value={formData.email}
-                                    className='text-md font-light border border-stone-600 p-4 rounded-md' 
-                                    type="text" 
-                                    placeholder='Email Address' />
+                                    <input
+                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                        value={formData.email}
+                                        className='text-md font-light border border-stone-600 p-4 rounded-md'
+                                        type="text"
+                                        placeholder='Email Address' />
                                 </div>
                                 <div className='py-2 grid relative'>
-                                    <input 
-                                    onChange={(e) => setFormData({...formData, password: e.target.value})}
-                                    value={formData.password}
-                                    className='text-md font-light border border-stone-600 p-4 rounded-md' 
-                                    type={showPassword ? "text" : "password"} 
-                                    placeholder='Password' />
+                                    <input
+                                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                        value={formData.password}
+                                        className='text-md font-light border border-stone-600 p-4 rounded-md'
+                                        type={showPassword ? "text" : "password"}
+                                        placeholder='Password' />
 
                                     {
                                         showPassword ?
