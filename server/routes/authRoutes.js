@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const { test } = require('../controllers/authController')
+const { test,handleRegister } = require('../controllers/authController')
 
 
-
-
+// middleware
 router.use(
     cors({
         origin: 'http://localhost:5173',
@@ -14,7 +13,19 @@ router.use(
 )
 
 
-router.get('/', test
-)
+
+
+
+
+router.get('/', test)
+router.post('/register', handleRegister)
+
+
+
+
+
+
+
+
 
 module.exports = router

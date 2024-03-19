@@ -8,3 +8,14 @@
  * {
     font-family: "Cambo", serif;
   }
+  li{
+    list-style-type: none;
+  }
+  a{
+    text-decoration: none;
+  }
+  /* .home{
+    background: url(https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D) no-repeat;
+    object-fit: cover;
+    background-position: center;
+  } */
