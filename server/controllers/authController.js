@@ -2,10 +2,42 @@ const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const validator = require("email-validator");
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 const test = (req, res) => {
   res.json("test is working");
 };
 
+// user authentication
+const checkAuth = (req, res, next) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      console.log("Unauthorized route");
+      return res.json({ error: " Unauthorized route" });
+    }
+    const decoded = jwt.verify(token, process.env.SECRETE_KEY);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    console.log(error);
+    res.json({ error: error.message });
+  }
+};
+
+const isAdmin = async (req, res, next) => {
+  try {
+    const token = req.cookies.token;
+    const decoded = jwt.verify(token, process.env.SECRETE_KEY);
+    const user = await User.findById(decoded._id);
+    if (user.role !== 1) {
+      console.log("Need admin Access");
+      return res.json({ error: "Unauthorized Privilege" });
+    }
+    next();
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+};
 
 // handling user registration
 const handleRegister = async (req, res) => {
@@ -77,10 +109,8 @@ const handleLogin = async (req, res) => {
   }
 };
 
-
-
 // accessing user data
-const verifyUser = async (req, res, next) => {
+const profile = async (req, res) => {
   try {
     const { token } = req.cookies;
     if (!token) {
@@ -89,31 +119,18 @@ const verifyUser = async (req, res, next) => {
     if (token) {
       const validUser = jwt.verify(token, process.env.SECRETE_KEY);
       const user = await User.findById(validUser._id);
-      if(!user){
-
+      if (!user) {
         return res.json({ error: "Unauthorized" });
-      }else{
+      } else {
         // return res.json({message: "User exists"});
         res.json(user);
-        next();
+        // next();
       }
-      // res.json({user});
     }
   } catch (error) {
     res.json({ error: error.message });
   }
 };
-
-
-// handling protected dashboard
-// const handleDashboard = (req,verifyUser,res) => {
-//   try {
-//     res.json({message: "Dashboard"});
-//   } catch (error) {
-//     res.json({error: error.message})
-//   }
-// }
-
 
 // handeling user logout
 const handleLogout = async (req, res) => {
@@ -125,11 +142,59 @@ const handleLogout = async (req, res) => {
   }
 };
 
+// google login
+const handleGoogleLogin = async (req, res) => {
+  try {
+    const { credential } = req.body.credentialResponse;
+    const { jwtDecoded } = req.body;
+    if (!credential) {
+      return res.json({ error: "No Credentials Received" });
+    }
+    // console.log(new mongoose.Types.ObjectId());
+    // const token = jwt.sign(jwtDecoded.email, process.env.SECRETE_KEY);
+    // if (token) {
+    //   console.log("token present" + token);
+    // } else {
+    //   console.log("token not available");
+    // }
+    const userExist = await User.findOne({ email: jwtDecoded.email });
+    if (jwtDecoded) {
+      if (userExist) {
+        const user = await User.findOne({ email: jwtDecoded.email });
+        const token = jwt.sign({ _id: user._id }, process.env.SECRETE_KEY, {
+          expiresIn: "1h",
+        });
+        res.cookie("token", token, { httpOnly: true });
+        return res.json({ message: "Hi user" });
+      }
+      if (!userExist) {
+        const id = new mongoose.Types.ObjectId();
+        const token = jwt.sign({ _id: id }, process.env.SECRETE_KEY, {
+          expiresIn: "1h"});
+        const newUser = new User({
+          _id: id,
+          firstName: jwtDecoded.given_name,
+          lastName: jwtDecoded.family_name,
+          email: jwtDecoded.email,
+          password: "sam12345",
+        });
+        await newUser.save();
+        res.cookie("token", token, { httpOnly: true });
+        return res.json({ message: "User created successfully" });
+      }
+    }
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+};
+
 module.exports = {
   test,
   handleRegister,
   handleLogin,
   handleLogout,
-  verifyUser,
-  // handleDashboard
+  profile,
+  checkAuth,
+  isAdmin,
+  handleGoogleLogin,
 };

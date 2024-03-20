@@ -1,31 +1,34 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const cors = require('cors');
-const { test,handleRegister,handleLogin,handleLogout,verifyUser } = require('../controllers/authController')
-
+const cors = require("cors");
+const {
+  test,
+  handleRegister,
+  handleLogin,
+  handleLogout,
+  profile,
+  checkAuth,
+  isAdmin,
+  handleGoogleLogin
+} = require("../controllers/authController");
 
 // middleware
 router.use(
-    cors({
-        origin: 'http://localhost:5173',
-        credentials: true
-    })
-)
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
+router.get("/", test);
+router.post("/register", handleRegister);
+router.post("/login", handleLogin);
+router.get("/logout", handleLogout);
+router.get("/profile", checkAuth, profile);
+router.get("/dashboard", checkAuth, (req, res) => {
+  res.json({ message: "User exists" });
+});
 
+router.post("/googlelogin", handleGoogleLogin);
 
-
-
-
-router.get('/', test)
-router.post('/register', handleRegister)
-router.post('/login', handleLogin)
-router.get('/logout', handleLogout)
-router.get('/user', verifyUser)
-
-
-
-
-
-
-module.exports = router
+module.exports = router;

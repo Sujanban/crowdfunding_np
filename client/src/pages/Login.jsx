@@ -4,15 +4,35 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
 
 
 const Login = () => {
+
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
+
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
+
+    const handleGoogleLogin = async (credentialResponse) => {
+        const res = await axios.post('/googlelogin',
+            {
+                credentialResponse,
+                jwtDecoded: jwtDecode(credentialResponse.credential),
+            }
+        );
+        
+        if (res.data) {
+            console.log(res.data);
+        }
+        if(res.data.message){
+            navigate('/dashboard');
+        }
+    }
 
 
     // handling user login data
@@ -96,8 +116,24 @@ const Login = () => {
                                                 className='absolute right-4 top-1/2 -translate-y-1/2' />
                                     }
                                 </div>
-                                <div className='py-4'>
+                                <div className='py-4  '>
                                     <Link className='underline'>Forgot your password?</Link>
+                                </div>
+                                <p className='text-slate-500 text-center'>or</p>
+                                <div className='p-4 flex items-center justify-center'>
+                                    <GoogleLogin
+                                        onSuccess={credentialResponse => {
+                                            handleGoogleLogin(credentialResponse);
+                                            // console.log(credentialResponse.credential);
+                                            // setJwtToken(credentialResponse?.credential);
+                                            // const decoded = jwtDecode(credentialResponse.credential);
+                                            // setJwtDecoded(decoded);
+                                            // console.log(decoded);
+                                        }}
+                                        onError={() => {
+                                            console.log('Login Failed');
+                                        }}
+                                    />
                                 </div>
                             </div>
 
