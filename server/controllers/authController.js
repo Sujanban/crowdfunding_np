@@ -110,7 +110,7 @@ const handleLogin = async (req, res) => {
 };
 
 // accessing user data
-const profile = async (req, res) => {
+const profile = async (req, res,next) => {
   try {
     const { token } = req.cookies;
     if (!token) {
@@ -123,8 +123,9 @@ const profile = async (req, res) => {
         return res.json({ error: "Unauthorized" });
       } else {
         // return res.json({message: "User exists"});
+        console.log(user)
         res.json(user);
-        // next();
+        next();
       }
     }
   } catch (error) {
@@ -150,13 +151,6 @@ const handleGoogleLogin = async (req, res) => {
     if (!credential) {
       return res.json({ error: "No Credentials Received" });
     }
-    // console.log(new mongoose.Types.ObjectId());
-    // const token = jwt.sign(jwtDecoded.email, process.env.SECRETE_KEY);
-    // if (token) {
-    //   console.log("token present" + token);
-    // } else {
-    //   console.log("token not available");
-    // }
     const userExist = await User.findOne({ email: jwtDecoded.email });
     if (jwtDecoded) {
       if (userExist) {

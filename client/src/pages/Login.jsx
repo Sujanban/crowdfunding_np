@@ -30,6 +30,7 @@ const Login = () => {
             console.log(res.data);
         }
         if(res.data.message){
+            console.log(res.data.user);
             navigate('/dashboard');
         }
     }

@@ -1,23 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../contexts/userContext';
 
 const Profile = () => {
     const navigate = useNavigate();
-    const [user, setUser] = useState(null);
-    useEffect(() => {
-        axios.get('/profile').then((res) => {
-            setUser(res.data);
-            if(res.data.error){
-                navigate('/login')
-            }
-        })
-    }, [])
+    const { user, setUser } = useUser();
 
     const handleLogout = () => {
         axios.get('/logout').then((res) => {
             setUser(null);
-            if(res.data.message){
+            if (res.data.message) {
                 console.log(res.data.message)
                 navigate('/');
             }
