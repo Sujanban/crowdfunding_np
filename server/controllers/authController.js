@@ -98,7 +98,9 @@ const handleLogin = async (req, res) => {
       expiresIn: "1h",
     });
     res.cookie("token", token, { httpOnly: true });
-    res.json({ message: "Login successful" });
+    const userData = await User.findById(validUser._id).select('-password');
+    console.log(userData)
+    res.json(userData);
   } catch (error) {
     res.json({ error: error.message });
   }

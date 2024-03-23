@@ -6,9 +6,11 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
+import { useUser } from '../contexts/userContext';
 
 
 const Login = () => {
+    const {user,setUser} = useUser();
 
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
@@ -42,12 +44,13 @@ const Login = () => {
             return;
         }
         const response = await axios.post('/api/auth/login', formData);
+        
         if (response.data.error) {
             toast.error(response.data.error);
             return;
         }
-        if (response.data.message) {
-            toast.success(response.data.message);
+        if (response.data) {
+            // toast.success(response.data.message);
             setFormData({
                 email: '',
                 password: ''
@@ -58,6 +61,7 @@ const Login = () => {
 
         // console.log(formData)
     }
+    
 
     return (
         <div className='w-full h-screen bg-stone-100'>

@@ -1,13 +1,97 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { UserContext, useUser } from '../../contexts/userContext'
+import { toast } from 'react-hot-toast';
+import axios from 'axios';
 
 const CreateCampaign = () => {
-    const [formData, setFormData] = useState({});
-    const handleCampaignCreation = async (e) => {
+    const [loading, setLoading] = useState(false);
+    // const { user, setUser } = useContext(UserContext);
+    const [user, setUser] = useState({});
+    const [campaigns, setCampaigns] = useState({});
 
+    const [campaignTitle, setCampaignTitle] = useState('');
+    const [campaignDescription, setCampaignDescription] = useState('');
+    const [location, setLocation] = useState('');
+    const [thumbnail, setThumbnail] = useState('');
+    const [videoUrl, setVideoUrl] = useState('');
+    const [goalAmount, setGoalAmount] = useState('');
+    const [category, setCategory] = useState('');
+
+
+
+
+
+
+    const handleCampaignCreation = async (e) => {
+        e.preventDefault();
+        const formData = {
+            campaignOwner: user._id,
+            campaignTitle,
+            campaignDescription,
+            location,
+            thumbnail,
+            videoUrl,
+            goalAmount,
+            category
+        }
+        const res = await axios.post('/api/campaign/createCampaign', formData);
+        if (res.data.message) {
+            toast.success(res.data.message);
+        }
+        if (res.data.error) {
+            toast.error(res.data.error);
+        }
+        // reseting field
+        setCampaignTitle('');
+        setCampaignDescription('');
+        setLocation('');
+        setThumbnail('');
+        setVideoUrl('');
+        setGoalAmount('');
+        setCategory('');
+
+        fetchCampaigns();
     }
-  return (
-    <div className='absolute top-0 w-full h-screen bg-stone-100'>
+
+
+
+    // FETCHING ALL CAMPAIGNS
+    const fetchCampaigns = async () => {
+        setLoading(true);
+        const res = await axios.get('/api/campaign/getCampaigns');
+        setCampaigns(res.data);
+        setLoading(false);
+    }
+
+
+    // DELET CAMPAIGN
+    const handleDeleteCampaign = async (id) => {
+        const res = await axios.delete('/api/campaign/deleteCampaign/' + id);
+        if (res.data.message) {
+            toast.success(res.data.message);
+            fetchCampaigns();
+        }
+        if (res.data.error) {
+            toast.error(res.data.error);
+        }
+    }
+
+    useEffect(() => {
+        fetchCampaigns();
+
+        const fetUserId = async () => {
+            try {
+                const response = await axios.get('/api/auth/user');
+                setUser(response.data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        fetUserId();
+    }, [])
+    return (
+        <div className='absolute top-0 w-full h-screen bg-stone-100'>
             <div className='lg:p-12 lg:grid grid-cols-3 gap-4'>
                 <div className='col-span-1'>
                     <div className=' flex p-4 md:p-8'>
@@ -26,21 +110,27 @@ const CreateCampaign = () => {
                         <h2 className='hidden md:block p-4 text-xl'>Enter all the details</h2>
                         <form onSubmit={handleCampaignCreation} className=' '>
                             <div className='px-4 py-8 h-[60vh] overflow-y-auto w-full lg:max-w-3xl  block gap-2'>
-                                
-                                <div className='py-2 grid'>
+
+                                {/* <div className=' py-2 grid'>
                                     <input
+                                        onChange={(e) => setFormData({ ...formData, campaignOwner: e.target.value })}
+                                        value={user._id}
                                         className='text-md font-light border border-stone-600 p-4 rounded-md'
                                         type="text"
                                         placeholder='Campaign Owner ID' />
-                                </div>
+                                </div> */}
                                 <div className='py-2 grid'>
                                     <input
+                                        onChange={(e) => setCampaignTitle(e.target.value)}
+                                        value={campaignTitle}
                                         className='text-md font-light border border-stone-600 p-4 rounded-md'
                                         type="text"
                                         placeholder='Campaign Title' />
                                 </div>
                                 <div className='py-2 grid relative'>
                                     <input
+                                        onChange={(e) => setCampaignDescription(e.target.value)}
+                                        value={campaignDescription}
                                         className='text-md font-light border border-stone-600 p-4 rounded-md'
                                         type='text'
                                         placeholder='Campaign Description' />
@@ -48,6 +138,8 @@ const CreateCampaign = () => {
                                 </div>
                                 <div className='py-2 grid relative'>
                                     <input
+                                        onChange={(e) => setLocation(e.target.value)}
+                                        value={location}
                                         className='text-md font-light border border-stone-600 p-4 rounded-md'
                                         type='text'
                                         placeholder='Location' />
@@ -55,6 +147,8 @@ const CreateCampaign = () => {
                                 </div>
                                 <div className='py-2 grid relative'>
                                     <input
+                                        onChange={(e) => setThumbnail(e.target.value)}
+                                        value={thumbnail}
                                         className='text-md font-light border border-stone-600 p-4 rounded-md'
                                         type='text'
                                         placeholder='Thumbnail' />
@@ -62,6 +156,8 @@ const CreateCampaign = () => {
                                 </div>
                                 <div className='py-2 grid relative'>
                                     <input
+                                        onChange={(e) => setVideoUrl(e.target.value)}
+                                        value={videoUrl}
                                         className='text-md font-light border border-stone-600 p-4 rounded-md'
                                         type='text'
                                         placeholder='Video URL' />
@@ -69,14 +165,18 @@ const CreateCampaign = () => {
                                 </div>
                                 <div className='py-2 grid relative'>
                                     <input
+                                        onChange={(e) => setCategory(e.target.value)}
+                                        value={category}
                                         className='text-md font-light border border-stone-600 p-4 rounded-md'
                                         type='text'
                                         placeholder='Category' />
                                 </div>
                                 <div className='py-2 grid relative'>
                                     <input
+                                        onChange={(e) => setGoalAmount(e.target.value)}
+                                        value={goalAmount}
                                         className='text-md font-light border border-stone-600 p-4 rounded-md'
-                                        type='text'
+                                        type='number'
                                         placeholder='Goal Amount' />
                                 </div>
                             </div>
@@ -92,17 +192,44 @@ const CreateCampaign = () => {
                                     type='submit'
                                     // onClick={handleFormData}
                                     className='w-full lg:w-auto px-5 py-3 bg-slate-800 text-white rounded-md'>
-                                    Sign up
+                                    Create Campaign
                                 </button>
                             </div>
                         </form>
+
+                        
 
 
                     </div>
                 </div>
             </div>
+            <div className='p-8 bg-slate-200'>
+                            <h1>Available campaigns</h1>
+
+                            {
+                                loading ?
+                                    <div>Loading...</div>
+                                    :
+                                    campaigns.length ? campaigns.map((item, index) =>
+
+                                    <div key={index} className='p-2 grid grid-flow-col'>
+                                        <div>{item.campaignTitle}</div>
+                                        <div>{item.campaignDescription}</div>
+                                        <div>{item.location}</div>
+                                        <div>{item.thumbnail}</div>
+                                        <div>{item.videoUrl}</div>
+                                        <div>{item.category}</div>
+                                        <div>{item.goalAmount}</div>
+                                        <button onClick={() => handleDeleteCampaign(item._id)}>Delete</button>
+                                    </div>
+                                )
+                                    :
+                                    <>No available Campaigns</>
+                                    
+                            }
+                        </div>
         </div>
-  )
+    )
 }
 
 export default CreateCampaign

@@ -6,8 +6,6 @@ import { UserContext, useUser } from '../contexts/userContext';
 import { useCampaign } from '../contexts/campaignContext';
 
 const Dashboard = () => {
-  const { campaign, setCampaign, createCampaign } = useCampaign();
-  const navigate = useNavigate();
   return (
     <div className='p-4 max-w-xl mx-auto flex justify-around items-center'>
       <Link to='/'>Home</Link><br />
