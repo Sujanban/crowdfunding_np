@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CiSearch } from "react-icons/ci";
+import { useUser } from '../contexts/userContext';
 
 
 const Navbar = () => {
@@ -26,19 +27,13 @@ const Navbar = () => {
                 </nav>
                 <div className='flex items-center gap-4'>
                     <li>
-                        <Link className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'><CiSearch/> Search</Link>
+                        <Link className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'><CiSearch /> Search</Link>
                     </li>
                     <li className='hidden md:flex'>
-                        <Link to='/login' 
-                        // className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'
-                        className='border border-green-800 hover:text-green-800 transition-all duration-400 rounded-full px-3 py-2'
+                        <Link to='/login'
+                            className='border border-green-800 hover:text-green-800 transition-all duration-400 rounded-full px-3 py-2'
                         >Sign in</Link>
                     </li>
-                    {/* <li>
-                        <Link 
-                        className='border border-green-800 hover:text-green-800 transition-all duration-400 rounded-full p-2'
-                        >Start Collaboration</Link>
-                    </li> */}
                 </div>
             </header >
         </div>

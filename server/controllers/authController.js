@@ -78,23 +78,19 @@ const handleLogin = async (req, res) => {
   const { email, password } = req.body;
   try {
     if (!email || !password) {
-      res.json({ error: "All fields are required" });
-      return;
+      return res.json({ error: "All fields are required" });
     }
     const isValidEmail = validator.validate(email);
     if (!isValidEmail) {
-      res.json({ error: "Email is not valid" });
-      return;
+     return res.json({ error: "Email is not valid" });
     }
     const validUser = await User.findOne({ email });
     if (!validUser) {
-      res.json({ error: "User does not exist" });
-      return;
+     return res.json({ error: "User does not exist" });
     }
     const isMatch = await bcrypt.compare(password, validUser.password);
     if (!isMatch) {
-      res.json({ error: "Invalid credentials" });
-      return;
+     return res.json({ error: "Invalid credentials" });
     }
 
     // creating jwt token
@@ -102,7 +98,6 @@ const handleLogin = async (req, res) => {
       expiresIn: "1h",
     });
     res.cookie("token", token, { httpOnly: true });
-
     res.json({ message: "Login successful" });
   } catch (error) {
     res.json({ error: error.message });
@@ -110,20 +105,20 @@ const handleLogin = async (req, res) => {
 };
 
 // accessing user data
-const profile = async (req, res,next) => {
+const fetchUser = async (req, res,next) => {
   try {
     const { token } = req.cookies;
-    if (!token) {
-      return res.json({ error: "Unauthorized" });
-    }
+    // if (!token) {
+    //   return res.json({ error: "Unauthorized" });
+    // }
     if (token) {
       const validUser = jwt.verify(token, process.env.SECRETE_KEY);
-      const user = await User.findById(validUser._id);
+      const user = await User.findById(validUser._id).select('-password');
       if (!user) {
         return res.json({ error: "Unauthorized" });
       } else {
         // return res.json({message: "User exists"});
-        console.log(user)
+        // console.log(user)
         res.json(user);
         next();
       }
@@ -187,7 +182,7 @@ module.exports = {
   handleRegister,
   handleLogin,
   handleLogout,
-  profile,
+  fetchUser,
   checkAuth,
   isAdmin,
   handleGoogleLogin,

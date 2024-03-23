@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useContext, useState, useEffect } from "react";
+import{ toast } from 'react-hot-toast'
 
 export const CampaignContext = createContext();
 export const useCampaign = () => useContext(CampaignContext);
@@ -16,14 +17,19 @@ export function CampaignContextProvider({ children }) {
         category: 'environment'
     });
 
-    const createCampaign = async (campaign) => {
-        try {
-          const response = await axios.post('/createCampaign', campaign);
-          setCampaign(response.data);
-        } catch (error) {
-          console.log(error.message);
+    const createCampaign = async () => {
+      try {
+        const response = await axios.post('/api/campaign/createCampaign', campaign);
+        
+        if (response.data.error) {
+          toast.error(response.data.error);
+        } else {
+          toast.success(response.data.message);
         }
-      };
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
     return (
         <CampaignContext.Provider value={{ campaign, setCampaign,createCampaign }}>

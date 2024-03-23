@@ -5,14 +5,25 @@ export const UserContext = createContext({});
 export const useUser = () => useContext(UserContext);
 
 export function UserContextProvider({ children }) {
-    const [user, setUser] = useState(null);
-    useEffect(() => {
-        if (!user) {
-            axios.get('/profile').then((response) => {
-                setUser(response.data);
-            })
+    const [user, setUser] = useState({});
+
+
+    const refetchUser = async () => {
+        try {
+            const response = await axios.get('/api/auth/user');
+            setUser(response.data);
+        } catch (err) {
+            console.log(err);
         }
-    }, []);
+    }
+
+
+    useEffect(() => {
+        refetchUser();
+    }, [])
+
+    console.log(user)
+
     return (
         <UserContext.Provider value={{ user, setUser }}>
             {children}

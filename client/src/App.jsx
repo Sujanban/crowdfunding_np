@@ -9,7 +9,10 @@ import Dashboard from './pages/Dashboard'
 import { UserContextProvider } from './contexts/userContext'
 import Profile from './pages/Profile'
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { CampaignContextProvider } from './contexts/campaignContext'
+import { CampaignContextProvider } from './contexts/campaignContext';
+import ManageFundraiserCategory from './pages/backend/ManageFundraiserCategory'
+import EditCategory from './pages/backend/EditCategory'
+import CreateCampaign from './pages/backend/CreateCampaign'
 
 
 
@@ -26,6 +29,9 @@ function App() {
             <Routes>
               <Route path='/' element={<Index />} />
               <Route path='/dashboard' element={<Dashboard />} />
+              <Route path='/createCampaign' element={<CreateCampaign />} />
+              <Route path='/manageFundraiserCategory' element={<ManageFundraiserCategory />} />
+              <Route path='/editCategory/:id' element={<EditCategory />} />
               <Route path='/profile' element={<Profile />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />

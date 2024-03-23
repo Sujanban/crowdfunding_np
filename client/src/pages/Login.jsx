@@ -12,20 +12,18 @@ const Login = () => {
 
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
 
     const handleGoogleLogin = async (credentialResponse) => {
-        const res = await axios.post('/googlelogin',
+        const res = await axios.post('/api/auth/googlelogin',
             {
                 credentialResponse,
                 jwtDecoded: jwtDecode(credentialResponse.credential),
             }
         );
-        
         if (res.data) {
             console.log(res.data);
         }
@@ -37,15 +35,13 @@ const Login = () => {
 
 
     // handling user login data
-    const handleSubmit = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
         if (!formData.email || !formData.password) {
             toast.error('All fields are required');
             return;
         }
-        const response = await axios.post('/login', formData);
-        // console.log('Login successful:', response.data);
-        // console.log(formData)
+        const response = await axios.post('/api/auth/login', formData);
         if (response.data.error) {
             toast.error(response.data.error);
             return;
@@ -84,7 +80,7 @@ const Login = () => {
                     </div>
                     <div className='md:px-8 md:py-16'>
                         <h2 className='hidden md:block p-4 text-xl'>Your account details</h2>
-                        <form className='' onSubmit={handleSubmit}>
+                        <form className='' onSubmit={handleLogin}>
                             <div className=' w-full lg:max-w-2xl px-4 md:py-4 block gap-2'>
                                 <div className='py-2 grid'>
                                     <input

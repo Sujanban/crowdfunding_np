@@ -11,9 +11,8 @@ const createCampaign = async (req, res) => {
       thumbnail,
       videoUrl,
       goalAmount,
-      category
+      category,
     } = req.body;
-    console.log(req.body);
     if (
       !campaignOwner ||
       !campaignTitle ||
@@ -34,15 +33,19 @@ const createCampaign = async (req, res) => {
       thumbnail,
       videoUrl,
       goalAmount,
-      category
+      category,
     });
 
     await newCampaign.save();
-    return res.json({ message: "Campaign created successfully" });
+     res.json({ message: "Campaign created successfully" });
   } catch (err) {
-    return res.json({ error: err.message });
+     res.json({ error: err.message });
   }
 };
+
+
+
+
 
 module.exports = {
   createCampaign,

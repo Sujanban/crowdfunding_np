@@ -6,41 +6,16 @@ import { UserContext, useUser } from '../contexts/userContext';
 import { useCampaign } from '../contexts/campaignContext';
 
 const Dashboard = () => {
-  // contexts
-  const { user, setUser } = useUser();
-  console.log(user)
-  const {campaign,setCampaign,createCampaign} = useCampaign();
-
-
+  const { campaign, setCampaign, createCampaign } = useCampaign();
   const navigate = useNavigate();
-  axios.get('/dashboard').then((res) => {
-    if (res.data.error) {
-      toast.error(res.data.error);
-      navigate('/login')
-    }
-  })
+  return (
+    <div className='p-4 max-w-xl mx-auto flex justify-around items-center'>
+      <Link to='/'>Home</Link><br />
+      <Link to='/createCampaign'>Create Campaign</Link><br />
+      <Link to='/manageFundraiserCategory'>Manage Category</Link>
+      <Link to='/profile'>Profile</Link><br />
+    </div>
+  )
+}
 
-// const createCampaign = () => {
-//   axios.post('/createCampaign', campaign).then((res) => {
-//     if (res.data.error) {
-//       toast.error(res.data.error);
-//     } else {
-//       toast.success(res.data.message);
-//     }
-//   })
-// }
-  
-
-
-    return (
-      <div>
-        <h1 className='p-4'>
-          <Link to='/'>Home</Link>
-          <Link to='/profile'>Profile</Link>
-          <button onClick={createCampaign}>create campaign</button>
-        </h1>
-      </div>
-    )
-  }
-
-  export default Dashboard
+export default Dashboard

@@ -8,7 +8,7 @@ const Profile = () => {
     const { user, setUser } = useUser();
 
     const handleLogout = () => {
-        axios.get('/logout').then((res) => {
+        axios.get('/api/auth/logout').then((res) => {
             setUser(null);
             if (res.data.message) {
                 console.log(res.data.message)

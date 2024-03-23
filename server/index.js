@@ -20,7 +20,10 @@ mongoose
   .catch((err) => console.log(err));
 
 
-app.use("/", require("./routes/authRoutes"));
+app.use("/api/auth/", require("./routes/authRoutes"));
+app.use("/api/category/", require("./routes/categoryRoutes"));
+app.use("/api/user/", require("./routes/userRoutes"));
+app.use("/api/campaign/", require("./routes/campaignRoutes"));
 
 
 app.listen(port, () => console.log(`Server running on port: ${port}`));

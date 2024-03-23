@@ -1,17 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const cors = require("cors");
-const {
-  test,
-  handleRegister,
-  handleLogin,
-  handleLogout,
-  profile,
-  checkAuth,
-  isAdmin,
-  handleGoogleLogin,
-} = require("../controllers/authController");
-const { createCampaign } = require("../controllers/campaignController");
+const {handleRegister,handleLogin,handleLogout,fetchUser,checkAuth,isAdmin,handleGoogleLogin} = require("../controllers/authController");
 
 // middleware
 router.use(
@@ -21,18 +11,19 @@ router.use(
   })
 );
 
-router.get("/", test);
+// REGISTRATION
 router.post("/register", handleRegister);
+
+// LOGIN
 router.post("/login", handleLogin);
+
+// LOGOUT
 router.get("/logout", handleLogout);
-router.get("/profile", checkAuth, profile);
-router.get("/dashboard", checkAuth, profile, (req, res) => {
-  res.json({ message: "User exists" });
-});
 
+// PROFILE
+router.get("/user", fetchUser);
+
+// GOOGLE LOGIN
 router.post("/googlelogin", handleGoogleLogin);
-
-// campain routing starts here
-router.post("/createCampaign", checkAuth, createCampaign);
 
 module.exports = router;
