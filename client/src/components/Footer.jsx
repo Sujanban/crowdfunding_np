@@ -5,7 +5,7 @@ import { TiSocialFacebookCircular, TiSocialLinkedinCircular, TiSocialTwitterCirc
 
 const Footer = () => {
     return (
-    <div className='bg-teal-50'>
+    <div className='border-t border-slate-400'>
         <div className='  max-w-7xl mx-auto px-4 py-12'>
             <div className='grid md:grid-cols-4 gap-4'>
                 <div className=''>

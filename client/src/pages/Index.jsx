@@ -15,7 +15,7 @@ const Index = () => {
             <h1 className='py-4 text-center text-2xl md:text-5xl'>Great future are built with a small charity</h1>
             <p className='md:py-4 max-w-sm mx-auto text-slate-600'>The world's largest social fundraising platform, optimized for your charity in a more easy way</p>
             <div className='py-4 flex items-center justify-center gap-4'>
-              <Link to='/login' className=' px-3 py-2 rounded-full bg-stone-800 text-white'>Start Collaboration</Link>
+              <Link to='/create/campaign/step1' className=' px-3 py-2 rounded-full bg-stone-800 text-white'>Create Campaign</Link>
               <Link className=' px-3 py-2 rounded-full bg-gray-200 '>Learn more</Link>
             </div>
           </div>

@@ -7,19 +7,20 @@ export const useCampaign = () => useContext(CampaignContext);
 
 export function CampaignContextProvider({ children }) {
     const [campaign, setCampaign] = useState({
-        campaignOwner: 'sujan',
-        campaignTitle: 'title',
-        campaignDescription: 'discription',
-        location: 'ktm',
-        thumbnail: 'sujan thumbnail',
-        videoUrl: 'videois here',
-        goalAmount: '100000',
-        category: 'environment'
+        campaignOwner: '',
+        campaignTitle: '',
+        campaignDescription: '',
+        location: '',
+        thumbnail: 'not set',
+        videoUrl: '',
+        goalAmount: '',
+        category: ''
     });
 
-    const createCampaign = async () => {
+    const createCampaign = async (campaign) => {
       try {
         const response = await axios.post('/api/campaign/createCampaign', campaign);
+        console.log(response);
         
         if (response.data.error) {
           toast.error(response.data.error);

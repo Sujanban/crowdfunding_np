@@ -103,7 +103,7 @@ const ManageFundraiserCategory = () => {
                                 <h1 className='p-2 font-medium text-xl'>Available Categories</h1>
                                 {dbCategories.length > 0 &&
                                     dbCategories.map((category) => (
-                                        <div key={category._id} className='max-w-xl p-4 mx-auto bg-slate-100 flex items-center justify-between '>
+                                        <div key={category._id} className='p-4 mx-auto bg-slate-100 flex items-center justify-between '>
                                             <p>{category.category}</p>
                                             <div className=' space-x-4'>
                                                 <button className='p-2 bg-red-800 text-white rounded-md'  onClick={() => deleteCategory(category._id)}>Delete</button>

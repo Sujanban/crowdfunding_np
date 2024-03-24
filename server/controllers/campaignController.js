@@ -4,6 +4,12 @@ const mongoose = require("mongoose");
 //CREATE CAMPAIGN
 const createCampaign = async (req, res) => {
   try {
+    if (req) {
+      console.log(req);
+    }
+    if (req.file) {
+      console.log(req.file);
+    }
     const {
       campaignOwner,
       campaignTitle,

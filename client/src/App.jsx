@@ -13,6 +13,11 @@ import { CampaignContextProvider } from './contexts/campaignContext';
 import ManageFundraiserCategory from './pages/backend/ManageFundraiserCategory'
 import EditCategory from './pages/backend/EditCategory'
 import CreateCampaign from './pages/backend/CreateCampaign'
+import Campaign1 from './pages/campaign/Campaign1'
+import Campaign2 from './pages/campaign/Campaign2'
+import Campaign3 from './pages/campaign/Campaign3'
+import Campaign4 from './pages/campaign/Campaign4'
+import Campaign5 from './pages/campaign/Campaign5'
 
 
 
@@ -30,6 +35,16 @@ function App() {
               <Route path='/' element={<Index />} />
               <Route path='/dashboard' element={<Dashboard />} />
               <Route path='/createCampaign' element={<CreateCampaign />} />
+
+
+              {/* campaign creation */}
+              <Route path='/create/campaign/step1' element={<Campaign1 />} />
+              <Route path='/create/campaign/step2' element={<Campaign2 />} />
+              <Route path='/create/campaign/step3' element={<Campaign3 />} />
+              <Route path='/create/campaign/step4' element={<Campaign4 />} />
+              <Route path='/create/campaign/step5' element={<Campaign5 />} />
+
+
               <Route path='/manageFundraiserCategory' element={<ManageFundraiserCategory />} />
               <Route path='/editCategory/:id' element={<EditCategory />} />
               <Route path='/profile' element={<Profile />} />
