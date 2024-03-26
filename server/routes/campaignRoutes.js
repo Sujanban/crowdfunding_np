@@ -10,19 +10,21 @@ const {
 } = require("../controllers/campaignController");
 
 const multer = require("multer");
-const upload = multer({ dest: 'uploads/' })
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads')
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    cb(null, file.fieldname + '-' + uniqueSuffix)
+  }
+})
 
-// const storage = multer.diskStorage({
-//   destination: function (req, thumbnail, cb) {
-//     cb(null, "public/uploads");
-//   },
-//   filename: function (req, thumbnail, cb) {
-//     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-//     cb(null, thumbnail.fieldname + "-" + uniqueSuffix);
-//   },
-// });
+const upload = multer({ storage: storage })
 
-// const upload = multer({ storage: storage });
+router.post('/upload', upload.single('file'), (req, res) => {
+  console.log(req.file)
+})
 
 router.use(
   cors({

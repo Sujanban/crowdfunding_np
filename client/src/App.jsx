@@ -12,7 +12,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { CampaignContextProvider } from './contexts/campaignContext';
 import ManageFundraiserCategory from './pages/backend/ManageFundraiserCategory'
 import EditCategory from './pages/backend/EditCategory'
-import CreateCampaign from './pages/backend/CreateCampaign'
+import CreateCampaign from './pages/CreateCampaign'
 import Campaign1 from './pages/campaign/Campaign1'
 import Campaign2 from './pages/campaign/Campaign2'
 import Campaign3 from './pages/campaign/Campaign3'

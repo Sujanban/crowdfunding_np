@@ -11,6 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(cookie_parser());
 app.use(express.urlencoded({ extended: false }));
+app.use('/static', express.static('uploads'))
 
 mongoose
   .connect(uri)
