@@ -9,14 +9,14 @@ const CampaignGrid = () => {
         <div className='px-4 py-20 mx-auto max-w-7xl'>
             <h1 className='relative px-4 text-3xl'>Explore Campaigns <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
             <div className='py-4 flex items-center justify-between'>
-                <div className='flex space-x-3'>
+                <div className='p-4 flex space-x-3'>
                     <button className='text-sm py-2 px-6 flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>Medical <IoIosArrowDown /></button>
                     <button className='text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>Health <IoIosArrowDown /></button>
                     <button className='text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>Education <IoIosArrowDown /></button>
                     <button className='text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>Environment <IoIosArrowDown /></button>
                     <button className='text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>Emergency <IoIosArrowDown /></button>
                 </div>
-                <div>
+                <div className='p-4'>
                     <button className='text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>Reset <MdTune /></button>
                 </div>
             </div>
@@ -37,7 +37,8 @@ const CampaignGrid = () => {
                 </div>
                 <div>
                     <div className=' h-72 bg-gray-100'>
-                        <img className='w-full h-full object-cover' src="https://png.pngtree.com/png-clipart/20201209/original/pngtree-centella-asiatica-has-very-few-pests-and-diseases-png-image_5626177.jpg" alt="" />
+                        <img className='w-full h-full object-cover' 
+                        src="https://png.pngtree.com/png-clipart/20230910/original/pngtree-blueberries-is-an-old-food-and-has-a-very-refreshing-taste-png-image_11047862.png" alt="" />
                     </div>
                     <div className='p-4 grid gap-1'>
                         <h1 className='font-semibold'>URGENT Help for Dr. Sarah’s</h1>
@@ -79,8 +80,8 @@ const CampaignGrid = () => {
                     </div>
                 </div>
             </div>
-            <div className='flex justify-center'>
-                <button className='text-sm py-2 px-6  flex items-center bg-gray-200 rounded-full'>Explore more <IoIosArrowDown /></button>
+            <div className='p-4 flex justify-center text-white'>
+                <button className='text-sm py-2 px-6  flex items-center bg-green-800 rounded-full'>Explore more <IoIosArrowDown /></button>
             </div>
         </div>
     )
