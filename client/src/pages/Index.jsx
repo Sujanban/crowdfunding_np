@@ -4,12 +4,16 @@ import Filedesign from '../components/Filedesign';
 import Navbar from '../components/Navbar';
 import sujan_folder from '../assets/images/sujan-folder.png'
 import Footer from '../components/Footer';
+import create from '../assets/images/create.png'
+import campaign from '../assets/images/campaign.png'
+import money from '../assets/images/money.png'
+import CampaignGrid from '../components/CampaignGrid';
 
 const Index = () => {
   return (
     <>
       <Navbar />
-      <div className='home w-full h-[90vh]'>
+      <div className='home w-full h-[70h]'>
         <div className='px-4  max-w-7xl mx-auto '>
           <div className='my-12 md:my-16 max-w-lg mx-auto text-center'>
             <h1 className='py-4 text-center text-2xl md:text-5xl'>Great future are built with a small charity</h1>
@@ -19,17 +23,46 @@ const Index = () => {
               <Link className=' px-3 py-2 rounded-full bg-gray-200 '>Learn more</Link>
             </div>
           </div>
-          <div className='flex items-center '>
+          {/* <div className='flex items-center '>
             <div className='p-4'>
               <h1 className='text-3xl'>Supported by</h1>
               <p>100+ brands from all over the world</p>
             </div>
             <div className='w-full h-[200px] ring'>
-            
+
             </div>
+          </div> */}
+        </div>
+      </div>
+
+
+      {/* how it works */}
+      <div className='px-4 py-20 max-w-7xl mx-auto border-2 bg-green-800 text-center rounded-3xl text-yellow-50'>
+        <h1 className='pb-20 text-3xl '>Fundraisong on Collab takes just a few minutes</h1>
+        <div className='max-w-5xl mx-auto grid grid-cols-3 gap-4 '>
+          <div className='p-4'>
+            <img className='mx-auto' width={100} src={create} alt="" />
+            <h1 className='py-2 text-2xl '>Register Account</h1>
+            <p className='py-2 clear-start '> Follow a simple steps by filling up email and password and create a account for fundraising.</p>
+          </div>
+          <div className='p-4'>
+          <img width="100" className='mx-auto' src={campaign}/>
+            <h1 className='py-2 text-2xl '>Create Campaign</h1>
+            <p className='py-2 clear-start '> Enter your campaign details and start raising money.</p>
+          </div>
+          <div className='p-4'>
+          <img className='mx-auto' width={100} src={money} alt="" />
+            <h1 className='py-2 text-2xl '>Withdraw Money</h1>
+            <p className='py-2 clear-start '>Add your bank details and Withdraw money from your account.</p>
           </div>
         </div>
       </div>
+
+      {/* campaign Grid */}
+      <CampaignGrid/>
+
+
+
       {/* join us */}
       <div className=' px-4 max-w-7xl mx-auto  py-20 text-center  '>
         <h1 className='py-4 max-w-[600px] mx-auto text-slate-600 text-lg'>Join our community for donating and be a part of a positive change in the world. With over:</h1>
@@ -41,6 +74,7 @@ const Index = () => {
             to='/login'>Yes, I want to join community</Link>
         </div>
       </div>
+
 
       {/* team */}
       <div className=' px-4 py-20 max-w-7xl mx-auto  '>

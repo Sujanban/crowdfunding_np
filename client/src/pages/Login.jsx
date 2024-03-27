@@ -31,7 +31,7 @@ const Login = () => {
         }
         if(res.data.message){
             console.log(res.data.user);
-            navigate('/dashboard');
+            navigate('/');
         }
     }
 
@@ -55,7 +55,7 @@ const Login = () => {
                 email: '',
                 password: ''
             });
-            navigate('/dashboard');
+            navigate('/');
             return;
         }
 
