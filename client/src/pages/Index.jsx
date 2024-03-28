@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Filedesign from '../components/Filedesign';
 import Navbar from '../components/Navbar';
 import sujan_folder from '../assets/images/sujan-folder.png'
+import sujan_folder2 from '../assets/images/sujan-folder2.png'
 import Footer from '../components/Footer';
 import create from '../assets/images/create1.png'
 import campaign from '../assets/images/campaign1.png'
@@ -93,13 +94,13 @@ const Index = () => {
 
 
       {/* testemonial */}
-      <div className='px-4 py-20  max-w-7xl mx-auto'>
+      <div className='ring px-4 py-20  max-w-7xl mx-auto'>
         <h1 className='relative px-4 text-3xl'>Testimonials <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
 
         <div>
           <Swiper className='mx-auto max-w-5xl px-4 py-12'
             // install Swiper modules
-            modules={[Navigation, Pagination,Autoplay, Scrollbar, A11y]}
+            modules={[Navigation, Pagination, Autoplay, Scrollbar, A11y]}
             spaceBetween={50}
             slidesPerView={1}
             autoplay={{
@@ -161,43 +162,35 @@ const Index = () => {
 
 
       {/* team */}
-      <div className=' px-4 py-20 max-w-7xl mx-auto  '>
-        <div>
-          <h1 className='text-3xl text-center'>Meet out team</h1>
-          <p className='py-4 max-w-[500px] mx-auto text-slate-600 text-center'>The world's latest social fundraising platform, optimized for your charity in a more easy way</p>
-          <div className='p-4 max-w-5xl mx-auto grid sm:grid-cols-2 md:grid-cols-4 justify-center gap-6 flex-wrap'>
-            <div className=''>
-              <img
-                className='w-full'
-                src={sujan_folder} alt="" />
-              <h1 className='pt-2'>Sujan Ban</h1>
-              <p className='text-slate-600'>Platform Founder</p>
-            </div>
-
-            <div className=''>
-              <img
-                className='w-full'
-                src={sujan_folder} alt="" />
-              <h1 className='pt-2'>Sujan Ban</h1>
-              <p className='text-slate-600'>Developer</p>
-            </div>
-            <div className=''>
-              <img
-                className='w-full'
-                src={sujan_folder} alt="" />
-              <h1 className='pt-2'>Sujan Ban</h1>
-              <p className='text-slate-600'>Marketing Manager</p>
-            </div>
-            <div className=''>
-              <img
-                className='w-full'
-                src={sujan_folder} alt="" />
-              <h1 className='pt-2'>Sujan Ban</h1>
-              <p className='text-slate-600'>SEO Expert</p>
-            </div>
-
-
+      <div className='ring px-4 py-20 max-w-7xl mx-auto  '>
+        <div className='grid grid-cols-2 gap-4'>
+          <div className=' m-auto'>
+            <h1 className='relative px-4 text-3xl'>Meet our team <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
+            {/* <p className='py-4 text-slate-600'>The world's latest social fundraising platform, optimized for your charity in a more easy way</p> */}
+            <p className='p-4 text-slate-600'>At Collab, our team is comprised of dedicated professionals who share a common passion for supporting creators and bringing innovative ideas to life. With diverse expertise and a collaborative spirit, we work tirelessly to provide the best possible experience for both project creators and backers. Get to know the faces behind the scenes who are committed to making your crowdfunding journey a success.</p>
           </div>
+          {/* <div className='p-4 max-w-5xl mx-auto grid sm:grid-cols-2 md:grid-cols-2 justify-center gap-6 flex-wrap'> */}
+          <div className='relative m-auto h-4 w-4 rounded-full bg-yellow-500'>
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-600 opacity-75"></span>
+            <div className='absolute w-32  left-full bottom-full'>
+              <img
+                className='relative w-full '
+                src={sujan_folder} alt="" />
+              <h1 className='text-sm pt-2'>Sujan Ban</h1>
+              <p className='text-xs text-slate-600'>Founder</p>
+            </div>
+            <div className='absolute w-32  right-full top-full'>
+              <img
+                className='relative w-full '
+                src={sujan_folder2} alt="" />
+              <h1 className='text-sm pt-2'>Jane Smith</h1>
+              <p className='text-xs text-slate-600'>Marketing Manager</p>
+            </div>
+           
+          </div>
+
+
+          {/* </div> */}
         </div>
       </div>
 

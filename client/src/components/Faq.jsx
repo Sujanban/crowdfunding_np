@@ -34,7 +34,7 @@ const Faq = () => {
     ]
 
     return (
-        <div className='px-4 py-20 mx-auto max-w-5xl'>
+        <div className='px-4 py-20 mx-auto max-w-7xl'>
             <h1 className='relative px-4 text-3xl'>Frequently Asked Questions <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
             <p className='py-4'>Have another question? Email us at <a className='underline' href="mailto:bansujan@gmail.com">bansujan@gmail.com</a> </p>
             <div className=' ma-w-5xl mx-auto'>
