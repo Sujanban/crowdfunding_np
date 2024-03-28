@@ -11,6 +11,9 @@ import money from '../assets/images/money1.png'
 import CampaignGrid from '../components/CampaignGrid';
 import Faq from '../components/Faq';
 
+// count up
+import CountUp from 'react-countup';
+
 
 // import Swiper core and required modules
 import { Navigation, Pagination, Autoplay, Scrollbar, A11y } from 'swiper/modules';
@@ -23,6 +26,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import "swiper/css/autoplay";
+import BlogGrid from '../components/BlogGrid';
 
 const Index = () => {
   return (
@@ -35,22 +39,23 @@ const Index = () => {
             <p className='md:py-4 max-w-sm mx-auto text-slate-600'>The world's largest social fundraising platform, optimized for your charity in a more easy way</p>
             <div className='py-4 flex items-center justify-center gap-4'>
               <Link to='/createCampaign' className=' px-3 py-2 rounded-full bg-green-800 text-white'>Create Campaign</Link>
-              <Link className=' px-3 py-2 rounded-full bg-yellow-500 '>Learn more</Link>
+              <Link className=' px-3 py-2 rounded-full bg-gray-200 '>Learn more</Link>
             </div>
           </div>
           <div className='py-20 '>
             {/* <h1 className='p-4 text-2xl text-center'>Trusted by 10+ Companies</h1> */}
             <div className='p-4 grid grid-cols-4 '>
               <div className="p-4 shadow ">
-                <h3 className='relative px-4 text-3xl font-bold'>100M+ <span className='absolute left-0 bg-yellow-500 w-1.5 h-full'></span></h3>
+                <h3 className='relative px-4 text-3xl font-bold'>
+                  <CountUp start={0} end={100} />M+ <span className='absolute left-0 bg-yellow-500 w-1.5 h-full'></span></h3>
                 <p className='p-4'>Projects funded on our platform</p>
               </div>
               <div className="p-4 shadow ">
-                <h3 className='relative px-4 text-3xl font-bold'>15,000+ <span className='absolute left-0 bg-yellow-500 w-1.5 h-full'></span></h3>
+                <h3 className='relative px-4 text-3xl font-bold'> <CountUp start={0} end={15000} />+ <span className='absolute left-0 bg-yellow-500 w-1.5 h-full'></span></h3>
                 <p className='p-4'>Peak concurrent backers</p>
               </div>
               <div className="p-4 shadow ">
-                <h3 className='relative px-4 text-3xl font-bold'>99.9% <span className='absolute left-0 bg-yellow-500 w-1.5 h-full'></span></h3>
+                <h3 className='relative px-4 text-3xl font-bold'><CountUp start={0} end={99} />% <span className='absolute left-0 bg-yellow-500 w-1.5 h-full'></span></h3>
                 <p className='p-4'>Historical uptime for our platform</p>
               </div>
               {/* <div className="p-4 shadow ">
@@ -58,7 +63,7 @@ const Index = () => {
                 <p className='p-4'>Success rate for funded projects</p>
               </div> */}
               <div className="p-4 shadow ">
-                <h3 className='relative px-4 text-3xl font-bold'>200+ <span className='absolute left-0 bg-yellow-500 w-1.5 h-full'></span></h3>
+                <h3 className='relative px-4 text-3xl font-bold'><CountUp start={0} end={200} />+ <span className='absolute left-0 bg-yellow-500 w-1.5 h-full'></span></h3>
                 <p className='p-4'>Countries reached by our platform</p>
               </div>
             </div>
@@ -94,7 +99,7 @@ const Index = () => {
 
 
       {/* testemonial */}
-      <div className='ring px-4 py-20  max-w-7xl mx-auto'>
+      <div className=' px-4 py-20  max-w-7xl mx-auto'>
         <h1 className='relative px-4 text-3xl'>Testimonials <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
 
         <div>
@@ -148,49 +153,54 @@ const Index = () => {
         </div>
       </div>
 
+      
+
+
+
+      {/* Blog section */}
+      <BlogGrid />
+
+
+
+      {/* team */}
+      <div className=' px-4 py-20 max-w-7xl mx-auto  '>
+        <div className='relative grid grid-cols-2 gap-4'>
+          <div className=' m-auto'>
+            <h1 className='relative px-4 text-3xl'>Meet our team <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
+            {/* <p className='p-4 text-slate-600'>The world's latest social fundraising platform, optimized for your charity in a more easy way</p> */}
+            <p className='p-4 text-slate-600'>At Collab, our team is comprised of dedicated professionals who share a common passion for supporting creators and bringing innovative ideas to life. With diverse expertise and a collaborative spirit, we work tirelessly to provide the best possible experience for both project creators and backers. Get to know the faces behind the scenes who are committed to making your crowdfunding journey a success.</p>
+          </div>
+          <div className='relative flex space-x-5 mx-auto'>
+            <div className=' translate-y-5'>
+              <img
+                className='h-[200px]'
+                src={sujan_folder} alt="" />
+              <h1 className='text-sm pt-2'>Sujan Ban</h1>
+              <p className='text-xs text-slate-600'>Founder</p>
+            </div>
+            <div className='-translate-y-5'>
+              <img
+                className='h-[200px] '
+                src={sujan_folder2} alt="" />
+              <h1 className='text-sm pt-2'>Jane Smith</h1>
+              <p className='text-xs text-slate-600'>Marketing Manager</p>
+            </div>
+            <div className='absolute blur-3xl -z-10 right-0 top-0 w-72 h-72 rounded-full bg-green-100'>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       {/* join us */}
-      {/* <div className=' px-4 max-w-7xl mx-auto  py-20 text-center  '>
+      <div className='bg-gray-100 px-4 max-w-7xl mx-auto  py-20 text-center  '>
         <h1 className='py-4 max-w-[600px] mx-auto text-slate-600 text-lg'>Join our community for donating and be a part of a positive change in the world. With over:</h1>
-        <h1 className='py-4 text-6xl'>120,927+</h1>
+        <h1 className='py-4 text-6xl'>1,500+</h1>
         <div className='py-4'>
           <p className='pb-6 text-slate-600'>people already joining</p>
           <Link
             className='px-3 py-3 rounded-full bg-green-800 text-white'
             to='/login'>Yes, I want to join community</Link>
-        </div>
-      </div> */}
-
-
-      {/* team */}
-      <div className='ring px-4 py-20 max-w-7xl mx-auto  '>
-        <div className='grid grid-cols-2 gap-4'>
-          <div className=' m-auto'>
-            <h1 className='relative px-4 text-3xl'>Meet our team <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
-            {/* <p className='py-4 text-slate-600'>The world's latest social fundraising platform, optimized for your charity in a more easy way</p> */}
-            <p className='p-4 text-slate-600'>At Collab, our team is comprised of dedicated professionals who share a common passion for supporting creators and bringing innovative ideas to life. With diverse expertise and a collaborative spirit, we work tirelessly to provide the best possible experience for both project creators and backers. Get to know the faces behind the scenes who are committed to making your crowdfunding journey a success.</p>
-          </div>
-          {/* <div className='p-4 max-w-5xl mx-auto grid sm:grid-cols-2 md:grid-cols-2 justify-center gap-6 flex-wrap'> */}
-          <div className='relative m-auto h-4 w-4 rounded-full bg-yellow-500'>
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-600 opacity-75"></span>
-            <div className='absolute w-32  left-full bottom-full'>
-              <img
-                className='relative w-full '
-                src={sujan_folder} alt="" />
-              <h1 className='text-sm pt-2'>Sujan Ban</h1>
-              <p className='text-xs text-slate-600'>Founder</p>
-            </div>
-            <div className='absolute w-32  right-full top-full'>
-              <img
-                className='relative w-full '
-                src={sujan_folder2} alt="" />
-              <h1 className='text-sm pt-2'>Jane Smith</h1>
-              <p className='text-xs text-slate-600'>Marketing Manager</p>
-            </div>
-           
-          </div>
-
-
-          {/* </div> */}
         </div>
       </div>
 
