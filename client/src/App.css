@@ -1,38 +1,44 @@
-@import url('https://fonts.googleapis.com/css2?family=Cambo&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cambo&display=swap");
 .madimi-one-regular {
-    font-family: "Madimi One", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
- * {
-    font-family: "Cambo", serif;
-  }
-  li{
-    list-style-type: none;
-  }
-  a{
-    text-decoration: none;
-  }
-  /* .home{
+  font-family: "Madimi One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+* {
+  font-family: "Cambo", serif;
+}
+li {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+}
+/* .home{
     background: url(https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D) no-repeat;
     object-fit: cover;
     background-position: center;
   } */
 
-  /* .folder-container{
+/* .folder-container{
     background: url(https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvNDc5LW1rLTk2OTAucG5n.pnglient);
   } */
 
-  .sub_menu{
-    border: 2px solid black;
-  }
-  .sub_menu:hover{
-    display: block;
-    border: 2px solid red;
-  }
+.sub_menu {
+  border: 2px solid black;
+}
+.sub_menu:hover {
+  display: block;
+  border: 2px solid red;
+}
 
+.team_img {
+  background: url(https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvNDc5LW1rLTk2OTAucG5n.pnglient);
+}
 
-  .team_img{
-    background: url(https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvNDc5LW1rLTk2OTAucG5n.pnglient);
-  }
+.explore_banner {
+  background: url(https://images.unsplash.com/photo-1599113615507-13f78150fb2e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  background-position: center;
+  background-size: cover;
+  object-fit: cover;
+}

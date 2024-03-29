@@ -50,7 +50,7 @@ const Navbar = () => {
                         :
                         <nav className=' text-center top-[10vh] md:top-auto relative md:inline-flex gap-4'>
                             <li>
-                                <Link className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>Explore</Link>
+                                <Link to='/explore' className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>Explore</Link>
                             </li>
                             <li>
                                 <Link className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>How it works</Link>
@@ -87,7 +87,7 @@ const Navbar = () => {
                         </div> :
                             <>
                                 <li>
-                                    <Link className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'><CiSearch /> Search</Link>
+                                    <Link to='/search' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'><CiSearch /> Search</Link>
                                 </li>
                                 <li className='hidden md:flex'>
                                     <Link to='/login'

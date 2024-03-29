@@ -2,6 +2,7 @@ import React from 'react'
 import { IoIosArrowDown } from "react-icons/io";
 import { MdSearch, MdTune } from "react-icons/md";
 import { FaHeart } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 
 const CampaignGrid = () => {
@@ -81,7 +82,7 @@ const CampaignGrid = () => {
                 </div>
             </div>
             <div className='p-4 flex justify-center text-white'>
-                <button className='text-sm py-2 px-6  flex items-center bg-green-800 rounded-full'>Explore more <IoIosArrowDown /></button>
+                <Link to='/explore' className='text-sm py-2 px-6  flex items-center bg-green-800 rounded-full'>Explore more <IoIosArrowDown /></Link>
             </div>
         </div>
     )

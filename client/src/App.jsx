@@ -18,6 +18,8 @@ import Campaign2 from './pages/campaign/Campaign2'
 import Campaign3 from './pages/campaign/Campaign3'
 import Campaign4 from './pages/campaign/Campaign4'
 import Campaign5 from './pages/campaign/Campaign5'
+import Search from './pages/Search'
+import Explore from './pages/Explore'
 
 
 
@@ -33,6 +35,8 @@ function App() {
             <Toaster position='top-right' toastOptions={{ duration: 2000 }} />
             <Routes>
               <Route path='/' element={<Index />} />
+              <Route path='/explore' element={<Explore />} />
+              <Route path='/search' element={<Search />} />
               <Route path='/dashboard' element={<Dashboard />} />
               <Route path='/createCampaign' element={<CreateCampaign />} />
 
