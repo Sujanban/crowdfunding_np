@@ -18,6 +18,7 @@ import business from '../assets/images/business.png'
 import animal from '../assets/images/animal.png'
 import { Link } from 'react-router-dom'
 import CampaignGrid from '../components/CampaignGrid'
+import CtaBanner from '../components/CtaBanner';
 
 const Explore = () => {
     return (
@@ -42,12 +43,11 @@ const Explore = () => {
                     <input type="search" className='outline-none w-full border-2 border-green-500 focus:border-2 focus:border-yellow-500 px-3 py-2 rounded ' placeholder='Search' />
                     <Link className=' px-6 py-2 rounded bg-green-800 text-white '>Search</Link>
                 </form>
-                <div className=' py-4 flex justify-between items-center'> 
+                <div className=' py-4 flex justify-between items-center'>
                     <h1 className='text-xl font-bold'>Filter by</h1>
                     <form class="px-4">
                         <select id="countries" class="max-w-sm mx-auto p-3 outline-none bg-white  border-2 border-green-500  text-sm rounded ">
-                            <option selected>Select a sorting method</option>
-                            <option value="US">Default</option>
+                            <option hidden selected>Select a sorting method</option>
                             <option value="CA">Ending Soon</option>
                             <option value="FR">Just Started</option>
                         </select>
@@ -203,15 +203,26 @@ const Explore = () => {
             </div>
 
             {/* raise fund for yourself */}
-            <div className='my-4 px-4 py-20 max-w-7xl mx-auto rounded text-center bg-green-800 text-white'>
-                <div>
-                    <h1 className='px-4 text-3xl'>Need Funds to Pay For a Medical Emergency or Social Cause?</h1>
-                    <p className='p-4 text-xl'>Collab's 0% Platform fees ensures maximum funds for you</p>
-                    <div className='py-8'>
-                        <Link to='/createCampaign' className=' px-8 py-5 bg-yellow-500 rounded-full text-black'>Start Campaign</Link>
+            {/* <div className='my-4 px-4 py-20 max-w-7xl mx-auto'>
+                <div className='grid grid-cols-2'>
+                    <div className='px-4 py-20 bg-yelow-500 rounded-l'>
+                        <h1 className='px-4 text-3xl'>Need Funds to Pay For a Medical Emergency or Social Cause?</h1>
+                        <p className='p-4 text-xl'>Collab's 0% Platform fees ensures maximum funds for you</p>
+                        <div className='p-4'>
+                            <Link to='/createCampaign' className='bg-yellow-500 px-4 py-3 rounded-full text-black'>Start Fundraising</Link>
+                        </div>
+                    </div>
+                    <div className='flex items-center justify-center bg-green-800 rounded-r'>
+                        <div className=' w-full text-center'>
+                            <img className='w-full h-96 object-cover' src="https://plus.unsplash.com/premium_photo-1672287578699-618ea6dbcc9e?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+                        </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
+
+            <CtaBanner/>
+
+            {/* footer */}
             <Footer />
         </>
     )

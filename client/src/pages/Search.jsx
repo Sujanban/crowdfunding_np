@@ -23,31 +23,32 @@ const Search = () => {
         <div>
             <Navbar />
             <div>
-                <div className='my-12 md:my-16 max-w-lg mx-auto text-center'>
+                <div className='my-12 md:my-28 max-w-7xl mx-auto text-center'>
                     <h1 className='py-4 text-center text-2xl md:text-3xl'>Search for Campaign to Donate</h1>
-                    <form className='py-4 flex items-center justify-center gap-4'>
-                        <input type="text" className='w-96 border border-yellow-500 focus:border-2 focus:border-yellow-500 px-3 py-2 rounded-full ' placeholder='Search' />
-                        <Link className=' px-3 py-2 rounded-full bg-gray-200 '>Search</Link>
+                    <p className='text-xl'>Find the perfect campaign to support</p>
+                    <form className='py-4 max-w-4xl mx-auto flex items-center justify-center gap-2'>
+                        <input type="text" className='w-full outline-none border-2 border-green-500 focus:border-yellow-500 px-3 py-3 rounded ' placeholder='Search' />
+                        <Link className=' px-6 py-3 rounded bg-green-800 text-white'>Search</Link>
                     </form>
                 </div>
 
                 {/* filter by category */}
                 <div className='px-4 py-20 mx-auto max-w-7xl '>
-                    <h1 className='pb-12 text-3xl '>Find by category</h1>
-                    <div className='flex items-center justify-center flex-wrap space-x-8'>
-                        <button className='px-4  shadow flex items-center'><img src={soil} alt="" /> Soil Conservation</button>
-                        <button className='px-4  shadow flex items-center'><img src={marine} alt="" /> Marine</button>
-                        <button className='px-4  shadow flex items-center'><img src={greenhouse} alt="" /> Greenhouse</button>
-                        <button className='px-4  shadow flex items-center'><img src={health} alt="" /> Health</button>
-                        <button className='px-4  shadow flex items-center'><img src={disaster} alt="" /> Disaster</button>
-                        <button className='px-4  shadow flex items-center'><img src={car} alt="" /> Car</button>
-                        <button className='px-4  shadow flex items-center'><img src={food} alt="" /> Food</button>
-                        <button className='px-4  shadow flex items-center'><img src={home} alt="" /> Home</button>
-                        <button className='px-4  shadow flex items-center'><img src={sports} alt="" /> Sports</button>
-                        <button className='px-4  shadow flex items-center'><img src={education} alt="" /> Education</button>
-                        <button className='px-4  shadow flex items-center'><img src={creative} alt="" /> Creative</button>
-                        <button className='px-4  shadow flex items-center'><img src={business} alt="" /> Business</button>
-                        <button className='px-4  shadow flex items-center'><img src={animal} alt="" /> Animal</button>
+                    <h1 className='relative px-4 text-3xl'>Find by category <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
+                    <div className='p-4 flex items-center justify-center flex-wrap space-x-8'>
+                        <button className='m-2 px-4  shadow flex items-center'><img className='w-20' src={soil} alt="" /> Soil Conservation</button>
+                        <button className='m-2 px-4  shadow flex items-center'><img className='w-20' src={marine} alt="" /> Marine</button>
+                        <button className='m-2 px-4  shadow flex items-center'><img className='w-20' src={greenhouse} alt="" /> Greenhouse</button>
+                        <button className='m-2 px-4  shadow flex items-center'><img className='w-20' src={health} alt="" /> Health</button>
+                        <button className='m-2 px-4  shadow flex items-center'><img className='w-20' src={disaster} alt="" /> Disaster</button>
+                        <button className='m-2 px-4  shadow flex items-center'><img className='w-20' src={car} alt="" /> Car</button>
+                        <button className='m-2 px-4  shadow flex items-center'><img className='w-20' src={food} alt="" /> Food</button>
+                        <button className='m-2 px-4  shadow flex items-center'><img className='w-20' src={home} alt="" /> Home</button>
+                        <button className='m-2 px-4  shadow flex items-center'><img className='w-20' src={sports} alt="" /> Sports</button>
+                        <button className='m-2 px-4  shadow flex items-center'><img className='w-20' src={education} alt="" /> Education</button>
+                        <button className='m-2 px-4  shadow flex items-center'><img className='w-20' src={creative} alt="" /> Creative</button>
+                        <button className='m-2 px-4  shadow flex items-center'><img className='w-20' src={business} alt="" /> Business</button>
+                        <button className='m-2 px-4  shadow flex items-center'><img className='w-20' src={animal} alt="" /> Animal</button>
                     </div>
                 </div>
 

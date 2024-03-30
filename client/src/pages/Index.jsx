@@ -27,6 +27,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import "swiper/css/autoplay";
 import BlogGrid from '../components/BlogGrid';
+import CtaBanner from '../components/CtaBanner';
 
 const Index = () => {
   return (
@@ -193,7 +194,10 @@ const Index = () => {
 
 
       {/* join us */}
-      <div className='bg-gray-100 px-4 max-w-7xl mx-auto  py-20 text-center  '>
+      <CtaBanner/>
+
+
+      {/* <div className='bg-gray-100 px-4 max-w-7xl mx-auto  py-20 text-center  '>
         <h1 className='py-4 max-w-[600px] mx-auto text-slate-600 text-lg'>Join our community for donating and be a part of a positive change in the world. With over:</h1>
         <h1 className='py-4 text-6xl'>1,500+</h1>
         <div className='py-4'>
@@ -202,7 +206,7 @@ const Index = () => {
             className='px-3 py-3 rounded-full bg-green-800 text-white'
             to='/login'>Yes, I want to join community</Link>
         </div>
-      </div>
+      </div> */}
 
       {/* FAQ section */}
       <Faq />
