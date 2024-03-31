@@ -20,6 +20,8 @@ import Campaign4 from './pages/campaign/Campaign4'
 import Campaign5 from './pages/campaign/Campaign5'
 import Search from './pages/Search'
 import Explore from './pages/Explore'
+import Howitworks from './pages/Howitworks'
+import Contact from './pages/Contact'
 
 
 
@@ -36,6 +38,8 @@ function App() {
             <Routes>
               <Route path='/' element={<Index />} />
               <Route path='/explore' element={<Explore />} />
+              <Route path='/howitworks' element={<Howitworks />} />
+              <Route path='/contact' element={<Contact />} />
               <Route path='/search' element={<Search />} />
               <Route path='/dashboard' element={<Dashboard />} />
               <Route path='/createCampaign' element={<CreateCampaign />} />

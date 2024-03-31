@@ -41,7 +41,7 @@ const Navbar = () => {
                                 <Link to='/createCampaign' className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>Create Campaign</Link>
                             </li>
                             <li>
-                                <Link className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>Campaigns</Link>
+                                <Link to='/explore' className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>Campaigns</Link>
                             </li>
                             <li>
                                 <Link className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>Donations</Link>
@@ -53,10 +53,10 @@ const Navbar = () => {
                                 <Link to='/explore' className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>Explore</Link>
                             </li>
                             <li>
-                                <Link className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>How it works</Link>
+                                <Link to='/howitworks' className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>How it works</Link>
                             </li>
                             <li>
-                                <Link className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>Contact</Link>
+                                <Link to='/contact' className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>Contact</Link>
                             </li>
                         </nav>
                 }

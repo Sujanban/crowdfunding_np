@@ -40,7 +40,7 @@ const Index = () => {
             <p className='md:py-4 max-w-sm mx-auto text-slate-600'>The world's largest social fundraising platform, optimized for your charity in a more easy way</p>
             <div className='py-4 flex items-center justify-center gap-4'>
               <Link to='/createCampaign' className=' px-3 py-2 rounded-full bg-green-800 text-white'>Create Campaign</Link>
-              <Link className=' px-3 py-2 rounded-full bg-gray-200 '>Learn more</Link>
+              <Link to='/howitworks' className=' px-3 py-2 rounded-full bg-gray-200 '>Learn more</Link>
             </div>
           </div>
           <div className='py-20 '>
