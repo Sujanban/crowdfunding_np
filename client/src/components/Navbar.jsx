@@ -49,11 +49,14 @@ const Navbar = () => {
                         </nav>
                         :
                         <nav className=' text-center top-[10vh] md:top-auto relative md:inline-flex gap-4'>
-                            <li>
+                            <li className={`${location.pathname === '/explore' ? 'bg-gray-100' : ''}`}>
                                 <Link to='/explore' className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>Explore</Link>
                             </li>
                             <li>
                                 <Link to='/howitworks' className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>How it works</Link>
+                            </li>
+                            <li>
+                                <Link to='/blog' className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>Blog</Link>
                             </li>
                             <li>
                                 <Link to='/contact' className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>Contact</Link>
@@ -70,20 +73,20 @@ const Navbar = () => {
                                 </Link>
                             </li>
                             {
-                                isSubMenuVisible ? 
-                                <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className=' absolute  bg-white px-6 block  shadow'>
-                                <li className=' grid'>
-                                    <Link to='/profile' className='p-2 w-full'>Profile</Link>
-                                </li>
-                                <li className=' grid'>
-                                    <Link to='/' className='p-2 w-full'>Sign out</Link>
-                                </li>
-                            </div>
-                            :
-                            <></>
+                                isSubMenuVisible ?
+                                    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className=' absolute  bg-white px-6 block  shadow'>
+                                        <li className=' grid'>
+                                            <Link to='/profile' className='p-2 w-full'>Profile</Link>
+                                        </li>
+                                        <li className=' grid'>
+                                            <Link to='/' className='p-2 w-full'>Sign out</Link>
+                                        </li>
+                                    </div>
+                                    :
+                                    <></>
                             }
 
-                            
+
                         </div> :
                             <>
                                 <li>

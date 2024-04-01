@@ -22,6 +22,7 @@ import Search from './pages/Search'
 import Explore from './pages/Explore'
 import Howitworks from './pages/Howitworks'
 import Contact from './pages/Contact'
+import Blog from './pages/Blog'
 
 
 
@@ -39,6 +40,8 @@ function App() {
               <Route path='/' element={<Index />} />
               <Route path='/explore' element={<Explore />} />
               <Route path='/howitworks' element={<Howitworks />} />
+              <Route path='/blog' element={<Blog />} />
+
               <Route path='/contact' element={<Contact />} />
               <Route path='/search' element={<Search />} />
               <Route path='/dashboard' element={<Dashboard />} />
