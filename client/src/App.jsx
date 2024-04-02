@@ -23,6 +23,7 @@ import Explore from './pages/Explore'
 import Howitworks from './pages/Howitworks'
 import Contact from './pages/Contact'
 import Blog from './pages/Blog'
+import Campaign from './pages/Campaign'
 
 
 
@@ -41,9 +42,13 @@ function App() {
               <Route path='/explore' element={<Explore />} />
               <Route path='/howitworks' element={<Howitworks />} />
               <Route path='/blog' element={<Blog />} />
-
               <Route path='/contact' element={<Contact />} />
               <Route path='/search' element={<Search />} />
+
+              <Route path='/campaign' element={<Campaign />} />
+
+
+
               <Route path='/dashboard' element={<Dashboard />} />
               <Route path='/createCampaign' element={<CreateCampaign />} />
 

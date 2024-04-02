@@ -27,7 +27,10 @@ const CampaignGrid = () => {
                         <img className=' w-full h-full object-cover' src='https://png.pngtree.com/png-vector/20240309/ourlarge/pngtree-homeless-and-poor-man-png-image_11898872.png' alt="" />
                     </div>
                     <div className='p-4 grid gap-1'>
+                        <Link to='/campaign'> 
                         <h1 className='font-semibold'>Treatment of the Disease</h1>
+                       
+                        </Link>
                         <p className='text-xs'>Fund required for treating cancer emergency</p>
                         <h1><b>$78,253</b> <span className='text-xs'>raised of $100,000 goal</span></h1>
                         <div className="w-full bg-gray-200 rounded-full h-2.5">
