@@ -44,7 +44,7 @@ const Blog = () => {
                                     <Link className='px-4 py-2 text-sm rounded-full bg-green-700 text-white hover:bg-green-800 transition-all duration-400'>Read more</Link>
                                     <div className='flex items-center space-x-1'>
                                         <img className='h-8 w-8 object-cover rounded-full' src={help} alt="" />
-                                        <p className='font-semibold'>@sam sulek</p>
+                                        <p className=''>@sam sulek</p>
                                     </div>
                                 </div>
                             </div>
