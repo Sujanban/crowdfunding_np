@@ -12,21 +12,24 @@ import { TiSocialFacebookCircular, TiSocialLinkedinCircular, TiSocialTwitterCirc
 import { IoShareSocialSharp, IoLogoInstagram, IoLogoFacebook } from "react-icons/io5";
 import { BsTwitterX } from "react-icons/bs";
 import { RxCross1 } from "react-icons/rx";
+import { GiTrophyCup } from "react-icons/gi";
+
 
 
 
 
 const Campaign = () => {
+    const [toggleStatus, setToggleStatus] = useState(false);
+
+
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
         setOpen(true)
-        console.log(open)
 
     }
 
     const handleClose = () => {
         setOpen(false)
-        console.log(open)
     }
 
 
@@ -35,7 +38,7 @@ const Campaign = () => {
             {
                 open && <div className='relative overflow-x-hidden overflow-hidden flex items-center justify-center z-10 top-0 left-0 w-screen h-screen ring bg-gray-200 '>
                     <img className='h-[90vh] overflow-hidden' src='https://png.pngtree.com/png-vector/20240309/ourlarge/pngtree-homeless-and-poor-man-png-image_11898872.png' alt="" />
-                    <h1 className='absolute cursor-pointer z-20 top-5 right-5 text-3xl'><RxCross1 onClick={() => handleClose()} /></h1> 
+                    <h1 className='absolute cursor-pointer z-20 top-5 right-5 text-3xl'><RxCross1 onClick={() => handleClose()} /></h1>
                 </div>
             }
             <Navbar />
@@ -90,7 +93,7 @@ const Campaign = () => {
                             <div>
                                 <div className='m-1 p-4  rounded-xl flex space-x-8'>
                                     <div className='  '>
-                                        <GiLifeSupport size={30} color='' />
+                                        <GiLifeSupport size={30} className='text-yellow-500' />
                                     </div>
                                     <div>
                                         <h1 className='text-black font-black'>Aman Johnson</h1>
@@ -101,7 +104,7 @@ const Campaign = () => {
 
                                 <div className='m-1 p-4  rounded-xl flex space-x-8'>
                                     <div className='  '>
-                                        <GiLifeSupport size={30} color='' />
+                                        <GiLifeSupport size={30} className='text-yellow-500' />
                                     </div>
                                     <div>
                                         <h1 className='text-black font-black'>Ramesh Das</h1>
@@ -128,28 +131,65 @@ const Campaign = () => {
                             </form>
                             <hr />
                             <div>
-                                <h1 className='text-lg  p-3 rounded'>Top Donators</h1>
-                                <div className='m-1 p-4 border  rounded-xl flex items-center space-x-8'>
-                                    <GiLifeSupport size={40} color='red' />
-                                    <div>
-                                        <h1 className='text-slate-600'>Sameul Johnson</h1>
-                                        <p className='font-semibold text-green-700'>$100</p>
-                                    </div>
+                                <div className='grid grid-cols-2 gap-4'>
+                                    <button onClick={() => setToggleStatus(false)} className={`${toggleStatus ? 'w-full p-2 ' : 'w-full p-2 underline underline-offset-2'}`}>Recent Donations</button>
+                                    <button onClick={() => setToggleStatus(true)} className={`${toggleStatus ? 'w-full p-2  underline underline-offset-2' : 'w-full p-2'}`}>Top Donations</button>
+
                                 </div>
-                                <div className='m-1 p-4 border  rounded-xl flex items-center space-x-8'>
-                                    <GiLifeSupport size={40} color='red' />
+
+                                {/* Recent Donators */}
+                                {
+                                    !toggleStatus &&
                                     <div>
-                                        <h1 className='text-slate-600'>Julian Rojer</h1>
-                                        <p className='font-semibold text-green-700'>$1000</p>
+                                        <div className='m-1 p-4 shadow  rounded-xl flex items-center space-x-8'>
+                                            <GiLifeSupport size={30} className='text-yellow-500' />
+                                            <div>
+                                                <h1 className='text-slate-600'>Sameul Johnson</h1>
+                                                <p className='font-semibold text-green-700'>$100</p>
+                                            </div>
+                                        </div>
+                                        <div className='m-1 p-4 shadow  rounded-xl flex items-center space-x-8'>
+                                            <GiLifeSupport size={30} className='text-yellow-500' />
+                                            <div>
+                                                <h1 className='text-slate-600'>Julian Rojer</h1>
+                                                <p className='font-semibold text-green-700'>$1000</p>
+                                            </div>
+                                        </div>
+                                        <div className='m-1 p-4 shadow  rounded-xl flex items-center space-x-8'>
+                                            <GiLifeSupport size={30} className='text-yellow-500' />
+                                            <div>
+                                                <h1 className='text-slate-600'>Aman Johnson</h1>
+                                                <p className='font-semibold text-green-700'>$50</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className='m-1 p-4 border  rounded-xl flex items-center space-x-8'>
-                                    <GiLifeSupport size={40} color='red' />
+                                }
+
+
+                                {/* top donators */}
+
+
+                                {
+                                    toggleStatus &&
                                     <div>
-                                        <h1 className='text-slate-600'>Aman Johnson</h1>
-                                        <p className='font-semibold text-green-700'>$50</p>
+                                        <div className='m-1 p-4 shadow  rounded-xl flex items-center space-x-8 text-yellow-500'>
+                                            <GiTrophyCup size={40} color='' />
+                                            <div>
+                                                <h1 className='text-slate-600'>Sameul Johnson</h1>
+                                                <p className='font-semibold text-green-700'>$1000</p>
+                                            </div>
+                                        </div>
+                                        <div className='m-1 p-4 shadow  rounded-xl flex items-center space-x-8 text-yellow-500'>
+                                            <GiTrophyCup size={40} color='' />
+                                            <div>
+                                                <h1 className='text-slate-600'>Alina Adam</h1>
+                                                <p className='font-semibold text-green-700'>$950</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                }
+
+
 
                             </div>
                         </div>
