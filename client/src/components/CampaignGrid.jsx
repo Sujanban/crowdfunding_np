@@ -113,10 +113,6 @@ const CampaignGrid = () => {
                             <button onClick={() => handelFilter(category.name)} className='text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>{category.name} <IoIosArrowDown /></button>
                         ))
                     }
-                    {/* <button  onClick={()=>handelFilter('Health')}  className='text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>Health <IoIosArrowDown /></button>
-                    <button onClick={()=>handelFilter('Education')}  className='text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>Education <IoIosArrowDown /></button>
-                    <button onClick={()=>handelFilter('Environment')}  className='text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>Environment <IoIosArrowDown /></button>
-                    <button onClick={()=>handelFilter('Emergency')}  className='text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>Emergency <IoIosArrowDown /></button> */}
                 </div>
                 <div className='p-4'>
                     <button onClick={() => setFilteredData(null)} className='text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>Reset <MdTune /></button>
