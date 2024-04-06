@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { CiSearch } from "react-icons/ci";
 import { useUser } from '../contexts/userContext';
 import { GoPeople } from "react-icons/go";
@@ -38,28 +38,28 @@ const Navbar = () => {
                     user ?
                         <nav className=' text-center top-[10vh] md:top-auto relative md:inline-flex gap-4'>
                             <li>
-                                <Link to='/createCampaign' className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>Create Campaign</Link>
+                                <NavLink to='/createCampaign' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Create Campaign</NavLink>
                             </li>
                             <li>
-                                <Link to='/explore' className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>Campaigns</Link>
+                                <NavLink to='/explore' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Campaigns</NavLink>
                             </li>
                             <li>
-                                <Link className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>Donations</Link>
+                                <NavLink to={'/donations'} className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Donations</NavLink>
                             </li>
                         </nav>
                         :
                         <nav className=' text-center top-[10vh] md:top-auto relative md:inline-flex gap-4'>
-                            <li className={`${location.pathname === '/explore' ? 'bg-gray-100' : ''}`}>
-                                <Link to='/explore' className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>Explore</Link>
+                            <li>
+                                <NavLink to='/explore' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Explore</NavLink>
                             </li>
                             <li>
-                                <Link to='/howitworks' className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>How it works</Link>
+                                <NavLink to='/howitworks' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>How it works</NavLink>
                             </li>
                             <li>
-                                <Link to='/blog' className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>Blog</Link>
+                                <NavLink to='/blog' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Blog</NavLink>
                             </li>
                             <li>
-                                <Link to='/contact' className='hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>Contact</Link>
+                                <NavLink to='/contact' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Contact</NavLink>
                             </li>
                         </nav>
                 }
@@ -67,19 +67,19 @@ const Navbar = () => {
                     {
                         user ? <div>
                             <li className='' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                                <Link to='/profile' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>
+                                <NavLink to='/profile' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>
                                     <GoPeople className='' size={20} /> {user.firstName}
                                     <IoIosArrowDown className='hover:rotate-180 transition-all duration-400' />
-                                </Link>
+                                </NavLink>
                             </li>
                             {
                                 isSubMenuVisible ?
                                     <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className=' absolute  bg-white px-6 block  shadow'>
                                         <li className=' grid'>
-                                            <Link to='/profile' className='p-2 w-full'>Profile</Link>
+                                            <NavLink to='/profile' className='p-2 w-full'>Profile</NavLink>
                                         </li>
                                         <li className=' grid'>
-                                            <Link to='/' className='p-2 w-full'>Sign out</Link>
+                                            <NavLink to='/' className='p-2 w-full'>Sign out</NavLink>
                                         </li>
                                     </div>
                                     :
@@ -90,12 +90,12 @@ const Navbar = () => {
                         </div> :
                             <>
                                 <li>
-                                    <Link to='/search' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'><CiSearch /> Search</Link>
+                                    <NavLink to='/search' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'><CiSearch /> Search</NavLink>
                                 </li>
                                 <li className='hidden md:flex'>
-                                    <Link to='/login'
+                                    <NavLink to='/login'
                                         className='border border-green-800 hover:text-green-800 transition-all duration-400 rounded-full px-3 py-2'
-                                    >Sign in</Link>
+                                    >Sign in</NavLink>
                                 </li>
                             </>
                     }
