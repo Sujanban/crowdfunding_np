@@ -97,10 +97,12 @@ const CampaignGrid = () => {
     ]
 
     const [filteredData, setFilteredData] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [isloading, setIsLoading] = useState(false);
     const handelFilter = (data) => {
         const filteredDataa = campaign.filter(campaign => campaign.category === data);
         setFilteredData(filteredDataa);
-        console.log(filteredData);
+        setSelectedCategory(data);
     }
 
     return (
@@ -110,7 +112,9 @@ const CampaignGrid = () => {
                 <div className='p-4 flex space-x-3'>
                     {
                         category && category.map((category, index) => (
-                            <button onClick={() => handelFilter(category.name)} className='text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>{category.name} <IoIosArrowDown /></button>
+                            <button 
+                            onClick={() => handelFilter(category.name)} 
+                            className={`${selectedCategory === category.name ? 'border-2 border-green-500 text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full':'text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'} `}>{category.name} <IoIosArrowDown /></button>
                         ))
                     }
                 </div>
