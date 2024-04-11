@@ -50,10 +50,10 @@ const Faq = () => {
 
                 {
                     faq && faq.map((item, index) =>
-                        <div className='p-4 border-b border-b-green-800'>
+                        <div className='p-4 border-b border-b-green-800' key={index}>
                             <div
                                 onClick={(e) => handleOpen(item.id)}
-                                key={index}
+                                
                                 className='p-4 cursor-pointer flex justify-between items-center'>
                                 <h1 className='text-2xl '>{item.id + ". " + item.question}</h1>
 

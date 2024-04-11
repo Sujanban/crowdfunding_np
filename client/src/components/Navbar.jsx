@@ -5,27 +5,23 @@ import { useUser } from '../contexts/userContext';
 import { GoPeople } from "react-icons/go";
 import { IoIosArrowDown } from "react-icons/io";
 
+import {useSelector, useDispatch } from 'react-redux';
 
 
 
 const Navbar = () => {
     const [toggle, setToggle] = useState(false);
-
+    const campaign = useSelector((state) => state.campaign.campaign);
+    console.log(campaign)
 
     const [isSubMenuVisible, setSubMenuVisible] = useState(false);
-    // Function to handle mouse enter event
     const handleMouseEnter = () => {
         setSubMenuVisible(true);
     };
-
-    // Function to handle mouse leave event
     const handleMouseLeave = () => {
         setSubMenuVisible(false);
     };
-
-
     const { user } = useUser();
-    console.log(user)
     return (
         <div className=' shadow bg-white top-0 w-full'>
             <header className='px-4 md:px-12 bg-white rounded-full max-w-7xl mx-auto h-[10vh] flex items-center justify-between ' >

@@ -113,6 +113,7 @@ const CampaignGrid = () => {
                     {
                         category && category.map((category, index) => (
                             <button 
+                            key={index}
                             onClick={() => handelFilter(category.name)} 
                             className={`${selectedCategory === category.name ? 'border-2 border-green-500 text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full':'text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'} `}>{category.name} <IoIosArrowDown /></button>
                         ))
@@ -123,11 +124,9 @@ const CampaignGrid = () => {
                 </div>
             </div>
             <div className='py-4 grid grid-cols-4 gap-4'>
-
-
                 {
                     filteredData ? filteredData.slice(0, 4).map((campaign, index) =>
-                        <Link to={'/campaign'}>
+                        <Link to={'/campaign'} key={index}>
                             <div className=' h-72 bg-gray-100'>
                                 <img className=' w-full h-full object-cover' src={campaign.thumbnail} alt="" />
                             </div>
@@ -144,7 +143,7 @@ const CampaignGrid = () => {
                     )
                         :
                         campaign.slice(0, 4).map((campaign, index) =>
-                            <Link to={'/campaign'}>
+                            <Link to={'/campaign'} key={index}>
                                 <div className=' h-72 bg-gray-100'>
                                     <img className=' w-full h-full object-cover' src={campaign.thumbnail} alt="" />
                                 </div>
