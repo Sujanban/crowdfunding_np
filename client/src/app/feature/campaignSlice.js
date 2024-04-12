@@ -34,4 +34,6 @@ export const campaign = createSlice({
   },
 });
 
+export const getCampaigns = (state) => state.campaign.data;
+
 export default campaign.reducer;

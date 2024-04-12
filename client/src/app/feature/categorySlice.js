@@ -34,4 +34,5 @@ export const category = createSlice({
   },
 });
 
+export const getCategories = (state) => state.category.data;
 export default category.reducer;

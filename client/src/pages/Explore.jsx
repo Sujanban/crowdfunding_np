@@ -23,12 +23,12 @@ import CtaBanner from '../components/CtaBanner';
 import { IoIosArrowDown } from "react-icons/io";
 import Loading from '../components/Loading';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCategory } from '../app/feature/categorySlice'
-import { fetchCampaign } from '../app/feature/campaignSlice'
+import { fetchCategory, getCategories } from '../app/feature/categorySlice'
+import { fetchCampaign, getCampaigns } from '../app/feature/campaignSlice'
 
 const Explore = () => {
-    const category = useSelector((state) => state.category.data)
-    const campaign = useSelector((state) => state.campaign.data)
+    const category = useSelector(getCategories)
+    const campaign = useSelector(getCampaigns)
 
     const dispatch = useDispatch();
 
@@ -37,7 +37,6 @@ const Explore = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [isloading, setIsLoading] = useState(false);
     const handleFilter = (data) => {
-        console.log(data)
         setIsLoading(true);
         const filteredData = campaign.filter(campaign => campaign.category === data);
         setFilteredCampaign(filteredData);
@@ -99,27 +98,26 @@ const Explore = () => {
                 {/* grid of campaign cards */}
 
                 <div className='py-4 grid grid-cols-4 gap-2'>
-                    {isloading ? <Loading /> : null}
+                    {/* {isloading ? <Loading /> : null} */}
 
                     {
-                        filteredCampaign ? filteredCampaign.map((campaign, index) => {
-                            return (
-                                <Link key={index} to={'/campaign'}>
-                                    <div className=' h-72 bg-gray-100'>
-                                        <img className=' w-full h-full object-cover' src={campaign.thumbnail} alt="" />
+                        filteredCampaign ? filteredCampaign.map((campaign, index) =>
+                            <Link key={index} to={'/campaign'}>
+                                <div className=' h-72 bg-gray-100'>
+                                    <img className=' w-full h-full object-cover' src={campaign.thumbnail} alt="" />
+                                </div>
+                                <div className='p-4 grid gap-1'>
+                                    <h1 className='font-semibold'>{campaign.campaignTitle}</h1>
+                                    <p className='text-xs'>{campaign.campaignDescription}</p>
+                                    <h1 className='text-lg'><b>$78,253</b> <span className='text-xs'>raised of <b className='text-green-600 text-lg'>${campaign.goalAmount}</b> goal</span></h1>
+                                    <div className="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div className="bg-yellow-600 h-2.5 rounded-full w-2/3"></div>
                                     </div>
-                                    <div className='p-4 grid gap-1'>
-                                        <h1 className='font-semibold'>{campaign.campaignTitle}</h1>
-                                        <p className='text-xs'>{campaign.campaignDescription}</p>
-                                        <h1 className='text-lg'><b>$78,253</b> <span className='text-xs'>raised of <b className='text-green-600 text-lg'>${campaign.goalAmount}</b> goal</span></h1>
-                                        <div className="w-full bg-gray-200 rounded-full h-2.5">
-                                            <div className="bg-yellow-600 h-2.5 rounded-full w-2/3"></div>
-                                        </div>
-                                        <p className='flex items-center'><FaHeart color='red' /> <span className='px-2 text-sm'>5,253 Supporters</span></p>
-                                    </div>
-                                </Link>
-                            )
-                        }) : campaign && campaign.map((campaign) => {
+                                    <p className='flex items-center'><FaHeart color='red' /> <span className='px-2 text-sm'>5,253 Supporters</span></p>
+                                </div>
+                            </Link>
+
+                        ) : campaign && campaign.map((campaign) => {
                             return (
                                 <Link to={'/campaign'}>
                                     <div className=' h-72 bg-gray-100'>
