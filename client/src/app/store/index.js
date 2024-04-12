@@ -6,7 +6,7 @@ const store = configureStore({
     reducer: {
         campaign : campaignReducer,
         category : categoryReduser
-    },
+    }
 });
 
 export default store

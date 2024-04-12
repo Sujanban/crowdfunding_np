@@ -22,88 +22,22 @@ import CampaignGrid from '../components/CampaignGrid'
 import CtaBanner from '../components/CtaBanner';
 import { IoIosArrowDown } from "react-icons/io";
 import Loading from '../components/Loading';
-import {useSelector, useDispatch} from 'react-redux';
-import {fetchCategory} from '../app/feature/categorySlice'
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchCategory } from '../app/feature/categorySlice'
+import { fetchCampaign } from '../app/feature/campaignSlice'
 
 const Explore = () => {
-    const category = useSelector((state)=> state.category.data)
-    const campaign = useSelector((state)=> state.campaign.data)
+    const category = useSelector((state) => state.category.data)
+    const campaign = useSelector((state) => state.campaign.data)
+
     const dispatch = useDispatch();
-    
 
-    // const [campaign, setCampaign] = useState([
-    //     {
-    //         "_id": "66003b806fb120b540a1fc97",
-    //         "campaignOwner": "65faf74cf4f1a3745ec5440a",
-    //         "campaignTitle": "Treatment of the Disease",
-    //         "campaignDescription": "Fund required for treating cancer emergency",
-    //         "location": "Itahari",
-    //         "thumbnail": "https://png.pngtree.com/png-vector/20240309/ourlarge/pngtree-homeless-and-poor-man-png-image_11898872.png",
-    //         "videoUrl": "https://www.youtube.com/watch?v=pIzrkLKbszU",
-    //         "goalAmount": "10000",
-    //         "category": "Health"
-    //     },
-    //     {
-    //         "_id": "66003b806fb120b540a1fc97",
-    //         "campaignOwner": "65faf74cf4f1a3745ec5440a",
-    //         "campaignTitle": "URGENT Help for Dr. Sarah’s",
-    //         "campaignDescription": "Emergency Fund required for treating cancer emergency",
-    //         "location": "Kathmandu",
-    //         "thumbnail": "https://png.pngtree.com/png-clipart/20230910/original/pngtree-blueberries-is-an-old-food-and-has-a-very-refreshing-taste-png-image_11047862.png",
-    //         "videoUrl": "https://www.youtube.com/watch?v=pIzrkLKbszU",
-    //         "goalAmount": "70000",
-    //         "category": "Health"
-    //     },
-    //     {
-    //         "_id": "66003b806fb120b540a1fc97",
-    //         "campaignOwner": "65faf74cf4f1a3745ec5440a",
-    //         "campaignTitle": "URGENT Help for Dr. Sarah’s",
-    //         "campaignDescription": "Emergency Fund required for treating cancer emergency",
-    //         "location": "Kathmandu",
-    //         "thumbnail": "https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    //         "videoUrl": "https://www.youtube.com/watch?v=pIzrkLKbszU",
-    //         "goalAmount": "70000",
-    //         "category": "Health"
-    //     },
-    //     {
-    //         "_id": "66003b806fb120b540a1fc97",
-    //         "campaignOwner": "65faf74cf4f1a3745ec5440a",
-    //         "campaignTitle": "URGENT Help for Dr. Sarah’s",
-    //         "campaignDescription": "Emergency Fund required for treating cancer emergency",
-    //         "location": "Kathmandu",
-    //         "thumbnail": "https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    //         "videoUrl": "https://www.youtube.com/watch?v=pIzrkLKbszU",
-    //         "goalAmount": "70000",
-    //         "category": "Education"
-    //     },
-    //     {
-    //         "_id": "66003b806fb120b540a1fc97",
-    //         "campaignOwner": "65faf74cf4f1a3745ec5440a",
-    //         "campaignTitle": "URGENT Help for Dr. Sarah’s",
-    //         "campaignDescription": "Emergency Fund required for treating cancer emergency",
-    //         "location": "Kathmandu",
-    //         "thumbnail": "https://images.unsplash.com/photo-1416169607655-0c2b3ce2e1cc?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    //         "videoUrl": "https://www.youtube.com/watch?v=pIzrkLKbszU",
-    //         "goalAmount": "70000",
-    //         "category": "Environment"
-    //     },
-    //     {
-    //         "_id": "66003b806fb120b540a1fc97",
-    //         "campaignOwner": "65faf74cf4f1a3745ec5440a",
-    //         "campaignTitle": "URGENT Help for Dr. Sarah’s",
-    //         "campaignDescription": "Emergency Fund required for treating cancer emergency",
-    //         "location": "Kathmandu",
-    //         "thumbnail": "https://plus.unsplash.com/premium_photo-1661724772203-127053458850?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    //         "videoUrl": "https://www.youtube.com/watch?v=pIzrkLKbszU",
-    //         "goalAmount": "70000",
-    //         "category": "Emergency"
-    //     }
 
-    // ]);
     const [filteredCampaign, setFilteredCampaign] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [isloading, setIsLoading] = useState(false);
     const handleFilter = (data) => {
+        console.log(data)
         setIsLoading(true);
         const filteredData = campaign.filter(campaign => campaign.category === data);
         setFilteredCampaign(filteredData);
@@ -112,116 +46,106 @@ const Explore = () => {
 
     }
 
-    // const fetchApi = async () => {
-    //     setIsLoading(true);
-    //     try {
-    //         const res = await axios.get('/api/campaign/getCampaigns');
-    //         setCampaign(res.data);
-    //         console.log(res.data);
-    //         setIsLoading(false);
-    //     } catch (error) {
-    //         console.log(error);
-    //         setIsLoading(false);
-    //     }}
 
-    //     useEffect(() => {
-    //         fetchApi();
-    //     }, [])
+    useEffect(() => {
+        dispatch(fetchCategory())
+        dispatch(fetchCampaign())
+    }, [])
 
 
-        return (
-            <>
-                <Navbar />
+    return (
+        <>
+            <Navbar />
 
-                {/* Explore banner */}
-                <div className='explore_banner '>
-                    <div className='bg-gradient-to-r from-black to-transparent'>
-                        <div className='px-4 py-20 mx-auto max-w-7xl text-white '>
-                            <h1 className='py-4 text-3xl font-semibold'>Make a difference</h1>
-                            <p className=' text-2xl max-w-xl'>Thousands are crowdfunding for various causes. Support a fundraiser today.</p>
+            {/* Explore banner */}
+            <div className='explore_banner '>
+                <div className='bg-gradient-to-r from-black to-transparent'>
+                    <div className='px-4 py-20 mx-auto max-w-7xl text-white '>
+                        <h1 className='py-4 text-3xl font-semibold'>Make a difference</h1>
+                        <p className=' text-2xl max-w-xl'>Thousands are crowdfunding for various causes. Support a fundraiser today.</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* explore main */}
+            <div className=' py-20 max-w-7xl mx-auto'>
+                <h1 className='relative px-4 text-3xl'>Explore Campaigns <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
+                <div className=' py-4 flex justify-between items-center'>
+                    <h1 className='text-xl font-bold'>Filter by</h1>
+                    <div className='flex items-center space-x-10'>
+                        <div className='flex items-center space-x-2'>
+
+                            {
+                                category && category.map((item, index) => {
+                                    return (
+                                        <button
+                                            key={index}
+                                            onClick={() => handleFilter(item.category)}
+                                            className={`${selectedCategory === item.category ? 'border-2 border-green-500 text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full' : 'text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'}`}>{item.category} <IoIosArrowDown /></button>
+                                    )
+                                })
+                            }
                         </div>
+                        <form className="px-4">
+                            <select className="max-w-sm mx-auto p-3 outline-none bg-white  border-2 border-green-500  text-sm rounded ">
+                                <option hidden selected>Select a sorting method</option>
+                                <option onClick={() => handleFilter(dessending)} value="dessending">Ending Soon</option>
+                                <option onClick={() => handleFilter(assending)} value="assending">Just Started</option>
+                            </select>
+                        </form>
                     </div>
                 </div>
 
-                {/* explore main */}
-                <div className=' py-20 max-w-7xl mx-auto'>
-                    <h1 className='relative px-4 text-3xl'>Explore Campaigns <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
-                    <div className=' py-4 flex justify-between items-center'>
-                        <h1 className='text-xl font-bold'>Filter by</h1>
-                        <div className='flex items-center space-x-10'>
-                            <div className='flex items-center space-x-2'>
+                {/* grid of campaign cards */}
 
-                                {
-                                    category.map((category) => {
-                                        return (
-                                            <button
-                                                onClick={() => handleFilter(category.name)}
-                                                className={`${selectedCategory === category.name ? 'border-2 border-green-500 text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full' : 'text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'}`}>{category.name} <IoIosArrowDown /></button>
-                                        )
-                                    })
-                                }
-                            </div>
-                            <form class="px-4">
-                                <select id="countries" class="max-w-sm mx-auto p-3 outline-none bg-white  border-2 border-green-500  text-sm rounded ">
-                                    <option hidden selected>Select a sorting method</option>
-                                    <option onClick={() => handleFilter(dessending)} value="dessending">Ending Soon</option>
-                                    <option onClick={() => handleFilter(assending)} value="assending">Just Started</option>
-                                </select>
-                            </form>
-                        </div>
-                    </div>
+                <div className='py-4 grid grid-cols-4 gap-2'>
+                    {isloading ? <Loading /> : null}
 
-                    {/* grid of campaign cards */}
-
-                    <div className='py-4 grid grid-cols-4 gap-2'>
-                        {isloading ? <Loading /> : null}
-
-                        {
-                            filteredCampaign ? filteredCampaign.map((campaign) => {
-                                return (
-                                    <Link to={'/campaign'}>
-                                        <div className=' h-72 bg-gray-100'>
-                                            <img className=' w-full h-full object-cover' src={campaign.thumbnail} alt="" />
+                    {
+                        filteredCampaign ? filteredCampaign.map((campaign, index) => {
+                            return (
+                                <Link key={index} to={'/campaign'}>
+                                    <div className=' h-72 bg-gray-100'>
+                                        <img className=' w-full h-full object-cover' src={campaign.thumbnail} alt="" />
+                                    </div>
+                                    <div className='p-4 grid gap-1'>
+                                        <h1 className='font-semibold'>{campaign.campaignTitle}</h1>
+                                        <p className='text-xs'>{campaign.campaignDescription}</p>
+                                        <h1 className='text-lg'><b>$78,253</b> <span className='text-xs'>raised of <b className='text-green-600 text-lg'>${campaign.goalAmount}</b> goal</span></h1>
+                                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                                            <div className="bg-yellow-600 h-2.5 rounded-full w-2/3"></div>
                                         </div>
-                                        <div className='p-4 grid gap-1'>
-                                            <h1 className='font-semibold'>{campaign.campaignTitle}</h1>
-                                            <p className='text-xs'>{campaign.campaignDescription}</p>
-                                            <h1 className='text-lg'><b>$78,253</b> <span className='text-xs'>raised of <b className='text-green-600 text-lg'>${campaign.goalAmount}</b> goal</span></h1>
-                                            <div className="w-full bg-gray-200 rounded-full h-2.5">
-                                                <div className="bg-yellow-600 h-2.5 rounded-full w-2/3"></div>
-                                            </div>
-                                            <p className='flex items-center'><FaHeart color='red' /> <span className='px-2 text-sm'>5,253 Supporters</span></p>
+                                        <p className='flex items-center'><FaHeart color='red' /> <span className='px-2 text-sm'>5,253 Supporters</span></p>
+                                    </div>
+                                </Link>
+                            )
+                        }) : campaign && campaign.map((campaign) => {
+                            return (
+                                <Link to={'/campaign'}>
+                                    <div className=' h-72 bg-gray-100'>
+                                        <img className=' w-full h-full object-cover' src={campaign.thumbnail} alt="" />
+                                    </div>
+                                    <div className='p-4 grid gap-1'>
+                                        <h1 className='font-semibold'>{campaign.campaignTitle}</h1>
+                                        <p className='text-xs'>{campaign.campaignDescription}</p>
+                                        <h1 className='text-lg'><b>$78,253</b> <span className='text-xs'>raised of <b className='text-green-600 text-lg'>${campaign.goalAmount}</b> goal</span></h1>
+                                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                                            <div className="bg-yellow-600 h-2.5 rounded-full w-2/3"></div>
                                         </div>
-                                    </Link>
-                                )
-                            }) : campaign.map((campaign) => {
-                                return (
-                                    <Link to={'/campaign'}>
-                                        <div className=' h-72 bg-gray-100'>
-                                            <img className=' w-full h-full object-cover' src={campaign.thumbnail} alt="" />
-                                        </div>
-                                        <div className='p-4 grid gap-1'>
-                                            <h1 className='font-semibold'>{campaign.campaignTitle}</h1>
-                                            <p className='text-xs'>{campaign.campaignDescription}</p>
-                                            <h1 className='text-lg'><b>$78,253</b> <span className='text-xs'>raised of <b className='text-green-600 text-lg'>${campaign.goalAmount}</b> goal</span></h1>
-                                            <div className="w-full bg-gray-200 rounded-full h-2.5">
-                                                <div className="bg-yellow-600 h-2.5 rounded-full w-2/3"></div>
-                                            </div>
-                                            <p className='flex items-center'><FaHeart color='red' /> <span className='px-2 text-sm'>5,253 Supporters</span></p>
-                                        </div>
-                                    </Link>
-                                )
-                            })
-                        }
+                                        <p className='flex items-center'><FaHeart color='red' /> <span className='px-2 text-sm'>5,253 Supporters</span></p>
+                                    </div>
+                                </Link>
+                            )
+                        })
+                    }
 
-                    </div>
                 </div>
-                <button onClick={useDispatch(fetchCategory())} className='mx-auto'>Fetch api</button>
-                <CtaBanner />
-                {/* footer */}
-                <Footer />
-            </>
-        )
-    }
+            </div>
+            <CtaBanner />
+            {/* footer */}
+            <Footer />
+        </>
+    )
+}
 
-    export default Explore
+export default Explore
