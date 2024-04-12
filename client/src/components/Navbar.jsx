@@ -11,7 +11,7 @@ import {useSelector, useDispatch } from 'react-redux';
 
 const Navbar = () => {
     const [toggle, setToggle] = useState(false);
-    const campaign = useSelector((state) => state.campaign.campaign);
+    const campaign = useSelector((state) => state.campaign.data);
     console.log(campaign)
 
     const [isSubMenuVisible, setSubMenuVisible] = useState(false);
