@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../components/Navbar'
+import { fetchCategory, getCategories } from '../app/feature/categorySlice'
 
 const CreateCampaign = () => {
-  const category = useSelector((state) => state.category.data);
-  console.log(category);
+  const category = useSelector(getCategories);
+  const dispatch = useDispatch();
   const [campaign, setCampaign] = useState({
     campaignOwner: null,
     campaignTitle: null,
@@ -21,9 +22,13 @@ const CreateCampaign = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    // formData.append('file', )
-    console.log(campaign)
   }
+
+
+  // fetching cateories on page load
+  useEffect(() => {
+    dispatch(fetchCategory());
+  }, [])
 
   return (
     <>
@@ -41,23 +46,23 @@ const CreateCampaign = () => {
                 <div className='grid col-span-2 gap-6'>
                   <div className='grid gap-2'>
                     <label>Title for campaign *</label>
-                    <input 
-                    className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1 ' 
-                    type="text" 
-                    placeholder='Help for treatment of cancer'
-                    onChange={(e)=> setCampaign({...campaign, campaignTitle: e.target.value})}
-                    value={campaign.campaignTitle}
+                    <input
+                      className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1 '
+                      type="text"
+                      placeholder='Help for treatment of cancer'
+                      onChange={(e) => setCampaign({ ...campaign, campaignTitle: e.target.value })}
+                      value={campaign.campaignTitle}
                     />
                   </div>
                   <div className='grid gap-2'>
                     <label>Fundraising Story *</label>
-                    <textarea 
-                    className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1' 
-                    placeholder='Help for treatment of cancer' 
-                    cols="30" 
-                    rows="5" 
-                    onChange={(e)=> setCampaign({...campaign, campaignDescription: e.target.value})}
-                    value={campaign.campaignDescription}
+                    <textarea
+                      className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1'
+                      placeholder='Help for treatment of cancer'
+                      cols="30"
+                      rows="5"
+                      onChange={(e) => setCampaign({ ...campaign, campaignDescription: e.target.value })}
+                      value={campaign.campaignDescription}
                     ></textarea>
                   </div>
                 </div>
@@ -75,12 +80,12 @@ const CreateCampaign = () => {
                   </div>
                   <div className='grid gap-2'>
                     <label>Video URL </label>
-                    <input 
-                    className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1' 
-                    type="text" 
-                    placeholder='Paste url of your video'
-                    onChange={(e)=> setCampaign({...campaign, video: e.target.value})}
-                    value={campaign.video}
+                    <input
+                      className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1'
+                      type="text"
+                      placeholder='Paste url of your video'
+                      onChange={(e) => setCampaign({ ...campaign, video: e.target.value })}
+                      value={campaign.video}
                     />
                   </div>
                 </div>
@@ -95,7 +100,7 @@ const CreateCampaign = () => {
                     <label>Choose category *</label>
                     <select className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1'>
                       {category && category.map((item, index) => (
-                        <option onChange={(e)=> setCampaign({...campaign, category: '11'})} key={index} value={item.name}>{item.name}</option>
+                        <option onChange={(e) => setCampaign({ ...campaign, category: '11' })} key={index} value={item.category}>{item.category}</option>
                       ))}
                     </select>
                   </div>
@@ -113,12 +118,12 @@ const CreateCampaign = () => {
                 <div className='grid grid-cols-2 col-span-2 gap-6'>
                   <div className='grid gap-2'>
                     <label>Set campaign Goal *</label>
-                    <input 
-                    className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1' 
-                    type="number" 
-                    placeholder='3000$' 
-                    onChange={(e)=> setCampaign({...campaign, goalAmount: e.target.value})}
-                    value={campaign.goalAmount}
+                    <input
+                      className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1'
+                      type="number"
+                      placeholder='3000$'
+                      onChange={(e) => setCampaign({ ...campaign, goalAmount: e.target.value })}
+                      value={campaign.goalAmount}
                     />
                   </div>
                 </div>
@@ -132,32 +137,32 @@ const CreateCampaign = () => {
                   <p className='text-slate-600 text-sm lowercase'>Provide information about the fundraiser</p>
                 </div>
                 <div className='grid col-span-2 gap-6'>
-                <div className='grid gap-2'>
+                  <div className='grid gap-2'>
                     <label>Fundraiser *</label>
-                    <input className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1' 
-                    type="text" 
-                    placeholder='Sam Sulek' 
-                    onChange={(e)=> setCampaign({...campaign, campaignOwner: e.target.value})}
-                    value={campaign.campaignOwner}
+                    <input className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1'
+                      type="text"
+                      placeholder='Sam Sulek'
+                      onChange={(e) => setCampaign({ ...campaign, campaignOwner: e.target.value })}
+                      value={campaign.campaignOwner}
                     />
                   </div>
                   <div className='grid gap-2'>
                     <label>Country *</label>
-                    <input className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1' 
-                    type="text" 
-                    placeholder='Nepal' 
-                    onChange={(e)=> setCampaign({...campaign, country: e.target.value})}
-                    value={campaign.country}
+                    <input className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1'
+                      type="text"
+                      placeholder='Nepal'
+                      onChange={(e) => setCampaign({ ...campaign, country: e.target.value })}
+                      value={campaign.country}
                     />
                   </div>
                   <div className='grid gap-2'>
                     <label>Address Line*</label>
-                    <input 
-                    className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1' 
-                    type="text" 
-                    placeholder='Sundarharaich 5 Morang, Province 1 , Nepal, 58071' 
-                    onChange={(e)=> setCampaign({...campaign, location: e.target.value})}
-                    value={campaign.location}
+                    <input
+                      className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1'
+                      type="text"
+                      placeholder='Sundarharaich 5 Morang, Province 1 , Nepal, 58071'
+                      onChange={(e) => setCampaign({ ...campaign, location: e.target.value })}
+                      value={campaign.location}
                     />
                   </div>
                 </div>
