@@ -1,36 +1,49 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import CtaBanner from '../components/CtaBanner'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import axios from 'axios'
+
+
 import { FaHeart } from "react-icons/fa";
 import { GiLifeSupport } from "react-icons/gi";
-
 import { LuClock3 } from "react-icons/lu";
 import { GoPeople } from "react-icons/go";
-import { TiSocialFacebookCircular, TiSocialLinkedinCircular, TiSocialTwitterCircular } from "react-icons/ti";
 import { IoShareSocialSharp, IoLogoInstagram, IoLogoFacebook } from "react-icons/io5";
 import { BsTwitterX } from "react-icons/bs";
 import { RxCross1 } from "react-icons/rx";
 import { GiTrophyCup } from "react-icons/gi";
 
 
-
-
-
 const Campaign = () => {
+    const { id } = useParams();
     const [toggleStatus, setToggleStatus] = useState(false);
+    const [campaignPost, setCampaignPost] = useState(null);
 
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
         setOpen(true)
-
     }
-
     const handleClose = () => {
         setOpen(false)
     }
+
+
+    // fetching individual campaign
+    useEffect(() => {
+        const fetchCampaign = async (id) => {
+            try {
+                const res = await axios.get(`/api/campaign/getCampaign/${id}`);
+                setCampaignPost(res.data);
+                console.log(res.data);
+            } catch (error) {
+                console.log("Server Error while fetching API " + error);
+            }
+        };
+        fetchCampaign(id);
+    }, [])
 
 
     return (
@@ -44,15 +57,15 @@ const Campaign = () => {
             <Navbar />
             <div className='px-4 py-20 max-w-7xl mx-auto '>
                 <div className='  pb-8'>
-                    <Link className='px-2 font-semibold'>Home</Link>/<Link className='px-2 text-slate-600'>campaign</Link>/<Link className='px-2 text-slate-600'>Fund for joseph to cure cancer</Link>
+                    <Link className='px-2 font-semibold'>Home</Link>/<Link className='px-2 text-slate-600'>campaign</Link>/<Link className='px-2 text-slate-600'>{id}</Link>
                 </div>
-                <h1 className='p-4 max-w-5xl text-3xl font-semibold'>Lorem ipsum dolor sit amet cndae! Libero unde saepe illo quidem excepturi dolore ab ducimus!</h1>
+                <h1 className='p-4 max-w-5xl text-3xl font-semibold'>{campaignPost?.campaignTitle}</h1>
                 <div className='grid grid-cols-3'>
                     <div className='p-4 col-span-2'>
-                        <img onClick={() => handleOpen()} className='rounded cursor-pointer h-[450px] w-full object-cover' src="https://png.pngtree.com/png-vector/20240309/ourlarge/pngtree-homeless-and-poor-man-png-image_11898872.png" alt="" />
+                        <img onClick={() => handleOpen()} className='rounded cursor-pointer h-[450px] w-full object-cover' src={campaignPost?.thumbnail} alt="" />
                         <div className='p-4 flex items-center justify-between'>
                             <div>
-                                <h1 className='py-2 font-black text-xl'><GoPeople size={30} /> Samuel Sam</h1>
+                                <h1 className='py-2 font-black text-xl'><GoPeople size={30} /> {campaignPost?.campaignOwner}</h1>
                                 <p className='flex items-center'><LuClock3 size={15} color='black' /> <span className='p-2 text-sm text-slate-600'>2hr ago</span></p>
                             </div>
                             <div className=' flex items-center'>
@@ -71,9 +84,7 @@ const Campaign = () => {
                         <hr />
                         <div>
                             <h1 className='p-4 text-xl font-black'>Storyline</h1>
-                            <p className='p-4 text-slate-600'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt fuga quo suscipit est perspiciatis eius alias facere voluptatum laboriosam aliquid magni dolores placeat obcaecati, a accusamus recusandae dolore rem aperiam consectetur nostrum ratione nobis neque. Totam nihil suscipit aut nam officiis, iure, dolor soluta nisi, molestiae reprehenderit natus corrupti error.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, voluptas!</p>
-                            <p className='p-4 text-slate-600'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt fuga quo suscipit est perspiciatis eius alias facere voluptatum laboriosam aliquid magni dolores placeat obcaecati, a accusamus recusandae dolore rem aperiam consectetur nostrum ratione nobis neque. Totam nihil suscipit aut nam officiis, iure, dolor soluta nisi, molestiae reprehenderit natus corrupti error.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, voluptas!</p>
-                            <p className='p-4 text-slate-600'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt fuga quo suscipit est perspiciatis eius alias facere voluptatum laboriosam aliquid magni dolores placeat obcaecati, a accusamus recusandae dolore rem aperiam consectetur nostrum ratione nobis neque. Totam nihil suscipit aut nam officiis, iure, dolor soluta nisi, molestiae reprehenderit natus corrupti error.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, voluptas!</p>
+                            <p className='p-4 text-slate-600'>{campaignPost?.campaignDescription}</p>
                         </div>
 
                         <hr />
@@ -81,7 +92,7 @@ const Campaign = () => {
                         <div className='p-4 flex items-center space-x-4'>
                             <GoPeople size={30} />
                             <div>
-                                <h1>Aman Singh Thapalia</h1>
+                                <h1>{campaignPost?.campaignOwner}</h1>
                                 <p>Software Engineer Texes,USA</p>
                                 <p className='text-slate-600'>Organizer</p>
                             </div>
@@ -119,7 +130,7 @@ const Campaign = () => {
                     <div className='relative '>
                         <div className='max-w-[425px] top-0 sticky scroll-auto p-4'>
 
-                            <h1 className='text-2xl py-4'><b>$78,253</b> <span className=''>raised of <b className='text-green-600'>$100,000</b> goal</span></h1>
+                            <h1 className='text-2xl py-4'><b>$78,253</b> <span className=''>raised of <b className='text-green-600'>${campaignPost?.goalAmount}</b> goal</span></h1>
                             <div className="w-full bg-gray-200 rounded-full h-2.5">
                                 <div className="bg-yellow-600 h-2.5 rounded-full w-2/3"></div>
                             </div>

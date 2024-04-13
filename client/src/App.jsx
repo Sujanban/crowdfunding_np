@@ -45,7 +45,7 @@ function App() {
               <Route path='/contact' element={<Contact />} />
               <Route path='/search' element={<Search />} />
 
-              <Route path='/campaign' element={<Campaign />} />
+              <Route path='/campaign/:id' element={<Campaign />} />
 
 
 

@@ -100,7 +100,7 @@ const Index = () => {
 
 
       {/* testemonial */}
-      <div className=' px-4 py-20  max-w-7xl mx-auto'>
+      {/* <div className=' px-4 py-20  max-w-7xl mx-auto'>
         <h1 className='relative px-4 text-3xl'>Testimonials <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
 
         <div>
@@ -152,7 +152,7 @@ const Index = () => {
             </SwiperSlide>
           </Swiper>
         </div>
-      </div>
+      </div> */}
 
       
 
