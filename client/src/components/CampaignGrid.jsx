@@ -28,6 +28,12 @@ const CampaignGrid = () => {
         setSelectedCategory(data);
     }
 
+
+    const resetFilter = () => {
+        setFilteredData(null);
+        setSelectedCategory(null);
+    }
+
     useEffect(() => {
         dispatch(fetchCategory())
         dispatch(fetchCampaign())
@@ -48,7 +54,7 @@ const CampaignGrid = () => {
                     }
                 </div>
                 <div className='p-4'>
-                    <button onClick={() => setFilteredData(null)} className='text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>Reset <MdTune /></button>
+                    <button onClick={resetFilter} className='text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>Reset <MdTune /></button>
                 </div>
             </div>
             <div className='py-4 grid grid-cols-4 gap-4'>
@@ -58,7 +64,7 @@ const CampaignGrid = () => {
                             <div className=' h-72 bg-gray-100'>
                                 <img className=' w-full h-full object-cover' src={campaign.thumbnail} alt="" />
                             </div>
-                            <div className='p-4 grid gap-1'>
+                            <div className='py-4 grid gap-1'>
                                 <h1 className='font-semibold'>{campaign.campaignTitle.slice(0, 20)}</h1>
                                 <p className='text-xs'>{campaign.campaignDescription.slice(0, 40)}</p>
                                 <h1 className='text-lg'><b>$78,253</b> <span className='text-xs'>raised of <b className='text-green-600 text-lg'>${campaign.goalAmount}</b> goal</span></h1>
@@ -75,7 +81,7 @@ const CampaignGrid = () => {
                                 <div className=' h-72 bg-gray-100'>
                                     <img className=' w-full h-full object-cover' src={campaign.thumbnail} alt="" />
                                 </div>
-                                <div className='p-4 grid gap-1'>
+                                <div className='py-4 grid gap-1'>
                                     <h1 className='font-semibold'>{campaign.campaignTitle.slice(0,20)}</h1>
                                     <p className='text-xs'>{campaign.campaignDescription.slice(0, 40)}</p>
                                     <h1 className='text-lg'><b>$78,253</b> <span className='text-xs'>raised of <b className='text-green-600 text-lg'>${campaign.goalAmount}</b> goal</span></h1>
@@ -86,6 +92,9 @@ const CampaignGrid = () => {
                                 </div>
                             </Link>
                         )
+                }
+                {
+                    filteredData && filteredData.length === 0 && <div>No Campaigns Found</div>
                 }
 
             </div>
