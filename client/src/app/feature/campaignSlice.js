@@ -10,6 +10,17 @@ export const fetchCampaign = createAsyncThunk("fetchAllCampaign", async () => {
   }
 });
 
+
+export const postCamaign = createAsyncThunk("postCampaign", async (data) => {
+  try {
+    const res = await axios.post("/api/campaign/createCampaign", data);
+    console.log(res)
+    return res.data;
+  } catch (error) {
+    console.log("Server Error while fetching API " + error);
+  }
+});
+
 export const campaign = createSlice({
   name: "campaigns",
   initialState: {

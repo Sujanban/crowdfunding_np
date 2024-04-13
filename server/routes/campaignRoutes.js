@@ -34,7 +34,8 @@ router.use(
 );
 
 //CREATE CAMPAIGN
-router.post("/createCampaign", upload.single('file'), createCampaign);
+router.post("/createCampaign", createCampaign);
+// router.post("/createCampaign", upload.single('file'), createCampaign);
 
 //GET CAMPAIGN
 router.get("/getCampaign/:id", getCampaign);

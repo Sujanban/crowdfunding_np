@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../components/Navbar'
 import { fetchCategory, getCategories } from '../app/feature/categorySlice'
+import { postCamaign } from '../app/feature/campaignSlice'
 
 const CreateCampaign = () => {
   const category = useSelector(getCategories);
@@ -22,6 +23,8 @@ const CreateCampaign = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
+    console.log(campaign);
+    dispatch(postCamaign(campaign));
   }
 
 
@@ -76,15 +79,20 @@ const CreateCampaign = () => {
                   <div className='grid gap-2'>
                     <label>Upload cover Image *</label>
                     <input className="w-full p-2 text-sm flex items-center justify-center border border-green-500 rounded cursor-pointer focus:ring-1 focus:ring-green-600 focus:ring-offset-1"
-                      name='file' id="file-upload" type="file" onChange={(e) => setCampaign({ ...campaign, thumbnail: e.target.files[0] })} size="60" />
+                      name='file' id="file-upload"
+                      type="text"
+                      onChange={(e) => setCampaign({ ...campaign, thumbnail: e.target.value })}
+                      size="60"
+                    />
                   </div>
                   <div className='grid gap-2'>
                     <label>Video URL </label>
                     <input
+
                       className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1'
                       type="text"
                       placeholder='Paste url of your video'
-                      onChange={(e) => setCampaign({ ...campaign, video: e.target.value })}
+                      onChange={(e) => setCampaign({ ...campaign, videoUrl: e.target.value })}
                       value={campaign.video}
                     />
                   </div>
@@ -98,11 +106,18 @@ const CreateCampaign = () => {
                 <div className='grid grid-cols-2 col-span-2 gap-6'>
                   <div className='grid gap-2'>
                     <label>Choose category *</label>
-                    <select className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1'>
+                    {/* <select className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1'>
                       {category && category.map((item, index) => (
                         <option onChange={(e) => setCampaign({ ...campaign, category: '11' })} key={index} value={item.category}>{item.category}</option>
                       ))}
+                    </select> */}
+
+                    <select className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1' onChange={(e) => setCampaign({ ...campaign, category: e.target.value })}>
+                      {category && category.map((item, index) => (
+                        <option key={index} value={item.category}>{item.category}</option>
+                      ))}
                     </select>
+
                   </div>
                 </div>
               </div>
