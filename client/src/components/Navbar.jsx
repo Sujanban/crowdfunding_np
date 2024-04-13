@@ -36,7 +36,7 @@ const Navbar = () => {
                                 <NavLink to='/createCampaign' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Create Campaign</NavLink>
                             </li>
                             <li>
-                                <NavLink to='/explore' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Campaigns</NavLink>
+                                <NavLink to='/mycampaigns' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Campaigns</NavLink>
                             </li>
                             <li>
                                 <NavLink to={'/donations'} className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Donations</NavLink>

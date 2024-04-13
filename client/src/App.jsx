@@ -25,6 +25,7 @@ import Contact from './pages/Contact'
 import Blog from './pages/Blog'
 import Campaign from './pages/Campaign'
 import Error404 from './pages/Error404'
+import MyCampaign from './pages/MyCampaign'
 
 
 
@@ -45,6 +46,9 @@ function App() {
               <Route path='/blog' element={<Blog />} />
               <Route path='/contact' element={<Contact />} />
               <Route path='/search' element={<Search />} />
+
+              {/* logged user routes */}
+              <Route  path='/mycampaigns' element={<MyCampaign/>} />
               
               
               
