@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from 'react-hot-toast';
 
 export const fetchCampaign = createAsyncThunk("fetchAllCampaign", async () => {
   try {
@@ -10,12 +11,15 @@ export const fetchCampaign = createAsyncThunk("fetchAllCampaign", async () => {
   }
 });
 
-
 export const postCamaign = createAsyncThunk("postCampaign", async (data) => {
   try {
     const res = await axios.post("/api/campaign/createCampaign", data);
-    console.log(res)
-    return res.data;
+    if (res.data.message) {
+      toast.success(res.data.message);
+    }
+    if (res.data.error) {
+      toast.error(res.data.error);
+    }
   } catch (error) {
     console.log("Server Error while fetching API " + error);
   }
@@ -31,12 +35,11 @@ export const campaign = createSlice({
         campaignTitle: "Treatment of the Disease",
         campaignDescription: "Fund required for treating cancer emergency",
         location: "Itahari",
-        thumbnail:
-          "https://png.pngtree.com/png-vector/20240309/ourlarge/pngtree-homeless-and-poor-man-png-image_11898872.png",
+        thumbnail: "https://png.pngtree.com/png-vector/20240309/ourlarge/pngtree-homeless-and-poor-man-png-image_11898872.png",
         videoUrl: "https://www.youtube.com/watch?v=pIzrkLKbszU",
         goalAmount: "10000",
         category: "Health",
-      }
+      },
     ],
     isLoading: false,
     errorMessage: null,

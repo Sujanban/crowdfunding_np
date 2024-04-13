@@ -2,20 +2,22 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../contexts/userContext';
+import { toast } from 'react-hot-toast'
 
 const Profile = () => {
-    const navigate = useNavigate();
     const { user, setUser } = useUser();
-
+    const navigate = useNavigate();
     const handleLogout = () => {
         axios.get('/api/auth/logout').then((res) => {
             setUser(null);
             if (res.data.message) {
-                console.log(res.data.message)
+                toast.success("Logout Successful");
+                localStorage.removeItem('user');
                 navigate('/');
             }
         })
     }
+
 
     return (
         <div>

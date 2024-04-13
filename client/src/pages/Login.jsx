@@ -6,15 +6,13 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
-import { useUser } from '../contexts/userContext';
+
 
 
 const Login = () => {
-    const {user,setUser} = useUser();
-
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    const [formData, setFormData] = useState({
+    const [user, setUser] = useState({
         email: '',
         password: ''
     });
@@ -29,7 +27,7 @@ const Login = () => {
         if (res.data) {
             console.log(res.data);
         }
-        if(res.data.message){
+        if (res.data.message) {
             console.log(res.data.user);
             navigate('/');
         }
@@ -37,31 +35,21 @@ const Login = () => {
 
 
     // handling user login data
-    const handleLogin = async (e) => {
+    const handleLogin =  async (e) => {
         e.preventDefault();
-        if (!formData.email || !formData.password) {
-            toast.error('All fields are required');
-            return;
-        }
-        const response = await axios.post('/api/auth/login', formData);
-        
-        if (response.data.error) {
-            toast.error(response.data.error);
-            return;
-        }
-        if (response.data) {
-            // toast.success(response.data.message);
-            setFormData({
-                email: '',
-                password: ''
-            });
-            navigate('/');
-            return;
-        }
-
-        // console.log(formData)
+            const res =  await axios.post('/api/auth/login', user);
+            if (res.data.error) {
+                toast.error(res.data.error);
+                return;
+            }
+            if (res.data) {
+                toast.success("Login Successful");
+                const user = res.data;
+                localStorage.setItem('user', JSON.stringify(user));
+                navigate('/');
+            }
     }
-    
+
 
     return (
         <div className='w-full h-screen bg-stone-100'>
@@ -88,16 +76,16 @@ const Login = () => {
                             <div className=' w-full lg:max-w-2xl px-4 md:py-4 block gap-2'>
                                 <div className='py-2 grid'>
                                     <input
-                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                        value={formData.email}
+                                        onChange={(e) => setUser({ ...user, email: e.target.value })}
+                                        value={user.email}
                                         className='text-md font-light border border-stone-600 p-4 rounded-md'
                                         type="text"
                                         placeholder='Email Address' />
                                 </div>
                                 <div className='py-2 grid relative'>
                                     <input
-                                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                        value={formData.password}
+                                        onChange={(e) => setUser({ ...user, password: e.target.value })}
+                                        value={user.password}
                                         className='text-md font-light border border-stone-600 p-4 rounded-md'
                                         type={showPassword ? "text" : "password"}
                                         placeholder='Password' />

@@ -48,7 +48,7 @@ const CreateCampaign = () => {
                 </div>
                 <div className='grid col-span-2 gap-6'>
                   <div className='grid gap-2'>
-                    <label>Title for campaign *</label>
+                    <label>Fundraising Title *</label>
                     <input
                       className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1 '
                       type="text"
@@ -75,11 +75,12 @@ const CreateCampaign = () => {
                   <h1 className='text-xl font-medium'>Media *</h1>
                   <p className='text-slate-600 text-sm lowercase'>Provide relevent Image or Video for your campaign</p>
                 </div>
-                <div className='grid grid-cols-2 col-span-2 gap-6'>
+                <div className='grid grid-coools-2 col-span-2 gap-6'>
                   <div className='grid gap-2'>
-                    <label>Upload cover Image *</label>
-                    <input className="w-full p-2 text-sm flex items-center justify-center border border-green-500 rounded cursor-pointer focus:ring-1 focus:ring-green-600 focus:ring-offset-1"
-                      name='file' id="file-upload"
+                    <label>Cover Image URL*</label>
+                    <input className="p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1"
+                      name='file' 
+                      placeholder='Paste url of your Image'
                       type="text"
                       onChange={(e) => setCampaign({ ...campaign, thumbnail: e.target.value })}
                       size="60"
