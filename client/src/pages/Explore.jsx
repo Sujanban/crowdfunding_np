@@ -5,6 +5,7 @@ import { FaHeart } from "react-icons/fa";
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import CtaBanner from '../components/CtaBanner';
+import Card from '../components/Card';
 
 import { MdTune } from "react-icons/md";
 
@@ -82,48 +83,15 @@ const Explore = () => {
                                     )
                                 }
                             </div>
-                            {/* <form className="px-4">
-                                <select className="max-w-sm mx-auto p-3 outline-none bg-white  border-2 border-green-500  text-sm rounded ">
-                                    <option hidden selected>Select a sorting method</option>
-                                    <option onClick={() => handleFilter(dessending)} value="dessending">Ending Soon</option>
-                                    <option onClick={() => handleFilter(assending)} value="assending">Just Started</option>
-                                </select>
-                            </form> */}
                         </div>
                     </div>
                     <div className='col-span-4 grid grid-cols-3 gap-2'>
                         {
                             filteredCampaign ? filteredCampaign.map((campaign, index) =>
-                                <Link to={`/campaign/${campaign._id}`} key={index}>
-                                    <div className=' h-72 bg-gray-100'>
-                                        <img className=' w-full h-full object-cover' src={campaign.thumbnail} alt="" />
-                                    </div>
-                                    <div className='p-4 grid gap-1'>
-                                        <h1 className='font-semibold'>{campaign.campaignTitle.slice(0, 20)}</h1>
-                                        <p className='text-xs'>{campaign.campaignDescription.slice(0, 40)}</p>
-                                        <h1 className='text-lg'><b>$78,253</b> <span className='text-xs'>raised of <b className='text-green-600 text-lg'>${campaign.goalAmount}</b> goal</span></h1>
-                                        <div className="w-full bg-gray-200 rounded-full h-2.5">
-                                            <div className="bg-yellow-600 h-2.5 rounded-full w-2/3"></div>
-                                        </div>
-                                        <p className='flex items-center'><FaHeart color='red' /> <span className='px-2 text-sm'>5,253 Supporters</span></p>
-                                    </div>
-                                </Link>
-
+                                <Card key={index} campaign={campaign} />
                             ) : campaign && campaign.map((campaign, index) =>
-                                <Link to={`/campaign/${campaign._id}`} key={index}>
-                                    <div className=' h-72 bg-gray-100'>
-                                        <img className=' w-full h-full object-cover' src={campaign.thumbnail} alt="" />
-                                    </div>
-                                    <div className='p-4 grid gap-1'>
-                                        <h1 className='font-semibold'>{campaign.campaignTitle.slice(0, 20)}</h1>
-                                        <p className='text-xs'>{campaign.campaignDescription.slice(0, 40)}</p>
-                                        <h1 className='text-lg'><b>$78,253</b> <span className='text-xs'>raised of <b className='text-green-600 text-lg'>${campaign.goalAmount}</b> goal</span></h1>
-                                        <div className="w-full bg-gray-200 rounded-full h-2.5">
-                                            <div className="bg-yellow-600 h-2.5 rounded-full w-2/3"></div>
-                                        </div>
-                                        <p className='flex items-center'><FaHeart color='red' /> <span className='px-2 text-sm'>5,253 Supporters</span></p>
-                                    </div>
-                                </Link>
+
+                                <Card key={index} campaign={campaign} />
 
                             )
                         }

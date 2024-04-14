@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { toast } from 'react-hot-toast';
+import { toast } from "react-hot-toast";
 
 export const fetchCampaign = createAsyncThunk("fetchAllCampaign", async () => {
   try {
@@ -25,6 +25,41 @@ export const postCamaign = createAsyncThunk("postCampaign", async (data) => {
   }
 });
 
+export const updateCampaign = createAsyncThunk(
+  "updateCampaign",
+  async (data) => {
+    try {
+      console.log(data);
+      const res = await axios.put(
+        `/api/campaign/updateCampaign/${data._id}`,
+        data
+      );
+      if (res.data.message) {
+        toast.success(res.data.message);
+      }
+      if (res.data.error) {
+        toast.error(res.data.error);
+      }
+    } catch (error) {
+      console.log("Server Error while fetching API " + error);
+    }
+  }
+);
+
+export const deleteCampaign = createAsyncThunk("deleteCampaign", async (id) => {
+  try {
+    const res = await axios.delete("/api/campaign/deleteCampaign/" + id);
+    if (res.data.message) {
+      toast.success(res.data.message);
+    }
+    if (res.data.error) {
+      toast.error(res.data.error);
+    }
+  } catch (error) {
+    console.log("Server Error while fetching API " + error);
+  }
+});
+
 export const campaign = createSlice({
   name: "campaigns",
   initialState: {
@@ -33,9 +68,11 @@ export const campaign = createSlice({
         _id: "66003b806fb120b540a1fc97",
         campaignOwner: "Rabin Singh Local",
         campaignTitle: "Treatment of the Disease",
-        campaignDescription: "Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency ",
+        campaignDescription:
+          "Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency ",
         location: "Itahari",
-        thumbnail: "https://png.pngtree.com/png-vector/20240309/ourlarge/pngtree-homeless-and-poor-man-png-image_11898872.png",
+        thumbnail:
+          "https://png.pngtree.com/png-vector/20240309/ourlarge/pngtree-homeless-and-poor-man-png-image_11898872.png",
         videoUrl: "https://www.youtube.com/watch?v=pIzrkLKbszU",
         goalAmount: "10000",
         category: "Health",

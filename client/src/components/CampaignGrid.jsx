@@ -1,11 +1,12 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { IoIosArrowDown } from "react-icons/io";
 import { MdSearch, MdTune } from "react-icons/md";
 import { FaHeart } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
-import {getCampaigns,fetchCampaign} from '../app/feature/campaignSlice'
+import { getCampaigns, fetchCampaign } from '../app/feature/campaignSlice'
 import { fetchCategory, getCategories } from '../app/feature/categorySlice'
+import Card from './Card';
 
 const CampaignGrid = () => {
     const category = useSelector(getCategories)
@@ -37,7 +38,7 @@ const CampaignGrid = () => {
     useEffect(() => {
         dispatch(fetchCategory())
         dispatch(fetchCampaign())
-    },[])
+    }, [])
 
     return (
         <div className='px-4 py-20 mx-auto max-w-7xl'>
@@ -60,37 +61,11 @@ const CampaignGrid = () => {
             <div className='py-4 grid grid-cols-4 gap-4'>
                 {
                     filteredData ? filteredData.slice(0, 4).map((campaign, index) =>
-                        <Link to={`/campaign/${campaign._id}`} key={index}>
-                            <div className=' h-72 bg-gray-100'>
-                                <img className=' w-full h-full object-cover' src={campaign.thumbnail} alt="" />
-                            </div>
-                            <div className='py-4 grid gap-1'>
-                                <h1 className='font-semibold'>{campaign.campaignTitle.slice(0, 20)}</h1>
-                                <p className='text-xs'>{campaign.campaignDescription.slice(0, 40)}</p>
-                                <h1 className='text-lg'><b>$78,253</b> <span className='text-xs'>raised of <b className='text-green-600 text-lg'>${campaign.goalAmount}</b> goal</span></h1>
-                                <div className="w-full bg-gray-200 rounded-full h-2.5">
-                                    <div className="bg-yellow-600 h-2.5 rounded-full w-2/3"></div>
-                                </div>
-                                <p className='flex items-center'><FaHeart color='red' /> <span className='px-2 text-sm'>5,253 Supporters</span></p>
-                            </div>
-                        </Link>
+                        <Card key={index} campaign={campaign} />
                     )
                         :
                         campaign && campaign.slice(0, 4).map((campaign, index) =>
-                            <Link to={`/campaign/${campaign._id}`} key={index}>
-                                <div className=' h-72 bg-gray-100'>
-                                    <img className=' w-full h-full object-cover' src={campaign.thumbnail} alt="" />
-                                </div>
-                                <div className='py-4 grid gap-1'>
-                                    <h1 className='font-semibold'>{campaign.campaignTitle.slice(0,20)}</h1>
-                                    <p className='text-xs'>{campaign.campaignDescription.slice(0, 40)}</p>
-                                    <h1 className='text-lg'><b>$78,253</b> <span className='text-xs'>raised of <b className='text-green-600 text-lg'>${campaign.goalAmount}</b> goal</span></h1>
-                                    <div className="w-full bg-gray-200 rounded-full h-2.5">
-                                        <div className="bg-yellow-600 h-2.5 rounded-full w-2/3"></div>
-                                    </div>
-                                    <p className='flex items-center'><FaHeart color='red' /> <span className='px-2 text-sm'>5,253 Supporters</span></p>
-                                </div>
-                            </Link>
+                            <Card key={index} campaign={campaign} />
                         )
                 }
                 {

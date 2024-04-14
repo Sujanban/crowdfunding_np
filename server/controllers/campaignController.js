@@ -52,6 +52,70 @@ const createCampaign = async (req, res) => {
 };
 
 //GET CAMPAIGN
+const updateCampaign = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {
+      campaignOwner,
+      campaignTitle,
+      campaignDescription,
+      location,
+      thumbnail,
+      videoUrl,
+      goalAmount,
+      category,
+    } = req.body;
+
+    console.log(req.body);
+
+    // Check if required fields are present in the request body
+    if (
+      !campaignOwner ||
+      !campaignTitle ||
+      !campaignDescription ||
+      !location ||
+      !thumbnail ||
+      !goalAmount ||
+      !category
+    ) {
+      return res.json({ error: "All fields are required" });
+    }
+
+    // Check if the ID is provided
+    if (!id) return res.json({ error: "Id is required" });
+
+    // Find the campaign by ID
+    const existCampaign = await Campaign.findById(id);
+    if (!existCampaign) return res.json({ error: "Campaign not found" });
+
+    // Update the campaign
+    const updated = await Campaign.findByIdAndUpdate(
+      id, 
+      { 
+        campaignOwner,
+        campaignTitle,
+        campaignDescription,
+        location,
+        thumbnail,
+        videoUrl,
+        goalAmount,
+        category
+      },
+      { new: true } 
+    );
+
+    // Check if the update was successful
+    if (updated) {
+      return res.json({ message: "Campaign updated successfully", updated });
+    } else {
+      return res.json({ error: "Something went wrong" });
+    }
+  } catch (err) {
+    // Catch any errors that occur during the update process
+    return res.json({ error: err.message });
+  }
+};
+
 const getCampaign = async (req, res) => {
   try {
     const { id } = req.params;
@@ -77,7 +141,7 @@ const getCampaigns = async (req, res) => {
 };
 
 //UPDATE CAMPAIGN
-const updateCampaign = async (req, res) => {
+const updateCampaignnnnnn = async (req, res) => {
   try {
     const { id } = req.params;
     const {
@@ -90,6 +154,21 @@ const updateCampaign = async (req, res) => {
       goalAmount,
       category,
     } = req.body;
+
+    console.log(req.body);
+
+    
+    if (
+      !campaignOwner ||
+      !campaignTitle ||
+      !campaignDescription ||
+      !location ||
+      !thumbnail ||
+      !goalAmount ||
+      !category
+    ) {
+      return res.json({ error: "All fields are required" });
+    }
 
     if (!id) return res.json({ error: "Id is required" });
 
@@ -109,7 +188,7 @@ const updateCampaign = async (req, res) => {
     if (updated) {
       res.json({ message: "Campaign updated successfully" });
     }
-    if (!updated) return res.json({ error: "Error occured updatng campaign" });
+    if (!updated) return res.json({ error : "Something went wrong" });
   } catch (err) {
     res.json({ error: err.message });
   }
