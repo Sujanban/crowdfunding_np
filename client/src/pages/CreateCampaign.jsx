@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 import { fetchCategory, getCategories } from '../app/feature/categorySlice'
 import { postCamaign } from '../app/feature/campaignSlice'
 
@@ -36,12 +37,14 @@ const CreateCampaign = () => {
   return (
     <>
       <Navbar />
-      <div className='bg-gray-100 rounded w-full h-full '>
-        <div className=' px-8 py-12 mx-auto max-w-7xl'>
-          <h1 className='p-4 text-3xl font-semibold'>Create Campaign</h1>
-          <form onSubmit={handleSubmit}>
+      <div className='bg-gray-50 rounded w-full h-full '>
+        <div className='  mx-auto max-w-7xl'>
+          <div className='px-8 py-20 flex justify-center '>
+            <h1 className=' text-2xl font-semibold border-b-2 border-green-600'>Create Campaign</h1>
+          </div>
+          <form className='p-8 py-20 shadow-md bg-white' onSubmit={handleSubmit}>
             <div>
-              <div className='p-8 py-12 grid grid-cols-3 borderr-b border-slate-400'>
+              <div className=' grid grid-cols-3 borderr-b border-slate-400'>
                 <div className='col-span-1'>
                   <h1 className='text-xl font-medium'>Story for Fundraising *</h1>
                   <p className='text-slate-600 text-sm lowercase'>Provide your storyline for fundraising</p>
@@ -79,7 +82,7 @@ const CreateCampaign = () => {
                   <div className='grid gap-2'>
                     <label>Cover Image URL*</label>
                     <input className="p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1"
-                      name='file' 
+                      name='file'
                       placeholder='Paste url of your Image'
                       type="text"
                       onChange={(e) => setCampaign({ ...campaign, thumbnail: e.target.value })}
@@ -194,6 +197,7 @@ const CreateCampaign = () => {
             </div>
           </form>
         </div>
+        <Footer/>
       </div>
     </>
   )

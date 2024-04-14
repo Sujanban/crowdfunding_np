@@ -33,7 +33,7 @@ export const campaign = createSlice({
         _id: "66003b806fb120b540a1fc97",
         campaignOwner: "Rabin Singh Local",
         campaignTitle: "Treatment of the Disease",
-        campaignDescription: "Fund required for treating cancer emergency",
+        campaignDescription: "Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency ",
         location: "Itahari",
         thumbnail: "https://png.pngtree.com/png-vector/20240309/ourlarge/pngtree-homeless-and-poor-man-png-image_11898872.png",
         videoUrl: "https://www.youtube.com/watch?v=pIzrkLKbszU",

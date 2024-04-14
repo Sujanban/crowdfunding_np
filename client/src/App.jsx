@@ -26,6 +26,7 @@ import Blog from './pages/Blog'
 import Campaign from './pages/Campaign'
 import Error404 from './pages/Error404'
 import MyCampaign from './pages/MyCampaign'
+import ManageCampaign from './pages/ManageCampaign'
 
 
 
@@ -49,6 +50,7 @@ function App() {
 
               {/* logged user routes */}
               <Route  path='/mycampaigns' element={<MyCampaign/>} />
+              <Route  path='/managecampaign/:id' element={<ManageCampaign/>} />
               
               
               
