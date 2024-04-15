@@ -49,7 +49,7 @@ const MyCampaign = () => {
                   <h1 className='text-xl font-semibold'>{campaign.campaignTitle.slice(0, 30)}</h1>
                   <p className='py-2 text-slate-600'>{campaign.campaignDescription.slice(0, 100)}</p>
                   <div className='py-4 flex items-center justify-between'>
-                    <Link to={`/managecampaign/${campaign._id}`} className='py-3 px-4 flex items-center text-xs  text-black  rounded'><CiEdit size={15} />Edit Campaign</Link>
+                    <Link to={`/managecampaign/${campaign._id}`} className='py-3 px-4 flex items-center text-xs  text-black  rounded'><CiEdit size={15} />Manage Campaign</Link>
                     <button
                       onClick={() => setPopupVisible(true)} className='py-3 text-xs px-4 flex items-center space-x-2 bg-green-600 text-white rounded'><CiCircleCheck size={15} />Mark Completed</button>
                   </div>

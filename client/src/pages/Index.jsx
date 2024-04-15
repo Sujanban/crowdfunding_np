@@ -74,7 +74,7 @@ const Index = () => {
 
 
       {/* how it works */}
-      <div className='px-4 py-20 max-w-7xl mx-auto border-2 bg-green-800 text-center rounded text-yellow-50'>
+      <div className='px-4 py-20 max-w-7xl mx-auto border-2 bg-green-600 text-center rounded'>
         <h1 className='pb-12 text-3xl '>Fundraising on Collab takes just a few minutes</h1>
         <div className='max-w-5xl mx-auto grid grid-cols-3 gap-4 '>
           <div className='p-4'>
