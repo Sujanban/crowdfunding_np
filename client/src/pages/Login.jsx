@@ -6,10 +6,13 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../app/feature/userSlice';
 
 
 
 const Login = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [user, setUser] = useState({
@@ -29,6 +32,7 @@ const Login = () => {
         }
         if (res.data.message) {
             console.log(res.data.user);
+            localStorage.setItem('user', JSON.stringify(res.data.user));
             navigate('/');
         }
     }
@@ -37,17 +41,21 @@ const Login = () => {
     // handling user login data
     const handleLogin =  async (e) => {
         e.preventDefault();
-            const res =  await axios.post('/api/auth/login', user);
-            if (res.data.error) {
-                toast.error(res.data.error);
-                return;
-            }
-            if (res.data) {
-                toast.success("Login Successful");
-                const user = res.data;
-                localStorage.setItem('user', JSON.stringify(user));
-                navigate('/');
-            }
+        dispatch(loginUser(user));
+        localStorage.setItem('user', JSON.stringify(res.data.user));
+        navigate('/');
+        // navigate('/');
+            // const res =  await axios.post('/api/auth/login', user);
+            // if (res.data.error) {
+            //     toast.error(res.data.error);
+            //     return;
+            // }
+            // if (res.data) {
+            //     toast.success("Login Successful");
+            //     const user = res.data;
+            //     localStorage.setItem('user', JSON.stringify(user));
+            //     navigate('/');
+            // }
     }
 
 

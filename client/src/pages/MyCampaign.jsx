@@ -24,20 +24,18 @@ const MyCampaign = () => {
 
   useEffect(() => {
     dispatch(fetchCampaign())
-  }, [])
+  }, [myCampaigns])
 
 
   // popup contols
   const [popupVisible, setPopupVisible] = useState(false);
 
-  
+
   return (
     <>
-    {
-      popupVisible && <WarningPopup setPopupVisible={setPopupVisible}/>
-    }
+
       <Navbar />
-      <div className={`px-8 py-20 max-w-7xl mx-auto ${popupVisible ? 'overflow-hidden blur-md' : ''}`}>
+      <div className={`px-8 py-20 max-w-7xl mx-auto `}>
         <div className='p-4 flex justify-center'>
           <h1 className='text-2xl font-semibold border-b-2 border-green-600'>Manage your campaigns</h1>
         </div>
@@ -52,10 +50,13 @@ const MyCampaign = () => {
                   <p className='py-2 text-slate-600'>{campaign.campaignDescription.slice(0, 100)}</p>
                   <div className='py-4 flex items-center justify-between'>
                     <Link to={`/managecampaign/${campaign._id}`} className='py-3 px-4 flex items-center text-xs  text-black  rounded'><CiEdit size={15} />Edit Campaign</Link>
-                    <button 
-                    onClick={() => setPopupVisible(true)} className='py-3 text-xs px-4 flex items-center space-x-2 bg-green-600 text-white rounded'><CiCircleCheck size={15} />Mark Completed</button>
+                    <button
+                      onClick={() => setPopupVisible(true)} className='py-3 text-xs px-4 flex items-center space-x-2 bg-green-600 text-white rounded'><CiCircleCheck size={15} />Mark Completed</button>
                   </div>
                 </div>
+                {
+                  popupVisible && <WarningPopup setPopupVisible={setPopupVisible} id={campaign._id} />
+                }
               </div>
             )
           }

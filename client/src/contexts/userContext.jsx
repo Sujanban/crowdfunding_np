@@ -5,7 +5,7 @@ export const UserContext = createContext({});
 export const useUser = () => useContext(UserContext);
 
 export function UserContextProvider({ children }) {
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState();
 
     const refetchUser = async () => {
         try {

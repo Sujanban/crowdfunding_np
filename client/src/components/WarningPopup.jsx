@@ -1,9 +1,17 @@
 import React from 'react'
 import warning from '../assets/images/warning.png'
+import { useDispatch } from 'react-redux'
+import { deleteCampaign } from '../app/feature/campaignSlice';
 
-const WarningPopup = ({ setPopupVisible }) => {
+const WarningPopup = ({ setPopupVisible, id }) => {
+    const dispatch = useDispatch();
+
+    const handleDelete = () => {
+        dispatch(deleteCampaign(id))
+        setPopupVisible(false)
+    }
     return (
-        <div className='w-full transition-opacity  backdrop-blur-sm bg-white/30 h-full fixed z-50 flex justify-center items-center'>
+        <div className='w-full transition-opacity  backdrop-blur-sm bg-white/30 h-full fixed top-0 left-0 z-50 flex justify-center items-center'>
             <div className='ring-1 ring-red-100 bg-white p-4 max-w-md text-center rounded shadow'>
                 <img className=' mx-auto' src={warning} alt="" />
                 <h1 className='p-2 text-xl font-semibold'>Are you sure?</h1>
@@ -12,7 +20,7 @@ const WarningPopup = ({ setPopupVisible }) => {
                 <hr />
                 <div className='font-thin text-sm p-4 flex items-center justify-end space-x-2'>
                     <button onClick={() => setPopupVisible(false)} className='px-4 py-2 border-2 rounded bg-green-500 text-white'>Cancel</button>
-                    <button className='px-4 py-2 border-2 rounded border-red-500 text-red-500'>Delete</button>
+                    <button onClick={handleDelete} className='px-4 py-2 border-2 rounded border-red-500 text-red-500'>Delete</button>
                 </div>
             </div>
         </div>
