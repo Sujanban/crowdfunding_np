@@ -12,7 +12,7 @@ const WarningPopup = ({ setPopupVisible, id }) => {
     }
     return (
         <div className='w-full transition-opacity  backdrop-blur-sm bg-white/30 h-full fixed top-0 left-0 z-50 flex justify-center items-center'>
-            <div className='ring-1 ring-red-100 bg-white p-4 max-w-md text-center rounded shadow'>
+            <div className='popup ring-1 ring-red-100 bg-white p-4 max-w-md text-center rounded shadow'>
                 <img className=' mx-auto' src={warning} alt="" />
                 <h1 className='p-2 text-xl font-semibold'>Are you sure?</h1>
                 <hr />
