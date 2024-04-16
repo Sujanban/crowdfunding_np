@@ -54,7 +54,7 @@ function App() {
               <Route  path='/mycampaigns' element={<MyCampaign/>} />
               <Route  path='/managecampaign/:id' element={<ManageCampaign/>} />
               <Route  path='/editcampaign/:id' element={<EditCampaign/>} />
-              <Route  path='/campaignStoryUpdates' element={<CampaignStoryUpdates/>} />
+              <Route  path='/campaignStoryUpdates/:id' element={<CampaignStoryUpdates/>} />
 
               
               

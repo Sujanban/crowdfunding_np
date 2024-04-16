@@ -11,6 +11,18 @@ export const fetchCampaign = createAsyncThunk("fetchAllCampaign", async () => {
   }
 });
 
+export const fetchSingleCampaign = createAsyncThunk(
+  "fetchSingleCampaign",
+  async (id) => {
+    try {
+      const res = await axios.get("/api/campaign/getCampaign/" + id);
+      return res.data;
+    } catch (error) {
+      console.log("Server Error while fetching API " + error);
+    }
+  }
+);
+
 export const postCamaign = createAsyncThunk("postCampaign", async (data) => {
   try {
     const res = await axios.post("/api/campaign/createCampaign", data);
@@ -60,6 +72,25 @@ export const deleteCampaign = createAsyncThunk("deleteCampaign", async (id) => {
   }
 });
 
+// campaign updaing story
+export const updateCampaignStory = createAsyncThunk(
+  "updateCampaignStory",
+  async (data) => {
+    try {
+      const res = await axios.post(`/api/story/updateStory/${data.campaignId}`, data);
+      console.log(res)
+      if (res.data.message) {
+        toast.success(res.data.message);
+      }
+      if (res.data.error) {
+        toast.error(res.data.error);
+      }
+    } catch (error) {
+      console.log("Server Error while fetching API " + error);
+    }
+  }
+);
+
 export const campaign = createSlice({
   name: "campaigns",
   initialState: {
@@ -92,6 +123,17 @@ export const campaign = createSlice({
         state.data = action.payload;
       })
       .addCase(fetchCampaign.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorMessage = action.payload;
+      })
+      .addCase(fetchSingleCampaign.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchSingleCampaign.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = action.payload;
+      })
+      .addCase(fetchSingleCampaign.rejected, (state, action) => {
         state.isLoading = false;
         state.errorMessage = action.payload;
       });

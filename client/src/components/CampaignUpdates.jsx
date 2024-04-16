@@ -15,7 +15,7 @@ const CampaignUpdates = () => {
                         <h1 className='p-2 text-xl font-semibold'>Started work with the collected amount?</h1>
                         <p className=''>Let the supporters and community know about the progress of your campaign and how they can contribute</p>
                         <div className='flex items-center justify-center'>
-                            <Link to={"/campaignStoryUpdates"} className='m-4  ring-1 transition-all duration-300 hover:bg-green-100 bg-white bg-yelow-600 px-4 py-2 rounded text-black flex justify-center items-center'>Post your updates<CiEdit size={15} />
+                            <Link to={"/campaignStoryUpdates/" + id} className='m-4  ring-1 transition-all duration-300 hover:bg-green-100 bg-white bg-yelow-600 px-4 py-2 rounded text-black flex justify-center items-center'>Post your updates<CiEdit size={15} />
                             </Link>
                         </div>
                     </div>

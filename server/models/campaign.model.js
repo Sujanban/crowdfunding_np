@@ -35,6 +35,10 @@ const CampaignSchema = new schema({
     type: String,
     required: true,
   },
+  updates: [{
+    type: schema.Types.ObjectId,
+    ref: 'CampaignUpdate'
+  }]
 });
 
 module.exports = mongoose.model("Campaign", CampaignSchema);
