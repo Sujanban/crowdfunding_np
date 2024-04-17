@@ -42,8 +42,8 @@ const Login = () => {
     const handleLogin =  async (e) => {
         e.preventDefault();
         dispatch(loginUser(user));
-        localStorage.setItem('user', JSON.stringify(res.data.user));
-        navigate('/');
+        // localStorage.setItem('user', JSON.stringify(res.data.user));
+        // navigate('/');
         // navigate('/');
             // const res =  await axios.post('/api/auth/login', user);
             // if (res.data.error) {

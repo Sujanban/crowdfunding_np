@@ -97,10 +97,9 @@ const handleLogin = async (req, res) => {
     const token = jwt.sign({ _id: validUser._id }, process.env.SECRETE_KEY, {
       expiresIn: "1h",
     });
-    res.cookie("token", token, { httpOnly: true });
     const userData = await User.findById(validUser._id).select('-password');
-    console.log(userData)
-    res.json(userData);
+    // console.log(userData)
+    res.cookie("token", token, { httpOnly: true }).json(userData);
   } catch (error) {
     res.json({ error: error.message });
   }
@@ -119,8 +118,6 @@ const fetchUser = async (req, res,next) => {
       if (!user) {
         return res.json({ error: "Unauthorized" });
       } else {
-        // return res.json({message: "User exists"});
-        // console.log(user)
         res.json(user);
         next();
       }
