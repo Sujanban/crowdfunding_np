@@ -72,43 +72,11 @@ export const deleteCampaign = createAsyncThunk("deleteCampaign", async (id) => {
   }
 });
 
-// campaign updaing story
-export const updateCampaignStory = createAsyncThunk(
-  "updateCampaignStory",
-  async (data) => {
-    try {
-      const res = await axios.post(`/api/story/updateStory/${data.campaignId}`, data);
-      console.log(res)
-      if (res.data.message) {
-        toast.success(res.data.message);
-      }
-      if (res.data.error) {
-        toast.error(res.data.error);
-      }
-    } catch (error) {
-      console.log("Server Error while fetching API " + error);
-    }
-  }
-);
-
 export const campaign = createSlice({
   name: "campaigns",
   initialState: {
-    data: [
-      {
-        _id: "66003b806fb120b540a1fc97",
-        campaignOwner: "Rabin Singh Local",
-        campaignTitle: "Treatment of the Disease",
-        campaignDescription:
-          "Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency Fund required for treating cancer emergency ",
-        location: "Itahari",
-        thumbnail:
-          "https://png.pngtree.com/png-vector/20240309/ourlarge/pngtree-homeless-and-poor-man-png-image_11898872.png",
-        videoUrl: "https://www.youtube.com/watch?v=pIzrkLKbszU",
-        goalAmount: "10000",
-        category: "Health",
-      },
-    ],
+    data: [],
+    story: [],
     isLoading: false,
     errorMessage: null,
   },

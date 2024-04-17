@@ -38,7 +38,12 @@ const CampaignSchema = new schema({
   updates: [{
     type: schema.Types.ObjectId,
     ref: 'CampaignUpdate'
-  }]
+  }],
+  status:{
+    type: String,
+    enum: ['active', 'completed'],
+    default: 'active'
+  }
 });
 
 module.exports = mongoose.model("Campaign", CampaignSchema);

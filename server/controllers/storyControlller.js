@@ -2,36 +2,40 @@ const Campaign = require("../models/campaign.model");
 const Story = require("../models/story.model");
 const mongoose = require("mongoose");
 
+const getStory = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Find campaign updates with the given campaignId
+    const updates = await Story.find({ campaignId: id });
+
+    res.json(updates);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+};
+
 const updateStory = async (req, res) => {
   try {
     const { id } = req.params;
     const { updateContent } = req.body;
-
-    if(!id){
-      return res.status(400).json({ error: "Invalid campaign" });
+    if (!id) {
+      return res.json({ error: "Invalid campaign" });
     }
-
-    if(!updateContent) {
-      return res.status(400).json({ error: "Update content is required" });
+    if (!updateContent) {
+      return res.json({ error: "Update content is required" });
     }
-
     // Create a new update
     const newUpdate = new Story({
       campaignId: id,
       updateContent: updateContent,
     });
-
     // Save the new update
     await newUpdate.save();
-
-    // Add the update to the campaign's updates array
-    await Campaign.findByIdAndUpdate(id, { $push: { updates: newUpdate._id } });
-
-    res.status(201).json({ message: "Progress Updated Sucessfully" });
+    res.json({ message: "Progress Updated Sucessfully" });
   } catch (error) {
-    console.error("Error updating Campaign progress:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.json({ error: error.message });
   }
 };
 
-module.exports = { updateStory };
+module.exports = { updateStory, getStory };

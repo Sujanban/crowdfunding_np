@@ -3,58 +3,38 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import CtaBanner from '../components/CtaBanner'
 import { Link, useParams } from 'react-router-dom'
-import axios from 'axios'
-
-
+import Loading from '../components/Loading'
 import { FaHeart } from "react-icons/fa";
 import { GiLifeSupport } from "react-icons/gi";
 import { LuClock3 } from "react-icons/lu";
 import { GoPeople } from "react-icons/go";
 import { IoShareSocialSharp, IoLogoInstagram, IoLogoFacebook } from "react-icons/io5";
 import { BsTwitterX } from "react-icons/bs";
-import { RxCross1 } from "react-icons/rx";
 import { GiTrophyCup } from "react-icons/gi";
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchSingleCampaign } from '../app/feature/campaignSlice'
+import Story from '../components/Story'
 
 
 const Campaign = () => {
     const { id } = useParams();
-    const [toggleStatus, setToggleStatus] = useState(false);
-    const [campaignPost, setCampaignPost] = useState(null);
+    const [toggleStatus, setToggleStatus] = useState(true);
+    const dispatch = useDispatch();
+    const campaignPost = useSelector((state) => state.campaign.data)
+    const {isLoading,errorMessage} = useSelector((state) => state.campaign)
 
-
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => {
-        setOpen(true)
-    }
-    const handleClose = () => {
-        setOpen(false)
-    }
-
-
-    // fetching individual campaign
     useEffect(() => {
-        const fetchCampaign = async (id) => {
-            try {
-                const res = await axios.get(`/api/campaign/getCampaign/${id}`);
-                setCampaignPost(res.data);
-                console.log(res.data);
-            } catch (error) {
-                console.log("Server Error while fetching API " + error);
-            }
-        };
-        fetchCampaign(id);
+        dispatch(fetchSingleCampaign(id));
     }, [])
-
 
     return (
         <div>
-            {
-                open && <div className='relative overflow-x-hidden overflow-hidden flex items-center justify-center z-10 top-0 left-0 w-screen h-screen ring bg-gray-200 '>
-                    <img className='h-[90vh] overflow-hidden' src='https://png.pngtree.com/png-vector/20240309/ourlarge/pngtree-homeless-and-poor-man-png-image_11898872.png' alt="" />
-                    <h1 className='absolute cursor-pointer z-20 top-5 right-5 text-3xl'><RxCross1 onClick={() => handleClose()} /></h1>
-                </div>
-            }
             <Navbar />
+            {
+                isLoading ? <div className='w-full flex justify-center items-center h-screen text-2xl'>
+                    <Loading />
+                </div> : ''
+            }
             <div className='px-4 py-20 max-w-7xl mx-auto '>
                 <div className='  pb-8'>
                     <Link className='px-2 font-semibold'>Home</Link>/<Link className='px-2 text-slate-600'>campaign</Link>/<Link className='px-2 text-slate-600'>{id}</Link>
@@ -62,7 +42,7 @@ const Campaign = () => {
                 <h1 className='p-4 max-w-5xl text-3xl font-semibold'>{campaignPost?.campaignTitle}</h1>
                 <div className='grid grid-cols-3'>
                     <div className='p-4 col-span-2'>
-                        <img onClick={() => handleOpen()} className='rounded cursor-pointer h-[450px] w-full object-cover' src={campaignPost?.thumbnail} alt="" />
+                        <img className='rounded cursor-pointer h-[450px] w-full object-cover' src={campaignPost?.thumbnail} alt="" />
                         <div className='p-4 flex items-center justify-between'>
                             <div>
                                 <h1 className='py-2 font-black text-xl'><GoPeople size={30} /> {campaignPost?.campaignOwner}</h1>
@@ -98,6 +78,44 @@ const Campaign = () => {
                             </div>
                         </div>
                         <hr />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <Story id={id} />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                         <div>
                             <h1 className='p-4 text-xl'>Words from supporters</h1>

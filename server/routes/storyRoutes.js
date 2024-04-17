@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const { updateStory } = require('../controllers/storyControlller');
+const { updateStory, getStory } = require('../controllers/storyControlller');
 
 router.use(
     cors({
@@ -12,6 +12,7 @@ router.use(
 
 
 
+router.get('/getStory/:id',  getStory);
 router.post('/updateStory/:id',  updateStory);
 
 module.exports = router;

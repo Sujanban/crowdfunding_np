@@ -64,7 +64,7 @@ const CampaignGrid = () => {
                         <Card key={index} campaign={campaign} />
                     )
                         :
-                        campaign && campaign.slice(0, 4).map((campaign, index) =>
+                        campaign && campaign.length > 0 && campaign.slice(0, 4).map((campaign, index) =>
                             <Card key={index} campaign={campaign} />
                         )
                 }
