@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { registerUser } from '../app/feature/userSlice';
 
 const Signup = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         firstName: '',
@@ -15,7 +16,11 @@ const Signup = () => {
 
     const handleSignup = (e) => {
         e.preventDefault();
-        dispatch(registerUser(formData))
+        dispatch(registerUser(formData)).then((res) => {
+            if (res.payload) {
+                navigate('/login');
+            }
+        })
     }
 
 

@@ -5,6 +5,7 @@ import WarningPopup from '../components/WarningPopup'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCampaign, getCampaigns,fetchCampaignsByUserID } from '../app/feature/campaignSlice';
 import bank from '../assets/images/bank.png'
+import Loading from '../components/Loading'
 
 // icons
 import { CiBank } from "react-icons/ci";
@@ -20,7 +21,9 @@ import { Link } from 'react-router-dom';
 const MyCampaign = () => {
   // redux
   const dispatch = useDispatch();
-  const myCampaigns = useSelector(getCampaigns);
+  const myCampaigns = useSelector(state=>state.campaign.data)
+  const isLoading = useSelector(state=>state.campaign.isLoading)
+  // const myCampaigns = useSelector(getCampaigns);
 
   useEffect(() => {
     dispatch(fetchCampaignsByUserID())
@@ -41,24 +44,25 @@ const MyCampaign = () => {
         </div>
 
         <div className=' py-20 md:grid grid-cols-2 gap-4 '>
-          {
-            myCampaigns && myCampaigns.map((campaign,index) =>
-              <div key={index} className='grid grid-cols-3 bg-white rounded-lg shadow-lg p-4 '>
-                <img className='col-span-1 w-full h-52 object-cover rounded-md ' src={campaign.thumbnail} alt="" />
-                <div className='px-4 py-2 col-span-2'>
-                  <h1 className='text-xl font-semibold'>{campaign.campaignTitle.slice(0, 30)}</h1>
-                  <p className='py-2 text-slate-600'>{campaign.campaignDescription.slice(0, 100)}</p>
-                  <div className='py-4 flex items-center justify-between'>
-                    <Link to={`/managecampaign/${campaign._id}`} className='py-3 px-4 flex items-center text-xs  text-black  rounded'><CiEdit size={15} />Manage Campaign</Link>
-                    <button
-                      onClick={() => setPopupVisible(true)} className='py-3 text-xs px-4 flex items-center space-x-2 bg-green-600 text-white rounded'><CiCircleCheck size={15} />Mark Completed</button>
-                  </div>
-                </div>
-                {
-                  popupVisible && <WarningPopup setPopupVisible={setPopupVisible} id={campaign._id} />
-                }
+          { isLoading ? <Loading/> :
+          myCampaigns && myCampaigns.map((campaign,index) =>
+          <div key={index} className='grid grid-cols-3 bg-white rounded-lg shadow-lg p-4 '>
+            <img className='col-span-1 w-full h-52 object-cover rounded-md ' src={campaign.thumbnail} alt="" />
+            <div className='px-4 py-2 col-span-2'>
+              <h1 className='text-xl font-semibold'>{campaign.campaignTitle.slice(0, 30)}</h1>
+              <p className='py-2 text-slate-600'>{campaign.campaignDescription.slice(0, 100)}</p>
+              <div className='py-4 flex items-center justify-between'>
+                <Link to={`/managecampaign/${campaign._id}`} className='py-3 px-4 flex items-center text-xs  text-black  rounded'><CiEdit size={15} />Manage Campaign</Link>
+                <button
+                  onClick={() => setPopupVisible(true)} className='py-3 text-xs px-4 flex items-center space-x-2 bg-green-600 text-white rounded'><CiCircleCheck size={15} />Mark Completed</button>
               </div>
-            )
+            </div>
+            {
+              popupVisible && <WarningPopup setPopupVisible={setPopupVisible} id={campaign._id} />
+            }
+          </div>
+        )
+            
           }
         </div>
       </div>

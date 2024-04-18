@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -7,27 +7,29 @@ import { fetchCategory, getCategories } from '../app/feature/categorySlice'
 import { postCamaign } from '../app/feature/campaignSlice'
 
 const CreateCampaign = () => {
+  const navigate = useNavigate();
   const userId = useSelector((state) => state.user.data._id);
-  console.log(userId);
   const category = useSelector(getCategories);
   const dispatch = useDispatch();
   const [campaign, setCampaign] = useState({
     campaignOwner: userId,
-    campaignTitle: null,
-    campaignDescription: null,
-    country: null,
-    location: null,
-    thumbnail: null,
-    videoUrl: null,
-    goalAmount: null,
-    category: null
+    campaignTitle: '',
+    campaignDescription: '',
+    country: '',
+    location: '',
+    thumbnail: '',
+    videoUrl: '',
+    goalAmount: '',
+    category: ''
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    console.log(campaign);
-    dispatch(postCamaign(campaign));
+    dispatch(postCamaign(campaign)).then(res=>{
+      if(res.payload.message){
+        navigate('/mycampaigns')
+      }
+    })
   }
 
 

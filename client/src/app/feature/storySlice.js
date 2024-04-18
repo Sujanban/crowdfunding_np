@@ -32,6 +32,7 @@ export const fetchStory = createAsyncThunk(
         if (res.data.error) {
           toast.error(res.data.error);
         }
+        return res.data;
       } catch (error) {
         console.log("Server Error while fetching API " + error);
       }

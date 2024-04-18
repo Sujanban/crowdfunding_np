@@ -5,16 +5,16 @@ import { GoPeople } from 'react-icons/go'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchSingleCampaign, getCampaigns } from '../app/feature/campaignSlice'
 import { updateCampaignStory } from '../app/feature/storySlice'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Loading from '../components/Loading'
 
 const CampaignStoryUpdates = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { error, data, isLoading } = useSelector(state => state.campaign);
-  console.log(data)
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchSingleCampaign(id))
+    dispatch(fetchSingleCampaign(id));
   }, [])
 
   // form state
@@ -22,13 +22,17 @@ const CampaignStoryUpdates = () => {
     campaignId: id,
     updateContent: ''
   });
-  console.log(story)
 
 
   // handling story update
   const handleStoryUpdate = (e) => {
     e.preventDefault();
-    dispatch(updateCampaignStory(story))
+    dispatch(updateCampaignStory(story)).then((res) => {
+      if (res.payload) {
+        console.log(res.payload);
+        navigate('/mycampaigns');
+      }
+    })
   }
   if (isLoading) {
     return <div className='w-full flex justify-center items-center h-screen text-2xl'>

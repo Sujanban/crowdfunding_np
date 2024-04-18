@@ -28,7 +28,6 @@ export const fetchCampaignsByUserID = createAsyncThunk(
   async () => {
     try {
       const res = await axios.get("/api/campaign/getCampaignsByUserID/");
-      console.log(res.data);
       return res.data;
     } catch (error) {
       console.log("Server Error while fetching API " + error);
@@ -45,6 +44,7 @@ export const postCamaign = createAsyncThunk("postCampaign", async (data) => {
     if (res.data.error) {
       toast.error(res.data.error);
     }
+    return res.data;
   } catch (error) {
     console.log("Server Error while fetching API " + error);
   }
@@ -65,6 +65,7 @@ export const updateCampaign = createAsyncThunk(
       if (res.data.error) {
         toast.error(res.data.error);
       }
+      return res.data;
     } catch (error) {
       console.log("Server Error while fetching API " + error);
     }
@@ -80,6 +81,7 @@ export const deleteCampaign = createAsyncThunk("deleteCampaign", async (id) => {
     if (res.data.error) {
       toast.error(res.data.error);
     }
+    return res.data;
   } catch (error) {
     console.log("Server Error while fetching API " + error);
   }

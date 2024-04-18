@@ -14,7 +14,6 @@ export const fetchUserProfile = createAsyncThunk(
   async () => {
     try {
       const res = await axios.get("/api/user/profile/");
-      console.log(res.data)
       return res.data;
     } catch (error) {
       console.log("Server Error while fetching API " + error);
@@ -52,6 +51,7 @@ export const registerUser = createAsyncThunk(
       if (res.data.message) {
         toast.success("Register Successful");
       }
+      return res.data;
     } catch (error) {
       console.log("Server Error while fetching API " + error);
     }
@@ -69,6 +69,7 @@ export const logoutUser = createAsyncThunk("logoutUser", async () => {
       toast.success("Logout Successful");
       localStorage.removeItem("user");
     }
+    return res.data;
   } catch (error) {
     console.log("Server Error while fetching API " + error);
   }

@@ -21,11 +21,9 @@ const CampaignGrid = () => {
 
     const [filteredData, setFilteredData] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const [isloading, setIsLoading] = useState(false);
     const handelFilter = (data) => {
         const filteredDataa = campaign.filter(campaign => campaign.category === data);
         setFilteredData(filteredDataa);
-        console.log(filteredDataa);
         setSelectedCategory(data);
     }
 

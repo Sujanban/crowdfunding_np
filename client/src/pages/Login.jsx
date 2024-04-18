@@ -40,10 +40,12 @@ const Login = () => {
     // handling user login data
     const handleLogin =  async (e) => {
         e.preventDefault();
-        dispatch(loginUser(user));
+        dispatch(loginUser(user)).then((res) => {
+            if (res.payload) {
+                navigate('/');
+            }
+        })
     }
-
-
     return (
         <div className='w-full h-screen bg-stone-100'>
             <div className='lg:p-12 lg:grid grid-cols-3 gap-4'>

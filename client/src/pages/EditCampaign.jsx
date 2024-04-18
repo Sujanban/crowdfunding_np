@@ -21,13 +21,15 @@ const EditCampaign = () => {
 
 
   const [campaignn, setCampaignn] = useState({});
-
-
   // updaing campaign
   const handleUpdate = (e) => {
     e.preventDefault();
-    dispatch(updateCampaign(campaignn));
-    navigate('/mycampaigns')
+    dispatch(updateCampaign(campaignn)).then(res => {
+      if (res.payload.message) {
+        navigate('/mycampaigns')
+      }
+    })
+
   }
 
 
@@ -55,7 +57,7 @@ const EditCampaign = () => {
         <ol className="inline-flex items-center space-x-1 md:space-x-3">
           <li className="inline-flex items-center">
             <Link
-            to={"/mycampaigns"}
+              to={"/mycampaigns"}
               className="ml-1 inline-flex text-sm font-medium text-gray-800 hover:underline md:ml-2"
             >
               <LuHome className="mr-4 h-4 w-4" />
@@ -65,7 +67,7 @@ const EditCampaign = () => {
           <li>
             <div className="flex items-center">
               <LuChevronRight className="h-4 w-4" />
-              <Link to={'/managecampaign/'+id} className="ml-1 text-sm font-medium text-gray-800 hover:underline md:ml-2">
+              <Link to={'/managecampaign/' + id} className="ml-1 text-sm font-medium text-gray-800 hover:underline md:ml-2">
                 Manage Campaign
               </Link>
             </div>
@@ -73,7 +75,7 @@ const EditCampaign = () => {
           <li aria-current="page">
             <div className="flex items-center">
               <LuChevronRight className="h-4 w-4" />
-              <Link to={'/editcampaign/'+id} className="ml-1 text-sm font-medium text-gray-800 hover:underline md:ml-2">
+              <Link to={'/editcampaign/' + id} className="ml-1 text-sm font-medium text-gray-800 hover:underline md:ml-2">
                 Edit Campaign
               </Link>
             </div>

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { CiSearch } from "react-icons/ci";
 import { GoPeople } from "react-icons/go";
 import { IoIosArrowDown } from "react-icons/io";
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '../app/feature/userSlice';
 
 const Navbar = () => {
-    const user = useSelector(state=> state.user.data)
+    const navigate = useNavigate();
+    const user = useSelector(state => state.user.data)
     const dispatch = useDispatch();
     const [isSubMenuVisible, setSubMenuVisible] = useState(false);
     const handleMouseEnter = () => {
@@ -18,13 +19,16 @@ const Navbar = () => {
     };
 
     const handleLogout = () => {
-        dispatch(logoutUser())
+        dispatch(logoutUser()).then((res) => {
+            if (res.payload) {
+                console.log(res.payload);
+                window.location.reload();
+                navigate('/');
+            }
+        })
     }
 
 
-
-    // const user = JSON.parse(localStorage.getItem('user'));
-    
     return (
         <div className=' shadow bg-white top-0 w-full'>
             <header className='px-4 md:px-12 bg-white rounded-full max-w-7xl mx-auto h-[10vh] flex items-center justify-between ' >
