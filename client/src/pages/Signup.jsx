@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import axios from "axios";
-import { toast } from 'react-hot-toast'
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../app/feature/userSlice';
 
 const Signup = () => {
-    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -13,33 +13,11 @@ const Signup = () => {
         password: ''
     })
 
-    const handleSignup = async (e) => {
+    const handleSignup = (e) => {
         e.preventDefault();
-        if(!formData.firstName || !formData.lastName || !formData.email || !formData.password){
-            toast.error('All fields are required', {
-                position: 'top-right',
-                duration: 2000
-            })
-            return;
-        }
-        try {
-            const response = await axios.post('/api/auth/register', formData);
-            if (response.data.error) {
-                toast.error(response.data.error)
-            } else {
-                toast.success(response.data.message)
-                setFormData({
-                    firstName: '',
-                    lastName: '',
-                    email: '',
-                    password: ''
-                })
-                navigate('/login');
-            }
-        } catch (error) {
-            console.log(error)
-        }
+        dispatch(registerUser(formData))
     }
+
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -64,7 +42,7 @@ const Signup = () => {
                     </div>
                     <div className='md:px-8 md:py-16'>
                         <h2 className='hidden md:block p-4 text-xl'>Your account details</h2>
-                        <form onSubmit={(e) => handleSignup(e)} className=' '>
+                        <form onSubmit={handleSignup} className=' '>
                             <div className='w-full lg:max-w-2xl p-4 block gap-2'>
                                 <div className='py-2 grid lg:grid-cols-2 gap-2'>
 

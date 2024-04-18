@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import WarningPopup from '../components/WarningPopup'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchCampaign, getCampaigns } from '../app/feature/campaignSlice';
+import { fetchCampaign, getCampaigns,fetchCampaignsByUserID } from '../app/feature/campaignSlice';
 import bank from '../assets/images/bank.png'
 
 // icons
@@ -23,8 +23,8 @@ const MyCampaign = () => {
   const myCampaigns = useSelector(getCampaigns);
 
   useEffect(() => {
-    dispatch(fetchCampaign())
-  }, [myCampaigns])
+    dispatch(fetchCampaignsByUserID())
+  }, [])
 
 
   // popup contols
@@ -42,8 +42,8 @@ const MyCampaign = () => {
 
         <div className=' py-20 md:grid grid-cols-2 gap-4 '>
           {
-            myCampaigns && myCampaigns.map((campaign) =>
-              <div className='grid grid-cols-3 bg-white rounded-lg shadow-lg p-4 '>
+            myCampaigns && myCampaigns.map((campaign,index) =>
+              <div key={index} className='grid grid-cols-3 bg-white rounded-lg shadow-lg p-4 '>
                 <img className='col-span-1 w-full h-52 object-cover rounded-md ' src={campaign.thumbnail} alt="" />
                 <div className='px-4 py-2 col-span-2'>
                   <h1 className='text-xl font-semibold'>{campaign.campaignTitle.slice(0, 30)}</h1>

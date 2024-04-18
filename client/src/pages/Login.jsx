@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
@@ -42,20 +41,6 @@ const Login = () => {
     const handleLogin =  async (e) => {
         e.preventDefault();
         dispatch(loginUser(user));
-        // localStorage.setItem('user', JSON.stringify(res.data.user));
-        // navigate('/');
-        // navigate('/');
-            // const res =  await axios.post('/api/auth/login', user);
-            // if (res.data.error) {
-            //     toast.error(res.data.error);
-            //     return;
-            // }
-            // if (res.data) {
-            //     toast.success("Login Successful");
-            //     const user = res.data;
-            //     localStorage.setItem('user', JSON.stringify(user));
-            //     navigate('/');
-            // }
     }
 
 

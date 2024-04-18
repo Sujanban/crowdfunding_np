@@ -1,7 +1,6 @@
 const Campaign = require("../models/campaign.model");
 const mongoose = require("mongoose");
 
-
 //CREATE CAMPAIGN
 const createCampaign = async (req, res) => {
   try {
@@ -66,7 +65,6 @@ const updateCampaign = async (req, res) => {
       category,
     } = req.body;
 
-    console.log(req.body);
 
     // Check if required fields are present in the request body
     if (
@@ -90,8 +88,8 @@ const updateCampaign = async (req, res) => {
 
     // Update the campaign
     const updated = await Campaign.findByIdAndUpdate(
-      id, 
-      { 
+      id,
+      {
         campaignOwner,
         campaignTitle,
         campaignDescription,
@@ -99,9 +97,9 @@ const updateCampaign = async (req, res) => {
         thumbnail,
         videoUrl,
         goalAmount,
-        category
+        category,
       },
-      { new: true } 
+      { new: true }
     );
 
     // Check if the update was successful
@@ -130,13 +128,26 @@ const getCampaign = async (req, res) => {
   }
 };
 
-//GET CAMPAIGNS
+//GET all CAMPAIGNS
 const getCampaigns = async (req, res) => {
   try {
     const campaigns = await Campaign.find({});
-    res.json(campaigns);
+    return res.json(campaigns);
   } catch (err) {
-    res.json({ error: err.message });
+    return res.json({ error: err.message });
+  }
+};
+
+// GET CAMPAIGNS BY USERID
+const getCampaignsByUserID = async (req, res) => {
+ 
+  try {
+    const userId = req.user._id;
+    if (!userId) return res.json({ error: "Id is required" });
+    const campaigns = await Campaign.find({ campaignOwner: userId });
+    return res.json(campaigns);
+  } catch (err) {
+    return res.json({ error: err.message });
   }
 };
 
@@ -155,9 +166,7 @@ const updateCampaignnnnnn = async (req, res) => {
       category,
     } = req.body;
 
-    console.log(req.body);
 
-    
     if (
       !campaignOwner ||
       !campaignTitle ||
@@ -188,7 +197,7 @@ const updateCampaignnnnnn = async (req, res) => {
     if (updated) {
       res.json({ message: "Campaign updated successfully" });
     }
-    if (!updated) return res.json({ error : "Something went wrong" });
+    if (!updated) return res.json({ error: "Something went wrong" });
   } catch (err) {
     res.json({ error: err.message });
   }
@@ -211,6 +220,7 @@ module.exports = {
   createCampaign,
   getCampaign,
   getCampaigns,
+  getCampaignsByUserID,
   updateCampaign,
   deleteCampaign,
 };

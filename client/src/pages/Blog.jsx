@@ -66,8 +66,8 @@ const Blog = () => {
                 <div className='p-4 grid grid-cols-4 gap-4'>
                     <div className='col-span-3'>
                         {
-                            story && story.map((item) =>
-                                <div className='p-2 relative grid grid-cols-2 gap-4'>
+                            story && story.map((item, index) =>
+                                <div key={index} className='p-2 relative grid grid-cols-2 gap-4'>
                                     <img className='h-64 w-full object-cover' src={item.image} alt="" />
                                     <div className=' bg-white w-full '>
                                         <h1 className='text-xl font-semibold'>{item.title}</h1>

@@ -1,28 +1,25 @@
 import React, { useState, useEffect } from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import { logoutUser } from '../app/feature/userSlice';
 import Navbar from '../components/Navbar'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchUserProfile } from '../app/feature/userSlice';
 
 const Profile = () => {
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.user.data);
-    const handleLogout = () => {
-        dispatch(logoutUser())
-    }
+    const user = useSelector(state => state.user.data)
+    useEffect(() => {
+        dispatch(fetchUserProfile())
+    }, [])
     return (
         <div>
             <Navbar />
             <div className='w-full max-w-7xl mx-auto'>
-            <h1>Profile</h1>
-            {
-                user && (
-                    <div>
-                        <h1>{user.firstName}</h1>
-                        <h1>{user.email}</h1>
-                    </div>
-                )
-            }
-            <button onClick={handleLogout}>Logout</button>
+                <div className='px-8 py-20'>
+                <h1 className='text-2xl font-semibold '>User Profile</h1>
+                <p><span>Name: {user.firstName} {user.lastName}</span></p>
+                <p>Email: {user.email}</p>
+                <p>User Role: {
+                    user.role == 0 ? 'User' : Admin}</p>
+                </div>
             </div>
         </div>
     )

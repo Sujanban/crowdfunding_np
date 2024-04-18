@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { CiSearch } from "react-icons/ci";
-import { useUser } from '../contexts/userContext';
 import { GoPeople } from "react-icons/go";
 import { IoIosArrowDown } from "react-icons/io";
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
+import { logoutUser } from '../app/feature/userSlice';
 
 const Navbar = () => {
-    const userdata = useSelector(state=> state.user)
-    console.log(userdata)
+    const user = useSelector(state=> state.user.data)
+    const dispatch = useDispatch();
     const [isSubMenuVisible, setSubMenuVisible] = useState(false);
     const handleMouseEnter = () => {
         setSubMenuVisible(true);
@@ -17,9 +17,13 @@ const Navbar = () => {
         setSubMenuVisible(false);
     };
 
+    const handleLogout = () => {
+        dispatch(logoutUser())
+    }
 
 
-    const user = JSON.parse(localStorage.getItem('user'));
+
+    // const user = JSON.parse(localStorage.getItem('user'));
     
     return (
         <div className=' shadow bg-white top-0 w-full'>
@@ -62,7 +66,7 @@ const Navbar = () => {
                     {
                         user ? <div>
                             <li className='' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                                <NavLink to='/profile' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>
+                                <NavLink to='' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>
                                     <GoPeople className='' size={20} /> {user.firstName}
                                     <IoIosArrowDown className='hover:rotate-180 transition-all duration-400' />
                                 </NavLink>
@@ -74,7 +78,7 @@ const Navbar = () => {
                                             <NavLink to='/profile' className='p-2 w-full'>Profile</NavLink>
                                         </li>
                                         <li className=' grid'>
-                                            <NavLink to='/' className='p-2 w-full'>Sign out</NavLink>
+                                            <button onClick={handleLogout} className='p-2 w-full'>Sign out</button>
                                         </li>
                                     </div>
                                     :

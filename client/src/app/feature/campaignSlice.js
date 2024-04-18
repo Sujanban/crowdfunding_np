@@ -23,6 +23,19 @@ export const fetchSingleCampaign = createAsyncThunk(
   }
 );
 
+export const fetchCampaignsByUserID = createAsyncThunk(
+  "fetchCampaignsByUserID",
+  async () => {
+    try {
+      const res = await axios.get("/api/campaign/getCampaignsByUserID/");
+      console.log(res.data);
+      return res.data;
+    } catch (error) {
+      console.log("Server Error while fetching API " + error);
+    }
+  }
+);
+
 export const postCamaign = createAsyncThunk("postCampaign", async (data) => {
   try {
     const res = await axios.post("/api/campaign/createCampaign", data);
@@ -76,7 +89,6 @@ export const campaign = createSlice({
   name: "campaigns",
   initialState: {
     data: [],
-    story: [],
     isLoading: false,
     errorMessage: null,
   },
@@ -102,6 +114,17 @@ export const campaign = createSlice({
         state.data = action.payload;
       })
       .addCase(fetchSingleCampaign.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorMessage = action.payload;
+      })
+      .addCase(fetchCampaignsByUserID.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchCampaignsByUserID.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = action.payload;
+      })
+      .addCase(fetchCampaignsByUserID.rejected, (state, action) => {
         state.isLoading = false;
         state.errorMessage = action.payload;
       });

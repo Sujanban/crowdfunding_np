@@ -5,11 +5,13 @@ const {
   createCampaign,
   getCampaign,
   getCampaigns,
+  getCampaignsByUserID,
   updateCampaign,
   deleteCampaign,
 } = require("../controllers/campaignController");
 
 const multer = require("multer");
+const checkAuth = require("../middlewares/userAuth");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './uploads')
@@ -34,7 +36,7 @@ router.use(
 );
 
 //CREATE CAMPAIGN
-router.post("/createCampaign", createCampaign);
+router.post("/createCampaign",checkAuth, createCampaign);
 // router.post("/createCampaign", upload.single('file'), createCampaign);
 
 //GET CAMPAIGN
@@ -43,11 +45,14 @@ router.get("/getCampaign/:id", getCampaign);
 //GET CAMPAIGNS
 router.get("/getCampaigns", getCampaigns);
 
+// GET CAMPAIGNS BY USERID
+router.get('/getCampaignsByUserID', checkAuth, getCampaignsByUserID);
+
 // UPDATE CAMPAIGN
-router.put("/updateCampaign/:id", updateCampaign);
+router.put("/updateCampaign/:id",checkAuth, updateCampaign);
 
 // DELETE CAMPAIGN
-router.delete("/deleteCampaign/:id", deleteCampaign);
+router.delete("/deleteCampaign/:id",checkAuth, deleteCampaign);
 
 // UPLOAD IMAGE
 

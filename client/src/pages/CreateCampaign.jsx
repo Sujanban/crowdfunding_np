@@ -7,10 +7,12 @@ import { fetchCategory, getCategories } from '../app/feature/categorySlice'
 import { postCamaign } from '../app/feature/campaignSlice'
 
 const CreateCampaign = () => {
+  const userId = useSelector((state) => state.user.data._id);
+  console.log(userId);
   const category = useSelector(getCategories);
   const dispatch = useDispatch();
   const [campaign, setCampaign] = useState({
-    campaignOwner: null,
+    campaignOwner: userId,
     campaignTitle: null,
     campaignDescription: null,
     country: null,
@@ -160,9 +162,10 @@ const CreateCampaign = () => {
                     <label>Fundraiser *</label>
                     <input className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1'
                       type="text"
-                      placeholder='Sam Sulek'
-                      onChange={(e) => setCampaign({ ...campaign, campaignOwner: e.target.value })}
-                      value={campaign.campaignOwner}
+                      disabled
+                      placeholder={userId}
+                      // onChange={(e) => setCampaign({ ...campaign, campaignOwner: e.target.value })}
+                      // value={campaign.campaignOwner}
                     />
                   </div>
                   <div className='grid gap-2'>

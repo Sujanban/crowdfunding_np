@@ -8,21 +8,21 @@ const test = (req, res) => {
 };
 
 // user authentication
-const checkAuth = (req, res, next) => {
-  try {
-    const token = req.cookies.token;
-    if (!token) {
-      console.log("Unauthorized route");
-      return res.json({ error: " Unauthorized route" });
-    }
-    const decoded = jwt.verify(token, process.env.SECRETE_KEY);
-    req.user = decoded;
-    next();
-  } catch (error) {
-    console.log(error);
-    res.json({ error: error.message });
-  }
-};
+// const checkAuth = (req, res, next) => {
+//   try {
+//     const token = req.cookies.token;
+//     if (!token) {
+//       console.log("Unauthorized route");
+//       return res.json({ error: " Unauthorized route" });
+//     }
+//     const decoded = jwt.verify(token, process.env.SECRETE_KEY);
+//     req.user = decoded;
+//     next();
+//   } catch (error) {
+//     console.log(error);
+//     res.json({ error: error.message });
+//   }
+// };
 
 const isAdmin = async (req, res, next) => {
   try {
@@ -30,7 +30,6 @@ const isAdmin = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.SECRETE_KEY);
     const user = await User.findById(decoded._id);
     if (user.role !== 1) {
-      console.log("Need admin Access");
       return res.json({ error: "Unauthorized Privilege" });
     }
     next();
@@ -69,7 +68,7 @@ const handleRegister = async (req, res) => {
     await newUser.save();
     res.json({ message: "User created successfully" });
   } catch (err) {
-    res.json(console.log(err));
+    res.json({ error: err.message });
   }
 };
 
@@ -156,12 +155,26 @@ const handleGoogleLogin = async (req, res) => {
   }
 };
 
+
+const fetchUserProfile = async (req, res) => {
+  try {
+    const  userId  = req.user._id;
+    const user = await User.findById(userId).select('-password');
+    if (!user) return res.json({ error: "User not found" });
+    return res.json(user);
+
+  } catch (error) {
+    return res.json({ error: error.message });
+  }
+};
+
 module.exports = {
   test,
   handleRegister,
   handleLogin,
   handleLogout,
-  checkAuth,
+  fetchUserProfile,
+  // checkAuth,
   isAdmin,
   handleGoogleLogin,
 };
