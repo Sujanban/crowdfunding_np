@@ -105,27 +105,7 @@ const handleLogin = async (req, res) => {
   }
 };
 
-// accessing user data
-const fetchUser = async (req, res,next) => {
-  try {
-    const { token } = req.cookies;
-    // if (!token) {
-    //   return res.json({ error: "Unauthorized" });
-    // }
-    if (token) {
-      const validUser = jwt.verify(token, process.env.SECRETE_KEY);
-      const user = await User.findById(validUser._id).select('-password');
-      if (!user) {
-        return res.json({ error: "Unauthorized" });
-      } else {
-        res.json(user);
-        next();
-      }
-    }
-  } catch (error) {
-    res.json({ error: error.message });
-  }
-};
+
 
 // handeling user logout
 const handleLogout = async (req, res) => {
@@ -181,7 +161,6 @@ module.exports = {
   handleRegister,
   handleLogin,
   handleLogout,
-  fetchUser,
   checkAuth,
   isAdmin,
   handleGoogleLogin,

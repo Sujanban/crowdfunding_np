@@ -1,10 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const { test, handleRegister, handleLogin, handleLogout, checkAuth, isAdmin, handleGoogleLogin, fetchUser } = require('../controllers/authController');
-const { createCampaign } = require('../controllers/campaignController');
-const { addCategory,getCategory } = require('../controllers/categoryController');
-// const { addUser, getUsers, getUser, updateUser, deleteUser } = require('../controllers/userController');
+const {checkAuth} = require('../controllers/authController');
 
 router.use(
     cors({
@@ -15,6 +12,6 @@ router.use(
 
 
 
-router.get('/profile', checkAuth, fetchUser);
+router.get('/profile', checkAuth);
 
 module.exports = router;
