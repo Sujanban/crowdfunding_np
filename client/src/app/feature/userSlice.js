@@ -1,8 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
+
+// fetching user from local storage
+const loadUserFromLocalStorage = () => {
+  const userJson = localStorage.getItem("user");
+  return userJson ? JSON.parse(userJson) : null;
+};
+
+// login function
 export const loginUser = createAsyncThunk("loginUser", async (formData) => {
   try {
     const res = await axios.post("/api/auth/login", formData);
@@ -20,18 +27,7 @@ export const loginUser = createAsyncThunk("loginUser", async (formData) => {
   }
 });
 
-export const fetchUserDetail = createAsyncThunk("fetchUserDetail", async () => {
-  try {
-    const res = await axios.get('/api/auth/user');
-    if(res.data.error){
-        toast.error(res.data.error);
-    }
-    return res.data;
-  } catch (error) {
-    console.log("Server Error while fetching API " + error);
-  }
-});
-
+// logout function
 export const logoutUser = createAsyncThunk("logoutUser", async () => {
   try {
     const res = await axios.get("/api/auth/logout");
@@ -50,7 +46,7 @@ export const logoutUser = createAsyncThunk("logoutUser", async () => {
 const user = createSlice({
   name: "user",
   initialState: {
-    data: {},
+    data: loadUserFromLocalStorage(),
     isLoading: false,
     errorMessage: null,
   },

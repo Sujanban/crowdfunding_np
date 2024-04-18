@@ -1,24 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
-import { useUser } from '../contexts/userContext';
-import { toast } from 'react-hot-toast'
+import {useDispatch, useSelector} from 'react-redux'
+import { logoutUser } from '../app/feature/userSlice';
+import Navbar from '../components/Navbar'
 
 const Profile = () => {
-    const { user, setUser } = useUser();
-    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.user.data);
     const handleLogout = () => {
-        axios.get('/api/auth/logout').then((res) => {
-            setUser(null);
-            if (res.data.message) {
-                toast.success("Logout Successful");
-                localStorage.removeItem('user');
-                navigate('/');
-            }
-        })
+        dispatch(logoutUser())
     }
     return (
         <div>
+            <Navbar />
+            <div className='w-full max-w-7xl mx-auto'>
             <h1>Profile</h1>
             {
                 user && (
@@ -29,6 +23,7 @@ const Profile = () => {
                 )
             }
             <button onClick={handleLogout}>Logout</button>
+            </div>
         </div>
     )
 }

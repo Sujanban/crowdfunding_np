@@ -4,15 +4,11 @@ import { CiSearch } from "react-icons/ci";
 import { useUser } from '../contexts/userContext';
 import { GoPeople } from "react-icons/go";
 import { IoIosArrowDown } from "react-icons/io";
-
-import axios from 'axios';
-
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchUserDetail } from '../app/feature/userSlice';
-
-
+import {useSelector} from 'react-redux'
 
 const Navbar = () => {
+    const userdata = useSelector(state=> state.user)
+    console.log(userdata)
     const [isSubMenuVisible, setSubMenuVisible] = useState(false);
     const handleMouseEnter = () => {
         setSubMenuVisible(true);
@@ -24,16 +20,7 @@ const Navbar = () => {
 
 
     const user = JSON.parse(localStorage.getItem('user'));
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(fetchUserDetail())
-        dispatch(fetchUserDetail())
-    }, []);
-
-
-
-
-    // const { user } = useUser();
+    
     return (
         <div className=' shadow bg-white top-0 w-full'>
             <header className='px-4 md:px-12 bg-white rounded-full max-w-7xl mx-auto h-[10vh] flex items-center justify-between ' >
