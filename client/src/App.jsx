@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
@@ -19,6 +19,7 @@ import MyCampaign from './pages/MyCampaign'
 import ManageCampaign from './pages/ManageCampaign'
 import CampaignStoryUpdates from './pages/CampaignStoryUpdates'
 import EditCampaign from './pages/EditCampaign'
+import { useSelector } from 'react-redux'
 
 
 
@@ -26,44 +27,32 @@ axios.defaults.baseURL = "http://localhost:5000"
 axios.defaults.withCredentials = true
 
 function App() {
+  const user = useSelector(state => state.user.data)
   return (
     <GoogleOAuthProvider clientId="113038173634-mal1sarh7mrqbaq1k833nt7goushh797.apps.googleusercontent.com">
       <div className='leading-relaxed'>
         <Toaster position='top-right' toastOptions={{ duration: 2000 }} />
         <Routes>
+          {/* general routes */}
           <Route path='/' element={<Index />} />
           <Route path='/explore' element={<Explore />} />
+          <Route path='/campaign/:id' element={<Campaign />} />
           <Route path='/howitworks' element={<Howitworks />} />
           <Route path='/blog' element={<Blog />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/search' element={<Search />} />
-
-          {/* logged user routes */}
-          <Route path='/mycampaigns' element={<MyCampaign />} />
-          <Route path='/managecampaign/:id' element={<ManageCampaign />} />
-          <Route path='/editcampaign/:id' element={<EditCampaign />} />
-          <Route path='/campaignStoryUpdates/:id' element={<CampaignStoryUpdates />} />
-
-
-
-
-          <Route path='/*' element={<Error404 />} />
-
-
-
-          <Route path='/campaign/:id' element={<Campaign />} />
-
-
-
-          <Route path='/createCampaign' element={<CreateCampaign />} />
-
-
-          {/* campaign creation */}
-
-
-          <Route path='/profile' element={<Profile />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path='/*' element={<Error404 />} />
+
+          {/* logged user routes */}
+          <Route path='/mycampaigns' element={user ?<MyCampaign /> : <Navigate to="/login"/>} />
+          <Route path='/managecampaign/:id' element={user ? <ManageCampaign />: <Navigate to="/login"/>} />
+          <Route path='/editcampaign/:id' element={user ? <EditCampaign /> : <Navigate to="/login"/>} />
+          <Route path='/campaignStoryUpdates/:id' element={user ? <CampaignStoryUpdates /> : <Navigate to="/login"/>} />
+          <Route path='/createCampaign' element={ user ? <CreateCampaign/> : <Navigate to="/login"/>} />
+          <Route path='/profile' element={user ? <Profile /> : <Navigate to="/login" />} />
+
         </Routes>
       </div>
     </GoogleOAuthProvider>
