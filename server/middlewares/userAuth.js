@@ -4,7 +4,7 @@ const checkAuth = (req, res, next) => {
     try {
       const token = req.cookies.token;
       if (!token) {
-        return res.json({ error: " Unauthorized route" });
+        return res.json({ error: " Unauthorized route. Please Login" });
       }
       const decoded = jwt.verify(token, process.env.SECRETE_KEY);
       req.user = decoded;

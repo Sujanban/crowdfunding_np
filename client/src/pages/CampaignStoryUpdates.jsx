@@ -28,8 +28,7 @@ const CampaignStoryUpdates = () => {
   const handleStoryUpdate = (e) => {
     e.preventDefault();
     dispatch(updateCampaignStory(story)).then((res) => {
-      if (res.payload) {
-        console.log(res.payload);
+      if (res.payload.message) {
         navigate('/mycampaigns');
       }
     })

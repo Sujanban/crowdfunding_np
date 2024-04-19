@@ -14,11 +14,12 @@ import { CiCircleCheck } from "react-icons/ci";
 import { CiEdit } from "react-icons/ci";
 
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 
 const MyCampaign = () => {
+  const navigate = useNavigate();
   // redux
   const dispatch = useDispatch();
   const myCampaigns = useSelector(state=>state.campaign.data)
@@ -26,7 +27,11 @@ const MyCampaign = () => {
   // const myCampaigns = useSelector(getCampaigns);
 
   useEffect(() => {
-    dispatch(fetchCampaignsByUserID())
+    dispatch(fetchCampaignsByUserID()).then(res=>{
+      if (res.payload.error) {
+        navigate('/login')
+      }
+    })
   }, [])
 
 

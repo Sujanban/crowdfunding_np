@@ -164,11 +164,11 @@ const Index = () => {
 
 
       {/* team */}
-      <div className=' px-4 py-20 max-w-7xl mx-auto  '>
+      {/* <div className=' px-4 py-20 max-w-7xl mx-auto  '>
         <div className='relative grid grid-cols-2 gap-4'>
           <div className=' m-auto'>
             <h1 className='relative px-4 text-3xl'>Meet our team <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
-            {/* <p className='p-4 text-slate-600'>The world's latest social fundraising platform, optimized for your charity in a more easy way</p> */}
+            <p className='p-4 text-slate-600'>The world's latest social fundraising platform, optimized for your charity in a more easy way</p>
             <p className='p-4 text-slate-600'>At Collab, our team is comprised of dedicated professionals who share a common passion for supporting creators and bringing innovative ideas to life. With diverse expertise and a collaborative spirit, we work tirelessly to provide the best possible experience for both project creators and backers. Get to know the faces behind the scenes who are committed to making your crowdfunding journey a success.</p>
           </div>
           <div className='relative flex space-x-5 mx-auto'>
@@ -190,7 +190,7 @@ const Index = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
 
       {/* join us */}

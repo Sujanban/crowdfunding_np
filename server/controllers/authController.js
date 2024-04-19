@@ -7,23 +7,6 @@ const test = (req, res) => {
   res.json("test is working");
 };
 
-// user authentication
-// const checkAuth = (req, res, next) => {
-//   try {
-//     const token = req.cookies.token;
-//     if (!token) {
-//       console.log("Unauthorized route");
-//       return res.json({ error: " Unauthorized route" });
-//     }
-//     const decoded = jwt.verify(token, process.env.SECRETE_KEY);
-//     req.user = decoded;
-//     next();
-//   } catch (error) {
-//     console.log(error);
-//     res.json({ error: error.message });
-//   }
-// };
-
 const isAdmin = async (req, res, next) => {
   try {
     const token = req.cookies.token;

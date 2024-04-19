@@ -8,7 +8,7 @@ const BlogGrid = () => {
     return (
         <div className='px-4 py-20 max-w-7xl mx-auto'>
             <h1 className='relative px-4 text-3xl'>Featured Blog <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
-            <div className='my-4 relative w-full h-[70vh] '>
+            <div className='my-4 relative w-full h-[450px] '>
                 <img className='w-full h-full object-cover' src="http://localhost:5173/src/assets/help.jpg" alt="" />
                 <Link className='absolute w-full h-full bottom-0 left-0  flex items-center justify-center bg-gradient-to-t from-black  text-white'>
                     <div>

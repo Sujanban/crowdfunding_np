@@ -17,6 +17,8 @@ const Explore = () => {
     const category = useSelector(getCategories)
     const campaign = useSelector(getCampaigns)
 
+
+
     const dispatch = useDispatch();
 
 
@@ -34,6 +36,12 @@ const Explore = () => {
     const resetFilter = () => {
         setFilteredCampaign(null);
         setSelectedCategory(null);
+    }
+
+    // counting filtered campaign length
+    console.log(filteredCampaign)
+    const filteredItemCount = (cat) => {
+        return campaign && campaign.filter(item => item.category === cat).length;
     }
 
 
@@ -79,7 +87,7 @@ const Explore = () => {
                                         <button
                                             key={index}
                                             onClick={() => handleFilter(item.category)}
-                                            className={`${selectedCategory === item.category ? 'border-2 border-green-500 text-sm py-2 px-6 flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 justify-between' : 'text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 justify-between'}`}><h1>{item.category}</h1> <span className='flex justify-center items-center h-6 w-6 text-xs rounded-full bg-yellow-600 text-white'>01</span> </button>
+                                            className={`${selectedCategory === item.category ? 'border-2 border-green-500 text-sm py-2 px-6 flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 justify-between' : 'text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 justify-between'}`}><h1>{item.category}</h1> <span className='flex justify-center items-center h-6 w-6 text-xs rounded-full bg-yellow-600 text-white'>{filteredItemCount(item.category)}</span> </button>
                                     )
                                 }
                             </div>
