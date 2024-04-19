@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { Link } from 'react-router-dom'
-import CampaignGrid  from '../components/CampaignGrid'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import CampaignGrid from '../components/CampaignGrid'
 import soil from '../assets/images/icons8-soil-100.png'
 import marine from '../assets/images/icons8-marine-pollution-100.png'
 import greenhouse from '../assets/images/icons8-greenhouse-effect-100.png'
@@ -17,20 +17,18 @@ import education from '../assets/images/education.png'
 import creative from '../assets/images/creative.png'
 import business from '../assets/images/business.png'
 import animal from '../assets/images/animal.png'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchCampaign } from '../app/feature/campaignSlice'
+import { useSearchParams } from "react-router-dom";
+import SearchBar from '../components/SearchBar';
+
 
 const Search = () => {
     return (
         <div>
             <Navbar />
             <div>
-                <div className='my-12 md:my-28 max-w-7xl mx-auto text-center'>
-                    <h1 className='py-4 text-center text-2xl md:text-3xl'>Search for Campaign to Donate</h1>
-                    <p className='text-xl'>Find the perfect campaign to support</p>
-                    <form className='py-4 max-w-4xl mx-auto flex items-center justify-center gap-2'>
-                        <input type="text" className='w-full outline-none border-2 border-green-500 focus:border-yellow-500 px-3 py-3 rounded ' placeholder='Search' />
-                        <Link className=' px-6 py-3 rounded bg-green-800 text-white'>Search</Link>
-                    </form>
-                </div>
+                <SearchBar />
 
                 {/* filter by category */}
                 <div className='px-4 py-20 mx-auto max-w-7xl '>

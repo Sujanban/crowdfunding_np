@@ -20,6 +20,12 @@ import ManageCampaign from './pages/ManageCampaign'
 import CampaignStoryUpdates from './pages/CampaignStoryUpdates'
 import EditCampaign from './pages/EditCampaign'
 import { useSelector } from 'react-redux'
+import SearchResult from './pages/SearchResult'
+
+
+
+
+
 
 
 
@@ -40,7 +46,10 @@ function App() {
           <Route path='/howitworks' element={<Howitworks />} />
           <Route path='/blog' element={<Blog />} />
           <Route path='/contact' element={<Contact />} />
-          <Route path='/search' element={<Search />} />
+          <Route path='/s' element={<Search />} />
+          <Route path='/search/:searchTerm' element={<SearchResult />} />
+
+
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path='/*' element={<Error404 />} />

@@ -1,10 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import Filedesign from '../components/Filedesign';
 import Navbar from '../components/Navbar';
-import sujan_folder from '../assets/images/sujan-folder.png'
-import sujan_folder2 from '../assets/images/sujan-folder2.png'
 import Footer from '../components/Footer';
+// import image from './images.js';
+
+// import images from '../assets/images/index.js'
+
+
 import create from '../assets/images/create1.png'
 import campaign from '../assets/images/campaign1.png'
 import money from '../assets/images/money1.png'
@@ -14,10 +16,8 @@ import Faq from '../components/Faq';
 // count up
 import CountUp from 'react-countup';
 
-
 // import Swiper core and required modules
 import { Navigation, Pagination, Autoplay, Scrollbar, A11y } from 'swiper/modules';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -34,7 +34,7 @@ const Index = () => {
     <>
       <Navbar />
       <div className='home w-full h-[70h]'>
-        <div className='px-4  max-w-7xl mx-auto '>
+        <div className='px-4 max-w-7xl mx-auto '>
           <div className='my-12 md:my-16 max-w-lg mx-auto text-center'>
             <h1 className='py-4 text-center text-2xl md:text-5xl'>Great future are built with a small charity</h1>
             <p className='md:py-4 max-w-sm mx-auto text-slate-600'>The world's largest social fundraising platform, optimized for your charity in a more easy way</p>

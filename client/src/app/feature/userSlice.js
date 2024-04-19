@@ -27,13 +27,18 @@ export const loginUser = createAsyncThunk("loginUser", async (formData) => {
     const res = await axios.post("/api/auth/login", formData);
     if (res.data.error) {
       toast.error(res.data.error);
-    }
-    if (res.data) {
+    } else {
       toast.success("Login Successful");
       const user = res.data;
       localStorage.setItem("user", JSON.stringify(user));
       return user;
     }
+    // if (res.data) {
+    //   toast.success("Login Successful");
+    //   const user = res.data;
+    //   localStorage.setItem("user", JSON.stringify(user));
+    //   return user;
+    // }
   } catch (error) {
     console.log("Server Error while fetching API " + error);
   }
@@ -84,28 +89,29 @@ const user = createSlice({
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(loginUser.pending, (state) => {
-      state.isLoading = true;
-    })
-    .addCase(loginUser.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.data = action.payload;
-    })
-    .addCase(loginUser.rejected, (state, action) => {
-      state.isLoading = false;
-      state.errorMessage = action.payload;
-    })
-    .addCase(fetchUserProfile.pending, (state) => {
-      state.isLoading = true;
-    })
-    .addCase(fetchUserProfile.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.data = action.payload;
-    })
-    .addCase(fetchUserProfile.rejected, (state, action) => {
-      state.isLoading = false;
-      state.errorMessage = action.payload;
-    })
+    builder
+      .addCase(loginUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = action.payload;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorMessage = action.payload;
+      })
+      .addCase(fetchUserProfile.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchUserProfile.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = action.payload;
+      })
+      .addCase(fetchUserProfile.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorMessage = action.payload;
+      });
   },
 });
 

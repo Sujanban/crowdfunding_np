@@ -93,7 +93,7 @@ const Navbar = () => {
                         </div> :
                             <>
                                 <li>
-                                    <NavLink to='/search' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'><CiSearch /> Search</NavLink>
+                                    <NavLink to='/s' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'><CiSearch /> Search</NavLink>
                                 </li>
                                 <li className='hidden md:flex'>
                                     <NavLink to='/login'

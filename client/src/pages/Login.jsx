@@ -41,7 +41,8 @@ const Login = () => {
     const handleLogin =  async (e) => {
         e.preventDefault();
         dispatch(loginUser(user)).then((res) => {
-            if (res.payload) {
+            if (!res.payload.error) {
+                console.log(res.payload);
                 navigate('/');
             }
         })
