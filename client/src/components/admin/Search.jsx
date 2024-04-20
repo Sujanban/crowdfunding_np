@@ -31,9 +31,9 @@ const Search = () => {
     }
     return (
         <div className='p-4 w-full shadow'>
-            <div className='max-w-6xl flex justify-between items-center'>
+            <div className='px-4 max-w-6xl flex justify-between items-center'>
                 <form action="">
-                    <div className='flex rounded items-center bg-white px-2'><CiSearch size={20} /><input placeholder='Search' type="search" className='p-2 w-60 text-sm outline-none  placeholder:font-light placeholder:text-slate-800 ' /></div>
+                    <div className='outline outline-1 flex rounded items-center bg-white px-2'><CiSearch size={20} /><input placeholder='Search' type="search" className='p-2 w-60 text-sm outline-none  placeholder:font-light placeholder:text-slate-800 ' /></div>
                 </form>
                 <div className='flex items-center gap-4'>
                     <div>

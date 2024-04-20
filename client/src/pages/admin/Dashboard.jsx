@@ -3,6 +3,7 @@ import Navbar from '../../components/admin/Navbar'
 import Footer from '../../components/Footer'
 import Sidebar from '../../components/admin/Sidebar'
 import Search from '../../components/admin/Search'
+import Index from './Index'
 
 const Dashboard = () => {
   return (
@@ -10,6 +11,7 @@ const Dashboard = () => {
       <Navbar />
       <div className=' w-full'>
         <Search />
+        <Index />
       </div>
     </div>
   )
