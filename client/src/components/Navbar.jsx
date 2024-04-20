@@ -80,7 +80,7 @@ const Navbar = () => {
                                     <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className=' absolute  bg-white px-6 block  shadow'>
                                         {user && user.role === 1 ?
                                             <li className=' grid'>
-                                                <NavLink to='/dashboard' className='p-2 w-full'>Dashboard</NavLink>
+                                                <NavLink to='/admin/dashboard' className='p-2 w-full'>Dashboard</NavLink>
                                             </li>
                                             :
                                             <></>
@@ -88,8 +88,8 @@ const Navbar = () => {
                                         <li className=' grid'>
                                             <NavLink to='/profile' className='p-2 w-full'>Profile</NavLink>
                                         </li>
-                                        <li className=' grid'>
-                                            <button onClick={handleLogout} className='p-2 w-full'>Sign out</button>
+                                        <li className='grid'>
+                                            <NavLink onClick={handleLogout} className='p-2 w-full'>Sign out</NavLink>
                                         </li>
                                     </div>
                                     :

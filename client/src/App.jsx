@@ -23,6 +23,7 @@ import { useSelector } from 'react-redux'
 import SearchResult from './pages/SearchResult'
 import ManageCategory from './pages/ManageCategory'
 import Dashboard from './pages/admin/Dashboard'
+import Campaigns from './pages/admin/Campaigns'
 
 
 
@@ -58,7 +59,9 @@ function App() {
 
           {/* logged user routes */}
           {/* admin access */}
-          <Route path='/dashboard' element={user && user.role===1 ? <Dashboard /> : <Navigate to="/login" />} />
+          <Route path='/admin/dashboard' element={user && user.role===1 ? <Dashboard /> : <Navigate to="/login" />} />
+          <Route path='/admin/campaigns' element={user && user.role===1 ? <Campaigns /> : <Navigate to="/login" />} />
+
 
           {/* general user access */}
           <Route path='/mycampaigns' element={user ?<MyCampaign /> : <Navigate to="/login"/>} />
