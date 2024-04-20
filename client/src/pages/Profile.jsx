@@ -18,7 +18,7 @@ const Profile = () => {
                 <p><span>Name: {user.firstName} {user.lastName}</span></p>
                 <p>Email: {user.email}</p>
                 <p>User Role: {
-                    user.role == 0 ? 'User' : Admin}</p>
+                    user.role == 0 ? 'User' : 'Admin'}</p>
                 </div>
             </div>
         </div>

@@ -21,6 +21,8 @@ import CampaignStoryUpdates from './pages/CampaignStoryUpdates'
 import EditCampaign from './pages/EditCampaign'
 import { useSelector } from 'react-redux'
 import SearchResult from './pages/SearchResult'
+import ManageCategory from './pages/ManageCategory'
+import Dashboard from './pages/admin/Dashboard'
 
 
 
@@ -55,8 +57,14 @@ function App() {
           <Route path='/*' element={<Error404 />} />
 
           {/* logged user routes */}
+          {/* admin access */}
+          <Route path='/dashboard' element={user && user.role===1 ? <Dashboard /> : <Navigate to="/login" />} />
+
+          {/* general user access */}
           <Route path='/mycampaigns' element={user ?<MyCampaign /> : <Navigate to="/login"/>} />
           <Route path='/managecampaign/:id' element={user ? <ManageCampaign />: <Navigate to="/login"/>} />
+          <Route path='/manageCategory' element={user ? <ManageCategory />: <Navigate to="/login"/>} />
+
           <Route path='/editcampaign/:id' element={user ? <EditCampaign /> : <Navigate to="/login"/>} />
           <Route path='/campaignStoryUpdates/:id' element={user ? <CampaignStoryUpdates /> : <Navigate to="/login"/>} />
           <Route path='/createCampaign' element={ user ? <CreateCampaign/> : <Navigate to="/login"/>} />

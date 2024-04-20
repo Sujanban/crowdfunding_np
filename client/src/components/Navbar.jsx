@@ -47,7 +47,7 @@ const Navbar = () => {
                                 <NavLink to='/mycampaigns' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Campaigns</NavLink>
                             </li>
                             <li>
-                                <NavLink to={'/donations'} className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Donations</NavLink>
+                                <NavLink to={'/manageCategory'} className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Manage Category</NavLink>
                             </li>
                         </nav>
                         :
@@ -78,6 +78,13 @@ const Navbar = () => {
                             {
                                 isSubMenuVisible ?
                                     <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className=' absolute  bg-white px-6 block  shadow'>
+                                        {user && user.role === 1 ?
+                                            <li className=' grid'>
+                                                <NavLink to='/dashboard' className='p-2 w-full'>Dashboard</NavLink>
+                                            </li>
+                                            :
+                                            <></>
+                                        }
                                         <li className=' grid'>
                                             <NavLink to='/profile' className='p-2 w-full'>Profile</NavLink>
                                         </li>

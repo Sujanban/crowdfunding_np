@@ -26,9 +26,6 @@ const Login = () => {
                 jwtDecoded: jwtDecode(credentialResponse.credential),
             }
         );
-        if (res.data) {
-            console.log(res.data);
-        }
         if (res.data.message) {
             console.log(res.data.user);
             localStorage.setItem('user', JSON.stringify(res.data.user));
