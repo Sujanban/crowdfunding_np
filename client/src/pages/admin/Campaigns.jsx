@@ -17,7 +17,7 @@ const Campaigns = () => {
         dispatch(fetchCampaign())
     }, [])
     return (
-        <div className='flex'>
+        <div className='flex max-w-7xl mx-auto w-full'>
             <Navbar />
             <div className='w-full'>
                 <Search />
@@ -43,10 +43,11 @@ const Campaigns = () => {
 
                     {/*  */}
                     <div className='p-4'>
-                        <div className='flex'>
+                        <div className='flex justify-between items-center'>
                             <h1 className='pr-2 border-b-2 border-yellow-600 text-2xl font-semibold'>Campaigns</h1>
+                            <Link className='px-3 py-2 text-sm bg-green-600 text-white rounded-full'>Create Campaign</Link>
                         </div>
-                        <p className='p-2 text-stone-600'>All the listed campaigns.</p>
+                        <p className='py-4 text-stone-600'>All the listed campaigns.</p>
 
 
 

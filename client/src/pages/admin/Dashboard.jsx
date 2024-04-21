@@ -6,10 +6,19 @@ import { LiaMoneyBillWaveAltSolid } from "react-icons/lia";
 import { LuChevronRight, LuHome } from "react-icons/lu";
 import { Link } from 'react-router-dom';
 import { BiHome, BiUser } from "react-icons/bi";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCampaign } from '../../app/feature/campaignSlice';
+import { useEffect } from 'react';
 
 const Dashboard = () => {
+  const campaign = useSelector(state => state.campaign.data)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchCampaign())
+  }, [])
   return (
-    <div className='flex bg-white'>
+    <div className='flex bg-white w-full max-w-7xl mx-auto'>
       <Navbar />
       <div className=' w-full'>
         <Search />
@@ -57,7 +66,7 @@ const Dashboard = () => {
                 <TbBrandCampaignmonitor className='text-gray-500 absolute top-4 right-4' size={30} />
                 <div>
                   <h1 className='text-xl'>Campaigns</h1>
-                  <p className='py-2 text-2xl font-semibold'>304</p>
+                  <p className='py-2 text-2xl font-semibold'>{campaign.length}</p>
                   <p className='text-sm flex items-center text-green-600'><IoIosArrowDown className='rotate-180' /> <span className='px-2'>+224 in last 24 hours</span></p>
                 </div>
               </div>
