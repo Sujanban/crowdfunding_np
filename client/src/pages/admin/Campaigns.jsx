@@ -78,7 +78,7 @@ const Campaigns = () => {
                                                     <Link to={`/admin/editcampaign/${campaign._id}`} className="m-1 px-4 py-2 text-white bg-orange-600 rounded-3xl">Edit</Link>
                                                     <button onClick={() => setPopupVisible(true)} className="px-4 py-2 text-white bg-[#141E46] rounded-full">Delete</button>
                                                     {
-                                                        popupVisible && <WarningPopup setPopupVisible={setPopupVisible} id={campaign._id} />
+                                                        popupVisible && <WarningPopup setPopupVisible={setPopupVisible} id={campaign._id} delCampaign={true}/>
                                                     }
                                                 </td>
                                             </tr>

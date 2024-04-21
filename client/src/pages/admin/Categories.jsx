@@ -5,13 +5,20 @@ import { LuChevronRight, LuHome } from "react-icons/lu";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import WarningPopup from '../../components/WarningPopup';
-import { fetchCategory } from '../../app/feature/categorySlice';
+import { addCategory, fetchCategory } from '../../app/feature/categorySlice';
 
 const Categories = () => {
     const [popupVisible, setPopupVisible] = useState(false);
     const category = useSelector(state => state.category.data)
     const dispatch = useDispatch()
     let count = 0;
+
+    // handeling handleCategoryCreation
+    const [catData, setCatData] = useState('');
+    const handleCategoryCreation = (e) => {
+        e.preventDefault();
+        dispatch(addCategory(catData))
+    }
 
     useEffect(() => {
         dispatch(fetchCategory())
@@ -73,7 +80,7 @@ const Categories = () => {
                                                         <button onClick={() => setPopupVisible(true)}
                                                             className="px-4 py-2 text-white bg-[#141E46] rounded-full">Delete</button>
                                                         {
-                                                            popupVisible && <WarningPopup setPopupVisible={setPopupVisible} id={category._id} />
+                                                            popupVisible && <WarningPopup setPopupVisible={setPopupVisible} id={category._id} delCategory={true} />
                                                         }
                                                     </td>
                                                 </tr>
@@ -90,10 +97,12 @@ const Categories = () => {
                         <div className='w-full max-w-md'>
                             <div className='p-4 rounded-xl shadow-md'>
                                 <h1 className='text-xl font-bold'>Create Category</h1>
-                                <form action="">
+                                <form onSubmit={handleCategoryCreation}>
                                     <div className='p-4'>
                                         <label className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Category *</label>
-                                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Health"
+                                        <input type="text" 
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Health" 
+                                        onChange={(e) => setCatData(e.target.value)}
 
                                         />
                                     </div>

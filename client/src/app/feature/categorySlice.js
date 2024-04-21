@@ -1,9 +1,41 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export const fetchCategory = createAsyncThunk("fetchAllCategory", async () => {
   try {
     const res = await axios.get("/api/category/getCategory");
+    if (res.data.error) {
+      toast.error(res.data.error);
+    } 
+      return res.data;
+  } catch (error) {
+    console.log("Server Error while fetching API " + error);
+  }
+});
+
+export const addCategory = createAsyncThunk("addCategory", async (category) => {
+  try {
+    const res = await axios.post("/api/category/createCategory", { category });
+    if (res.data.error) {
+      toast.error(res.data.error);
+    } else {
+      toast.success(res.data.message);
+    }
+    return res.data;
+  } catch (error) {
+    console.log("Server Error while fetching API " + error);
+  }
+});
+
+export const deleteCategory = createAsyncThunk("deleteCategory", async (id) => {
+  try {
+    const res = await axios.delete("/api/category/deleteCategory/" + id);
+    if (res.data.error) {
+      toast.error(res.data.error);
+    } else {
+      toast.success(res.data.message);
+    }
     return res.data;
   } catch (error) {
     console.log("Server Error while fetching API " + error);
@@ -21,7 +53,7 @@ export const category = createSlice({
       {
         id: "2",
         category: "Education",
-      }
+      },
     ],
     isLoading: false,
     errorMessage: null,

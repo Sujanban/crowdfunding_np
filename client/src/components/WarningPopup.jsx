@@ -2,12 +2,19 @@ import React from 'react'
 import warning from '../assets/images/warning.png'
 import { useDispatch } from 'react-redux'
 import { deleteCampaign } from '../app/feature/campaignSlice';
+import { deleteCategory } from '../app/feature/categorySlice';
 
-const WarningPopup = ({ setPopupVisible, id }) => {
+const WarningPopup = ({ setPopupVisible, id, delCategory, delCampaign }) => {
     const dispatch = useDispatch();
 
     const handleDelete = () => {
-        dispatch(deleteCampaign(id))
+        if (deleteCategory) {
+            dispatch(deleteCategory(id));
+        }
+
+        if (deleteCampaign) {
+            dispatch(deleteCampaign(id));
+        }
         setPopupVisible(false)
     }
     return (

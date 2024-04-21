@@ -4,9 +4,9 @@ const mongoose = require("mongoose");
 // ADDING CATEGORY
 const addCategory = async (req, res) => {
   try {
-    const { category } = req.body;
+    const category  = req.body.category;
     if (!category) {
-      return res.json({ error: "Category is required" });
+      return res.json({ error: "Category cannot be Empty!" });
     }
 
     const categoryExists = await Category.findOne({ category });
@@ -27,6 +27,7 @@ const addCategory = async (req, res) => {
 const getCategory = async (req, res) => {
   try {
     const categories = await Category.find({});
+    if(!categories) return res.json({ error: "Categories not found" });
     res.json(categories);
   } catch (err) {
     res.json({ error: err.message });
