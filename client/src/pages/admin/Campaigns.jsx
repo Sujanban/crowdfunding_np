@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/admin/Navbar'
 import Search from '../../components/admin/Search'
 import { LuChevronRight, LuHome } from "react-icons/lu";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCampaign } from '../../app/feature/campaignSlice';
+import WarningPopup from '../../components/WarningPopup';
 
 const Campaigns = () => {
+    const [popupVisible, setPopupVisible] = useState(false);
     const campaign = useSelector(state => state.campaign.data)
     const dispatch = useDispatch()
     let count = 0;
@@ -31,6 +33,7 @@ const Campaigns = () => {
                                     <div className="flex items-center">
                                         <LuChevronRight className="h-4 w-4" />
                                         <Link to={''} className=" text-sm font-medium text-gray-800 hover:underline md:ml-2"> Campaigns </Link>
+
                                     </div>
                                 </li>
 
@@ -41,7 +44,7 @@ const Campaigns = () => {
                     {/*  */}
                     <div className='p-4'>
                         <div className='flex'>
-                        <h1 className='pr-2 border-b-2 border-yellow-600 text-2xl font-semibold'>Campaigns</h1>
+                            <h1 className='pr-2 border-b-2 border-yellow-600 text-2xl font-semibold'>Campaigns</h1>
                         </div>
                         <p className='p-2 text-stone-600'>All the listed campaigns.</p>
 
@@ -71,8 +74,11 @@ const Campaigns = () => {
                                                 <td className="px-6 py-4"> {campaign.goalAmount}$ </td>
                                                 <td className={`${campaign.status === "active" ? "text-green-600 px-6 py-4" : "text-red-500 px-6 py-4"}`}> {campaign.status} </td>
                                                 <td className="px-6 py-4  flex items-center text-sm">
-                                                    <Link to={`/admin/editcampaign/${campaign._id}`} className="m-1 px-4 py-2 text-white bg-yellow-600 rounded-3xl">Edit</Link>
-                                                    <button className="px-4 py-2 text-white bg-[#141E46] rounded-full">Delete</button>
+                                                    <Link to={`/admin/editcampaign/${campaign._id}`} className="m-1 px-4 py-2 text-white bg-orange-600 rounded-3xl">Edit</Link>
+                                                    <button onClick={() => setPopupVisible(true)} className="px-4 py-2 text-white bg-[#141E46] rounded-full">Delete</button>
+                                                    {
+                                                        popupVisible && <WarningPopup setPopupVisible={setPopupVisible} id={campaign._id} />
+                                                    }
                                                 </td>
                                             </tr>
                                         )}
