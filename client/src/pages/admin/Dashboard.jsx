@@ -9,11 +9,11 @@ import { BiHome, BiUser } from "react-icons/bi";
 
 const Dashboard = () => {
   return (
-    <div className='flex bg-gray-100'>
+    <div className='flex bg-white'>
       <Navbar />
       <div className=' w-full'>
         <Search />
-        <div className='p-4 h-[90vh] overflow-y-auto bg-white'>
+        <div className='p-4 h-[90vh] overflow-y-auto'>
           <nav className="w-full px-4 py-8 flex" aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-3">
               <li className="inline-flex items-center">

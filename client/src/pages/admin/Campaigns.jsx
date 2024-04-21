@@ -19,25 +19,18 @@ const Campaigns = () => {
             <Navbar />
             <div className='w-full'>
                 <Search />
-                <div className='p-8'>
+                <div className='p-8 h-[90vh] overflow-y-auto'>
                     {/* breadcrumbs */}
                     <div className='p-4'>
                         <nav className="w-full flex" aria-label="Breadcrumb">
                             <ol className="inline-flex items-center space-x-1 md:space-x-3">
                                 <li className="inline-flex items-center">
-                                    <Link
-                                        to={""}
-                                        className=" inline-flex text-sm font-medium text-gray-800 hover:underline md:ml-2"
-                                    >
-                                        Dashboard
-                                    </Link>
+                                    <Link to={""} className=" inline-flex text-sm font-medium text-gray-800 hover:underline md:ml-2" >Dashboard</Link>
                                 </li>
                                 <li>
                                     <div className="flex items-center">
                                         <LuChevronRight className="h-4 w-4" />
-                                        <Link to={''} className=" text-sm font-medium text-gray-800 hover:underline md:ml-2">
-                                            Campaigns
-                                        </Link>
+                                        <Link to={''} className=" text-sm font-medium text-gray-800 hover:underline md:ml-2"> Campaigns </Link>
                                     </div>
                                 </li>
 
@@ -47,14 +40,16 @@ const Campaigns = () => {
 
                     {/*  */}
                     <div className='p-4'>
-                        <h1 className='px-2 text-2xl font-semibold'>Campaigns</h1>
+                        <div className='flex'>
+                        <h1 className='pr-2 border-b-2 border-yellow-600 text-2xl font-semibold'>Campaigns</h1>
+                        </div>
                         <p className='p-2 text-stone-600'>All the listed campaigns.</p>
 
 
 
-                        <div className="p-2 relative overflow-x-auto shadow-md sm:rounded-lg">
+                        <div className="p-2 relative overflow-x-auto sm:rounded-lg">
                             <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
+                                <thead className="text-xs text-gray-700 capitalize bg-gray-50  ">
                                     <tr>
                                         <th scope="col" className="px-2 py-3">SN</th>
                                         <th scope="col" className="px-6 py-3">Campaign</th>
@@ -70,14 +65,14 @@ const Campaigns = () => {
                                         campaign && campaign.map((campaign, index) =>
                                             <tr key={index} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                                 <td className="px-2 py-4"> {++count} </td>
-                                                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {campaign.campaignTitle.slice(0,30)+"..."} </td>
-                                                <td className="px-6 py-4"> {campaign.campaignOwner.slice(0,20)} </td>
+                                                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {campaign.campaignTitle.slice(0, 30) + "..."} </td>
+                                                <td className="px-6 py-4"> {campaign.campaignOwner.slice(0, 20)} </td>
                                                 <td className="px-6 py-4"> {campaign.category} </td>
                                                 <td className="px-6 py-4"> {campaign.goalAmount}$ </td>
                                                 <td className={`${campaign.status === "active" ? "text-green-600 px-6 py-4" : "text-red-500 px-6 py-4"}`}> {campaign.status} </td>
-                                                <td className="px-6 py-4  flex items-center">
-                                                    <Link to={`/admin/campaign/${campaign._id}`} className="m-1 px-4 py-2 font-medium text-white bg-green-600 hover:underline rounded">Edit</Link>
-                                                    <button className="px-4 py-2 font-medium text-white bg-red-700 hover:underline rounded">Delete</button>
+                                                <td className="px-6 py-4  flex items-center text-sm">
+                                                    <Link to={`/admin/editcampaign/${campaign._id}`} className="m-1 px-4 py-2 text-white bg-yellow-600 rounded-3xl">Edit</Link>
+                                                    <button className="px-4 py-2 text-white bg-[#141E46] rounded-full">Delete</button>
                                                 </td>
                                             </tr>
                                         )}
