@@ -49,7 +49,7 @@ const Footer = () => {
             </div>
             
         </div>
-        <div className='p-4 max-w-7xl mx-auto flex items-center justify-between border-t border-t-2'>
+        <div className='p-4 max-w-7xl mx-auto md:flex items-center justify-between border-t border-t-2'>
                 <p>&copy; 2022. All rights reserved</p>
                 <p>Designed and developed by <a href='https://www.sujanban.com.np' target='_blank' className='text-green-600'>Sujan Ban</a></p>
             </div>

@@ -40,9 +40,9 @@ const CampaignGrid = () => {
 
     return (
         <div className='px-4 py-20 mx-auto max-w-7xl'>
-            <h1 className='relative px-4 text-3xl'>Explore Campaigns <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
-            <div className='py-4 flex items-center justify-between'>
-                <div className='p-4 flex space-x-3'>
+            <h1 className='relative px-4 text-xl md:text-3xl'>Explore Campaigns <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
+            <div className='py-4 hidden md:flex items-center justify-between'>
+                <div className='p-4 md:flex  space-x-3'>
                     {
                         category && category.slice(0, 4).map((item, index) => (
                             <button
@@ -56,7 +56,7 @@ const CampaignGrid = () => {
                     <button onClick={resetFilter} className='text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>Reset <MdTune /></button>
                 </div>
             </div>
-            <div className='py-4 grid grid-cols-4 gap-4'>
+            <div className='py-4 md:grid md:grid-cols-2 lg:grid-cols-4 gap-4'>
                 {
                     filteredData ? filteredData.slice(0, 4).map((campaign, index) =>
                         <Card key={index} campaign={campaign} />
@@ -72,7 +72,7 @@ const CampaignGrid = () => {
 
             </div>
             <div className='p-4 flex justify-center text-white'>
-                <Link to='/explore' className='text-sm py-2 px-6  flex items-center bg-green-800 rounded-full'>Explore more <IoIosArrowDown /></Link>
+                <Link to='/explore' className='text-xs md:text-sm py-2 px-4 md:px-6  flex items-center bg-green-800 rounded-full'>Explore more <IoIosArrowDown /></Link>
             </div>
         </div>
     )

@@ -43,29 +43,30 @@ const Index = () => {
               <Link to='/howitworks' className=' px-4 py-2 text-sm rounded-full bg-gray-200 '>Learn more</Link>
             </div>
           </div>
-          <div className='py-20 '>
-            {/* <h1 className='p-4 text-2xl text-center'>Trusted by 10+ Companies</h1> */}
-            <div className='p-4 grid grid-cols-4 '>
-              <div className="p-4 shadow ">
-                <h3 className='relative px-4 text-3xl font-bold'>
+
+
+          <div className='py-8 md:py-20 '>
+            <div className='md:p-4 md:grid grid-cols-4 '>
+              <div className="py-2 md:p-4 shadow ">
+                <h3 className='relative px-4 text-xl md:text-3xl font-bold'>
                   <CountUp start={0} end={100} />M+ <span className='absolute left-0 bg-yellow-500 w-1.5 h-full'></span></h3>
-                <p className='p-4'>Projects funded on our platform</p>
+                <p className='p-2'>Projects funded on our platform</p>
               </div>
-              <div className="p-4 shadow ">
-                <h3 className='relative px-4 text-3xl font-bold'> <CountUp start={0} end={15000} />+ <span className='absolute left-0 bg-yellow-500 w-1.5 h-full'></span></h3>
-                <p className='p-4'>Peak concurrent backers</p>
+              <div className="py-2 md:p-4 shadow ">
+                <h3 className='relative px-4 text-xl md:text-3xl font-bold'> <CountUp start={0} end={15000} />+ <span className='absolute left-0 bg-yellow-500 w-1.5 h-full'></span></h3>
+                <p className='p-2'>Peak concurrent backers</p>
               </div>
-              <div className="p-4 shadow ">
-                <h3 className='relative px-4 text-3xl font-bold'><CountUp start={0} end={99} />% <span className='absolute left-0 bg-yellow-500 w-1.5 h-full'></span></h3>
-                <p className='p-4'>Historical uptime for our platform</p>
+              <div className="py-2 md:p-4 shadow ">
+                <h3 className='relative px-4 text-xl md:text-3xl font-bold'><CountUp start={0} end={99} />% <span className='absolute left-0 bg-yellow-500 w-1.5 h-full'></span></h3>
+                <p className='p-2'>Historical uptime for our platform</p>
               </div>
-              {/* <div className="p-4 shadow ">
-                <h3 className='relative px-4 text-3xl font-bold'>80%</h3>
-                <p className='p-4'>Success rate for funded projects</p>
+              {/* <div classNamd:me="p-4 shadow ">
+                <h3 className='relative px-4 text-xl md:text-3xl font-bold'>80%</h3>
+                <p className='p-2'>Success rate for funded projects</p>
               </div> */}
-              <div className="p-4 shadow ">
-                <h3 className='relative px-4 text-3xl font-bold'><CountUp start={0} end={200} />+ <span className='absolute left-0 bg-yellow-500 w-1.5 h-full'></span></h3>
-                <p className='p-4'>Countries reached by our platform</p>
+              <div className="py-2 md:p-4 shadow ">
+                <h3 className='relative px-4 text-xl md:text-3xl font-bold'><CountUp start={0} end={200} />+ <span className='absolute left-0 bg-yellow-500 w-1.5 h-full'></span></h3>
+                <p className='p-2'>Countries reached by our platform</p>
               </div>
             </div>
           </div>
@@ -74,23 +75,23 @@ const Index = () => {
 
 
       {/* how it works */}
-      <div className='px-4 py-20 max-w-7xl mx-auto border-2 bg-green-600 text-center rounded'>
-        <h1 className='pb-12 text-3xl '>Fundraising on Collab takes just a few minutes</h1>
-        <div className='max-w-5xl mx-auto grid grid-cols-3 gap-4 '>
-          <div className='p-4'>
-            <img className='mx-auto' width={100} src={create} alt="" />
-            <h1 className='py-2 text-2xl '>Register Account</h1>
-            <p className='py-2 clear-start '> Follow a simple steps by filling up email and password and create a account for fundraising.</p>
+      <div className='px-4 py-8 md:py-20 max-w-7xl mx-auto border-2 bg-green-600 text-center rounded'>
+        <h1 className='pb-4 md:pb-12 text-xl md:text-3xl '>Fundraising on Collab takes just a few minutes</h1>
+        <div className='max-w-5xl mx-auto md:grid grid-cols-3 gap-4 '>
+          <div className='p-2 md:p-4'>
+            <img className='mx-auto w-16 md:w-28'  src={create} alt="" />
+            <h1 className='md:py-2 text-lg md:text-2xl '>Register Account</h1>
+            <p className='py-2 text-sm clear-start '> Follow a simple steps by filling up email and password and create a account for fundraising.</p>
           </div>
-          <div className='p-4'>
-            <img width="100" className='mx-auto' src={campaign} />
-            <h1 className='py-2 text-2xl '>Create Campaign</h1>
-            <p className='py-2 clear-start '> Enter your campaign details and start raising money.</p>
+          <div className='p-2 md:p-4'>
+            <img className='mx-auto w-16 md:w-28' src={campaign} />
+            <h1 className='md:py-2 text-lg md:text-2xl '>Create Campaign</h1>
+            <p className='py-2 text-sm clear-start '> Enter your campaign details and start raising money.</p>
           </div>
-          <div className='p-4'>
-            <img className='mx-auto' width={100} src={money} alt="" />
-            <h1 className='py-2 text-2xl '>Withdraw Money</h1>
-            <p className='py-2 clear-start '>Add your bank details and Withdraw money from your account.</p>
+          <div className='p-2 md:p-4'>
+            <img className='mx-auto w-16 md:w-28'  src={money} alt="" />
+            <h1 className='md:py-2 text-lg md:text-2xl '>Withdraw Money</h1>
+            <p className='py-2 text-sm clear-start '>Add your bank details and Withdraw money from your account.</p>
           </div>
         </div>
       </div>
