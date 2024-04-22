@@ -7,12 +7,27 @@ export const fetchCategory = createAsyncThunk("fetchAllCategory", async () => {
     const res = await axios.get("/api/category/getCategory");
     if (res.data.error) {
       toast.error(res.data.error);
-    } 
-      return res.data;
+    }
+    return res.data;
   } catch (error) {
     console.log("Server Error while fetching API " + error);
   }
 });
+
+export const getCategoryById = createAsyncThunk(
+  "getCategoryById",
+  async (id) => {
+    try {
+      const res = await axios.get("/api/category/getCategoryById/" + id);
+      if (res.data.error) {
+        toast.error(res.data.error);
+      }
+      return res.data;
+    } catch (error) {
+      console.log("Server Error while fetching API " + error);
+    }
+  }
+);
 
 export const addCategory = createAsyncThunk("addCategory", async (category) => {
   try {
@@ -27,6 +42,27 @@ export const addCategory = createAsyncThunk("addCategory", async (category) => {
     console.log("Server Error while fetching API " + error);
   }
 });
+
+export const updateCategory = createAsyncThunk(
+  "updateCategory",
+  async (category) => {
+    console.log(category);
+    try {
+      const res = await axios.put(
+        `/api/category/editCategory/${category._id}`,
+        category
+      );
+      if (res.data.error) {
+        toast.error(res.data.error);
+      } else {
+        toast.success(res.data.message);
+      }
+      return res.data;
+    } catch (error) {
+      console.log("Server Error while fetching API " + error);
+    }
+  }
+);
 
 export const deleteCategory = createAsyncThunk("deleteCategory", async (id) => {
   try {
@@ -69,6 +105,17 @@ export const category = createSlice({
         state.data = action.payload;
       })
       .addCase(fetchCategory.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorMessage = action.payload;
+      })
+      .addCase(getCategoryById.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCategoryById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = action.payload;
+      })
+      .addCase(getCategoryById.rejected, (state, action) => {
         state.isLoading = false;
         state.errorMessage = action.payload;
       });

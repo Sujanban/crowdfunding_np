@@ -5,7 +5,8 @@ const {
   addCategory,
   getCategory,
   deleteCategory,
-  editCategory
+  editCategory,
+  getCategoryById
 } = require("../controllers/categoryController");
 const { checkAuth, isAdmin } = require("../controllers/authController");
 
@@ -22,6 +23,9 @@ router.post("/createCategory", addCategory);
 
 // GET CATEGORY
 router.get("/getCategory", getCategory);
+
+// get individual category by id
+router.get('/getCategoryById/:id', getCategoryById);
 
 // UPDATE CATEGORY
 router.put("/editCategory/:id", editCategory);

@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 // ADDING CATEGORY
 const addCategory = async (req, res) => {
   try {
-    const category  = req.body.category;
+    const category = req.body.category;
     if (!category) {
       return res.json({ error: "Category cannot be Empty!" });
     }
@@ -27,8 +27,20 @@ const addCategory = async (req, res) => {
 const getCategory = async (req, res) => {
   try {
     const categories = await Category.find({});
-    if(!categories) return res.json({ error: "Categories not found" });
+    if (!categories) return res.json({ error: "Categories not found" });
     res.json(categories);
+  } catch (err) {
+    res.json({ error: err.message });
+  }
+};
+
+// retriving individual category by id
+const getCategoryById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const category = await Category.findById(id);
+    if (!category) return res.json({ error: "Category not found" });
+    res.json(category);
   } catch (err) {
     res.json({ error: err.message });
   }
@@ -36,16 +48,24 @@ const getCategory = async (req, res) => {
 
 // EDITING CATEGORY
 const editCategory = async (req, res) => {
-  const { id } = req.params;
-  const { category } = req.body;
-  if(!category) return res.json({ error: "Category is required" });
-  const existCat = await Category.findOne({ category });
-  if(existCat) return res.json({ error: "Category already exists" });
-  const updated = await Category.findByIdAndUpdate(id, { category }, { new: true });
-  if (!updated) return res.json({ error: "Category not found" });
-  
-  if(updated) {
-    res.json({ message: "Category updated successfully" });
+  try {
+    const { id } = req.params;
+    const { category } = req.body;
+    if (!category) return res.json({ error: "Category is required" });
+    const existCat = await Category.findOne({ category });
+    if (existCat) return res.json({ error: "Category already exists" });
+    const updated = await Category.findByIdAndUpdate(
+      id,
+      { category },
+      { new: true }
+    );
+    if (!updated) return res.json({ error: "Category not found" });
+
+    if (updated) {
+      res.json({ message: "Category updated successfully" });
+    }
+  } catch (err) {
+    res.json({ error: err.message });
   }
 };
 
@@ -60,6 +80,7 @@ const deleteCategory = async (req, res) => {
 module.exports = {
   addCategory,
   getCategory,
+  getCategoryById,
   editCategory,
   deleteCategory,
 };
