@@ -51,6 +51,8 @@ const editCategory = async (req, res) => {
   try {
     const { id } = req.params;
     const { category } = req.body;
+    console.log(id)
+    console.log(category)
     if (!category) return res.json({ error: "Category is required" });
     const existCat = await Category.findOne({ category });
     if (existCat) return res.json({ error: "Category already exists" });

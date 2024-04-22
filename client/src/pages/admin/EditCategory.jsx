@@ -2,37 +2,33 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../../components/admin/Navbar'
-import { fetchCategory, getCategories, getCategoryById, updateCategory } from '../../app/feature/categorySlice'
-import { postCamaign, updateCampaign, deleteCampaign } from '../../app/feature/campaignSlice'
-import axios from 'axios'
 
 import { LuHome, LuChevronRight } from "react-icons/lu";
 import Search from '../../components/admin/Search'
+import { getCategoryById, updateCategory } from '../../app/feature/categorySlice'
 
 
 
 const EditCategory = () => {
-    const navigate = useNavigate();
-    const category = useSelector(state=> state.category.data);
-    const dispatch = useDispatch();
     const { id } = useParams();
-
+    const dispatch = useDispatch()
+    const category = useSelector(state => state.category.data)
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({});
-    // updaing campaign
+    console.log(formData)
+
     const handleUpdate = (e) => {
         e.preventDefault();
-        dispatch(updateCategory(formData)).then(res => {
-            if (res.payload.message) {
-                navigate('/admin/dashboard')
-            }
-        })
-
+        dispatch(updateCategory(category))
     }
+
     useEffect(() => {
-        dispatch(getCategoryById(id)).then(res=> setFormData(res.payload))
-    }, [dispatch])
+        dispatch(getCategoryById(id))
+        setFormData(category);
+    }, []);
+
     return (
-        <div className='flex'>
+        <div className='flex w-full max-w-7xl mx-auto'>
             <Navbar />
             <div className='w-full'>
                 <Search />
@@ -75,8 +71,8 @@ const EditCategory = () => {
                             <div className='p-4'>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category *</label>
                                 <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
-                                    onChange={(e) => setFormData({...formData, category: e.target.value})}
-                                    value={formData.category}
+                                    value={formData.category} 
+                                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                                 />
                             </div>
 

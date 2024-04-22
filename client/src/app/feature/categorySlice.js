@@ -81,16 +81,7 @@ export const deleteCategory = createAsyncThunk("deleteCategory", async (id) => {
 export const category = createSlice({
   name: "category",
   initialState: {
-    data: [
-      {
-        id: "1",
-        category: "Health",
-      },
-      {
-        id: "2",
-        category: "Education",
-      },
-    ],
+    data: [],
     isLoading: false,
     errorMessage: null,
   },
