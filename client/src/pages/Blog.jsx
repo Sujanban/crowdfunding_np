@@ -61,16 +61,16 @@ const Blog = () => {
         <>
             <Navbar />
             <BlogGrid />
-            <div className='px-4 py-20 max-w-7xl mx-auto '>
-                <h1 className='relative px-4 text-3xl'>Success Stories : <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
-                <div className='p-4 grid grid-cols-4 gap-4'>
+            <div className=' px-4 md:py-20 max-w-7xl mx-auto '>
+                <h1 className='relative px-4 text-xl md:text-3xl'>Success Stories : <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
+                <div className='py-4 md:p-4 md:grid grid-cols-4 gap-4'>
                     <div className='col-span-3'>
                         {
                             story && story.map((item, index) =>
-                                <div key={index} className='p-2 relative grid grid-cols-2 gap-4'>
-                                    <img className='h-64 w-full object-cover' src={item.image} alt="" />
+                                <div key={index} className='py-4 md:p-2 relative md:grid grid-cols-2 gap-4'>
+                                    <img className='h-36 md:h-64 w-full object-cover' src={item.image} alt="" />
                                     <div className=' bg-white w-full '>
-                                        <h1 className='text-xl font-semibold'>{item.title}</h1>
+                                        <h1 className='text-md md:font-semibold'>{item.title}</h1>
                                         {/* <div className='absolute left-4 bottom-4 px-2 py-1 rounded-full bg-yellow-500  flex items-center space-x-2 text-lg text-slate-600'>
                                             <p className='flex items-center'><LuClock3 size={15} color='black' /> <span className='pl-2 text-sm text-black'>{item.date}</span></p>
                                         </div> */}
@@ -79,9 +79,9 @@ const Blog = () => {
                                             <p className='text-slate-600'>@{item.author}</p>
                                             <li className='list-disc text-slate-600'>{item.date}</li>
                                         </div>
-                                        <p className='py-2 text-slate-600'>{item.summary}</p>
+                                        <p className='py-2 text-sm md:text-inherit text-slate-600'>{item.summary}</p>
                                         <div className='py-2 flex items-center justify-between space-x-1'>
-                                            <Link className='px-4 py-2 text-sm rounded-full bg-green-700 text-white hover:bg-green-800 transition-all duration-400'>Read more</Link>
+                                            <Link className='px-4 py-2 text-xs md:text-sm rounded-full bg-green-700 text-white hover:bg-green-800 transition-all duration-400'>Read more</Link>
 
                                         </div>
                                     </div>
@@ -89,20 +89,20 @@ const Blog = () => {
                             )
                         }
                     </div>
-                    <div className='p-4 shadow'>
+                    <div className='md:p-4 '>
                         <h1 className='text-xl font-semibold'>Recently Posted</h1>
-                        <div className='p-2 relative'>
-                            <img className='p-2 h-40 w-full object-cover rounded' src='https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' alt="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
-                            <div className='p-2 bg-white w-full '>
-                                <h1 className=' text-lg font-semibold'>What is Collab?</h1>
+                        <div className='my-4 md:p-2 relative '>
+                            <img className='md:p-2 h-40 w-full object-cover rounded' src='https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' alt="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+                            <div className='my-2 md:p-2 bg-white w-full '>
+                                <h1 className='text-md md:text-lg font-semibold'>What is Collab?</h1>
                                 <p className='py-1 text-slate-600 text-sm'>Lorem, ipsum dolor sit dolorem praesentium optio!</p>
 
                             </div>
                         </div>
-                        <div className='p-2 relative'>
-                            <img className='p-2 h-40 w-full object-cover rounded' src='https://images.unsplash.com/photo-1494386346843-e12284507169?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' />
-                            <div className='p-2 bg-white w-full '>
-                                <h1 className=' text-lg font-semibold'>What is Collab?</h1>
+                        <div className='my-4 md:p-2 relative'>
+                            <img className='md:p-2 h-40 w-full object-cover rounded' src='https://images.unsplash.com/photo-1494386346843-e12284507169?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' />
+                            <div className='my-2 md:p-2 bg-white w-full '>
+                                <h1 className=' text-md md:text-lg font-semibold'>What is Collab?</h1>
                                 <p className='py-1 text-slate-600 text-sm'>Lorem, ipsum dolor sit dolorem praesentium optio!</p>
 
                             </div>
