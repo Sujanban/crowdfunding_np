@@ -31,7 +31,7 @@ const Search = () => {
                 <SearchBar />
 
                 {/* filter by category */}
-                <div className='px-4 py-20 mx-auto max-w-7xl '>
+                {/* <div className='px-4 py-20 mx-auto max-w-7xl '>
                     <h1 className='relative px-4 text-3xl'>Find by category <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
                     <div className='p-4 flex items-center justify-center flex-wrap space-x-8'>
                         <button className='m-2 px-4  shadow flex items-center'><img className='w-20' src={soil} alt="" /> Soil Conservation</button>
@@ -48,7 +48,7 @@ const Search = () => {
                         <button className='m-2 px-4  shadow flex items-center'><img className='w-20' src={business} alt="" /> Business</button>
                         <button className='m-2 px-4  shadow flex items-center'><img className='w-20' src={animal} alt="" /> Animal</button>
                     </div>
-                </div>
+                </div> */}
 
                 <CampaignGrid />
             </div>

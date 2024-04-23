@@ -21,18 +21,18 @@ const SearchResult = () => {
             <Navbar />
             <SearchBar />
             <div className='max-w-7xl mx-auto w-full'>
-                <div className='px-8 py-20'>
-                    <div className='flex justify-center'>
+                <div className='px-4 md:px-8 py-12 md:py-20'>
+                    <div className='py-2 flex justify-center'>
                         <h1 className='text-2xl font-semibold  px-2 border-b-2  border-green-600'>Search Results</h1>
                     </div>
-                    <div className='p-4 grid gap-4 max-w-5xl mx-auto'>
+                    <div className='md:p-4 md:grid gap-4 max-w-5xl mx-auto'>
 
                         {filteredCampaign ? filteredCampaign.map((campaign, index) =>
-                            <div key={index} className='grid grid-cols-3 bg-white rounded-lg shadow-lg p-4 '>
-                                <img className='col-span-1 w-full h-72 object-cover rounded-md ' src={campaign.thumbnail} alt="" />
-                                <div className='px-4 py-2 col-span-2'>
+                            <div key={index} className='my-2 md:p-4 md:grid grid-cols-3 bg-white rounded-lg md:shadow-lg'>
+                                <img className='col-span-1 w-full h-52 md:h-72 object-cover rounded-md ' src={campaign.thumbnail} alt="" />
+                                <div className='md:px-4 py-2 col-span-2'>
                                     <h1 className='text-xl font-semibold'>{campaign.campaignTitle.slice(0, 30)}</h1>
-                                    <p className='py-2 text-slate-600'>{campaign.campaignDescription.slice(0, 200)}</p>
+                                    <p className='py-2 text-sm md:text-inherit text-slate-600'>{campaign.campaignDescription.slice(0, 200)}</p>
                                     <h1 className='text-lg'><b>$78,253</b> <span className='text-xs'>raised of <b className='text-green-600 text-lg'>${campaign.goalAmount}</b> goal</span></h1>
                                     <div className="my-4 w-full bg-gray-200 rounded-full h-2.5">
                                         <div className="bg-yellow-600 h-2.5 rounded-full w-2/3"></div>
