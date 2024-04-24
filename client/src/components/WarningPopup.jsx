@@ -8,11 +8,11 @@ const WarningPopup = ({ setPopupVisible, id, delCategory, delCampaign }) => {
     const dispatch = useDispatch();
 
     const handleDelete = () => {
-        if (deleteCategory) {
+        if (delCategory) {
             dispatch(deleteCategory(id));
         }
 
-        if (deleteCampaign) {
+        if (delCampaign) {
             dispatch(deleteCampaign(id));
         }
         setPopupVisible(false)

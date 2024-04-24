@@ -15,7 +15,7 @@ const SearchBar = () => {
             <form onSubmit={handleSearch} className='p-4 max-w-4xl mx-auto flex items-center justify-center gap-2'>
                 <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search.." onChange={(e) => setSearchTerm(e.target.value)} />
 
-                <button type='submit' className=' text-xs md:text-inherit px-5 py-3 rounded bg-green-800 text-white'>Search</button>
+                <input type='submit' value='Search' className='text-white text-xs md:text-inherit px-5 py-3 rounded bg-green-800 '/>
             </form>
         </div>
     )

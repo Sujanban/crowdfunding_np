@@ -96,7 +96,7 @@ const Navbar = () => {
                                 <li className='py-4'>
                                     <NavLink to='/contact' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Contact</NavLink>
                                 </li>
-                                <li className='py-4'>
+                                <li className='py-4 md:hidden'>
                                     <NavLink to='/login' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Login</NavLink>
                                 </li>
                             </>

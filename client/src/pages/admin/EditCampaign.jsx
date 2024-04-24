@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../../components/admin/Navbar'
 import { fetchCategory, getCategories } from '../../app/feature/categorySlice'
-import { postCamaign, updateCampaign, deleteCampaign } from '../../app/feature/campaignSlice'
+import { updateCampaign, deleteCampaign } from '../../app/feature/campaignSlice'
 import axios from 'axios'
 
 import { LuHome, LuChevronRight } from "react-icons/lu";
@@ -25,7 +25,7 @@ const EditCampaign = () => {
     e.preventDefault();
     dispatch(updateCampaign(campaignn)).then(res => {
       if (res.payload.message) {
-        navigate('/mycampaigns')
+        navigate('/admin/campaigns')
       }
     })
 
@@ -90,7 +90,7 @@ const EditCampaign = () => {
             <form className="" onSubmit={handleUpdate}>
               <div className='p-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Campaign Title *</label>
-                <input type="text"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
+                <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
                   onChange={(e) => setCampaignn({ ...campaignn, campaignTitle: e.target.value })}
                   value={campaignn.campaignTitle}
                 />
@@ -106,7 +106,7 @@ const EditCampaign = () => {
 
               <div className='p-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Goal Amount *</label>
-                <input type="text"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder='3000$'
                   onChange={(e) => setCampaignn({ ...campaignn, goalAmount: e.target.value })}
                   value={campaignn.goalAmount}
@@ -115,7 +115,7 @@ const EditCampaign = () => {
 
               <div className='p-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Thumbnail URL *</label>
-                <input type="text"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
+                <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
                   onChange={(e) => setCampaignn({ ...campaignn, thumbnail: e.target.value })}
                   value={campaignn.thumbnail}
                 />
@@ -123,7 +123,7 @@ const EditCampaign = () => {
 
               <div className='p-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Campaign Video </label>
-                <input type="text"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
+                <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
                   onChange={(e) => setCampaignn({ ...campaignn, videoUrl: e.target.value })}
                   value={campaignn.videoUrl} />
               </div>
@@ -140,7 +140,7 @@ const EditCampaign = () => {
 
               <div className='p-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Campaign Creator * </label>
-                <input type="text"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
+                <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
                   onChange={(e) => setCampaignn({ ...campaignn, campaignOwner: e.target.value })}
                   value={campaignn.campaignOwner}
 
@@ -149,15 +149,15 @@ const EditCampaign = () => {
 
               <div className='p-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location </label>
-                <input type="text"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
+                <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
                   onChange={(e) => setCampaignn({ ...campaignn, location: e.target.value })}
                   value={campaignn.location}
                 />
               </div>
 
               <div className='p-4'>
-                <input type="submit" value='Update Campaign' 
-                className=' px-4 py-3 text-sm bg-yellow-600 transition-all duration-400 rounded text-white hover:bg-yellow-700' />
+                <input type="submit" value='Update Campaign'
+                  className=' px-4 py-3 text-sm bg-green-600 transition-all duration-400 rounded-lg text-white hover:bg-yellow-700' />
               </div>
             </form>
           </div>

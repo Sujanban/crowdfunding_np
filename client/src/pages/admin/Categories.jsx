@@ -54,9 +54,7 @@ const Categories = () => {
                             <div className='flex justify-between items-center'>
                                 <h1 className='pr-2 border-b-2 border-yellow-600 text-2xl font-semibold'>Categories</h1>
                             </div>
-                            {/* <p className='py-4 text-stone-600'>Available Categories.</p> */}
-
-
+                            
 
                             <div className="py-8  relative overflow-x-auto sm:rounded-lg ">
                                 <table className=" w-full text-sm text-left rtl:text-right text-gray-500 ">
@@ -107,7 +105,7 @@ const Categories = () => {
                                         />
                                     </div>
                                     <div className='p-4 flex justify-end'>
-                                        <input type="submit" value={"Create"} className='px-4 py-2 text-xs bg-stone-800 transition-all duration-400 text-white hover:bg-yellow-700 rounded-full' />
+                                        <input type="submit" value={"Create"} className='px-4 py-2 text-xs bg-green-600 transition-all duration-400 text-white hover:bg-green-700 rounded-full' />
                                     </div>
                                 </form>
                             </div>

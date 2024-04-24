@@ -1,30 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Navbar from '../../components/admin/Navbar'
-
+import axios from 'axios'
 import { LuHome, LuChevronRight } from "react-icons/lu";
 import Search from '../../components/admin/Search'
-import { getCategoryById, updateCategory } from '../../app/feature/categorySlice'
+import { updateCategory } from '../../app/feature/categorySlice'
 
 
 
 const EditCategory = () => {
     const { id } = useParams();
-    const dispatch = useDispatch()
-    const category = useSelector(state => state.category.data)
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({});
-    console.log(formData)
 
     const handleUpdate = (e) => {
         e.preventDefault();
-        dispatch(updateCategory(category))
+        dispatch(updateCategory(formData)).then(res => {
+            if (res.payload.message) {
+                navigate('/admin/categories')
+            }
+        })
     }
 
+    const fetchCategoryById = async (id) => {
+        try {
+          const res = await axios.get("/api/category/getCategoryById/" + id);
+          setFormData(res.data);
+        } catch (error) {
+          console.log("Server Error while fetching API " + error);
+        }
+      }
+
     useEffect(() => {
-        dispatch(getCategoryById(id))
-        setFormData(category);
+        fetchCategoryById(id);
     }, []);
 
     return (
@@ -78,7 +88,7 @@ const EditCategory = () => {
 
                             <div className='p-4'>
                                 <input type="submit" value='Update Category'
-                                    className=' px-4 py-3 text-sm bg-yellow-600 transition-all duration-400 rounded text-white hover:bg-yellow-700' />
+                                    className=' px-4 py-3 text-sm bg-green-600 transition-all duration-400 rounded-lg text-white hover:bg-green-700' />
                             </div>
                         </form>
                     </div>
