@@ -25,6 +25,7 @@ import ManageCategory from './pages/ManageCategory'
 import Dashboard from './pages/admin/Dashboard'
 import Campaigns from './pages/admin/Campaigns'
 import AdminEditCampaign from './pages/admin/EditCampaign'
+import AdminCreateCampaign from './pages/admin/CreateCampaign'
 import Categories from './pages/admin/Categories'
 import AdminEditCategory from './pages/admin/EditCategory'
 
@@ -64,6 +65,7 @@ function App() {
           {/* admin access */}
           <Route path='/admin/dashboard' element={user && user.role===1 ? <Dashboard /> : <Navigate to="/login" />} />
           <Route path='/admin/campaigns' element={user && user.role===1 ? <Campaigns /> : <Navigate to="/login" />} />
+          <Route path='/admin/createcampaign' element={user && user.role===1 ? <AdminCreateCampaign /> : <Navigate to="/login" />} />
           <Route path='/admin/editcampaign/:id' element={user && user.role===1 ? <AdminEditCampaign /> : <Navigate to="/login" />} />
           <Route path='/admin/categories' element={user && user.role===1 ? <Categories /> : <Navigate to="/login" />} />
           <Route path='/admin/editcategory/:id' element={user && user.role===1 ? <AdminEditCategory /> : <Navigate to="/login" />} />
