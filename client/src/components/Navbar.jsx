@@ -46,19 +46,20 @@ const Navbar = () => {
                 {/* {
                     user ?
                         <nav className=' text-center top-[10vh] md:top-auto relative md:inline-flex gap-4'>
-                            <li>
+                            <li className='py-4'>
                                 <NavLink to='/createCampaign' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Create Campaign</NavLink>
                             </li>
-                            <li>
+                            <li className='py-4'>
                                 <NavLink to='/mycampaigns' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Campaigns</NavLink>
                             </li>
-                            <li>
+                            <li className='py-4'>
                                 <NavLink to={'/manageCategory'} className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Manage Category</NavLink>
                             </li>
                         </nav>
                         : */}
-                <nav className={`${slider ? 'w-0 bg-yellow-500 left-full md:bg-white block absolute md:relative top-[10vh] h-[90vh] md:h-auto z-50 transition-all ease-in-out duration-200' : ' bg-yellow-500 md:bg-white block absolute md:relative top-[10vh] h-[90vh] md:h-auto z-50  transition-all ease-in-out duration-200'} overflow-hidden text-center  md:top-auto  w-full left-0 md:left-auto md:w-auto md:flex  gap-4}`}>
-                    <li className='p-4 pt-8 md:pt-4'>
+                <nav className={`${slider ? 'w-[0px] bg-yellow-500 left-full md:bg-white block absolute md:relative top-[10vh] h-[90vh] md:h-auto z-50 transition-all ease-in-out duration-200' :
+                    ' bg-yellow-500 md:bg-white block absolute md:relative top-[10vh] h-[90vh] md:h-auto z-50  transition-all ease-in-out duration-200 w-full'} overflow-hidden text-center  md:top-auto   left-0 md:left-auto md:w-auto md:flex  gap-4}`}>
+                    {/* <li className='p-4 pt-8 md:pt-4'>
                         <NavLink to='/explore' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Explore</NavLink>
                     </li>
                     <li className='py-4'>
@@ -69,18 +70,52 @@ const Navbar = () => {
                     </li>
                     <li className='py-4'>
                         <NavLink to='/contact' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Contact</NavLink>
-                    </li>
+                    </li> */}
+
+                    {
+                        user ? <>
+                            <li className='py-4'>
+                                <NavLink to='/createCampaign' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Create Campaign</NavLink>
+                            </li>
+                            <li className='py-4'>
+                                <NavLink to='/mycampaigns' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Campaigns</NavLink>
+                            </li>
+                            
+                        </>
+                            :
+                            <>
+                                <li className='p-4 pt-8 md:pt-4'>
+                                    <NavLink to='/explore' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Explore</NavLink>
+                                </li>
+                                <li className='py-4'>
+                                    <NavLink to='/howitworks' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>How it works</NavLink>
+                                </li>
+                                <li className='py-4'>
+                                    <NavLink to='/blog' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Blog</NavLink>
+                                </li>
+                                <li className='py-4'>
+                                    <NavLink to='/contact' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Contact</NavLink>
+                                </li>
+                                <li className='py-4'>
+                                    <NavLink to='/login' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Login</NavLink>
+                                </li>
+                            </>
+                    }
                 </nav>
                 {/* } */}
                 <div className='flex items-center gap-4'>
                     {
                         user ? <div>
-                            <li className='' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                                <NavLink to='' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>
-                                    <GoPeople className='' size={20} /> {user.firstName}
-                                    <IoIosArrowDown className='hover:rotate-180 transition-all duration-400' />
-                                </NavLink>
-                            </li>
+                            <div className='flex items-center'>
+                                <li className='' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                                    <NavLink to='' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>
+                                        <GoPeople className='' size={20} /> {user.role === 1 && user.firstName}
+                                        <IoIosArrowDown className='hover:rotate-180 transition-all duration-400' />
+
+                                    </NavLink>
+                                </li>
+                                {user.role === 0 && <button className='md:hidden' onClick={toggleSlider}><FaBarsStaggered size={15} /></button>}
+                            </div>
                             {
                                 isSubMenuVisible ?
                                     <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className=' absolute  bg-white px-6 block  shadow'>
@@ -104,7 +139,7 @@ const Navbar = () => {
                         </div> :
                             <div className='flex items-center'>
                                 <li>
-                                    <NavLink to='/s' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'><CiSearch /> Search</NavLink>
+                                    <NavLink to='/s' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'><CiSearch /> <span className='hidden md:flex'>Search</span></NavLink>
                                 </li>
                                 <button className='md:hidden' onClick={toggleSlider}><FaBarsStaggered size={15} /></button>
                                 <li className='hidden md:flex'>
