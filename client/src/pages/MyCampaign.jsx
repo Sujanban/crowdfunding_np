@@ -20,6 +20,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const MyCampaign = () => {
   const navigate = useNavigate();
+  const userId = useSelector(state=> state.user.data._id)
   // redux
   const dispatch = useDispatch();
   const myCampaigns = useSelector(state=>state.campaign.data)
@@ -27,7 +28,7 @@ const MyCampaign = () => {
   // const myCampaigns = useSelector(getCampaigns);
 
   useEffect(() => {
-    dispatch(fetchCampaignsByUserID()).then(res=>{
+    dispatch(fetchCampaignsByUserID(userId)).then(res=>{
       if (res.payload.error) {
         navigate('/login')
       }

@@ -140,64 +140,14 @@ const getCampaigns = async (req, res) => {
 const getCampaignsByUserID = async (req, res) => {
  
   try {
-    const userId = req.user._id;
+    const userId = req.params.userId;
+    // const userId = req.user._id;
+    // console.log(userId);
     if (!userId) return res.json({ error: "Id is required" });
     const campaigns = await Campaign.find({ campaignOwner: userId });
     return res.json(campaigns);
   } catch (err) {
     return res.json({ error: err.message });
-  }
-};
-
-//UPDATE CAMPAIGN
-const updateCampaignnnnnn = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const {
-      campaignOwner,
-      campaignTitle,
-      campaignDescription,
-      location,
-      thumbnail,
-      videoUrl,
-      goalAmount,
-      category,
-    } = req.body;
-
-
-    if (
-      !campaignOwner ||
-      !campaignTitle ||
-      !campaignDescription ||
-      !location ||
-      !thumbnail ||
-      !goalAmount ||
-      !category
-    ) {
-      return res.json({ error: "All fields are required" });
-    }
-
-    if (!id) return res.json({ error: "Id is required" });
-
-    const existCampaign = await Campaign.findById(id);
-    if (!existCampaign) return res.json({ error: "Campaign not found" });
-
-    const updated = await Campaign.findByIdAndUpdate(
-      campaignOwner,
-      campaignTitle,
-      campaignDescription,
-      location,
-      thumbnail,
-      videoUrl,
-      goalAmount,
-      category
-    );
-    if (updated) {
-      res.json({ message: "Campaign updated successfully" });
-    }
-    if (!updated) return res.json({ error: "Something went wrong" });
-  } catch (err) {
-    res.json({ error: err.message });
   }
 };
 

@@ -13,7 +13,7 @@ const isAdmin = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.SECRETE_KEY);
     const user = await User.findById(decoded._id);
     if (user.role !== 1) {
-      return res.json({ error: "Unauthorized Privilege" });
+      return res.json({ error: "Need Admin Privilege!" });
     }
     next();
   } catch (error) {

@@ -72,11 +72,11 @@ const Categories = () => {
                                                 <tr key={index} className=" odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                                     <td className="px-2 py-4"> {++count} </td>
                                                     <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {category.category} </td>
-                                                    <td className=" py-4 flex items-center text-xs">
+                                                    <td className=" py-4 flex items-center text-sm">
                                                         <Link to={`/admin/editcategory/${category._id}`}
-                                                            className="m-1 px-4 py-2 text-white bg-orange-600 rounded-3xl">Edit</Link>
+                                                            className="m-1 px-4 py-2 text-white bg-emerald-600 rounded-xl">Edit</Link>
                                                         <button onClick={() => setPopupVisible(true)}
-                                                            className="px-4 py-2 text-white bg-[#141E46] rounded-full">Delete</button>
+                                                            className="px-4 py-2 text-white bg-orange-600 rounded-xl">Delete</button>
                                                         {
                                                             popupVisible && <WarningPopup setPopupVisible={setPopupVisible} id={category._id} delCategory={true} />
                                                         }
@@ -105,7 +105,7 @@ const Categories = () => {
                                         />
                                     </div>
                                     <div className='p-4 flex justify-end'>
-                                        <input type="submit" value={"Create"} className='px-4 py-2 text-xs bg-green-600 transition-all duration-400 text-white hover:bg-green-700 rounded-full' />
+                                        <input type="submit" value={"Create"} className='px-4 py-2 text-sm bg-emerald-600 transition-all duration-400 text-white hover:bg-green-700 rounded-xl' />
                                     </div>
                                 </form>
                             </div>

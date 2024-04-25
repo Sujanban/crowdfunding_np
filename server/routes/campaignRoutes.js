@@ -46,7 +46,7 @@ router.get("/getCampaign/:id", getCampaign);
 router.get("/getCampaigns", getCampaigns);
 
 // GET CAMPAIGNS BY USERID
-router.get('/getCampaignsByUserID', checkAuth, getCampaignsByUserID);
+router.get('/getCampaignsByUserID/:userId', checkAuth, getCampaignsByUserID);
 
 // UPDATE CAMPAIGN
 router.put("/updateCampaign/:id",checkAuth, updateCampaign);

@@ -25,9 +25,10 @@ export const fetchSingleCampaign = createAsyncThunk(
 
 export const fetchCampaignsByUserID = createAsyncThunk(
   "fetchCampaignsByUserID",
-  async () => {
+  async (userId) => {
     try {
-      const res = await axios.get("/api/campaign/getCampaignsByUserID/");
+      // const res = await axios.get("/api/campaign/getCampaignsByUserID/");
+      const res = await axios.get(`/api/campaign/getCampaignsByUserID/${userId}`);
       if(res.data){
         return res.data
       }

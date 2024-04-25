@@ -45,9 +45,9 @@ const Campaigns = () => {
                     <div className='p-4'>
                         <div className='flex justify-between items-center'>
                             <h1 className='pr-2 border-b-2 border-yellow-600 text-2xl font-semibold'>Campaigns</h1>
-                            <Link to={'/admin/createcampaign'} className='px-3 py-2 text-sm bg-green-600 text-white rounded-full'>Create Campaign</Link>
+                            <Link to={'/admin/createcampaign'} className='px-4 py-2 text-sm bg-emerald-600 text-white rounded-full'>Create Campaign</Link>
                         </div>
-                        <p className='py-4 text-stone-600'>All the listed campaigns.</p>
+                        {/* <p className='py-4 text-stone-600'>All the listed campaigns.</p> */}
 
 
 
@@ -73,10 +73,10 @@ const Campaigns = () => {
                                                 <td className="px-6 py-4"> {campaign.campaignOwner.slice(0, 20)} </td>
                                                 <td className="px-6 py-4"> {campaign.category} </td>
                                                 <td className="px-6 py-4"> {campaign.goalAmount}$ </td>
-                                                <td className={`${campaign.status === "active" ? "text-green-600 px-6 py-4" : "text-red-500 px-6 py-4"}`}> {campaign.status} </td>
-                                                <td className="px-6 py-4  flex items-center text-sm">
-                                                    <Link to={`/admin/editcampaign/${campaign._id}`} className="m-1 px-4 py-2 text-white bg-orange-600 rounded-3xl">Edit</Link>
-                                                    <button onClick={() => setPopupVisible(true)} className="px-4 py-2 text-white bg-[#141E46] rounded-full">Delete</button>
+                                                <td className="px-6 py-4"> <span className={`${campaign.status === "active" ? "px-1.5 py-0.5 text-emerald-600 bg-green-100 rounded-xl" : "px-1.5 py-0.5 text-red-600 bg-orange-100 rounded-xl"}`}>{campaign.status}</span> </td>
+                                                <td className="px-6 py-4 flex items-center text-sm">
+                                                    <Link to={`/admin/editcampaign/${campaign._id}`} className="m-1 px-4 py-2 text-white bg-emerald-600 rounded-xl">Edit</Link>
+                                                    <button onClick={() => setPopupVisible(true)} className="px-4 py-2 text-white bg-orange-600 rounded-xl">Delete</button>
                                                     {
                                                         popupVisible && <WarningPopup setPopupVisible={setPopupVisible} id={campaign._id} delCampaign={true}/>
                                                     }

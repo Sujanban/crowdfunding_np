@@ -28,6 +28,7 @@ import AdminEditCampaign from './pages/admin/EditCampaign'
 import AdminCreateCampaign from './pages/admin/CreateCampaign'
 import Categories from './pages/admin/Categories'
 import AdminEditCategory from './pages/admin/EditCategory'
+import Users from './pages/admin/Users'
 
 
 
@@ -69,6 +70,8 @@ function App() {
           <Route path='/admin/editcampaign/:id' element={user && user.role===1 ? <AdminEditCampaign /> : <Navigate to="/login" />} />
           <Route path='/admin/categories' element={user && user.role===1 ? <Categories /> : <Navigate to="/login" />} />
           <Route path='/admin/editcategory/:id' element={user && user.role===1 ? <AdminEditCategory /> : <Navigate to="/login" />} />
+          <Route path='/admin/users' element={user && user.role===1 ? <Users /> : <Navigate to="/login" />} />
+
 
 
           {/* general user access */}
