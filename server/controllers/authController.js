@@ -77,7 +77,7 @@ const handleLogin = async (req, res) => {
 
     // creating jwt token
     const token = jwt.sign({ _id: validUser._id }, process.env.SECRETE_KEY, {
-      expiresIn: "1h",
+      expiresIn: "7d",
     });
     const userData = await User.findById(validUser._id).select('-password');
     // console.log(userData)

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import Navbar from '../../components/Navbar'
+import Navbar from '../../components/admin/Navbar'
+import Search from '../../components/admin/Search'
 import Footer from '../../components/Footer'
 import { fetchCategory, getCategories } from '../../app/feature/categorySlice'
 import { postCamaign } from '../../app/feature/campaignSlice'
+import { LuChevronRight, LuHome } from "react-icons/lu";
 
 const CreateCampaign = () => {
   const navigate = useNavigate();
@@ -25,8 +27,8 @@ const CreateCampaign = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(postCamaign(campaign)).then(res=>{
-      if(res.payload.message){
+    dispatch(postCamaign(campaign)).then(res => {
+      if (res.payload.message) {
         navigate('/admin/campaigns')
       }
     })
@@ -39,18 +41,45 @@ const CreateCampaign = () => {
   }, [])
 
   return (
-    <>
+    <div className='flex max-w-7xl mx-auto '>
       <Navbar />
-      <div className='bg-gray-50 rounded w-full h-full '>
-        <div className='  mx-auto max-w-7xl'>
-          <div className='md:px-8 my-12 md:py-20 flex justify-center '>
-            <h1 className=' text-xl md:text-2xl font-semibold border-b-2 border-green-600'>Create Campaign</h1>
-          </div>
+      <div className='w-full'>
+        <Search />
+        <div className='h-[90vh] overflow-y-auto'>
           
-          <form className="max-w-5xl mx-auto" onSubmit={handleSubmit}>
+          <div className=' mx-auto'>
+          <div className='p-8'>
+            <nav className="w-full flex" aria-label="Breadcrumb">
+              <ol className="inline-flex items-center space-x-1 md:space-x-3">
+                <li className="inline-flex items-center">
+                  <Link to={""} className=" inline-flex text-sm font-medium text-gray-800 hover:underline md:ml-2" >Dashboard</Link>
+                </li>
+                <li>
+                  <div className="flex items-center">
+                    <LuChevronRight className="h-4 w-4" />
+                    <Link to={''} className=" text-sm font-medium text-gray-800 hover:underline md:ml-2"> Campaigns </Link>
+
+                  </div>
+                </li>
+                <li>
+                  <div className="flex items-center">
+                    <LuChevronRight className="h-4 w-4" />
+                    <Link to={''} className=" text-sm font-medium text-gray-800 hover:underline md:ml-2"> Create Campaign </Link>
+
+                  </div>
+                </li>
+
+              </ol>
+            </nav>
+          </div>
+            <div className='md:px-8  flex text-left '>
+              <h1 className=' text-xl md:text-2xl font-semibold border-b-2 border-yellow-600'>Create Campaign</h1>
+            </div>
+
+            <form className="max-w-5xl mx-auto" onSubmit={handleSubmit}>
               <div className='p-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Campaign Title *</label>
-                <input type="text"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
+                <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
                   onChange={(e) => setCampaign({ ...campaign, campaignTitle: e.target.value })}
                   value={campaign.campaignTitle}
                 />
@@ -66,7 +95,7 @@ const CreateCampaign = () => {
 
               <div className='p-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Goal Amount *</label>
-                <input type="number"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                <input type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder='3000$'
                   onChange={(e) => setCampaign({ ...campaign, goalAmount: e.target.value })}
                   value={campaign.goalAmount}
@@ -75,7 +104,7 @@ const CreateCampaign = () => {
 
               <div className='p-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Thumbnail URL *</label>
-                <input type="text"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
+                <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
                   onChange={(e) => setCampaign({ ...campaign, thumbnail: e.target.value })}
                   value={campaign.thumbnail}
                 />
@@ -83,7 +112,7 @@ const CreateCampaign = () => {
 
               <div className='p-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Campaign Video </label>
-                <input type="text"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
+                <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
                   onChange={(e) => setCampaign({ ...campaign, videoUrl: e.target.value })}
                   value={campaign.videoUrl} />
               </div>
@@ -100,7 +129,7 @@ const CreateCampaign = () => {
 
               <div className='p-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Campaign Creator * </label>
-                <input type="text"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
+                <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
                   onChange={(e) => setCampaign({ ...campaign, campaignOwner: e.target.value })}
                   disabled
                   value={campaign.campaignOwner}
@@ -110,19 +139,19 @@ const CreateCampaign = () => {
 
               <div className='p-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location </label>
-                <input type="text"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
+                <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
                   onChange={(e) => setCampaign({ ...campaign, location: e.target.value })}
                   value={campaign.location}
                 />
               </div>
 
               <div className='p-4'>
-              <button type='submit' className='w-full p-3 bg-yellow-600 transition-all duration-400 rounded text-white hover:bg-yellow-700'>Create</button></div>
+                <button type='submit' className='w-full p-3 bg-yellow-600 transition-all duration-400 rounded text-white hover:bg-yellow-700'>Create</button></div>
             </form>
+          </div>
         </div>
-        <Footer/>
       </div>
-    </>
+    </div>
   )
 }
 

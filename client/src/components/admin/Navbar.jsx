@@ -34,7 +34,7 @@ const Navbar = () => {
         })
     }
     return (
-        <div className='block h-screen shadow bg-white top-0'>
+        <div className='block h-screen top-0'>
 
             <div className=' p-6 px-12'>
                 <Link className='' to='/'>
