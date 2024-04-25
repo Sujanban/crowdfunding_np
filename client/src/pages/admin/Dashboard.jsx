@@ -18,7 +18,7 @@ const Dashboard = () => {
     dispatch(fetchCampaign())
   }, [])
   return (
-    <div className='flex bg-white w-full max-w-7xl mx-auto'>
+    <div className='flex w-full max-w-7xl mx-auto'>
       <Navbar />
       <div className=' w-full'>
         <Search />
