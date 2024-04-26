@@ -33,15 +33,20 @@ const Index = () => {
   return (
     <>
       <Navbar />
-      <div className='home w-full h-[70h]'>
-        <div className='px-4 max-w-7xl mx-auto '>
-          <div className='my-12 md:my-16 max-w-lg mx-auto text-center'>
-            <h1 className='py-4 text-center text-2xl md:text-5xl'>Great future are built with a small charity</h1>
+      <div className='home w-full h-[70h] '>
+        <div className='px-4 max-w-7xl mx-auto  relative'>
+
+
+          <div className='py-12 w-full text-center relative'>
+            
+            {/* <img className='hidden xl:block left-60 ml-2 bottom-0 absolute w-36 h-44 rounded object-cover' src="https://images.unsplash.com/photo-1585577028863-35a3349c60db?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" /> */}
+            <h1 className='py-4 text-center max-w-lg mx-auto text-2xl md:text-5xl'>Great future are built with a small charity</h1>
             <p className='md:py-4 max-w-sm mx-auto text-slate-600'>The world's largest social fundraising platform, optimized for your charity in a more easy way</p>
             <div className='py-4 flex flex-wrap items-center justify-center gap-4'>
               <Link to='/createCampaign' className=' px-4 py-2 rounded-full text-sm bg-green-800 text-white'>Create Campaign</Link>
               <Link to='/howitworks' className=' px-4 py-2 text-sm rounded-full bg-gray-200 '>Learn more</Link>
             </div>
+
           </div>
 
 
@@ -79,7 +84,7 @@ const Index = () => {
         <h1 className='pb-4 md:pb-12 text-xl md:text-3xl '>Fundraising on Collab takes just a few minutes</h1>
         <div className='max-w-5xl mx-auto md:grid grid-cols-3 gap-4 '>
           <div className='p-2 md:p-4'>
-            <img className='mx-auto w-16 md:w-28'  src={create} alt="" />
+            <img className='mx-auto w-16 md:w-28' src={create} alt="" />
             <h1 className='md:py-2 text-lg md:text-2xl '>Register Account</h1>
             <p className='py-2 text-sm clear-start '> Follow a simple steps by filling up email and password and create a account for fundraising.</p>
           </div>
@@ -89,7 +94,7 @@ const Index = () => {
             <p className='py-2 text-sm clear-start '> Enter your campaign details and start raising money.</p>
           </div>
           <div className='p-2 md:p-4'>
-            <img className='mx-auto w-16 md:w-28'  src={money} alt="" />
+            <img className='mx-auto w-16 md:w-28' src={money} alt="" />
             <h1 className='md:py-2 text-lg md:text-2xl '>Withdraw Money</h1>
             <p className='py-2 text-sm clear-start '>Add your bank details and Withdraw money from your account.</p>
           </div>
@@ -155,7 +160,7 @@ const Index = () => {
         </div>
       </div> */}
 
-      
+
 
 
 
@@ -195,7 +200,7 @@ const Index = () => {
 
 
       {/* join us */}
-      <CtaBanner/>
+      <CtaBanner />
 
 
       {/* <div className='bg-gray-100 px-4 max-w-7xl mx-auto  py-20 text-center  '>

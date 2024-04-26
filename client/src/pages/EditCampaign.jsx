@@ -17,6 +17,7 @@ const EditCampaign = () => {
   const category = useSelector(getCategories);
   const dispatch = useDispatch();
   const { id } = useParams();
+  const user = useSelector((state) => state.user.data)
 
 
 
@@ -29,8 +30,10 @@ const EditCampaign = () => {
         navigate('/mycampaigns')
       }
     })
-
   }
+
+
+
 
 
   // fetching campaign from id
@@ -160,12 +163,6 @@ const EditCampaign = () => {
                 <div className='grid grid-cols-2 col-span-2 gap-6'>
                   <div className='grid gap-2'>
                     <label>Choose category *</label>
-                    {/* <select className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1'>
-                      {category && category.map((item, index) => (
-                        <option onChange={(e) => setCampaign({ ...campaign, category: '11' })} key={index} value={item.category}>{item.category}</option>
-                      ))}
-                    </select> */}
-
                     <select value={campaignn.category} className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1' onChange={(e) => setCampaignn({ ...campaignn, category: e.target.value })}>
                       {category && category.map((item, index) => (
                         <option key={index} value={item.category} >{item.category}</option>
@@ -208,11 +205,12 @@ const EditCampaign = () => {
                 <div className='grid col-span-2 gap-6'>
                   <div className='grid gap-2'>
                     <label>Fundraiser *</label>
-                    <input className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1'
+                    <input className='p-3 disabled:bg-gray-200 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1'
                       type="text"
                       placeholder='Sam Sulek'
                       onChange={(e) => setCampaignn({ ...campaignn, campaignOwner: e.target.value })}
-                      value={campaignn.campaignOwner}
+                      disabled
+                      value={user.firstName + ' ' + user.lastName}
                     />
                   </div>
                   <div className='grid gap-2'>

@@ -27,7 +27,6 @@ export const fetchCampaignsByUserID = createAsyncThunk(
   "fetchCampaignsByUserID",
   async (userId) => {
     try {
-      // const res = await axios.get("/api/campaign/getCampaignsByUserID/");
       const res = await axios.get(`/api/campaign/getCampaignsByUserID/${userId}`);
       if(res.data){
         return res.data
@@ -57,7 +56,6 @@ export const updateCampaign = createAsyncThunk(
   "updateCampaign",
   async (data) => {
     try {
-      console.log(data);
       const res = await axios.put(
         `/api/campaign/updateCampaign/${data._id}`,
         data

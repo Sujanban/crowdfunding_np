@@ -6,7 +6,7 @@ import { fetchCategory, getCategories } from '../../app/feature/categorySlice'
 import { updateCampaign, deleteCampaign } from '../../app/feature/campaignSlice'
 import axios from 'axios'
 
-import { LuHome, LuChevronRight } from "react-icons/lu";
+import { LuChevronRight } from "react-icons/lu";
 import Search from '../../components/admin/Search'
 
 
@@ -16,6 +16,8 @@ const EditCampaign = () => {
   const category = useSelector(getCategories);
   const dispatch = useDispatch();
   const { id } = useParams();
+
+  const [users, setUsers] = useState([]);
 
 
 
@@ -39,10 +41,27 @@ const EditCampaign = () => {
       console.log("Server Error while fetching API " + error);
     }
   }
+
+
+  const fetchAllUsers = async () => {
+    try {
+      const res = await axios.get('/api/user/users')
+      if (res.data.error) {
+        toastr.error(res.data.error)
+      } else {
+        setUsers(res.data)
+      }
+    } catch (err) {
+      console.log("Server Error while fetching API " + err);
+    }
+  }
+
+
   // fetching cateories on page load
   useEffect(() => {
     dispatch(fetchCategory());
     fetchCampaign(id);
+    fetchAllUsers();
   }, [])
   return (
     <div className='flex max-w-7xl mx-auto'>
@@ -130,23 +149,29 @@ const EditCampaign = () => {
                   ))}
                 </select>
               </div>
+
               <div className='py-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
-                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={campaignn.status} onChange={(e) => setCampaignn({ ...campaignn, status: e.target.value })}>
-
+                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                value={campaignn.status} 
+                onChange={(e) => setCampaignn({ ...campaignn, status: e.target.value })}>
                   <option value='active' >Active</option>
                   <option value='completed' >Completed</option>
-
                 </select>
               </div>
 
+              {/* campaign owner */}
               <div className='py-4'>
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Campaign Creator * </label>
-                <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
-                  onChange={(e) => setCampaignn({ ...campaignn, campaignOwner: e.target.value })}
-                  value={campaignn.campaignOwner}
-
-                />
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Campaign Creator *</label>
+                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                value={campaignn.campaignOwner} 
+                onChange={(e) => setCampaignn({ ...campaignn, campaignOwner: e.target.value })}>
+                  {
+                    users && users.map((user, index) => 
+                    <option key={index} value={user._id} >{user.firstName + " " + user.lastName}</option>
+                    )
+                  }
+                </select>
               </div>
 
               <div className='py-4'>

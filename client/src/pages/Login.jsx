@@ -72,7 +72,7 @@ const Login = () => {
                                         onChange={(e) => setUser({ ...user, email: e.target.value })}
                                         value={user.email}
                                         className='text-md font-light border border-stone-600 p-4 rounded-md'
-                                        type="text"
+                                        type="email"
                                         placeholder='Email Address' />
                                 </div>
                                 <div className='py-2 grid relative'>

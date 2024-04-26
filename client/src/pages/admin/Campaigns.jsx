@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/admin/Navbar'
 import Search from '../../components/admin/Search'
-import { LuChevronRight} from "react-icons/lu";
+import { LuChevronRight } from "react-icons/lu";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCampaign } from '../../app/feature/campaignSlice';
 import WarningPopup from '../../components/WarningPopup';
 import { VscEdit, VscTrash } from 'react-icons/vsc';
+import axios from 'axios';
 
 const Campaigns = () => {
     const [popupVisible, setPopupVisible] = useState(false);
     const campaign = useSelector(state => state.campaign.data)
     const [selectedCampaignId, setSelectedCampaignId] = useState(null);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const [users, setUsers] = useState([]);
     let count = 0;
 
     const handleDelete = (id) => {
@@ -20,8 +22,22 @@ const Campaigns = () => {
         setPopupVisible(true)
     }
 
+    const fetchAllUsers = async () => {
+        try {
+            const res = await axios.get('/api/user/users')
+            if (res.data.error) {
+                toastr.error(res.data.error)
+            } else {
+                setUsers(res.data)
+            }
+        } catch (err) {
+            console.log("Server Error while fetching API " + err);
+        }
+    }
+
     useEffect(() => {
         dispatch(fetchCampaign())
+        fetchAllUsers();
     }, [])
     return (
         <div className='flex max-w-7xl mx-auto w-full'>
@@ -73,13 +89,17 @@ const Campaigns = () => {
                                             <tr key={index} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                                 <td className="px-2 py-4"> {++count} </td>
                                                 <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {item.campaignTitle.slice(0, 30) + "..."} </td>
-                                                <td className="px-6 py-4"> {item.campaignOwner.slice(0, 20)} </td>
+                                                <td className="px-6 py-4 capitalize">
+                                                    {users.filter(user => user._id === item.campaignOwner)[0] ? users.filter(user => user._id === item.campaignOwner)[0]?.firstName + " " + users.filter(user => user._id === item.campaignOwner)[0]?.lastName : <span className='p-1 text-red-500'>Anonymous</span>}
+                                                    {/*    
+                                                     {users.filter(user => user._id === item.campaignOwner)[0]?.firstName + " " + users.filter(user => user._id === item.campaignOwner)[0]?.lastName}  */}
+                                                </td>
                                                 <td className="px-6 py-4"> {item.category} </td>
                                                 <td className="px-6 py-4"> {item.goalAmount}$ </td>
                                                 <td className="px-6 py-4"> <span className={`${item.status === "active" ? "px-1.5 py-0.5 text-emerald-600 bg-green-100 rounded-xl" : "px-1.5 py-0.5 text-red-600 bg-orange-100 rounded-xl"}`}>{item.status}</span> </td>
                                                 <td className="px-6 py-4 flex items-center text-sm">
-                                                    <Link to={`/admin/editcampaign/${item._id}`} className="m-1 px-4 py-2 bg-emerald-100 text-emerald-600 rounded-xl hover:bg-emerald-200 transition-all duration-300"><VscEdit size={20}/></Link>
-                                                    <button onClick={() => handleDelete(item._id)} className="px-4 py-2 text-orange-600 bg-orange-100 rounded-xl hover:bg-orange-200 transition-all duration-300"><VscTrash  size={20}/></button>
+                                                    <Link to={`/admin/editcampaign/${item._id}`} className="m-1 px-4 py-2 bg-emerald-100 text-emerald-600 rounded-xl hover:bg-emerald-200 transition-all duration-300"><VscEdit size={20} /></Link>
+                                                    <button onClick={() => handleDelete(item._id)} className="px-4 py-2 text-orange-600 bg-orange-100 rounded-xl hover:bg-orange-200 transition-all duration-300"><VscTrash size={20} /></button>
                                                     {
                                                         popupVisible && selectedCampaignId === item._id && <WarningPopup setPopupVisible={setPopupVisible} id={item._id} delCampaign={true} />
                                                     }
