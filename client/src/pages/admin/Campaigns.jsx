@@ -51,13 +51,9 @@ const Campaigns = () => {
                     {/*  */}
                     <div className='p-4'>
                         <div className='flex justify-between items-center'>
-                            <h1 className='pr-2 border-b-2 border-yellow-600 text-2xl font-semibold'>Campaigns</h1>
-                            <Link to={'/admin/createcampaign'} className='px-4 py-2 text-sm bg-emerald-600 text-white rounded-full'>Create Campaign</Link>
+                            <h1 className='border-b-2 border-yellow-600 text-2xl font-semibold'>Campaigns</h1>
+                            <Link to={'/admin/createcampaign'} className='px-4 py-3 text-sm bg-emerald-600 text-white rounded-xl transition-all duration-300 hover:bg-emerald-700 cursor-pointer'>Create Campaign</Link>
                         </div>
-                        {/* <p className='py-4 text-stone-600'>All the listed campaigns.</p> */}
-
-
-
                         <div className="p-2 relative overflow-x-auto sm:rounded-lg">
                             <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
                                 <thead className="text-xs text-gray-700 capitalize bg-gray-50  ">

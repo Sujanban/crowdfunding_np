@@ -63,8 +63,8 @@ const updateCampaign = async (req, res) => {
       videoUrl,
       goalAmount,
       category,
+      status,
     } = req.body;
-
 
     // Check if required fields are present in the request body
     if (
@@ -87,20 +87,39 @@ const updateCampaign = async (req, res) => {
     if (!existCampaign) return res.json({ error: "Campaign not found" });
 
     // Update the campaign
-    const updated = await Campaign.findByIdAndUpdate(
-      id,
-      {
-        campaignOwner,
-        campaignTitle,
-        campaignDescription,
-        location,
-        thumbnail,
-        videoUrl,
-        goalAmount,
-        category,
-      },
-      { new: true }
-    );
+    let updated;
+    if (status) {
+      updated = await Campaign.findByIdAndUpdate(
+        id,
+        {
+          campaignOwner,
+          campaignTitle,
+          campaignDescription,
+          location,
+          thumbnail,
+          videoUrl,
+          goalAmount,
+          category,
+          status,
+        },
+        { new: true }
+      );
+    } else {
+      updated = await Campaign.findByIdAndUpdate(
+        id,
+        {
+          campaignOwner,
+          campaignTitle,
+          campaignDescription,
+          location,
+          thumbnail,
+          videoUrl,
+          goalAmount,
+          category,
+        },
+        { new: true }
+      );
+    }
 
     // Check if the update was successful
     if (updated) {
@@ -138,7 +157,6 @@ const getCampaigns = async (req, res) => {
 
 // GET CAMPAIGNS BY USERID
 const getCampaignsByUserID = async (req, res) => {
- 
   try {
     const userId = req.params.userId;
     // const userId = req.user._id;

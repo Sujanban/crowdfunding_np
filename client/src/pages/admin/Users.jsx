@@ -61,7 +61,7 @@ const Users = () => {
                     {/*  */}
                     <div className='p-4'>
                         <div className='flex justify-between items-center'>
-                            <h1 className='pr-2 border-b-2 border-yellow-600 text-2xl font-semibold'>Users</h1>
+                            <h1 className='border-b-2 border-yellow-600 text-2xl font-semibold'>Users</h1>
                         </div>
 
                         <div className="p-2 relative overflow-x-auto sm:rounded-lg">

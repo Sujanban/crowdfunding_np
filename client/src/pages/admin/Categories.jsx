@@ -61,7 +61,7 @@ const Categories = () => {
                         {/*  */}
                         <div className='p-4 flex-grow '>
                             <div className='flex justify-between items-center'>
-                                <h1 className='pr-2 border-b-2 border-yellow-600 text-2xl font-semibold'>Categories</h1>
+                                <h1 className='border-b-2 border-yellow-600 text-2xl font-semibold'>Categories</h1>
                             </div>
                             
 
@@ -74,7 +74,6 @@ const Categories = () => {
                                             <th scope="col" className="px-2 py-3 w-full">Action</th>
                                         </tr>
                                     </thead>
-
                                     <tbody>
                                         {
                                             category && category.map((category, index) =>
@@ -92,13 +91,9 @@ const Categories = () => {
                                                     </td>
                                                 </tr>
                                             )}
-                                        
                                     </tbody>
                                 </table>
-
-
                             </div>
-
                         </div>
                         {/* campaign creation */}
                         <div className='w-full max-w-md'>

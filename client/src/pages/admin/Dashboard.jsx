@@ -3,9 +3,9 @@ import Search from '../../components/admin/Search'
 import { IoIosArrowDown } from "react-icons/io";
 import { TbBrandCampaignmonitor } from "react-icons/tb";
 import { LiaMoneyBillWaveAltSolid } from "react-icons/lia";
-import { LuChevronRight, LuHome } from "react-icons/lu";
+import { LuChevronRight } from "react-icons/lu";
 import { Link } from 'react-router-dom';
-import { BiHome, BiUser } from "react-icons/bi";
+import {  BiUser } from "react-icons/bi";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCampaign } from '../../app/feature/campaignSlice';
 import { useEffect } from 'react';
@@ -30,26 +30,9 @@ const Dashboard = () => {
                   to={""}
                   className="ml-1 inline-flex text-sm font-medium text-gray-800 hover:underline md:ml-2"
                 >
-                  <LuHome className="mr-4 h-4 w-4" />
                   Dashboard
                 </Link>
               </li>
-              <li>
-                <div className="flex items-center">
-                  <LuChevronRight className="h-4 w-4" />
-                  <Link to={''} className="ml-1 text-sm font-medium text-gray-800 hover:underline md:ml-2">
-                    Index
-                  </Link>
-                </div>
-              </li>
-              {/* <li aria-current="page">
-                        <div className="flex items-center">
-                            <LuChevronRight className="h-4 w-4" />
-                            <Link to={'/editcampaign/'} className="ml-1 text-sm font-medium text-gray-800 hover:underline md:ml-2">
-                                Edit Campaign
-                            </Link>
-                        </div>
-                    </li> */}
             </ol>
           </nav>
           <div className='p-6 max-w-6xl'>

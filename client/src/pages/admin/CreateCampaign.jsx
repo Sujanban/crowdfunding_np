@@ -49,23 +49,21 @@ const CreateCampaign = () => {
           
           <div className=' mx-auto'>
           <div className='p-8'>
-            <nav className="w-full flex" aria-label="Breadcrumb">
+            <nav className="w-full flex">
               <ol className="inline-flex items-center space-x-1 md:space-x-3">
                 <li className="inline-flex items-center">
-                  <Link to={""} className=" inline-flex text-sm font-medium text-gray-800 hover:underline md:ml-2" >Dashboard</Link>
+                  <Link to={"/admin/dashboard"} className=" inline-flex text-sm font-medium text-gray-800 hover:underline md:ml-2" >Dashboard</Link>
                 </li>
                 <li>
                   <div className="flex items-center">
                     <LuChevronRight className="h-4 w-4" />
-                    <Link to={''} className=" text-sm font-medium text-gray-800 hover:underline md:ml-2"> Campaigns </Link>
-
+                    <Link to={'/admin/campaigns'} className=" text-sm font-medium text-gray-800 hover:underline md:ml-2"> Campaigns </Link>
                   </div>
                 </li>
                 <li>
                   <div className="flex items-center">
                     <LuChevronRight className="h-4 w-4" />
                     <Link to={''} className=" text-sm font-medium text-gray-800 hover:underline md:ml-2"> Create Campaign </Link>
-
                   </div>
                 </li>
 
@@ -146,7 +144,7 @@ const CreateCampaign = () => {
               </div>
 
               <div className='p-4'>
-                <button type='submit' className='w-full p-3 bg-yellow-600 transition-all duration-400 rounded text-white hover:bg-yellow-700'>Create</button></div>
+                <button type='submit' className='px-4 py-3 text-sm bg-emerald-600 transition-all duration-300 rounded-xl text-white hover:bg-emerald-700'>Create Campaign</button></div>
             </form>
           </div>
         </div>
