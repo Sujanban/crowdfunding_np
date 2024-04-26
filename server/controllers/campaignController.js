@@ -1,4 +1,5 @@
 const Campaign = require("../models/campaign.model");
+const Story = require("../models/story.model");
 const mongoose = require("mongoose");
 
 //CREATE CAMPAIGN
@@ -174,9 +175,11 @@ const deleteCampaign = async (req, res) => {
   try {
     const { id } = req.params;
     const del = await Campaign.findByIdAndDelete(id);
+    const del2 = await Story.deleteMany({ campaignId: id });
     if (del) {
       res.json({ message: "Campaign deleted successfully" });
     }
+    
   } catch (err) {
     res.json({ error: err.message });
   }
