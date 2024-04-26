@@ -10,6 +10,8 @@ import { addCategory, fetchCategory } from '../../app/feature/categorySlice';
 const Categories = () => {
     const [popupVisible, setPopupVisible] = useState(false);
     const category = useSelector(state => state.category.data)
+    const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+
     const dispatch = useDispatch()
     let count = 0;
 
@@ -18,6 +20,11 @@ const Categories = () => {
     const handleCategoryCreation = (e) => {
         e.preventDefault();
         dispatch(addCategory(catData))
+    }
+
+    const handleDelete = (id) => {
+        setSelectedCategoryId(id)
+        setPopupVisible(true)
     }
 
     useEffect(() => {
@@ -75,10 +82,10 @@ const Categories = () => {
                                                     <td className=" py-4 flex items-center text-sm">
                                                         <Link to={`/admin/editcategory/${category._id}`}
                                                             className="m-1 px-4 py-2 text-white bg-emerald-600 rounded-xl">Edit</Link>
-                                                        <button onClick={() => setPopupVisible(true)}
+                                                        <button onClick={() => handleDelete(category._id)}
                                                             className="px-4 py-2 text-white bg-orange-600 rounded-xl">Delete</button>
                                                         {
-                                                            popupVisible && <WarningPopup setPopupVisible={setPopupVisible} id={category._id} delCategory={true} />
+                                                            popupVisible && selectedCategoryId === category._id && <WarningPopup setPopupVisible={setPopupVisible} id={category._id} delCategory={true} />
                                                         }
                                                     </td>
                                                 </tr>

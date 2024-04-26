@@ -10,8 +10,14 @@ import WarningPopup from '../../components/WarningPopup';
 const Campaigns = () => {
     const [popupVisible, setPopupVisible] = useState(false);
     const campaign = useSelector(state => state.campaign.data)
+    const [selectedCampaignId, setSelectedCampaignId] = useState(null);
     const dispatch = useDispatch()
     let count = 0;
+
+    const handleDelete = (id) => {
+        setSelectedCampaignId(id)
+        setPopupVisible(true)
+    }
 
     useEffect(() => {
         dispatch(fetchCampaign())
@@ -66,19 +72,19 @@ const Campaigns = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        campaign && campaign.map((campaign, index) =>
+                                        campaign && campaign.map((item, index) =>
                                             <tr key={index} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                                 <td className="px-2 py-4"> {++count} </td>
-                                                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {campaign.campaignTitle.slice(0, 30) + "..."} </td>
-                                                <td className="px-6 py-4"> {campaign.campaignOwner.slice(0, 20)} </td>
-                                                <td className="px-6 py-4"> {campaign.category} </td>
-                                                <td className="px-6 py-4"> {campaign.goalAmount}$ </td>
-                                                <td className="px-6 py-4"> <span className={`${campaign.status === "active" ? "px-1.5 py-0.5 text-emerald-600 bg-green-100 rounded-xl" : "px-1.5 py-0.5 text-red-600 bg-orange-100 rounded-xl"}`}>{campaign.status}</span> </td>
+                                                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {item.campaignTitle.slice(0, 30) + "..."} </td>
+                                                <td className="px-6 py-4"> {item.campaignOwner.slice(0, 20)} </td>
+                                                <td className="px-6 py-4"> {item.category} </td>
+                                                <td className="px-6 py-4"> {item.goalAmount}$ </td>
+                                                <td className="px-6 py-4"> <span className={`${item.status === "active" ? "px-1.5 py-0.5 text-emerald-600 bg-green-100 rounded-xl" : "px-1.5 py-0.5 text-red-600 bg-orange-100 rounded-xl"}`}>{item.status}</span> </td>
                                                 <td className="px-6 py-4 flex items-center text-sm">
-                                                    <Link to={`/admin/editcampaign/${campaign._id}`} className="m-1 px-4 py-2 text-white bg-emerald-600 rounded-xl">Edit</Link>
-                                                    <button onClick={() => setPopupVisible(true)} className="px-4 py-2 text-white bg-orange-600 rounded-xl">Delete</button>
+                                                    <Link to={`/admin/editcampaign/${item._id}`} className="m-1 px-4 py-2 text-white bg-emerald-600 rounded-xl">Edit</Link>
+                                                    <button onClick={() => handleDelete(item._id)} className="px-4 py-2 text-white bg-orange-600 rounded-xl">Delete</button>
                                                     {
-                                                        popupVisible && <WarningPopup setPopupVisible={setPopupVisible} id={campaign._id} delCampaign={true}/>
+                                                        popupVisible && selectedCampaignId === item._id && <WarningPopup setPopupVisible={setPopupVisible} id={item._id} delCampaign={true} />
                                                     }
                                                 </td>
                                             </tr>

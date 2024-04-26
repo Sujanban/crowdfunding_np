@@ -7,7 +7,7 @@ import { deleteCategory } from '../app/feature/categorySlice';
 const WarningPopup = ({ setPopupVisible, id, delCategory, delCampaign }) => {
     const dispatch = useDispatch();
 
-    const handleDelete = () => {
+    const handleDelete = (id) => {
         if (delCategory) {
             dispatch(deleteCategory(id));
         }
@@ -27,7 +27,7 @@ const WarningPopup = ({ setPopupVisible, id, delCategory, delCampaign }) => {
                 <hr />
                 <div className='font-thin text-sm p-4 flex items-center justify-end space-x-2'>
                     <button onClick={() => setPopupVisible(false)} className='px-4 py-2 border-2 rounded bg-green-500 text-white'>Cancel</button>
-                    <button onClick={handleDelete} className='px-4 py-2 border-2 rounded border-red-500 text-red-500'>Delete</button>
+                    <button onClick={()=> handleDelete(id)} className='px-4 py-2 border-2 rounded border-red-500 text-red-500'>Delete</button>
                 </div>
             </div>
         </div>
