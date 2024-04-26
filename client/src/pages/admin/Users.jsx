@@ -7,6 +7,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import {fetchCampaign} from '../../app/feature/campaignSlice'
+import { VscTrash } from 'react-icons/vsc';
 
 const Users = () => {
     const [users, setUsers] = useState(null);
@@ -87,7 +88,7 @@ const Users = () => {
                                                 <td scope="col" className="px-6 py-3">{user.role === 1 ? 'Admin' : 'User'}</td>
                                                 <td scope="col" className="px-6 py-3">{countCampaignsByUserId(user._id)}</td>
                                                 <td scope="col" className="px-6 py-3">
-                                                    <button className='py-2 px-4 text-sm bg-orange-600 text-white rounded-xl'>Delete</button>
+                                                    <button className='py-2 px-4 text-sm text-orange-600 bg-orange-100 transition-all duration-300 hover:bg-orange-200 rounded-xl'><VscTrash size={20}/></button>
                                                 </td>
                                             </tr>)
                                     }

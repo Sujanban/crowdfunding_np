@@ -1,38 +1,38 @@
 import React, { useState } from 'react'
-import { Link, useNavigate, NavLink } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { logoutUser } from '../../app/feature/userSlice'
+import { Link, NavLink } from 'react-router-dom'
 import { BiHome, BiUser } from "react-icons/bi";
 import { TbBrandCampaignmonitor } from "react-icons/tb";
 import { MdOutlineCategory } from "react-icons/md";
 import { LiaMoneyBillWaveAltSolid } from "react-icons/lia";
 
-
-
-
-
-
 const Navbar = () => {
-    const navigate = useNavigate();
-    const user = useSelector(state => state.user.data)
-    const dispatch = useDispatch();
-    const [isSubMenuVisible, setSubMenuVisible] = useState(false);
-    const handleMouseEnter = () => {
-        setSubMenuVisible(true);
-    };
-    const handleMouseLeave = () => {
-        setSubMenuVisible(false);
-    };
-
-    const handleLogout = () => {
-        dispatch(logoutUser()).then((res) => {
-            if (res.payload) {
-                console.log(res.payload);
-                window.location.reload();
-                navigate('/');
-            }
-        })
-    }
+    const nav = [
+        {
+            name: 'Dashboard',
+            path: '/admin/dashboard',
+            icon: <BiHome size={20} />
+        },
+        {
+            name: 'Campaigns',
+            path: '/admin/campaigns',
+            icon: <TbBrandCampaignmonitor size={20} />
+        },
+        {
+            name: 'Category',
+            path: '/admin/categories',
+            icon: <MdOutlineCategory size={20} />
+        },
+        {
+            name: 'Users',
+            path: '/admin/users',
+            icon: <BiUser size={20} />
+        },
+        {
+            name: 'Donations',
+            path: '/admin/donations',
+            icon: <LiaMoneyBillWaveAltSolid size={20} />
+        }
+    ]
     return (
         <div className='block h-screen top-0'>
 
@@ -43,34 +43,16 @@ const Navbar = () => {
                 </Link>
             </div>
             <ul className='pt-4 px-10 grid gap-4 '>
-                <NavLink
-                    className={({ isActive }) => isActive ?
-                        'p-2 rounded-xl bg-emerald-600 text-white text-md hover:bg-emerald-600 hover:text-white text-sate-700 flex items-center'
-                        :
-                        'p-2 rounded-xl  text-md hover:bg-emerald-600 hover:text-white text-slate-700 flex items-center'} to="/admin/dashboard">
-                    <BiHome /><span className='px-2'>Dashboard</span>
-                </NavLink>
-
-                <NavLink className={({ isActive }) => isActive ?
-                    'p-2 rounded-xl bg-emerald-600 text-white text-md hover:bg-emerald-600 hover:text-white text-sate-700 flex items-center'
-                    :
-                    'p-2 rounded-xl  text-md hover:bg-emerald-600 hover:text-white text-slate-700 flex items-center'} to="/admin/campaigns">
-                    <TbBrandCampaignmonitor /><span className='px-2'>Campaigns</span></NavLink>
-
-                <NavLink className={({ isActive }) => isActive ?
-                    'p-2 rounded-xl bg-emerald-600 text-white text-md hover:bg-emerald-600 hover:text-white text-sate-700 flex items-center'
-                    :
-                    'p-2 rounded-xl  text-md hover:bg-emerald-600 hover:text-white text-slate-700 flex items-center'} to="/admin/categories"><MdOutlineCategory /><span className='px-2'>Category</span></NavLink>
-
-                <NavLink className={({ isActive }) => isActive ?
-                    'p-2 rounded-xl bg-emerald-600 text-white text-md hover:bg-emerald-600 hover:text-white text-sate-700 flex items-center'
-                    :
-                    'p-2 rounded-xl  text-md hover:bg-emerald-600 hover:text-white text-slate-700 flex items-center'} to="/admin/users"><BiUser /><span className='px-2'>Users</span></NavLink>
-
-                <NavLink className={({ isActive }) => isActive ?
-                    'p-2 rounded-xl bg-emerald-600 text-white text-md hover:bg-emerald-600 hover:text-white text-sate-700 flex items-center'
-                    :
-                    'p-2 rounded-xl  text-md hover:bg-emerald-600 hover:text-white text-slate-700 flex items-center'} to="/admin/donations"><LiaMoneyBillWaveAltSolid /><span className='px-2'>Donations</span></NavLink>
+                {
+                    nav.map((item, index) =>
+                        <NavLink className={({ isActive }) => isActive ?
+                            'p-2 rounded-xl bg-emerald-600 text-white text-md hover:bg-emerald-600 hover:text-white text-sate-700 flex items-center transition-all duration-300'
+                            :
+                            'p-2 rounded-xl  text-md hover:bg-emerald-600 hover:text-white text-slate-700 flex items-center  transition-all duration-300'} to={item.path}>
+                            {item.icon}<span className='px-2'>{item.name}</span>
+                        </NavLink>
+                    )
+                }
             </ul>
         </div>
     )

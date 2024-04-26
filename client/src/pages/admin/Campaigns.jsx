@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/admin/Navbar'
 import Search from '../../components/admin/Search'
-import { LuChevronRight, LuHome } from "react-icons/lu";
+import { LuChevronRight} from "react-icons/lu";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCampaign } from '../../app/feature/campaignSlice';
 import WarningPopup from '../../components/WarningPopup';
+import { VscEdit, VscTrash } from 'react-icons/vsc';
 
 const Campaigns = () => {
     const [popupVisible, setPopupVisible] = useState(false);
@@ -81,8 +82,8 @@ const Campaigns = () => {
                                                 <td className="px-6 py-4"> {item.goalAmount}$ </td>
                                                 <td className="px-6 py-4"> <span className={`${item.status === "active" ? "px-1.5 py-0.5 text-emerald-600 bg-green-100 rounded-xl" : "px-1.5 py-0.5 text-red-600 bg-orange-100 rounded-xl"}`}>{item.status}</span> </td>
                                                 <td className="px-6 py-4 flex items-center text-sm">
-                                                    <Link to={`/admin/editcampaign/${item._id}`} className="m-1 px-4 py-2 text-white bg-emerald-600 rounded-xl">Edit</Link>
-                                                    <button onClick={() => handleDelete(item._id)} className="px-4 py-2 text-white bg-orange-600 rounded-xl">Delete</button>
+                                                    <Link to={`/admin/editcampaign/${item._id}`} className="m-1 px-4 py-2 bg-emerald-100 text-emerald-600 rounded-xl hover:bg-emerald-200 transition-all duration-300"><VscEdit size={20}/></Link>
+                                                    <button onClick={() => handleDelete(item._id)} className="px-4 py-2 text-orange-600 bg-orange-100 rounded-xl hover:bg-orange-200 transition-all duration-300"><VscTrash  size={20}/></button>
                                                     {
                                                         popupVisible && selectedCampaignId === item._id && <WarningPopup setPopupVisible={setPopupVisible} id={item._id} delCampaign={true} />
                                                     }
