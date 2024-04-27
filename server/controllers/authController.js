@@ -7,19 +7,19 @@ const test = (req, res) => {
   res.json("test is working");
 };
 
-const isAdmin = async (req, res, next) => {
-  try {
-    const token = req.cookies.token;
-    const decoded = jwt.verify(token, process.env.SECRETE_KEY);
-    const user = await User.findById(decoded._id);
-    if (user.role !== 1) {
-      return res.json({ error: "Need Admin Privilege!" });
-    }
-    next();
-  } catch (error) {
-    res.json({ error: error.message });
-  }
-};
+// const isAdmin = async (req, res, next) => {
+//   try {
+//     const token = req.cookies.token;
+//     const decoded = jwt.verify(token, process.env.SECRETE_KEY);
+//     const user = await User.findById(decoded._id);
+//     if (user.role !== 1) {
+//       return res.json({ error: "Need Admin Privilege!" });
+//     }
+//     next();
+//   } catch (error) {
+//     res.json({ error: error.message });
+//   }
+// };
 
 // handling user registration
 const handleRegister = async (req, res) => {
@@ -76,7 +76,7 @@ const handleLogin = async (req, res) => {
     }
 
     // creating jwt token
-    const token = jwt.sign({ _id: validUser._id }, process.env.SECRETE_KEY, {
+    const token = jwt.sign({ _id: validUser._id, role: validUser.role }, process.env.SECRETE_KEY, {
       expiresIn: "7d",
     });
     const userData = await User.findById(validUser._id).select('-password');
@@ -158,6 +158,6 @@ module.exports = {
   handleLogout,
   fetchUserProfile,
   // checkAuth,
-  isAdmin,
+  // isAdmin,
   handleGoogleLogin,
 };

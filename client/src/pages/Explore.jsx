@@ -95,16 +95,23 @@ const Explore = () => {
                     </div>
                     <div className='p-2 col-span-4 md:grid grid-cols-3 gap-2'>
                         {
-                            filteredCampaign ? filteredCampaign.map((campaign, index) =>
-                                <Card key={index} campaign={campaign} />
-                            ) : campaign && campaign.map((campaign, index) =>
-
-                                <Card key={index} campaign={campaign} />
-
-                            )
+                            filteredCampaign
+                                ?
+                                filteredCampaign.map((campaign, index) =>
+                                    <Card key={index} campaign={campaign} />
+                                )
+                                : campaign
+                                &&
+                                campaign.map((campaign, index) =>
+                                    <Card key={index} campaign={campaign} />
+                                )
                         }
                         {
-                            filteredCampaign && filteredCampaign.length === 0 && <h1>No campaign found</h1>
+                            filteredCampaign 
+                            && 
+                            filteredCampaign.length === 0 
+                            &&
+                             <h1>No campaign found</h1>
                         }
                     </div>
 

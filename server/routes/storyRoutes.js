@@ -3,7 +3,7 @@ const router = express.Router();
 const cors = require("cors");
 const { updateStory, getStory } = require("../controllers/storyControlller");
 
-const checkAuth = require("../middlewares/userAuth");
+const {checkAuth} = require("../middlewares/userAuth");
 
 router.use(
   cors({

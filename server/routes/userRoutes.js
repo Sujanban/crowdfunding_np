@@ -3,7 +3,7 @@ const router = express.Router();
 const cors = require("cors");
 const { fetchUserProfile } = require("../controllers/authController");
 
-const checkAuth = require("../middlewares/userAuth");
+const {checkAuth, isAdmin} = require("../middlewares/userAuth");
 const { fetchUsers, deleteUser } = require("../controllers/userController");
 
 router.use(
@@ -14,7 +14,7 @@ router.use(
 );
 
 router.get("/profile", checkAuth, fetchUserProfile);
-router.get("/users", checkAuth, fetchUsers);
-router.delete("/deleteUser/:userId",checkAuth, deleteUser)
+router.get("/users", checkAuth,isAdmin, fetchUsers);
+router.delete("/deleteUser", checkAuth, isAdmin, deleteUser);
 
 module.exports = router;

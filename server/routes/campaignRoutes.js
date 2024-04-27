@@ -11,7 +11,7 @@ const {
 } = require("../controllers/campaignController");
 
 const multer = require("multer");
-const checkAuth = require("../middlewares/userAuth");
+const {checkAuth, isAdmin} = require("../middlewares/userAuth");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './uploads')

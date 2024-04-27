@@ -8,7 +8,7 @@ const {
   editCategory,
   getCategoryById
 } = require("../controllers/categoryController");
-const { checkAuth, isAdmin } = require("../controllers/authController");
+const { checkAuth, isAdmin } = require("../middlewares/userAuth");
 
 // middleware
 router.use(
@@ -19,18 +19,18 @@ router.use(
 );
 
 // CREATE CATEGORY
-router.post("/createCategory", addCategory);
+router.post("/createCategory",checkAuth,isAdmin, addCategory);
 
-// GET CATEGORY
+// GET CATEGORYs
 router.get("/getCategory", getCategory);
 
 // get individual category by id
-router.get('/getCategoryById/:id', getCategoryById);
+router.get('/getCategoryById/:id',checkAuth,isAdmin, getCategoryById);
 
 // UPDATE CATEGORY
-router.put("/editCategory/:id", editCategory);
+router.put("/editCategory/:id",checkAuth,isAdmin, editCategory);
 
 // DELETE CATEGORY
-router.delete("/deleteCategory/:id", deleteCategory);
+router.delete("/deleteCategory/:id",checkAuth,isAdmin, deleteCategory);
 
 module.exports = router;
