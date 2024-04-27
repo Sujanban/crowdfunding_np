@@ -4,7 +4,7 @@ const cors = require("cors");
 const { fetchUserProfile } = require("../controllers/authController");
 
 const checkAuth = require("../middlewares/userAuth");
-const { fetchUsers } = require("../controllers/userController");
+const { fetchUsers, deleteUser } = require("../controllers/userController");
 
 router.use(
   cors({
@@ -15,5 +15,6 @@ router.use(
 
 router.get("/profile", checkAuth, fetchUserProfile);
 router.get("/users", checkAuth, fetchUsers);
+router.delete("/deleteUser/:userId",checkAuth, deleteUser)
 
 module.exports = router;

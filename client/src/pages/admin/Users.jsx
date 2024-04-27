@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import {fetchCampaign} from '../../app/feature/campaignSlice'
+import { fetchCampaign } from '../../app/feature/campaignSlice'
 import { VscTrash } from 'react-icons/vsc';
 
 const Users = () => {
@@ -27,6 +27,20 @@ const Users = () => {
     const countCampaignsByUserId = (userId) => {
         const userCampaigns = campaigns.filter(campaign => campaign.campaignOwner === userId);
         return userCampaigns.length;
+    }
+
+    const deleteUser = async (id) => {
+        try{
+            console.log(id)
+            const res = await axios.delete(`/api/user/deleteUser/${id}`);
+            if(res.data.error){
+                return toast.error(res.data.error)
+            }else{
+                return toast.success(res.data.message)
+            }
+        }catch(err){
+            console.log("Error Fetching Api" + err)
+        }
     }
 
     useEffect(() => {
@@ -88,7 +102,7 @@ const Users = () => {
                                                 <td scope="col" className="px-6 py-3">{user.role === 1 ? 'Admin' : 'User'}</td>
                                                 <td scope="col" className="px-6 py-3">{countCampaignsByUserId(user._id)}</td>
                                                 <td scope="col" className="px-6 py-3">
-                                                    <button className='py-2 px-4 text-sm text-orange-600 bg-orange-100 transition-all duration-300 hover:bg-orange-200 rounded-xl'><VscTrash size={20}/></button>
+                                                    <button onClick={() => deleteUser(user._id)} className='py-2 px-4 text-sm text-orange-600 bg-orange-100 transition-all duration-300 hover:bg-orange-200 rounded-xl'><VscTrash size={20} /></button>
                                                 </td>
                                             </tr>)
                                     }

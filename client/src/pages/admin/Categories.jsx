@@ -109,7 +109,7 @@ const Categories = () => {
                                         />
                                     </div>
                                     <div className='p-4 flex justify-end'>
-                                        <input type="submit" value={"Create"} className='px-4 py-2 text-sm bg-emerald-600 transition-all duration-400 text-white hover:bg-green-700 rounded-xl' />
+                                        <input type="submit" value={"Create"} className='px-4 py-2 text-sm bg-emerald-600 transition-all cursor-pointer duration-300 text-white hover:bg-emerald-700 rounded-xl' />
                                     </div>
                                 </form>
                             </div>
