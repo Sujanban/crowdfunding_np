@@ -106,11 +106,6 @@ const Login = () => {
                                     <GoogleLogin
                                         onSuccess={credentialResponse => {
                                             handleGoogleLogin(credentialResponse);
-                                            // console.log(credentialResponse.credential);
-                                            // setJwtToken(credentialResponse?.credential);
-                                            // const decoded = jwtDecode(credentialResponse.credential);
-                                            // setJwtDecoded(decoded);
-                                            // console.log(decoded);
                                         }}
                                         onError={() => {
                                             console.log('Login Failed');
@@ -127,7 +122,7 @@ const Login = () => {
                                     .</p>
                             </div>
                             <div className='p-4 block md:flex justify-end '>
-                                <button type='submit' className='w-full lg:w-auto px-5 py-3 bg-slate-800 text-white rounded-md'>Sign In</button>
+                                <button type='submit' className='w-full lg:w-auto px-5 py-3 bg-emerald-600 hover:bg-emerald-700 transition-all duration-300 text-white rounded-xl'>Sign In</button>
                             </div>
                         </form>
                     </div>

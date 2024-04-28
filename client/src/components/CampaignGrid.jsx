@@ -56,7 +56,7 @@ const CampaignGrid = () => {
                     <button onClick={resetFilter} className='text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>Reset <MdTune /></button>
                 </div>
             </div>
-            <div className='py-4 md:grid md:grid-cols-2 lg:grid-cols-4 gap-4'>
+            <div className='py-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
                 {
                     filteredData ? filteredData.slice(0, 4).map((campaign, index) =>
                         <Card key={index} campaign={campaign} />
@@ -72,7 +72,7 @@ const CampaignGrid = () => {
 
             </div>
             <div className='p-4 flex justify-center text-white'>
-                <Link to='/explore' className='text-xs md:text-sm py-2 px-4 md:px-6  flex items-center bg-green-800 rounded-full'>Explore more <IoIosArrowDown /></Link>
+                <Link to='/explore' className='px-4 py-3 text-sm bg-emerald-600 text-white hover:bg-emerald-700 transition-all duration-300 rounded-xl flex items-center'>Explore more <IoIosArrowDown /></Link>
             </div>
         </div>
     )

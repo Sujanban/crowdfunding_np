@@ -110,7 +110,7 @@ const Signup = () => {
                                 <button
                                     type='submit'
                                     // onClick={handleFormData}
-                                    className='w-full lg:w-auto px-5 py-3 bg-slate-800 text-white rounded-md'>
+                                    className='w-full lg:w-auto px-5 py-3 bg-emerald-600 hover:bg-emerald-700 transition-all duration-300 text-white rounded-xl'>
                                     Sign up
                                 </button>
                             </div>

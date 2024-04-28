@@ -24,14 +24,15 @@ const Campaign = () => {
     const dispatch = useDispatch();
     const campaignPost = useSelector((state) => state.campaign.data)
     const { isLoading, errorMessage } = useSelector((state) => state.campaign)
-    const userId = useSelector((state) => state?.user.data._id);
+    const userId = useSelector((state) => state.user?.data._id);
+    
 
     // handeling donation
     const [amount, setAmount] = useState();
-
     const handleDonation = async (e) => {
         e.preventDefault();
         try {
+            
             const res = await axios.post(`/api/donation/createDonation/${id}`, { userId, amount, campaignId: id });
             console.log(res)
             if (res.data.url) {

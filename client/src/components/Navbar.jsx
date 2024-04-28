@@ -33,8 +33,6 @@ const Navbar = () => {
     const toggleSlider = () => {
         setSlider(!slider)
     }
-
-
     return (
         <div className=' shadow bg-white top-0 w-full'>
             <header className='px-4 md:px-12 bg-white rounded-full max-w-7xl mx-auto h-[10vh] flex items-center justify-between ' >
@@ -49,10 +47,13 @@ const Navbar = () => {
                         user && user.role === 0 ?
                             <>
                                 <li className='py-4'>
+                                    <NavLink to='/explore' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Explore</NavLink>
+                                </li>
+                                <li className='py-4'>
                                     <NavLink to='/createCampaign' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Create Campaign</NavLink>
                                 </li>
                                 <li className='py-4'>
-                                    <NavLink to='/mycampaigns' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Campaigns</NavLink>
+                                    <NavLink to='/mycampaigns' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>My Campaigns</NavLink>
                                 </li>
 
                             </>
@@ -92,7 +93,7 @@ const Navbar = () => {
                                 </div>
                                 {
                                     isSubMenuVisible ?
-                                        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className=' absolute  bg-white px-6 block  shadow'>
+                                        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className=' absolute z-10 bg-white px-6 block  shadow'>
                                             {user && user.role === 1 ?
                                                 <li className=' grid'>
                                                     <NavLink to='/admin/dashboard' className='p-2 w-full'>Dashboard</NavLink>

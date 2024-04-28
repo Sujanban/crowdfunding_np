@@ -39,7 +39,6 @@ const Explore = () => {
     }
 
     // counting filtered campaign length
-    console.log(filteredCampaign)
     const filteredItemCount = (cat) => {
         return campaign && campaign.filter(item => item.category === cat).length;
     }

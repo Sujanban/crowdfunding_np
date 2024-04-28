@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import success from '../assets/images/success.gif'
+import success from '../assets/images/success1.gif'
 import { Link } from 'react-router-dom'
 
 const Success = () => {
@@ -10,7 +10,7 @@ const Success = () => {
       <Navbar />
       <div className='px-8 py-20 max-w-7xl mx-auto'>
         <div className=' text-center'>
-          <img className='w-60 mx-auto' src={success} alt="" />
+          <img className='h-44 mx-auto' src={success} alt="" />
           <h1 className='p-4 text-center text-xl md:text-3xl font-semibold'>Payment Successfull</h1>
           <p className='py-4 max-w-lg mx-auto'>Payment sucessfully completed! You're now a member of a ellite community helping others to achiev their Goal.</p>
           <div className='py-4 flex justify-center space-x-4'>

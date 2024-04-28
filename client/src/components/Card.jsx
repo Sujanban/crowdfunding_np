@@ -7,7 +7,7 @@ import { FaHeart } from "react-icons/fa";
 const Card = ({ campaign, index }) => {
     return (
         <Link className='my-2' to={`/campaign/${campaign._id}`} key={index}>
-            <div className=' h-52 bg-gray-100'>
+            <div className=' h-52 xl:h-72 bg-gray-100'>
                 <img className='w-full h-full object-cover' src={campaign.thumbnail} alt="" />
             </div>
             <div className='py-4 grid gap-1'>
