@@ -16,6 +16,7 @@ export const fetchSingleCampaign = createAsyncThunk(
   async (id) => {
     try {
       const res = await axios.get("/api/campaign/getCampaign/" + id);
+      console.log(res.data);
       return res.data;
     } catch (error) {
       console.log("Server Error while fetching API " + error);

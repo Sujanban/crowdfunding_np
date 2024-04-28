@@ -24,7 +24,14 @@ mongoose
 app.use("/api/auth/", require("./routes/authRoutes"));
 app.use("/api/category/", require("./routes/categoryRoutes"));
 app.use("/api/user/", require("./routes/userRoutes"));
+
+// campaign routes
 app.use("/api/campaign/", require("./routes/campaignRoutes"));
+
+// donation routes
+app.use('/api/donation/', require('./routes/donationRoutes'));
+
+// story routes
 app.use('/api/story/', require('./routes/storyRoutes'));
 
 

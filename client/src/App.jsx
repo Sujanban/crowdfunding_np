@@ -29,6 +29,8 @@ import AdminCreateCampaign from './pages/admin/CreateCampaign'
 import Categories from './pages/admin/Categories'
 import AdminEditCategory from './pages/admin/EditCategory'
 import Users from './pages/admin/Users'
+import Success from './pages/Success'
+import Failed from './pages/Failed'
 
 
 
@@ -84,6 +86,8 @@ function App() {
           <Route path='/createCampaign' element={ user ? <CreateCampaign/> : <Navigate to="/login"/>} />
           <Route path='/profile' element={user ? <Profile /> : <Navigate to="/login" />} />
 
+          <Route path='/success' element={<Success />} />
+          <Route path='/failed' element={<Failed />} />
         </Routes>
       </div>
     </GoogleOAuthProvider>

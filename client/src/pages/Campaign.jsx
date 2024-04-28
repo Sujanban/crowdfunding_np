@@ -14,6 +14,8 @@ import { GiTrophyCup } from "react-icons/gi";
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchSingleCampaign } from '../app/feature/campaignSlice'
 import Story from '../components/Story'
+import axios from 'axios'
+import {toast} from 'react-hot-toast'
 
 
 const Campaign = () => {
@@ -21,7 +23,27 @@ const Campaign = () => {
     const [toggleStatus, setToggleStatus] = useState(true);
     const dispatch = useDispatch();
     const campaignPost = useSelector((state) => state.campaign.data)
-    const {isLoading,errorMessage} = useSelector((state) => state.campaign)
+    const { isLoading, errorMessage } = useSelector((state) => state.campaign)
+    const userId = useSelector((state) => state?.user.data._id);
+
+    // handeling donation
+    const [amount, setAmount] = useState();
+
+    const handleDonation = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await axios.post(`/api/donation/createDonation/${id}`, { userId, amount, campaignId: id });
+            console.log(res)
+            if (res.data.url) {
+                window.location.href = res.data.url
+            }
+            if (res.data.error) {
+                toast.error(res.data.error);
+            }
+        }catch(err){
+            console.log('Error fetching API ' + err);
+        }
+    }
 
     useEffect(() => {
         dispatch(fetchSingleCampaign(id));
@@ -153,9 +175,10 @@ const Campaign = () => {
                                 <div className="bg-yellow-600 h-2.5 rounded-full w-2/3"></div>
                             </div>
                             <p className='py-4 flex items-center'><FaHeart color='red' /> <span className='px-2 text-sm'>5,253 Supporters</span></p>
-                            <form action="" className='py-2'>
+                            <form onSubmit={handleDonation} className='py-2'>
                                 <label>Donation Amount : </label>
-                                <input type="number" placeholder='50$' className='outline-none my-4 rounded w-full p-3 border border-green-200 focus:border-green-500' />
+                                <input type="number"
+                                    value={amount} onChange={(e) => setAmount(e.target.value)} placeholder='50$' className='outline-none my-4 rounded w-full p-3 border border-green-200 focus:border-green-500' />
                                 <input type="submit" value='Donate Now' className='rounded-full bg-green-600 text-white w-full p-3 ' />
                             </form>
                             <hr />
