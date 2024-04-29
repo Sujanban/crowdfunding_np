@@ -8,18 +8,20 @@ import { MdOutlineAttachMoney } from "react-icons/md";
 import { LiaPeopleCarrySolid } from "react-icons/lia";
 import { GiGolfFlag } from "react-icons/gi";
 import { GiUpgrade } from "react-icons/gi";
+import { HiOutlineExternalLink } from "react-icons/hi";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 
 
 
 const Categories = () => {
-    const [openTab, setOpenTab] = useState('recent');
+    let count = 0;
     return (
         <div className='flex max-w-7xl mx-auto w-full rounded-xl'>
             <Navbar />
             <div className='w-full '>
                 <Search />
-                <div className='p-8 h-[90vh] overflow-y-auto bg-gray-100'>
+                <div className='p-4 h-[90vh] overflow-y-auto bg-gray-100'>
                     {/* breadcrumbs */}
                     <div className='p-2'>
                         <nav className="w-full flex" aria-label="Breadcrumb">
@@ -74,8 +76,8 @@ const Categories = () => {
                             </div>
 
 
-                            {/* donation records table */}
-                            <div className='py-4 '>
+                            {/*Campaigns  */}
+                            {/* <div className='py-4 '>
                                 <div className='p-4 bg-white rounded-xl'>
                                     <h1 className=' font-bold'>Donation Records</h1>
                                     <div className='grid grid-cols-3 gap-4'>
@@ -255,8 +257,150 @@ const Categories = () => {
                                                 </div>
                                             </div>
                                         </Link>
-                                        
 
+
+                                    </div>
+                                </div>
+                            </div> */}
+
+
+
+                            {/* Donation Tables */}
+                            <div className='py-4'>
+                                <div className='p-4 bg-white rounded-xl'>
+                                    <h1 className='p-2 font-bold'>Recent Records</h1>
+                                    <div className="p-2 relative overflow-x-auto sm:rounded-lg">
+                                        <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
+                                            <thead className="text-xs text-slate-900 capitalize bg-gray-50">
+                                                <tr className=''>
+                                                    {/* <th scope="col" className="px-2 py-3">SN</th> */}
+                                                    <th scope="col" className=" py-3">Date</th>
+                                                    {/* <th scope="col" className="px-6 py-3">Campaign Name</th> */}
+                                                    <th scope="col" className="px-6 py-3">Donator</th>
+                                                    <th scope="col" className="px-6 py-3">Amount</th>
+                                                    {/* <th scope="col" className="px-6 py-3">Action</th> */}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <tr className='text-slate-600 text-xs border-b'>
+                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
+                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
+                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
+                                                    <td scope="col" className="px-6 py-2 font-bold ">Himanshu</td>
+                                                    <td scope="col" className="px-6 py-2">₹ 10,000</td>
+                                                    <td scope="col" className="px-6 py-2">
+                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                    </td>
+                                                </tr>
+                                                <tr className='text-slate-600 text-xs border-b'>
+                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
+                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
+                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
+                                                    <td scope="col" className="px-6 py-2 font-bold ">Donator1sam@gmail.com</td>
+                                                    <td scope="col" className="px-6 py-2">₹ 1,000</td>
+                                                    <td scope="col" className="px-6 py-2">
+                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                    </td>
+                                                </tr>
+                                                <tr className='text-slate-600 text-xs border-b'>
+                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
+                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
+                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
+                                                    <td scope="col" className="px-6 py-2 font-bold ">Himanshu</td>
+                                                    <td scope="col" className="px-6 py-2">₹ 40,000</td>
+                                                    <td scope="col" className="px-6 py-2">
+                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                    </td>
+                                                </tr>
+                                                <tr className='text-slate-600 text-xs border-b'>
+                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
+                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
+                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
+                                                    <td scope="col" className="px-6 py-2 font-bold ">Donator1sam@gmail.com</td>
+                                                    <td scope="col" className="px-6 py-2">₹ 5,000</td>
+                                                    <td scope="col" className="px-6 py-2">
+                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                    </td>
+                                                </tr>
+                                                <tr className='text-slate-600 text-xs border-b'>
+                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
+                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
+                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
+                                                    <td scope="col" className="px-6 py-2 font-bold ">Himanshu</td>
+                                                    <td scope="col" className="px-6 py-2">₹ 30,500</td>
+                                                    <td scope="col" className="px-6 py-2">
+                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                    </td>
+                                                </tr>
+                                                <tr className='text-slate-600 text-xs border-b'>
+                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
+                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
+                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
+                                                    <td scope="col" className="px-6 py-2 font-bold ">Donator1sam@gmail.com</td>
+                                                    <td scope="col" className="px-6 py-2">₹ 2,000</td>
+                                                    <td scope="col" className="px-6 py-2">
+                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                    </td>
+                                                </tr>
+                                                <tr className='text-slate-600 text-xs border-b'>
+                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
+                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
+                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
+                                                    <td scope="col" className="px-6 py-2 font-bold ">Himanshu</td>
+                                                    <td scope="col" className="px-6 py-2">₹ 5,000</td>
+                                                    <td scope="col" className="px-6 py-2">
+                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                    </td>
+                                                </tr>
+                                                <tr className='text-slate-600 text-xs border-b'>
+                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
+                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
+                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
+                                                    <td scope="col" className="px-6 py-2 font-bold ">Donator1sam@gmail.com</td>
+                                                    <td scope="col" className="px-6 py-2">₹ 55,000</td>
+                                                    <td scope="col" className="px-6 py-2">
+                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                    </td>
+                                                </tr>
+                                                <tr className='text-slate-600 text-xs border-b'>
+                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
+                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
+                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
+                                                    <td scope="col" className="px-6 py-2 font-bold ">Himanshu</td>
+                                                    <td scope="col" className="px-6 py-2">₹ 34,000</td>
+                                                    <td scope="col" className="px-6 py-2">
+                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                    </td>
+                                                </tr>
+                                                <tr className='text-slate-600 text-xs border-b'>
+                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
+                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
+                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
+                                                    <td scope="col" className="px-6 py-2 font-bold ">Donator1sam@gmail.com</td>
+                                                    <td scope="col" className="px-6 py-2">₹ 83,000</td>
+                                                    <td scope="col" className="px-6 py-2">
+                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+
+                                        {/* table footer */}
+                                        <div className='py-4 flex justify-between items-center'>
+                                            <div className='text-xs text-slate-600'>
+                                                <h1>Showing 1 to 10 of 5 entries</h1>
+                                            </div>
+                                            <div className='flex items-center text-xs'>
+                                                <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'><FaChevronLeft className='mr-2' /> Back</button>
+                                                <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>1</button>
+                                                <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>2</button>
+                                                <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>3</button>
+                                                <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>...</button>
+                                                <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>Next<FaChevronRight className='ml-2' /></button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
