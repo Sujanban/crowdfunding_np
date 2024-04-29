@@ -56,7 +56,7 @@ const CampaignGrid = () => {
                     <button onClick={resetFilter} className='text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>Reset <MdTune /></button>
                 </div>
             </div>
-            <div className='py-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
+            <div className='py-4 md:grid md:grid-cols-2 lg:grid-cols-4 gap-4'>
                 {
                     filteredData ? filteredData.slice(0, 4).map((campaign, index) =>
                         <Card key={index} campaign={campaign} />
