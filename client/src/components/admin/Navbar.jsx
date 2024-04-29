@@ -4,6 +4,7 @@ import { BiHome, BiUser } from "react-icons/bi";
 import { TbBrandCampaignmonitor } from "react-icons/tb";
 import { MdOutlineCategory } from "react-icons/md";
 import { LiaMoneyBillWaveAltSolid } from "react-icons/lia";
+import { GiGolfFlag } from "react-icons/gi";
 
 const Navbar = () => {
     const nav = [
@@ -15,7 +16,7 @@ const Navbar = () => {
         {
             name: 'Campaigns',
             path: '/admin/campaigns',
-            icon: <TbBrandCampaignmonitor size={20} />
+            icon: <GiGolfFlag size={20} />
         },
         {
             name: 'Category',

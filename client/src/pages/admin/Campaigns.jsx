@@ -8,8 +8,16 @@ import { fetchCampaign } from '../../app/feature/campaignSlice';
 import WarningPopup from '../../components/WarningPopup';
 import { VscEdit, VscTrash } from 'react-icons/vsc';
 import axios from 'axios';
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { IoFunnelOutline } from "react-icons/io5";
+import { TiPen } from "react-icons/ti";
+import { SiVirustotal } from "react-icons/si";
+
+
+
 
 const Campaigns = () => {
+    const [toggleFilter, setToggleFilter] = useState(false);
     const [popupVisible, setPopupVisible] = useState(false);
     const campaign = useSelector(state => state.campaign.data)
     const [selectedCampaignId, setSelectedCampaignId] = useState(null);
@@ -44,10 +52,10 @@ const Campaigns = () => {
             <Navbar />
             <div className='w-full'>
                 <Search />
-                <div className='p-8 h-[90vh] overflow-y-auto'>
+                <div className='p-4 h-[90vh] overflow-y-auto bg-gray-100'>
                     {/* breadcrumbs */}
-                    <div className='p-4'>
-                        <nav className="w-full flex" aria-label="Breadcrumb">
+                    <div className='p-2  flex justify-between items-center'>
+                        <nav className="flex" aria-label="Breadcrumb">
                             <ol className="inline-flex items-center space-x-1 md:space-x-3">
                                 <li className="inline-flex items-center">
                                     <Link to={""} className=" inline-flex text-sm font-medium text-gray-800 hover:underline md:ml-2" >Dashboard</Link>
@@ -62,54 +70,114 @@ const Campaigns = () => {
 
                             </ol>
                         </nav>
+                        <Link to={'/admin/createcampaign'} className='mr-2 px-4 py-3 text-sm bg-emerald-600 text-white rounded-xl transition-all duration-300 hover:bg-emerald-700 cursor-pointer flex items-center '><TiPen className='mr-2' />Create</Link>
                     </div>
 
-                    {/*  */}
-                    <div className='p-4'>
-                        <div className='flex justify-between items-center'>
-                            <h1 className='border-b-2 border-yellow-600 text-2xl font-semibold'>Campaigns</h1>
-                            <Link to={'/admin/createcampaign'} className='px-4 py-3 text-sm bg-emerald-600 text-white rounded-xl transition-all duration-300 hover:bg-emerald-700 cursor-pointer'>Create Campaign</Link>
-                        </div>
-                        <div className="p-2 relative overflow-x-auto sm:rounded-lg">
-                            <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
-                                <thead className="text-xs text-gray-700 capitalize bg-gray-50  ">
-                                    <tr>
-                                        <th scope="col" className="px-2 py-3">SN</th>
-                                        <th scope="col" className="px-6 py-3">Campaign</th>
-                                        <th scope="col" className="px-6 py-3">Creator</th>
-                                        <th scope="col" className="px-6 py-3">Category</th>
-                                        <th scope="col" className="px-6 py-3">Raised $</th>
-                                        <th scope="col" className="px-6 py-3">Status</th>
-                                        <th scope="col" className="px-6 py-3">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        campaign && campaign.map((item, index) =>
-                                            <tr key={index} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                                <td className="px-2 py-4"> {++count} </td>
-                                                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {item.campaignTitle.slice(0, 30) + "..."} </td>
-                                                <td className="px-6 py-4 capitalize">
-                                                    {users.filter(user => user._id === item.campaignOwner)[0] ? users.filter(user => user._id === item.campaignOwner)[0]?.firstName + " " + users.filter(user => user._id === item.campaignOwner)[0]?.lastName : <span className='p-1 text-red-500'>Anonymous</span>}
-                                                    {/*    
-                                                     {users.filter(user => user._id === item.campaignOwner)[0]?.firstName + " " + users.filter(user => user._id === item.campaignOwner)[0]?.lastName}  */}
-                                                </td>
-                                                <td className="px-6 py-4"> {item.category} </td>
-                                                <td className="px-6 py-4"> {item.goalAmount}$ </td>
-                                                <td className="px-6 py-4"> <span className={`${item.status === "active" ? "px-1.5 py-0.5 text-emerald-600 bg-green-100 rounded-xl" : "px-1.5 py-0.5 text-red-600 bg-orange-100 rounded-xl"}`}>{item.status}</span> </td>
-                                                <td className="px-6 py-4 flex items-center text-sm">
-                                                    <Link to={`/admin/editcampaign/${item._id}`} className="m-1 px-4 py-2 bg-emerald-100 text-emerald-600 rounded-xl hover:bg-emerald-200 transition-all duration-300"><VscEdit size={20} /></Link>
-                                                    <button onClick={() => handleDelete(item._id)} className="px-4 py-2 text-orange-600 bg-orange-100 rounded-xl hover:bg-orange-200 transition-all duration-300"><VscTrash size={20} /></button>
-                                                    {
-                                                        popupVisible && selectedCampaignId === item._id && <WarningPopup setPopupVisible={setPopupVisible} id={item._id} delCampaign={true} />
-                                                    }
-                                                </td>
-                                            </tr>
-                                        )}
-                                </tbody>
-                            </table>
-                        </div>
 
+                    {/* Campaign stats grid */}
+                    {/* <div className='p-6 '>
+                        <div className=''>
+                            <div className=' grid grid-cols-2 gap-4'>
+                                <div className='p-4 rounded-xl shadow flex items-center bg-white'>
+                                    <div className=''>
+                                        <SiVirustotal className='p-1 text-orange-600 bg-orange-100 rounded-lg' size={30} />
+                                    </div>
+                                    <div className='px-4'>
+                                        <h1 className='text-sm'>Total Campaigns</h1>
+                                        <h1 className='text-xl font-semibold'>{campaign && campaign.length}</h1>
+                                    </div>
+                                </div>
+                                <div className='p-4 rounded-xl shadow flex items-center bg-white'>
+                                    <div className=''>
+                                        <SiVirustotal className='text-pink-600 bg-yellow-100 rounded-xl' size={30} />
+                                    </div>
+                                    <div className='p-2'>
+                                        <h1 className='text-sm'>Top Donation</h1>
+                                        <h1 className='text-xl font-semibold'>₹ 1000</h1>
+                                    </div>
+                                </div>
+                                <div className='p-4 rounded-xl shadow flex items-center bg-white'>
+                                    <div className=''>
+                                        <SiVirustotal className='text-emerald-600 bg-emerald-100 rounded-xl' size={30} />
+                                    </div>
+                                    <div className='p-2'>
+                                        <h1 className='text-sm'>Top Contributer</h1>
+                                        <h1 className='text-xl font-semibold'>John Cena</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> */}
+
+                    {/*  */}
+                    <div className='p-4 pt-2 '>
+                        <div className=''>
+                            <div className='p-4 bg-white rounded-xl'>
+                                <div className='p-2 flex items-center justify-between'>
+                                    <h1 className='border-b-2 border-emerald-600  font-bold'>Campaigns</h1>
+                                    <div className='relative pr-4'>
+                                        <button onClick={() => setToggleFilter(!toggleFilter)} className='border rounded px-4 text-sm py-2 flex items-center hover:bg-gray-50'>Filter <IoFunnelOutline className='ml-2' /></button>
+                                        {
+                                            toggleFilter && <div className='p-2 w-32 text-xs absolute top-10 left-0 z-50 shadow bg-white'>
+                                                <button className='px-2 py-3 w-full border-b'>Highest to lowest</button>
+                                                <button className='px-2 py-3 w-full'>Lowest to highest</button>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div className="p-2 relative overflow-x-auto sm:rounded-lg">
+                                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
+                                        <thead className="text-xs text-slate-900 capitalize bg-gray-50">
+                                            <tr className=''>
+                                                <th scope="col" className="px-2 py-3">SN</th>
+                                                <th scope="col" className="px-6 py-3">Campaign</th>
+                                                <th scope="col" className="px-6 py-3">Creator</th>
+                                                <th scope="col" className="px-6 py-3">Status</th>
+                                                <th scope="col" className="px-6 py-3">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                campaign && campaign.map((item, index) =>
+                                                    <tr className='text-slate-600 text-xs border-b'>
+                                                        <td scope="col" className="px-2 py-2">{++count}</td>
+                                                        <td scope="col" className="px-6 py-2 font-bold">{item.campaignTitle.slice(0, 50)}</td>
+                                                        <td scope="col" className="px-6 py-2">
+                                                            {users.filter(user => user._id === item.campaignOwner)[0]?.firstName + " " + users.filter(user => user._id === item.campaignOwner)[0]?.lastName}
+                                                        </td>
+                                                        <td scope="col" className="px-6 py-2">
+                                                            <span className={`${item.status === "active" ? "px-1.5 py-0.5 text-emerald-600 bg-green-100 rounded-xl" : "px-1.5 py-0.5 text-red-600 bg-orange-100 rounded-xl"}`}>{item.status}</span>
+                                                        </td>
+                                                        <td scope="col" className="px-6 py-2 flex items-center">
+                                                            <Link to={`/admin/editcampaign/${item._id}`} className="m-1 px-4 py-2 bg-emerald-100 text-emerald-600 rounded-xl hover:bg-emerald-200 transition-all duration-300"><VscEdit size={20} /></Link>
+                                                            <button onClick={() => handleDelete(item._id)} className="px-4 py-2 text-orange-600 bg-orange-100 rounded-xl hover:bg-orange-200 transition-all duration-300"><VscTrash size={20} /></button>
+                                                            {
+                                                                popupVisible && selectedCampaignId === item._id && <WarningPopup setPopupVisible={setPopupVisible} id={item._id} delCampaign={true} />
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            }
+                                        </tbody>
+                                    </table>
+
+                                    {/* table footer */}
+                                    <div className='py-4 flex justify-between items-center'>
+                                        <div className='text-xs text-slate-600'>
+                                            <h1>Showing 1 to 10 of 5 entries</h1>
+                                        </div>
+                                        <div className='flex items-center text-xs'>
+                                            <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'><FaChevronLeft className='mr-2' /> Back</button>
+                                            <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>1</button>
+                                            <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>2</button>
+                                            <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>3</button>
+                                            <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>...</button>
+                                            <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>Next<FaChevronRight className='ml-2' /></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
