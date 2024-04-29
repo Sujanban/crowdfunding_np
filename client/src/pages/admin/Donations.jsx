@@ -10,11 +10,13 @@ import { GiGolfFlag } from "react-icons/gi";
 import { GiUpgrade } from "react-icons/gi";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { IoFunnelOutline } from "react-icons/io5";
 
 
 
 
 const Categories = () => {
+    const [toggleFilter, setToggleFilter] = useState(false);
     let count = 0;
     return (
         <div className='flex max-w-7xl mx-auto w-full rounded-xl'>
@@ -268,7 +270,18 @@ const Categories = () => {
                             {/* Donation Tables */}
                             <div className='py-4'>
                                 <div className='p-4 bg-white rounded-xl'>
-                                    <h1 className='p-2 font-bold'>Recent Records</h1>
+                                    <div className='p-2 flex items-center justify-between'>
+                                        <h1 className=' font-bold'>Recent Donations</h1>
+                                        <div className='relative pr-4'>
+                                            <button onClick={() => setToggleFilter(!toggleFilter)} className='border rounded px-4 text-sm py-2 flex items-center hover:bg-gray-50'>Filter <IoFunnelOutline className='ml-2' /></button>
+                                            {
+                                                toggleFilter && <div className='p-2 w-32 text-xs absolute top-10 left-0 z-50 shadow bg-white'>
+                                                    <button className='px-2 py-3 w-full border-b'>Highest to lowest</button>
+                                                    <button className='px-2 py-3 w-full'>Lowest to highest</button>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
                                     <div className="p-2 relative overflow-x-auto sm:rounded-lg">
                                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
                                             <thead className="text-xs text-slate-900 capitalize bg-gray-50">
@@ -287,7 +300,7 @@ const Categories = () => {
                                                     {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
                                                     <td scope="col" className=" py-2">Feb 28, 2022</td>
                                                     {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
-                                                    <td scope="col" className="px-6 py-2 font-bold ">Himanshu</td>
+                                                    <td scope="col" className="px-6 py-2 font-bold ">Himanshuthaker@gmail.com</td>
                                                     <td scope="col" className="px-6 py-2">₹ 10,000</td>
                                                     <td scope="col" className="px-6 py-2">
                                                         <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
