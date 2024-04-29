@@ -1,37 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/admin/Navbar'
 import Search from '../../components/admin/Search'
-import { LuChevronRight} from "react-icons/lu";
+import { LuChevronRight } from "react-icons/lu";
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import WarningPopup from '../../components/WarningPopup';
-import { addCategory, fetchCategory } from '../../app/feature/categorySlice';
-import { VscEdit,VscTrash  } from "react-icons/vsc";
+import { BiUser } from "react-icons/bi";
+
 
 
 const Categories = () => {
-    const [popupVisible, setPopupVisible] = useState(false);
-    const category = useSelector(state => state.category.data)
-    const [selectedCategoryId, setSelectedCategoryId] = useState(null);
-
-    const dispatch = useDispatch()
-    let count = 0;
-
-    // handeling handleCategoryCreation
-    const [catData, setCatData] = useState('');
-    const handleCategoryCreation = (e) => {
-        e.preventDefault();
-        dispatch(addCategory(catData))
-    }
-
-    const handleDelete = (id) => {
-        setSelectedCategoryId(id)
-        setPopupVisible(true)
-    }
-
-    useEffect(() => {
-        dispatch(fetchCategory())
-    }, [dispatch])
     return (
         <div className='flex max-w-7xl mx-auto w-full'>
             <Navbar />
@@ -62,7 +38,39 @@ const Categories = () => {
                             co
                         </div>
                         <div>
-                            e
+                            <h1 className=' p-4 text-xl font-bold '>Recent Donations</h1>
+                            <div>
+                                <li className='m-1 p-4 rounded-xl bg-gray-100 flex'>
+                                    <div>
+                                        <BiUser className='bg-gray-200 text-green-600  rounded-full' size={30} />
+                                    </div>
+                                    <div className='px-4'>
+                                        <div className='flex items-center space-x-1'>
+                                            <h1 className='text-black '>John Doe</h1><div className='h-2 w-2 rounded-full bg-green-600'></div>
+                                        </div>
+                                        <h1 className='text-xs text-gray-500'>Help needed to treat cancer for cancer</h1>
+                                    </div>
+                                    <div>
+                                        <h1 className='text-xl font-bold text-emerald-600'>500$</h1>
+                                        <h1 className='pt-2 text-xs'>5 min</h1>
+                                    </div>
+                                </li>
+                                <li className='m-1 p-4 rounded-xl bg-gray-100 flex'>
+                                    <div>
+                                        <BiUser className='bg-gray-200 text-orange-600  rounded-full' size={30} />
+                                    </div>
+                                    <div className='px-4'>
+                                        <div className='flex items-center space-x-1'>
+                                            <h1 className='text-black '>Joseph Mahraneo</h1><div className='h-2 w-2 rounded-full bg-orange-600'></div>
+                                        </div>
+                                        <h1 className='text-xs text-gray-500'>College fee is haunding me cause i am a student</h1>
+                                    </div>
+                                    <div className='flex-grow'>
+                                        <h1 className='text-xl font-bold text-emerald-600'>50$</h1>
+                                        <h1 className='pt-2 text-xs w-full'>14 min</h1>
+                                    </div>
+                                </li>
+                            </div>
                         </div>
                     </div>
                 </div>
