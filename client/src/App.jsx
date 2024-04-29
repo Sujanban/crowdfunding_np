@@ -32,6 +32,7 @@ import Users from './pages/admin/Users'
 import Success from './pages/Success'
 import Failed from './pages/Failed'
 import Donations from './pages/admin/Donations'
+import Donation from './pages/admin/Donation'
 
 
 
@@ -75,6 +76,7 @@ function App() {
           <Route path='/admin/editcategory/:id' element={user && user.role===1 ? <AdminEditCategory /> : <Navigate to="/login" />} />
           <Route path='/admin/users' element={user && user.role===1 ? <Users /> : <Navigate to="/login" />} />
           <Route path='/admin/donations' element={user && user.role===1 ? <Donations /> : <Navigate to="/login" />} />
+          <Route path='/admin/donations/donation/:id' element={user && user.role===1 ? <Donation /> : <Navigate to="/login" />} />
 
 
 

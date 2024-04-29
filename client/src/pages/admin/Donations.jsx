@@ -15,7 +15,7 @@ import { IoFunnelOutline } from "react-icons/io5";
 
 
 
-const Categories = () => {
+const Donations = () => {
     const [toggleFilter, setToggleFilter] = useState(false);
     let count = 0;
     return (
@@ -303,7 +303,7 @@ const Categories = () => {
                                                     <td scope="col" className="px-6 py-2 font-bold ">Himanshuthaker@gmail.com</td>
                                                     <td scope="col" className="px-6 py-2">₹ 10,000</td>
                                                     <td scope="col" className="px-6 py-2">
-                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
                                                     </td>
                                                 </tr>
                                                 <tr className='text-slate-600 text-xs border-b'>
@@ -313,7 +313,7 @@ const Categories = () => {
                                                     <td scope="col" className="px-6 py-2 font-bold ">Donator1sam@gmail.com</td>
                                                     <td scope="col" className="px-6 py-2">₹ 1,000</td>
                                                     <td scope="col" className="px-6 py-2">
-                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
                                                     </td>
                                                 </tr>
                                                 <tr className='text-slate-600 text-xs border-b'>
@@ -323,7 +323,7 @@ const Categories = () => {
                                                     <td scope="col" className="px-6 py-2 font-bold ">Himanshu</td>
                                                     <td scope="col" className="px-6 py-2">₹ 40,000</td>
                                                     <td scope="col" className="px-6 py-2">
-                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
                                                     </td>
                                                 </tr>
                                                 <tr className='text-slate-600 text-xs border-b'>
@@ -333,7 +333,7 @@ const Categories = () => {
                                                     <td scope="col" className="px-6 py-2 font-bold ">Donator1sam@gmail.com</td>
                                                     <td scope="col" className="px-6 py-2">₹ 5,000</td>
                                                     <td scope="col" className="px-6 py-2">
-                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
                                                     </td>
                                                 </tr>
                                                 <tr className='text-slate-600 text-xs border-b'>
@@ -343,7 +343,7 @@ const Categories = () => {
                                                     <td scope="col" className="px-6 py-2 font-bold ">Himanshu</td>
                                                     <td scope="col" className="px-6 py-2">₹ 30,500</td>
                                                     <td scope="col" className="px-6 py-2">
-                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
                                                     </td>
                                                 </tr>
                                                 <tr className='text-slate-600 text-xs border-b'>
@@ -353,7 +353,7 @@ const Categories = () => {
                                                     <td scope="col" className="px-6 py-2 font-bold ">Donator1sam@gmail.com</td>
                                                     <td scope="col" className="px-6 py-2">₹ 2,000</td>
                                                     <td scope="col" className="px-6 py-2">
-                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
                                                     </td>
                                                 </tr>
                                                 <tr className='text-slate-600 text-xs border-b'>
@@ -363,7 +363,7 @@ const Categories = () => {
                                                     <td scope="col" className="px-6 py-2 font-bold ">Himanshu</td>
                                                     <td scope="col" className="px-6 py-2">₹ 5,000</td>
                                                     <td scope="col" className="px-6 py-2">
-                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
                                                     </td>
                                                 </tr>
                                                 <tr className='text-slate-600 text-xs border-b'>
@@ -373,7 +373,7 @@ const Categories = () => {
                                                     <td scope="col" className="px-6 py-2 font-bold ">Donator1sam@gmail.com</td>
                                                     <td scope="col" className="px-6 py-2">₹ 55,000</td>
                                                     <td scope="col" className="px-6 py-2">
-                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
                                                     </td>
                                                 </tr>
                                                 <tr className='text-slate-600 text-xs border-b'>
@@ -383,7 +383,7 @@ const Categories = () => {
                                                     <td scope="col" className="px-6 py-2 font-bold ">Himanshu</td>
                                                     <td scope="col" className="px-6 py-2">₹ 34,000</td>
                                                     <td scope="col" className="px-6 py-2">
-                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
                                                     </td>
                                                 </tr>
                                                 <tr className='text-slate-600 text-xs border-b'>
@@ -393,7 +393,7 @@ const Categories = () => {
                                                     <td scope="col" className="px-6 py-2 font-bold ">Donator1sam@gmail.com</td>
                                                     <td scope="col" className="px-6 py-2">₹ 83,000</td>
                                                     <td scope="col" className="px-6 py-2">
-                                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></button>
+                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
                                                     </td>
                                                 </tr>
 
@@ -564,4 +564,4 @@ const Categories = () => {
     )
 }
 
-export default Categories
+export default Donations
