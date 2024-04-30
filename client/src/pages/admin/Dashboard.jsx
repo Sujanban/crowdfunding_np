@@ -90,11 +90,13 @@ const Dashboard = () => {
                                 </div>
                             </div> */}
                         </div>
-                        <div className='p-4 flex '>
-                            <div className='flex-grow flex justify-center items-center'>
-                                <h1 className='text-3xl'>Some thing here...</h1>
+                        <div className='py-4 grid grid-cols-3 gap-4 '>
+                            <div className='col-span-2 rounded-xl bg-white'>
+                                <div className=''>
+
+                                </div>
                             </div>
-                            <div className='ring-1 max-w-sm ring-slate-200 rounded-xl shadow bg-white'>
+                            <div className='ring-1 ring-slate-200 rounded-xl shadow bg-white'>
                                 <div className='grid grid-cols-2 gap-2'>
                                     <button
                                         onClick={() => setOpenTab('recent')}

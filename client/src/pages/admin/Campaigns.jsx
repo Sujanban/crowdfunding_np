@@ -127,7 +127,7 @@ const Campaigns = () => {
                                 </div>
                                 <div className="p-2 relative overflow-x-auto sm:rounded-lg">
                                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
-                                        <thead className="text-xs text-slate-900 capitalize bg-gray-50">
+                                        <thead className=" text-slate-900 capitalize bg-gray-50">
                                             <tr className=''>
                                                 <th scope="col" className="px-2 py-3">SN</th>
                                                 <th scope="col" className="px-6 py-3">Campaign</th>
@@ -139,7 +139,7 @@ const Campaigns = () => {
                                         <tbody>
                                             {
                                                 campaign && campaign.map((item, index) =>
-                                                    <tr className='text-slate-600 text-xs border-b'>
+                                                    <tr key={index} className='text-slate-600 border-b'>
                                                         <td scope="col" className="px-2 py-2">{++count}</td>
                                                         <td scope="col" className="px-6 py-2 font-bold">{item.campaignTitle.slice(0, 50)}</td>
                                                         <td scope="col" className="px-6 py-2">

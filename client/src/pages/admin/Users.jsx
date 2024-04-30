@@ -91,7 +91,7 @@ const Users = () => {
 
                             <div className="p-2 relative overflow-x-auto sm:rounded-lg">
                                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
-                                    <thead className="text-xs text-gray-700 capitalize bg-gray-50">
+                                    <thead className="text-sm text-gray-700 capitalize bg-gray-50">
                                         <tr className=''>
                                             <th scope="col" className="px-2 py-3">SN</th>
                                             <th scope="col" className="px-6 py-3">Email</th>

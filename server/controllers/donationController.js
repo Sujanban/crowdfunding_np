@@ -12,7 +12,7 @@ const createDonation = async (req, res) => {
     if (!amount)
       return res.json({ error: "Please enter an amount to Donate!" });
 
-      if(amount < 20) return res.json({ error: "Minimum Donation is 20" });
+    if (amount < 20) return res.json({ error: "Minimum Donation is 20" });
 
     if (!userId) return res.json({ error: "Please Login to Donate" });
     if (!campaignId)
@@ -41,9 +41,9 @@ const createDonation = async (req, res) => {
         },
       ],
       mode: "payment",
-      
+
       success_url: process.env.PAYMENT_SUCCESS_URL,
-      cancel_url:  process.env.PAYMENT_CANCEL_URL
+      cancel_url: process.env.PAYMENT_CANCEL_URL,
     });
 
     const donation = new Donation({
@@ -56,11 +56,33 @@ const createDonation = async (req, res) => {
     await User.findByIdAndUpdate(userId, {
       $push: { donations: donation._id },
     });
-    res.json({url: session.url });
+    res.json({ url: session.url });
   } catch (error) {
     res.status(500).json({ error: "Failed to create Stripe session" });
     return;
   }
 };
 
-module.exports = { createDonation };
+const fetchAllDonation = async (req, res) => {
+  try {
+
+    const page = parseInt(req.query.page) || 1; // Default to first page
+    const limit = parseInt(req.query.limit) || 10; // Default to 10 items per page
+    const skip = (page - 1) * limit; // Calculate how many items to skip
+
+
+    const sortOrder = req.query.sortOrder === "asc" ? 1 : -1;
+    const donations = await Donation.find()
+      .populate("userId", "firstName lastName email")
+      .populate("campaignId", "campaignTitle campaignDescription")
+      .sort({ createdAt: sortOrder })
+      .skip(skip)
+      .limit(limit);
+
+    res.status(200).json({donations, page, limit });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch donations" });
+  }
+};
+
+module.exports = { createDonation, fetchAllDonation };

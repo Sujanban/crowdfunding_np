@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const cors = require("cors");
 const { checkAuth, isAdmin } = require("../middlewares/userAuth");
-const { createDonation } = require("../controllers/donationController");
+const { createDonation, fetchAllDonation } = require("../controllers/donationController");
 
 // middleware
 router.use(
@@ -13,5 +13,6 @@ router.use(
 );
 
 router.post("/createDonation/:campaignId", checkAuth, createDonation);
+router.get("/fetchAllDonation/", checkAuth, fetchAllDonation);
 
 module.exports = router

@@ -11,13 +11,50 @@ import { GiUpgrade } from "react-icons/gi";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { IoFunnelOutline } from "react-icons/io5";
-
+import axios from 'axios';
+import { formatDate, formatTime } from '../../utils/dateFormater'
+import { useParams, useSearchParams } from 'react-router-dom';
 
 
 
 const Donations = () => {
     const [toggleFilter, setToggleFilter] = useState(false);
     let count = 0;
+
+
+    // fetching all donations 
+    const [donation, setDonation] = useState([]);
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(10);
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const handleNextPage = () => {
+        setPage(page + 1);
+        setSearchParams({ page: page + 1, limit });
+    };
+
+    const handlePreviousPage = () => {
+        if (page > 1) {
+            setPage(page - 1);
+            setSearchParams({ page: page - 1, limit });
+        }
+    };
+
+    const fetchAllDonation = async () => {
+        const res = await axios.get('/api/donation/fetchAllDonation', {
+            params: {
+                page,
+                limit
+            }
+        });
+        if (res.status === 200) {
+            setDonation(res.data.donations);
+        }
+    }
+
+    useEffect(() => {
+        fetchAllDonation();
+    }, [page, limit])
     return (
         <div className='flex max-w-7xl mx-auto w-full rounded-xl'>
             <Navbar />
@@ -76,56 +113,6 @@ const Donations = () => {
                                     </div>
                                 </div>
                             </div>
-
-
-                            {/*Campaigns  */}
-                            {/* <div className='py-4 '>
-                                <div className='p-4 bg-white rounded-xl'>
-                                    <h1 className=' font-bold'>Donation Records</h1>
-                                    <div className='grid grid-cols-3 gap-4'>
-
-                                        <Link className='my-2 shadow z-20' to={`/campaign`} >
-                                            <div className=' h-40 relative'>
-                                                <div>
-                                                    <div className='absolute -z-10 -right-2 bottom-0 rotate-45 w-4 h-4 bg-green-600'></div>
-                                                    <div className='absolute p-1 px-3 -right-3 bottom-2 text-xs bg-green-600 text-white'>Featured Campaign</div>
-                                                </div>
-                                                <div className='absolute top-2 left-2 px-2 py-1 text-xs bg-white rounded-md'>
-                                                    <p>6 Days Left</p>
-                                                </div>
-                                                <div className='absolute left-2 bottom-2 p-2'>
-                                                    <GiUpgrade className='p-2 animate-pulse text-emerald-600 bg-white rounded-full text-3xl outline outline-offset-2 outline-white outline-1' />
-                                                </div>
-                                                <img className='w-full h-full object-cover rounded-t-xl' src='https://assets-global.website-files.com/62c48993e01c97eb9f854895/63a4733fcbe18f4723ddbac9_shutterstock_581362633.jpg' alt="" />
-                                            </div>
-                                            <div className='grid gap-1 bg-gradient-to-b from-emerald-50'>
-                                                <h1 className='p-2 font-bold'>Need help to treat cancer to treat cancer for the first time</h1>
-                                                <div className='px-2 pb-2 grid '>
-                                                    <Link className='p-2 font-bold text-emerald-600 hover:bg-emerald-50 transition-all duration-300 text-center text-sm w-full rounded-md ring-1 ring-emerald-600' to={'/campaign'}>Update Campaign</Link>
-                                                </div>
-                                                <div className=' grid grid-cols-3 text-center'>
-                                                    <div className='p-1 ring-1 ring-emerald-100 rounded'>
-                                                        <p className='text-xs text-gray-500'>Raised</p>
-                                                        <h1 className='font-bold'>₹ 120,500</h1>
-                                                    </div>
-                                                    <div className='p-1 ring-1 ring-emerald-100 rounded'>
-                                                        <p className='text-xs text-gray-500'>Goals</p>
-                                                        <h1 className='font-bold'>₹ 110,500</h1>
-                                                    </div>
-                                                    <div className='p-1 ring-1 ring-emerald-100 rounded'>
-                                                        <p className='text-xs text-gray-500'>Left</p>
-                                                        <h1 className='font-bold'>₹ 10,000</h1>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                        
-                                    </div>
-                                </div>
-                            </div> */}
-
-
-
                             {/* Donation Tables */}
                             <div className='py-4'>
                                 <div className='p-4 bg-white rounded-xl'>
@@ -147,115 +134,24 @@ const Donations = () => {
                                                 <tr className=''>
                                                     {/* <th scope="col" className="px-2 py-3">SN</th> */}
                                                     <th scope="col" className=" py-3">Date</th>
-                                                    {/* <th scope="col" className="px-6 py-3">Campaign Name</th> */}
                                                     <th scope="col" className="px-6 py-3">Donator</th>
                                                     <th scope="col" className="px-6 py-3">Amount</th>
-                                                    {/* <th scope="col" className="px-6 py-3">Action</th> */}
                                                 </tr>
                                             </thead>
                                             <tbody>
-
-                                                <tr className='text-slate-600 text-xs border-b'>
-                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
-                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
-                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
-                                                    <td scope="col" className="px-6 py-2 font-bold ">Himanshuthaker@gmail.com</td>
-                                                    <td scope="col" className="px-6 py-2">₹ 10,000</td>
-                                                    <td scope="col" className="px-6 py-2">
-                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
-                                                    </td>
-                                                </tr>
-                                                <tr className='text-slate-600 text-xs border-b'>
-                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
-                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
-                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
-                                                    <td scope="col" className="px-6 py-2 font-bold ">Donator1sam@gmail.com</td>
-                                                    <td scope="col" className="px-6 py-2">₹ 1,000</td>
-                                                    <td scope="col" className="px-6 py-2">
-                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
-                                                    </td>
-                                                </tr>
-                                                <tr className='text-slate-600 text-xs border-b'>
-                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
-                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
-                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
-                                                    <td scope="col" className="px-6 py-2 font-bold ">Himanshu</td>
-                                                    <td scope="col" className="px-6 py-2">₹ 40,000</td>
-                                                    <td scope="col" className="px-6 py-2">
-                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
-                                                    </td>
-                                                </tr>
-                                                <tr className='text-slate-600 text-xs border-b'>
-                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
-                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
-                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
-                                                    <td scope="col" className="px-6 py-2 font-bold ">Donator1sam@gmail.com</td>
-                                                    <td scope="col" className="px-6 py-2">₹ 5,000</td>
-                                                    <td scope="col" className="px-6 py-2">
-                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
-                                                    </td>
-                                                </tr>
-                                                <tr className='text-slate-600 text-xs border-b'>
-                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
-                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
-                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
-                                                    <td scope="col" className="px-6 py-2 font-bold ">Himanshu</td>
-                                                    <td scope="col" className="px-6 py-2">₹ 30,500</td>
-                                                    <td scope="col" className="px-6 py-2">
-                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
-                                                    </td>
-                                                </tr>
-                                                <tr className='text-slate-600 text-xs border-b'>
-                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
-                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
-                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
-                                                    <td scope="col" className="px-6 py-2 font-bold ">Donator1sam@gmail.com</td>
-                                                    <td scope="col" className="px-6 py-2">₹ 2,000</td>
-                                                    <td scope="col" className="px-6 py-2">
-                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
-                                                    </td>
-                                                </tr>
-                                                <tr className='text-slate-600 text-xs border-b'>
-                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
-                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
-                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
-                                                    <td scope="col" className="px-6 py-2 font-bold ">Himanshu</td>
-                                                    <td scope="col" className="px-6 py-2">₹ 5,000</td>
-                                                    <td scope="col" className="px-6 py-2">
-                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
-                                                    </td>
-                                                </tr>
-                                                <tr className='text-slate-600 text-xs border-b'>
-                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
-                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
-                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
-                                                    <td scope="col" className="px-6 py-2 font-bold ">Donator1sam@gmail.com</td>
-                                                    <td scope="col" className="px-6 py-2">₹ 55,000</td>
-                                                    <td scope="col" className="px-6 py-2">
-                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
-                                                    </td>
-                                                </tr>
-                                                <tr className='text-slate-600 text-xs border-b'>
-                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
-                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
-                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
-                                                    <td scope="col" className="px-6 py-2 font-bold ">Himanshu</td>
-                                                    <td scope="col" className="px-6 py-2">₹ 34,000</td>
-                                                    <td scope="col" className="px-6 py-2">
-                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
-                                                    </td>
-                                                </tr>
-                                                <tr className='text-slate-600 text-xs border-b'>
-                                                    {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
-                                                    <td scope="col" className=" py-2">Feb 28, 2022</td>
-                                                    {/* <td scope="col" className="px-6 py-2">Help me treat cancer</td> */}
-                                                    <td scope="col" className="px-6 py-2 font-bold ">Donator1sam@gmail.com</td>
-                                                    <td scope="col" className="px-6 py-2">₹ 83,000</td>
-                                                    <td scope="col" className="px-6 py-2">
-                                                        <Link to={'/admin/donations/donation/6565764747573753753'} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
-                                                    </td>
-                                                </tr>
-
+                                                {
+                                                    donation && donation.map((item) =>
+                                                        <tr key={item._id} className='text-slate-600 text-xs border-b'>
+                                                            {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
+                                                            <td scope="col" className=" py-2">{formatDate(item.createdAt)}</td>
+                                                            <td scope="col" className="px-6 py-2 font-bold ">{item.userId.email}</td>
+                                                            <td scope="col" className="px-6 py-2">₹ {item.amount}</td>
+                                                            <td scope="col" className="px-6 py-2">
+                                                                <Link to={`/admin/donations/donation/${item._id}`} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                }
                                             </tbody>
                                         </table>
 
@@ -265,12 +161,12 @@ const Donations = () => {
                                                 <h1>Showing 1 to 10 of 5 entries</h1>
                                             </div>
                                             <div className='flex items-center text-xs'>
-                                                <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'><FaChevronLeft className='mr-2' /> Back</button>
-                                                <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>1</button>
+                                                <button onClick={handlePreviousPage} disabled={page <= 1} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'><FaChevronLeft className='mr-2' /> Back</button>
+                                                {/* <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>1</button>
                                                 <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>2</button>
                                                 <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>3</button>
-                                                <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>...</button>
-                                                <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>Next<FaChevronRight className='ml-2' /></button>
+                                                <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>...</button> */}
+                                                <button onClick={handleNextPage} disabled={donation.length < 10} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>Next<FaChevronRight className='ml-2' /></button>
                                             </div>
                                         </div>
                                     </div>

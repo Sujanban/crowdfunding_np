@@ -58,8 +58,8 @@ const Donation = () => {
                                 {/* left */}
                                 <div className='w-full col-span-2 p-4 rounded-xl shadow bg-white'>
                                     <div className=''>
-                                        <img className=' h-32 mx-auto' src={success} alt="" />
-                                        <h1 className='pb-6 text-center text-xl md:text-xl font-semibold'>Payment completed successfully!</h1>
+                                        {/* <img className=' h-32 mx-auto' src={success} alt="" />
+                                        <h1 className='pb-6 text-center text-xl md:text-xl font-semibold'>Payment completed successfully!</h1> */}
                                         <div className=' grid grid-cols-2 gap-4'>
                                             <div className='p-4 rounded-xl shadow bg-gray-50'>
                                                 <p className='text-slate-600'>Receipt from Campaign Donation</p>
@@ -75,7 +75,7 @@ const Donation = () => {
                                     </div>
 
                                     <div className='py-4'>
-                                        <div className='shadow p-4'>
+                                        <div className=' p-4'>
                                             <h1 className='font-bold'>Donation Details</h1>
                                             <div className="p-2 relative overflow-x-auto sm:rounded-lg">
                                                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
@@ -94,7 +94,7 @@ const Donation = () => {
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                                <div className='p-4 flex justify-center'>
+                                                <div className='p-4 flex justify-end'>
                                                     <p className='text-slate-600 text-sm'>Total amount: <span className='font-bold text-black'>₹ 10,000</span></p>
                                                 </div>
                                             </div>
