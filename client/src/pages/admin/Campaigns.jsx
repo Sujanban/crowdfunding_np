@@ -141,7 +141,7 @@ const Campaigns = () => {
                                                 campaign && campaign.map((item, index) =>
                                                     <tr key={index} className='text-slate-600 border-b'>
                                                         <td scope="col" className="px-2 py-2">{++count}</td>
-                                                        <td scope="col" className="px-6 py-2 font-bold">{item.campaignTitle.slice(0, 50)}</td>
+                                                        <td scope="col" className="px-6 py-2">{item.campaignTitle.slice(0, 50)}</td>
                                                         <td scope="col" className="px-6 py-2">
                                                             {users.filter(user => user._id === item.campaignOwner)[0]?.firstName + " " + users.filter(user => user._id === item.campaignOwner)[0]?.lastName}
                                                         </td>

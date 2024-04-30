@@ -26,6 +26,7 @@ const Donations = () => {
     const [donation, setDonation] = useState([]);
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
+    const [sortOrder, setSortOrder] = useState("asc");
     const [searchParams, setSearchParams] = useSearchParams();
 
     const handleNextPage = () => {
@@ -44,7 +45,8 @@ const Donations = () => {
         const res = await axios.get('/api/donation/fetchAllDonation', {
             params: {
                 page,
-                limit
+                limit,
+                sortOrder
             }
         });
         if (res.status === 200) {
@@ -54,7 +56,7 @@ const Donations = () => {
 
     useEffect(() => {
         fetchAllDonation();
-    }, [page, limit])
+    }, [page, limit, sortOrder])
     return (
         <div className='flex max-w-7xl mx-auto w-full rounded-xl'>
             <Navbar />
@@ -122,8 +124,8 @@ const Donations = () => {
                                             <button onClick={() => setToggleFilter(!toggleFilter)} className='border rounded px-4 text-sm py-2 flex items-center hover:bg-gray-50'>Filter <IoFunnelOutline className='ml-2' /></button>
                                             {
                                                 toggleFilter && <div className='p-2 w-32 text-xs absolute top-10 left-0 z-50 shadow bg-white'>
-                                                    <button className='px-2 py-3 w-full border-b'>Highest to lowest</button>
-                                                    <button className='px-2 py-3 w-full'>Lowest to highest</button>
+                                                    <button onClick={() => [setSortOrder("asc"), setToggleFilter(false)]} className='px-2 py-3 w-full border-b'>Newest to oldest</button>
+                                                    <button onClick={() => [setSortOrder("desc"), setToggleFilter(false)]} className='px-2 py-3 w-full'>Oldest to newest</button>
                                                 </div>
                                             }
                                         </div>
