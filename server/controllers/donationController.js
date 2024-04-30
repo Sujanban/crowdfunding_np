@@ -63,7 +63,7 @@ const createDonation = async (req, res) => {
 const fetchAllDonation = async (req, res) => {
   try {
     const sortOrder = req.query.sortOrder === "asc" ? 1 : -1;
-    const page = parseInt(req.query.page) || 1; 
+    const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
 
@@ -98,62 +98,27 @@ const fetchWebhook = async (request, response) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
   const endpointSecret =
     "whsec_83b246de759af3a324aef79fdc01aae5d9fd8d123b1114c61d35a4c90a7bd1f0";
-
   const sig = request.headers["stripe-signature"];
   let event;
   try {
     event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+    console.log(event.type);
   } catch (err) {
+    console.log(err)
     response.status(400).send(`Webhook Error: ${err.message}`);
     return;
   }
 
   // Handle the event
   switch (event.type) {
-    case "payment_intent.succeeded":
-    // case "checkout.session.completed":
+    // case "payment_intent.succeeded":
+    case "checkout.session.completed":
       const paymentIntent = event.data.object;
-      console.log(`PaymentIntent for ${paymentIntent} was successful!`);
       console.log(paymentIntent);
-
-      try {
-        const sessionId = paymentIntent.id; // Stripe payment intent ID
-        const amount = paymentIntent.amount_received / 100; // Convert from cents to dollars
-        const customerEmail =
-          paymentIntent.charges.data[0].billing_details.email;
-        const campaignId = paymentIntent.client_reference_id; // Assuming this references the campaign
-
-        // Find the user by email
-        const user = await User.findOne({ email: customerEmail });
-        if (!user) {
-          console.error("User not found for email:", customerEmail);
-          return;
-        }
-        const campaign = await Campaign.findById(campaignId);
-        if (!campaign) {
-          console.error("Campaign not found for ID:", campaignId);
-          return;
-        }
-        const donation = new Donation({
-          userId: user._id,
-          campaignId: campaign._id,
-          amount: amount,
-          session: sessionId,
-        });
-        await donation.save();
-
-        console.log("Donation recorded:", donation);
-      } catch (error) {
-        console.error("Error handling successful payment:", error);
-      }
-
       break;
-    // ... handle other event types
     default:
       console.log(`Unhandled event type ${event.type}`);
   }
-
-  // Return a 200 response to acknowledge receipt of the event
   response.send();
 };
 
