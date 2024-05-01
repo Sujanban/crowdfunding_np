@@ -80,6 +80,19 @@ const fetchAllDonation = async (req, res) => {
   }
 };
 
+// fetching donation according to campaign
+const fetchDonationByCampaign = async (req, res) => {
+  try {
+    const campaignId = req.params.campaignId;
+    const donations = await Donation.find({ campaignId })
+      // .populate("userId", "firstName lastName email")
+      // .populate("campaignId", "campaignTitle campaignDescription");
+    res.status(200).json(donations);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch donations" });
+  }
+};
+
 // fetch single donation
 const fetchDonation = async (req, res) => {
   try {
@@ -104,7 +117,7 @@ const fetchWebhook = async (request, response) => {
     event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
     console.log(event.type);
   } catch (err) {
-    console.log(err)
+    console.log(err);
     response.status(400).send(`Webhook Error: ${err.message}`);
     return;
   }
@@ -126,5 +139,6 @@ module.exports = {
   createDonation,
   fetchAllDonation,
   fetchDonation,
+  fetchDonationByCampaign,
   fetchWebhook,
 };

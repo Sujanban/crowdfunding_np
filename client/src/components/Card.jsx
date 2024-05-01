@@ -1,26 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { GiUpgrade } from "react-icons/gi";
 
 import { FaHeart } from "react-icons/fa";
+import axios from 'axios';
 
 
 const Card = ({ campaign, index }) => {
+    const [donations, setDonations] = useState([]);
+    const donationRaised = donations.reduce((acc, curr) => acc + curr.amount, 0);
+    const fetchDonationByCampaign = async () => {
+        const res = await axios.get(`/api/donation/fetchDonationByCampaign/${campaign._id}`);
+        setDonations(res.data)
+    }
+    useEffect(() => {
+        fetchDonationByCampaign()
+    }, [])
     return (
-        // <Link className='my-2' to={`/campaign/${campaign._id}`} key={index}>
-        //     <div className=' h-52 xl:h-72 bg-gray-100'>
-        //         <img className='w-full h-full object-cover' src={campaign.thumbnail} alt="" />
-        //     </div>
-        //     <div className='py-4 grid gap-1'>
-        //         <h1 className='font-semibold'>{campaign.campaignTitle.slice(0, 20)}</h1>
-        //         <p className='text-xs'>{campaign.campaignDescription.slice(0, 40)}</p>
-        //         <h1 className='text-lg'><b>$78,253</b> <span className='text-xs'>raised of <b className='text-green-600 text-lg'>${campaign.goalAmount}</b> goal</span></h1>
-        //         <div className="w-full bg-gray-200 rounded-full h-2.5">
-        //             <div className="bg-yellow-600 h-2.5 rounded-full w-2/3"></div>
-        //         </div>
-        //         <p className='flex items-center'><FaHeart color='red' /> <span className='px-2 text-sm'>5,253 Supporters</span></p>
-        //     </div>
-        // </Link>
         <Link className='my-2 shadow z-20' to={`/campaign/${campaign._id}`} key={index} >
             <div className=' h-40 relative'>
                 <div>
@@ -43,7 +39,7 @@ const Card = ({ campaign, index }) => {
                 <div className=' grid grid-cols-3 text-center'>
                     <div className='p-1 ringg-1 border-r ring-emerald-100 '>
                         <p className='text-xs text-gray-500'>Raised</p>
-                        <h1 className='font-bold'>₹ 120,500</h1>
+                        <h1 className='font-bold'>₹ {donationRaised}</h1>
                     </div>
                     <div className='p-1 ringg-1 border-r ring-emerald-100 '>
                         <p className='text-xs text-gray-500'>Goals</p>
@@ -51,7 +47,7 @@ const Card = ({ campaign, index }) => {
                     </div>
                     <div className='p-1 ringg-1  ring-emerald-100 '>
                         <p className='text-xs text-gray-500'>Left</p>
-                        <h1 className='font-bold'>₹ 10,000</h1>
+                        <h1 className='font-bold'>₹ {campaign.goalAmount - donationRaised < 0 ? 0 : campaign.goalAmount - donationRaised}</h1>
                     </div>
                 </div>
             </div>

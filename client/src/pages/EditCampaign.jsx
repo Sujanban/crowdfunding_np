@@ -41,7 +41,6 @@ const EditCampaign = () => {
     try {
       const res = await axios.get(`/api/campaign/getCampaign/${id}`);
       setCampaignn(res.data);
-      console.log(res.data);
     } catch (error) {
       console.log("Server Error while fetching API " + error);
     }

@@ -40,6 +40,8 @@ const CampaignUpdates = () => {
                     </div>
                 </div>
             </div>
+
+            
         </div>
     )
 }
