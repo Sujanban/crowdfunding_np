@@ -80,13 +80,25 @@ const fetchAllDonation = async (req, res) => {
   }
 };
 
+// fetch donation by user
+const fetchDonationByUser = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const donations = await Donation.find({ userId })
+      .populate("campaignId", "campaignTitle campaignDescription");
+    res.status(200).json(donations);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch donations" });
+  }
+};
+
 // fetching donation according to campaign
 const fetchDonationByCampaign = async (req, res) => {
   try {
     const campaignId = req.params.campaignId;
     const donations = await Donation.find({ campaignId })
-      // .populate("userId", "firstName lastName email")
-      // .populate("campaignId", "campaignTitle campaignDescription");
+      .populate("userId", "firstName lastName email")
+      .populate("campaignId", "campaignTitle campaignDescription");
     res.status(200).json(donations);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch donations" });
@@ -107,38 +119,12 @@ const fetchDonation = async (req, res) => {
   }
 };
 
-const fetchWebhook = async (request, response) => {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-  const endpointSecret =
-    "whsec_83b246de759af3a324aef79fdc01aae5d9fd8d123b1114c61d35a4c90a7bd1f0";
-  const sig = request.headers["stripe-signature"];
-  let event;
-  try {
-    event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
-    console.log(event.type);
-  } catch (err) {
-    console.log(err);
-    response.status(400).send(`Webhook Error: ${err.message}`);
-    return;
-  }
 
-  // Handle the event
-  switch (event.type) {
-    // case "payment_intent.succeeded":
-    case "checkout.session.completed":
-      const paymentIntent = event.data.object;
-      console.log(paymentIntent);
-      break;
-    default:
-      console.log(`Unhandled event type ${event.type}`);
-  }
-  response.send();
-};
 
 module.exports = {
   createDonation,
   fetchAllDonation,
   fetchDonation,
   fetchDonationByCampaign,
-  fetchWebhook,
+  fetchDonationByUser,
 };

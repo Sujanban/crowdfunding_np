@@ -17,7 +17,8 @@ const Card = ({ campaign, index }) => {
         fetchDonationByCampaign()
     }, [])
     return (
-        <Link className='my-2 shadow z-20' to={`/campaign/${campaign._id}`} key={index} >
+        <div>
+            <Link className='my-2 shadow z-20' to={`/campaign/${campaign._id}`} key={index} >
             <div className=' h-40 relative'>
                 <div>
                     <div className='absolute -z-10 -right-2 bottom-0 rotate-45 w-4 h-4 bg-emerald-600'></div>
@@ -52,6 +53,7 @@ const Card = ({ campaign, index }) => {
                 </div>
             </div>
         </Link>
+        </div>
     )
 }
 

@@ -34,6 +34,7 @@ import Failed from './pages/Failed'
 import Donations from './pages/admin/Donations'
 import Donation from './pages/admin/Donation'
 import UserDonation from './pages/Donations'
+import ViewCollectedDonations from './pages/ViewCollectedDonations'
 
 
 
@@ -91,6 +92,7 @@ function App() {
           <Route path='/createCampaign' element={ user ? <CreateCampaign/> : <Navigate to="/login"/>} />
           <Route path='/profile' element={user ? <Profile /> : <Navigate to="/login" />} />
           <Route path='/donations' element={user ? <UserDonation /> : <Navigate to="/login" />} />
+          <Route path='/viewDonations/:id' element={user ? <ViewCollectedDonations /> : <Navigate to="/login" />} />
 
           <Route path='/success' element={<Success />} />
           <Route path='/failed' element={<Failed />} />
