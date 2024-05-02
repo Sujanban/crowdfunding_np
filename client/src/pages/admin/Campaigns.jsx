@@ -146,7 +146,7 @@ const Campaigns = () => {
                                                             {users.filter(user => user._id === item.campaignOwner)[0]?.firstName + " " + users.filter(user => user._id === item.campaignOwner)[0]?.lastName}
                                                         </td>
                                                         <td scope="col" className="px-6 py-2">
-                                                            <span className={`${item.status === "active" ? "px-1.5 py-0.5 text-emerald-600 bg-green-100 rounded-xl" : "px-1.5 py-0.5 text-red-600 bg-orange-100 rounded-xl"}`}>{item.status}</span>
+                                                            <span className={`${item.status === "active" ? "px-1.5 py-0.5 text-emerald-600 bg-green-100 ring-1 ring-emerald-600 rounded-xl" : "px-1.5 py-0.5 text-red-600 bg-orange-100 ring-1 ring-orange-600 rounded-xl"}`}>{item.status}</span>
                                                         </td>
                                                         <td scope="col" className="px-6 py-2 flex items-center">
                                                             <Link to={`/admin/editcampaign/${item._id}`} className="m-1 px-4 py-2 bg-emerald-100 text-emerald-600 rounded-xl hover:bg-emerald-200 transition-all duration-300"><VscEdit size={20} /></Link>
@@ -168,10 +168,6 @@ const Campaigns = () => {
                                         </div>
                                         <div className='flex items-center text-xs'>
                                             <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'><FaChevronLeft className='mr-2' /> Back</button>
-                                            <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>1</button>
-                                            <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>2</button>
-                                            <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>3</button>
-                                            <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>...</button>
                                             <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>Next<FaChevronRight className='ml-2' /></button>
                                         </div>
                                     </div>
