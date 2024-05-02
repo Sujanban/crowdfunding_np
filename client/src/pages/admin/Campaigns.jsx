@@ -73,42 +73,6 @@ const Campaigns = () => {
                         <Link to={'/admin/createcampaign'} className='mr-2 px-4 py-3 text-sm bg-emerald-600 text-white rounded-xl transition-all duration-300 hover:bg-emerald-700 cursor-pointer flex items-center '><TiPen className='mr-2' />Create</Link>
                     </div>
 
-
-                    {/* Campaign stats grid */}
-                    {/* <div className='p-6 '>
-                        <div className=''>
-                            <div className=' grid grid-cols-2 gap-4'>
-                                <div className='p-4 rounded-xl shadow flex items-center bg-white'>
-                                    <div className=''>
-                                        <SiVirustotal className='p-1 text-orange-600 bg-orange-100 rounded-lg' size={30} />
-                                    </div>
-                                    <div className='px-4'>
-                                        <h1 className='text-sm'>Total Campaigns</h1>
-                                        <h1 className='text-xl font-semibold'>{campaign && campaign.length}</h1>
-                                    </div>
-                                </div>
-                                <div className='p-4 rounded-xl shadow flex items-center bg-white'>
-                                    <div className=''>
-                                        <SiVirustotal className='text-pink-600 bg-yellow-100 rounded-xl' size={30} />
-                                    </div>
-                                    <div className='p-2'>
-                                        <h1 className='text-sm'>Top Donation</h1>
-                                        <h1 className='text-xl font-semibold'>₹ 1000</h1>
-                                    </div>
-                                </div>
-                                <div className='p-4 rounded-xl shadow flex items-center bg-white'>
-                                    <div className=''>
-                                        <SiVirustotal className='text-emerald-600 bg-emerald-100 rounded-xl' size={30} />
-                                    </div>
-                                    <div className='p-2'>
-                                        <h1 className='text-sm'>Top Contributer</h1>
-                                        <h1 className='text-xl font-semibold'>John Cena</h1>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> */}
-
                     {/*  */}
                     <div className='p-4 pt-2 '>
                         <div className=''>
