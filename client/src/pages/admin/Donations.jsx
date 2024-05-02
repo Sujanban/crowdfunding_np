@@ -160,7 +160,8 @@ const Donations = () => {
                                         {/* table footer */}
                                         <div className='py-4 flex justify-between items-center'>
                                             <div className='text-xs text-slate-600'>
-                                                <h1>Showing 1 to 10 of 5 entries</h1>
+                                                <h1>Showing 1 to {donation.length} of {page} entries</h1>
+
                                             </div>
                                             <div className='flex items-center text-xs'>
                                                 <button onClick={handlePreviousPage} disabled={page <= 1} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'><FaChevronLeft className='mr-2' /> Back</button>
