@@ -14,7 +14,7 @@ const addBankAccount = async (req, res) => {
     }
     const bank = new Bank({
       userId: _id,
-      stripeAccount,
+      stripeAccountId: stripeAccount,
     });
     await bank.save();
     return res.status(200).json({ message: "Bank account added successfully" });
