@@ -82,6 +82,9 @@ app.use("/api/campaign/", require("./routes/campaignRoutes"));
 // donation routes
 app.use("/api/donation/", require("./routes/donationRoutes"));
 
+// banking routes
+app.use("/api/bank/", require("./routes/payoutRoutes"));
+
 // story routes
 app.use("/api/story/", require("./routes/storyRoutes"));
 
