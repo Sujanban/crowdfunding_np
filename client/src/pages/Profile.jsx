@@ -42,7 +42,7 @@ const Profile = () => {
                     <form action="" onSubmit={handleBankAdd}>
                         <label className='py-2'>
                             <h1 className=''>Stripe Account</h1>
-                            <input type="text" onChange={(e) => setStripeAccount(e.target.value)} placeholder='Enter Stripe AccountID' />
+                            <input className='px-4 w-96 py-2 border rounded-xl' type="text" onChange={(e) => setStripeAccount(e.target.value)} placeholder='Enter Stripe AccountID' />
                         </label>
                         <div className='py-2'>
                             <input className='px-4 py-3 bg-emerald-600 text-white hover:bg-emerald-700 transition-all duration-300 cursor-pointer rounded-xl text-sm' type="submit" value={'Add Bank'} />

@@ -2,14 +2,17 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-export const fetchCampaign = createAsyncThunk("fetchAllCampaign", async () => {
-  try {
-    const res = await axios.get("/api/campaign/getCampaigns");
-    return res.data;
-  } catch (error) {
-    console.log("Server Error while fetching API " + error);
+export const fetchCampaign = createAsyncThunk(
+  "fetchAllCampaign",
+  async () => {
+    try {
+      const res = await axios.get("/api/campaign/getCampaigns");
+      return res.data;
+    } catch (error) {
+      console.log("Server Error while fetching API " + error);
+    }
   }
-});
+);
 
 export const fetchSingleCampaign = createAsyncThunk(
   "fetchSingleCampaign",
@@ -28,9 +31,11 @@ export const fetchCampaignsByUserID = createAsyncThunk(
   "fetchCampaignsByUserID",
   async (userId) => {
     try {
-      const res = await axios.get(`/api/campaign/getCampaignsByUserID/${userId}`);
-      if(res.data){
-        return res.data
+      const res = await axios.get(
+        `/api/campaign/getCampaignsByUserID/${userId}`
+      );
+      if (res.data) {
+        return res.data;
       }
     } catch (error) {
       console.log("Server Error while fetching API " + error);

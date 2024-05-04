@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/admin/Navbar'
 import Search from '../../components/admin/Search'
 import { LuChevronRight } from "react-icons/lu";
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCampaign } from '../../app/feature/campaignSlice';
 import WarningPopup from '../../components/WarningPopup';
@@ -19,6 +19,27 @@ import { SiVirustotal } from "react-icons/si";
 const Campaigns = () => {
     const [toggleFilter, setToggleFilter] = useState(false);
     const [popupVisible, setPopupVisible] = useState(false);
+
+
+    // pagination
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [page, setPage] = useState(1)
+    const [limit, setLimit] = useState(10);
+    const [sortOrder, setSortOrder] = useState('asc');
+
+
+    const handlePreviousPage = () => {
+        if (page > 1) {
+            setPage(page - 1);
+            setSearchParams({ page: page - 1, limit });
+        }
+    }
+    const handleNextPage = () => {
+        setPage(page + 1);
+        setSearchParams({ page: page + 1, limit });
+    }
+
+
     const campaign = useSelector(state => state.campaign.data)
     const [selectedCampaignId, setSelectedCampaignId] = useState(null);
     const dispatch = useDispatch();
@@ -43,10 +64,15 @@ const Campaigns = () => {
         }
     }
 
+    
+
     useEffect(() => {
         dispatch(fetchCampaign())
         fetchAllUsers();
     }, [])
+
+
+
     return (
         <div className='flex max-w-7xl mx-auto w-full'>
             <Navbar />
@@ -131,8 +157,8 @@ const Campaigns = () => {
                                             <h1>Showing 1 to 10 of 5 entries</h1>
                                         </div>
                                         <div className='flex items-center text-xs'>
-                                            <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'><FaChevronLeft className='mr-2' /> Back</button>
-                                            <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>Next<FaChevronRight className='ml-2' /></button>
+                                            <button onClick={handlePreviousPage} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'><FaChevronLeft className='mr-2' /> Back</button>
+                                            <button onClick={handleNextPage} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>Next<FaChevronRight className='ml-2' /></button>
                                         </div>
                                     </div>
                                 </div>
