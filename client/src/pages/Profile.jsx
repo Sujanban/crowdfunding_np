@@ -5,7 +5,22 @@ import { fetchUserProfile } from '../app/feature/userSlice';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
+
 const Profile = () => {
+
+
+    const handleFileUpload = async (e) => {
+        const file = e.target.files[0];
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "collab-crowdfunding");
+        formData.append("cloud_name", "dtol8fii6");
+        const res = await axios.post("https://api.cloudinary.com/v1_1/dtol8fii6/image/upload", formData, { withCredentials: true, crossorigin: true });
+        return res.data;
+
+    }
+
+
     const [stripeAccount, setStripeAccount] = useState('');
     const dispatch = useDispatch();
     const user = useSelector(state => state.user.data)
@@ -49,6 +64,10 @@ const Profile = () => {
                         </div>
                     </form>
                 </div>
+
+                <form action="">
+                    <input type="file" onChange={handleFileUpload} />
+                </form>
             </div>
         </div>
     )
