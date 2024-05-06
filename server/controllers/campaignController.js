@@ -6,7 +6,6 @@ const cloudinary = require('../utils/cloudinary');
 //CREATE CAMPAIGN
 const createCampaign = async (req, res) => {
   try {
-    console.log(req.body)
     const {
       campaignOwner,
       campaignTitle,
