@@ -22,11 +22,6 @@ const CampaignSchema = new schema({
     type: String,
     required: true,
   },
-
-  videoUrl: {
-    type: String,
-    required: true,
-  },
   goalAmount: {
     type: Number,
     required: true,
