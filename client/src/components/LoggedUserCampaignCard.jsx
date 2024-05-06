@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { GiUpgrade } from "react-icons/gi";
+
+import { FaHeart } from "react-icons/fa";
 import axios from 'axios';
+import WarningPopup from './WarningPopup';
 
 
-const Card = ({ campaign, index }) => {
+const Card = ({ popupVisible, setPopupVisible, campaign, index }) => {
     const [donations, setDonations] = useState([]);
     const donationRaised = donations.reduce((acc, curr) => acc + curr.amount, 0);
     const fetchDonationByCampaign = async () => {
@@ -15,8 +18,7 @@ const Card = ({ campaign, index }) => {
         fetchDonationByCampaign()
     }, [])
     return (
-        <div>
-            <Link className='my-2 shadow z-20' to={`/campaign/${campaign._id}`} key={index} >
+        <div key={index}>
             <div className=' h-40 relative'>
                 <div>
                     <div className='absolute -z-10 -right-2 bottom-0 rotate-45 w-4 h-4 bg-emerald-600'></div>
@@ -31,9 +33,18 @@ const Card = ({ campaign, index }) => {
                 <img className='w-full h-full object-cover rounded-t-xl' src={campaign.thumbnail} alt="" />
             </div>
             <div className='grid gap-1 bg-gradient-to-b from-emerald-50'>
-                <h1 className='p-2 font-bold'>{campaign.campaignTitle.slice(0, 60)}</h1>
-                <div className='px-2 pb-2 grid '>
-                    <Link className='p-2 font-bold text-emerald-600 hover:bg-emerald-50 transition-all duration-300 text-center text-sm w-full rounded-md ring-1 ring-emerald-600' to={`/campaign/${campaign._id}`}>Donate</Link>
+                <Link to={`/campaign/${campaign._id}`}>
+                    <h1 className='p-2 font-bold'>{campaign.campaignTitle.slice(0, 60)}</h1>
+                </Link>
+                <div className='px-2 pb- grid grid-cols-2 gap-2'>
+                    <Link to={`/managecampaign/${campaign._id}`}
+                        className='py-3 px-4 flex items-center justify-center text-xs rounded border border-emerald-200 text-emerald-600 bg-emerald-50 hover:bg-emerald-100 transition-all duration-300'>Manage Campaign</Link>
+                    <button
+                        onClick={() => setPopupVisible(true)}
+                        className='py-3 text-xs px-4 flex items-center justify-center space-x-2 border border-orange-200 bg-orange-50 hover:bg-orange-100 text-orange-600 transition-all duration-300  rounded '>Mark Completed</button>
+                    {
+                        popupVisible && <WarningPopup setPopupVisible={setPopupVisible} id={campaign._id} delCampaign={true}/>
+                    }
                 </div>
                 <div className=' grid grid-cols-3 text-center'>
                     <div className='p-1 ringg-1 border-r ring-emerald-100 '>
@@ -50,7 +61,6 @@ const Card = ({ campaign, index }) => {
                     </div>
                 </div>
             </div>
-        </Link>
         </div>
     )
 }
