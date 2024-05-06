@@ -1,16 +1,12 @@
 const Campaign = require("../models/campaign.model");
 const Story = require("../models/story.model");
 const mongoose = require("mongoose");
+const cloudinary = require('../utils/cloudinary');
 
 //CREATE CAMPAIGN
 const createCampaign = async (req, res) => {
   try {
-    // if (req) {
-    //   console.log(req);
-    // }
-    // if (req.file) {
-    //   console.log(req.file);
-    // }
+    console.log(req.body)
     const {
       campaignOwner,
       campaignTitle,
@@ -33,12 +29,20 @@ const createCampaign = async (req, res) => {
       return res.json({ error: "All fields are required" });
     }
 
+    // cloudinary file upload
+    const imageUploadResponse = await cloudinary.uploader.upload(thumbnail, {
+      upload_preset: "collab-crowdfunding",
+    });
+    console.log(imageUploadResponse);
+    const thumbnailUrl = imageUploadResponse.url;
+
+
     const newCampaign = new Campaign({
       campaignOwner,
       campaignTitle,
       campaignDescription,
       location,
-      thumbnail,
+      thumbnail : thumbnailUrl,
       videoUrl,
       goalAmount,
       category,
