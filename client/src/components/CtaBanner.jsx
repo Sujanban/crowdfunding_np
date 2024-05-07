@@ -10,7 +10,7 @@ const CtaBanner = () => {
                     <h1 className='px-4 text-xl md:text-3xl'>Need Funds to Pay For a Medical Emergency or Social Cause?</h1>
                     <p className=' p-4 md:text-xl'>Collab's 0% Platform fees ensures maximum funds for you</p>
                     <div className='p-4'>
-                        <Link to='/createCampaign' className='bg-yellow-600 hover:bg-yellow-700 transition-all duration-400 px-4 py-3 text-sm md:text-md rounded-xl text-white'>Start Fundraising</Link>
+                        <Link to='/createCampaign' className='bg-emerald-600 hover:bg-emerald-700 transition-all duration-300 px-4 py-3 text-sm md:text-md rounded-xl text-white'>Start Fundraising</Link>
                     </div>
                 </div>
                 <div className='flex items-center justify-center rounded-r'>

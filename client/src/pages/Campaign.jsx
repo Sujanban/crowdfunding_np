@@ -40,6 +40,10 @@ const Campaign = () => {
         return donations.reduce((total, donation) => total + donation.amount, 0)
     }
 
+    const supporterCount = () => {
+        
+    }
+
     // handeling donation
     const [amount, setAmount] = useState();
     const handleDonation = async (e) => {

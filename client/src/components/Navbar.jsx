@@ -58,11 +58,10 @@ const Navbar = () => {
                                 <li className='py-4'>
                                     <NavLink to='/donations' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Donations</NavLink>
                                 </li>
-
                             </>
                             :
                             <>
-                                <li className='p-4 pt-8 md:pt-4'>
+                                <li className='py-4'>
                                     <NavLink to='/explore' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Explore</NavLink>
                                 </li>
                                 <li className='py-4'>
