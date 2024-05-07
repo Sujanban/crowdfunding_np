@@ -29,7 +29,7 @@ const createDonation = async (req, res) => {
             currency: "usd",
             product_data: {
               name: campaign.campaignTitle,
-              images: [campaign.thumbnail],
+              images: [campaign.thumbnail?.url],
             },
             unit_amount: amount * 100,
           },
@@ -54,6 +54,7 @@ const createDonation = async (req, res) => {
     // });
     res.json({ url: session.url });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: "Failed to create Stripe session" });
     return;
   }

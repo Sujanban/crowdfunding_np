@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchSingleCampaign } from '../app/feature/campaignSlice'
 import Story from '../components/Story'
 import axios from 'axios'
-import {toast} from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 
 
 const Campaign = () => {
@@ -25,14 +25,25 @@ const Campaign = () => {
     const campaignPost = useSelector((state) => state.campaign.data)
     const { isLoading, errorMessage } = useSelector((state) => state.campaign)
     const userId = useSelector((state) => state.user?.data._id);
-    
+
+
+    // tracking donation
+    const [donations, setDonations] = useState([]);
+    const fetchDonationByCampaign = async (id) => {
+        const res = await axios.get(`/api/donation/fetchDonationByCampaign/${id}`);
+        setDonations(res.data)
+    }
+    console.log(donations)
+
+    const donationRaised = () => {
+        return donations.reduce((total, donation) => total + donation.amount, 0)
+    }
 
     // handeling donation
     const [amount, setAmount] = useState();
     const handleDonation = async (e) => {
         e.preventDefault();
         try {
-            
             const res = await axios.post(`/api/donation/createDonation/${id}`, { userId, amount, campaignId: id });
             console.log(res)
             if (res.data.url) {
@@ -41,13 +52,15 @@ const Campaign = () => {
             if (res.data.error) {
                 toast.error(res.data.error);
             }
-        }catch(err){
+        } catch (err) {
+            console.log(err)
             console.log('Error fetching API ' + err);
         }
     }
 
     useEffect(() => {
         dispatch(fetchSingleCampaign(id));
+        fetchDonationByCampaign(id)
     }, [])
 
     return (
@@ -171,7 +184,7 @@ const Campaign = () => {
                     <div className='relative '>
                         <div className='max-w-[425px] top-0 sticky scroll-auto p-4'>
 
-                            <h1 className='text-2xl py-4'><b>$78,253</b> <span className=''>raised of <b className='text-green-600'>${campaignPost?.goalAmount}</b> goal</span></h1>
+                            <h1 className='text-2xl py-4'><b>$ {donationRaised()}</b> <span className=''>raised of <b className='text-green-600'>${campaignPost?.goalAmount}</b> goal</span></h1>
                             <div className="w-full bg-gray-200 rounded-full h-2.5">
                                 <div className="bg-yellow-600 h-2.5 rounded-full w-2/3"></div>
                             </div>
