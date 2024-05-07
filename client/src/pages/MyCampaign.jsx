@@ -29,6 +29,11 @@ const MyCampaign = () => {
   return (
     <>
       <Navbar />
+      {
+        isLoading ? <div className='w-full flex justify-center items-center h-screen text-2xl'>
+          <Loading />
+        </div> : ''
+      }
       <div className={`md:px-8 my-12 md:py-20 max-w-7xl mx-auto `}>
         <div className='p-4 flex justify-center'>
           <h1 className='text-xl md:text-2xl font-semibold border-b-2 border-green-600'>Manage your campaigns</h1>

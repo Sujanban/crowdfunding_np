@@ -16,7 +16,6 @@ const Card = ({ campaign, index }) => {
     const calculateGoalPercent = () => {
         return Math.round((donationRaised / campaign.goalAmount) * 100);
     }
-    console.log(calculateGoalPercent())
     useEffect(() => {
         fetchDonationByCampaign()
     }, [])

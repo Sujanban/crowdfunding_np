@@ -30,18 +30,16 @@ const Campaign = () => {
 
     // tracking donation
     const [donations, setDonations] = useState([]);
+
     const fetchDonationByCampaign = async (id) => {
         const res = await axios.get(`/api/donation/fetchDonationByCampaign/${id}`);
         setDonations(res.data)
     }
-    console.log(donations)
 
-    const donationRaised = () => {
-        return donations.reduce((total, donation) => total + donation.amount, 0)
-    }
+    const donationRaised = donations.reduce((acc, curr) => acc + curr.amount, 0);
 
-    const supporterCount = () => {
-        
+    const calculateGoalPercent = () => {
+        return Math.round((donationRaised / campaignPost.goalAmount) * 100);
     }
 
     // handeling donation
@@ -99,9 +97,6 @@ const Campaign = () => {
                                 </div>
                             </div>
                         </div>
-
-
-
                         <hr />
                         <div>
                             <h1 className='p-4 text-xl font-black'>Storyline</h1>
@@ -119,45 +114,7 @@ const Campaign = () => {
                             </div>
                         </div>
                         <hr />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         <Story id={id} />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         <div>
                             <h1 className='p-4 text-xl'>Words from supporters</h1>
                             <div>
@@ -168,11 +125,11 @@ const Campaign = () => {
                     <div className='relative '>
                         <div className='max-w-[425px] top-0 sticky scroll-auto p-4'>
 
-                            <h1 className='text-2xl py-4'><b>$ {donationRaised()}</b> <span className=''>raised of <b className='text-green-600'>${campaignPost?.goalAmount}</b> goal</span></h1>
+                            <h1 className='text-2xl py-4'><b>$ {donationRaised}</b> <span className=''>raised of <b className='text-green-600'>${campaignPost?.goalAmount}</b> goal</span></h1>
                             <div className="w-full bg-gray-200 rounded-full h-2.5">
-                                <div className="bg-yellow-600 h-2.5 rounded-full w-2/3"></div>
+                                <div className="bg-yellow-600 h-2.5 rounded-full"  style={{ width: `${calculateGoalPercent()}%` }}></div>
                             </div>
-                            <p className='py-4 flex items-center'><FaHeart color='red' /> <span className='px-2 text-sm'>5,253 Supporters</span></p>
+                            <p className='py-4 flex items-center'><FaHeart color='red' /> <span className='px-2 text-sm'>{donations.length} Supporters</span></p>
                             <form onSubmit={handleDonation} className='py-2'>
                                 <label>Donation Amount : </label>
                                 <input type="number"
