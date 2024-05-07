@@ -13,6 +13,7 @@ const CreateCampaign = () => {
   const userId = useSelector((state) => state.user.data._id);
   const category = useSelector(getCategories);
   const dispatch = useDispatch();
+  const [users, setUsers] = useState([]);
   const [campaign, setCampaign] = useState({
     campaignOwner: userId,
     campaignTitle: '',
@@ -20,13 +21,9 @@ const CreateCampaign = () => {
     country: '',
     location: '',
     thumbnail: '',
-    videoUrl: '',
     goalAmount: '',
     category: ''
   });
-
-  const [users, setUsers] = useState([]);
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,6 +47,15 @@ const CreateCampaign = () => {
     }
   }
 
+  const transformFile = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setCampaign({ ...campaign, thumbnail: reader.result });
+      console.log(reader.result);
+    };
+  };
 
   // fetching cateories on page load
   useEffect(() => {
@@ -63,7 +69,6 @@ const CreateCampaign = () => {
       <div className='w-full'>
         <Search />
         <div className='h-[90vh] overflow-y-auto'>
-          
           <div className=' mx-auto'>
           <div className='p-8'>
             <nav className="w-full flex">
@@ -83,7 +88,6 @@ const CreateCampaign = () => {
                     <Link to={''} className=" text-sm font-medium text-gray-800 hover:underline md:ml-2"> Create Campaign </Link>
                   </div>
                 </li>
-
               </ol>
             </nav>
           </div>
@@ -119,23 +123,14 @@ const CreateCampaign = () => {
 
               <div className='p-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Thumbnail URL *</label>
-                <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
-                  onChange={(e) => setCampaign({ ...campaign, thumbnail: e.target.value })}
-                  value={campaign.thumbnail}
+                <input type="file" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
+                  onChange={(e) => transformFile(e)}
                 />
-              </div>
-
-              <div className='p-4'>
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Campaign Video </label>
-                <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
-                  onChange={(e) => setCampaign({ ...campaign, videoUrl: e.target.value })}
-                  value={campaign.videoUrl} />
               </div>
 
               <div className='p-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select your country</label>
                 <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={campaign.category} onChange={(e) => setCampaign({ ...campaign, category: e.target.value })}>
-
                   {category && category.map((item, index) => (
                     <option key={index} value={item.category} >{item.category}</option>
                   ))}

@@ -30,7 +30,7 @@ const Card = ({ popupVisible, setPopupVisible, campaign, index }) => {
                 <div className='absolute left-2 bottom-2 p-2'>
                     <GiUpgrade className='p-2 animate-pulse text-emerald-600 bg-white rounded-full text-3xl outline outline-offset-2 outline-white outline-1' />
                 </div>
-                <img className='w-full h-full object-cover rounded-t-xl' src={campaign.thumbnail} alt="" />
+                <img className='w-full h-full object-cover rounded-t-xl' src={campaign.thumbnail?.url} alt="" />
             </div>
             <div className='grid gap-1 bg-gradient-to-b from-emerald-50'>
                 <Link to={`/campaign/${campaign._id}`}>

@@ -65,7 +65,7 @@ const Campaign = () => {
                 <h1 className='p-4 max-w-5xl text-3xl font-semibold'>{campaignPost?.campaignTitle}</h1>
                 <div className='grid grid-cols-3'>
                     <div className='p-4 col-span-2'>
-                        <img className='rounded cursor-pointer h-[450px] w-full object-cover' src={campaignPost?.thumbnail} alt="" />
+                        <img className='rounded cursor-pointer h-[450px] w-full object-cover' src={campaignPost?.thumbnail?.url} alt="" />
                         <div className='p-4 flex items-center justify-between'>
                             <div>
                                 <h1 className='py-2 font-black text-xl'><GoPeople size={30} /> {campaignPost?.campaignOwner}</h1>

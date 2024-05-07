@@ -3,25 +3,29 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../../components/admin/Navbar'
 import { fetchCategory, getCategories } from '../../app/feature/categorySlice'
-import { updateCampaign, deleteCampaign } from '../../app/feature/campaignSlice'
+import { updateCampaign } from '../../app/feature/campaignSlice'
 import axios from 'axios'
-
 import { LuChevronRight } from "react-icons/lu";
 import Search from '../../components/admin/Search'
-
-
 
 const EditCampaign = () => {
   const navigate = useNavigate();
   const category = useSelector(getCategories);
   const dispatch = useDispatch();
   const { id } = useParams();
-
   const [users, setUsers] = useState([]);
-
-
-
   const [campaignn, setCampaignn] = useState({});
+
+  const transformFile = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setCampaignn({ ...campaignn, thumbnail: reader.result });
+      console.log(reader.result);
+    };
+  };
+
   // updaing campaign
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -30,7 +34,6 @@ const EditCampaign = () => {
         navigate('/admin/campaigns')
       }
     })
-
   }
   // fetching campaign from id
   const fetchCampaign = async (id) => {
@@ -41,7 +44,6 @@ const EditCampaign = () => {
       console.log("Server Error while fetching API " + error);
     }
   }
-
 
   const fetchAllUsers = async () => {
     try {
@@ -56,13 +58,14 @@ const EditCampaign = () => {
     }
   }
 
-
   // fetching cateories on page load
   useEffect(() => {
     dispatch(fetchCategory());
     fetchCampaign(id);
     fetchAllUsers();
   }, [])
+
+  console.log(campaignn)
   return (
     <div className='flex max-w-7xl mx-auto'>
       <Navbar />
@@ -127,23 +130,14 @@ const EditCampaign = () => {
 
               <div className='py-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Thumbnail URL *</label>
-                <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
-                  onChange={(e) => setCampaignn({ ...campaignn, thumbnail: e.target.value })}
-                  value={campaignn.thumbnail}
+                <input type="file" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
+                  onChange={(e) => transformFile(e)}
                 />
-              </div>
-
-              <div className='py-4'>
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Campaign Video </label>
-                <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
-                  onChange={(e) => setCampaignn({ ...campaignn, videoUrl: e.target.value })}
-                  value={campaignn.videoUrl} />
               </div>
 
               <div className='py-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select your country</label>
                 <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={campaignn.category} onChange={(e) => setCampaignn({ ...campaignn, category: e.target.value })}>
-
                   {category && category.map((item, index) => (
                     <option key={index} value={item.category} >{item.category}</option>
                   ))}

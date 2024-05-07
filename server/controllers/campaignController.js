@@ -1,7 +1,7 @@
 const Campaign = require("../models/campaign.model");
 const Story = require("../models/story.model");
 const mongoose = require("mongoose");
-const cloudinary = require('../utils/cloudinary');
+const cloudinary = require("../utils/cloudinary");
 
 //CREATE CAMPAIGN
 const createCampaign = async (req, res) => {
@@ -31,16 +31,17 @@ const createCampaign = async (req, res) => {
     const imageUploadResponse = await cloudinary.uploader.upload(thumbnail, {
       upload_preset: "collab-crowdfunding",
     });
-    console.log(imageUploadResponse);
-    const thumbnailUrl = imageUploadResponse.url;
-
+    const thumbnailData = {
+      public_id: imageUploadResponse.public_id,
+      url: imageUploadResponse.secure_url,
+    };
 
     const newCampaign = new Campaign({
       campaignOwner,
       campaignTitle,
       campaignDescription,
       location,
-      thumbnail : thumbnailUrl,
+      thumbnail: thumbnailData,
       goalAmount,
       category,
     });
@@ -80,12 +81,29 @@ const updateCampaign = async (req, res) => {
       return res.json({ error: "All fields are required" });
     }
 
+    const imageUploadResponse = await cloudinary.uploader.upload(thumbnail, {
+      upload_preset: "collab-crowdfunding",
+    });
+    const thumbnailData = {
+      public_id: imageUploadResponse.public_id,
+      url: imageUploadResponse.secure_url,
+    };
+
     // Check if the ID is provided
     if (!id) return res.json({ error: "Id is required" });
 
     // Find the campaign by ID
     const existCampaign = await Campaign.findById(id);
     if (!existCampaign) return res.json({ error: "Campaign not found" });
+
+    if (thumbnail) {
+      const deleteResponse = await cloudinary.uploader.destroy(
+        existCampaign.thumbnail.public_id
+      );
+      if (deleteResponse.result === "ok") {
+        console.log("Existing file deleted");
+      }
+    }
 
     // Update the campaign
     let updated;
@@ -97,7 +115,7 @@ const updateCampaign = async (req, res) => {
           campaignTitle,
           campaignDescription,
           location,
-          thumbnail,
+          thumbnail: thumbnailData,
           goalAmount,
           category,
           status,
@@ -112,7 +130,7 @@ const updateCampaign = async (req, res) => {
           campaignTitle,
           campaignDescription,
           location,
-          thumbnail,
+          thumbnail: thumbnailData,
           goalAmount,
           category,
         },
@@ -172,12 +190,15 @@ const getCampaignsByUserID = async (req, res) => {
 const deleteCampaign = async (req, res) => {
   try {
     const { id } = req.params;
+    const campaign = await Campaign.findById(id);
+    if (campaign) {
+      await cloudinary.uploader.destroy(
+        campaign.thumbnail.public_id);
+    }
     const del = await Campaign.findByIdAndDelete(id);
-    const del2 = await Story.deleteMany({ campaignId: id });
     if (del) {
       res.json({ message: "Campaign deleted successfully" });
     }
-    
   } catch (err) {
     res.json({ error: err.message });
   }

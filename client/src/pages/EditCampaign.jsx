@@ -22,6 +22,18 @@ const EditCampaign = () => {
 
 
   const [campaignn, setCampaignn] = useState({});
+
+  const transformFile = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setCampaignn({ ...campaignn, thumbnail: reader.result });
+      console.log(reader.result);
+    };
+  };
+
+
   // updaing campaign
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -135,21 +147,9 @@ const EditCampaign = () => {
                     <input className="p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1"
                       name='file'
                       placeholder='Paste url of your Image'
-                      type="text"
-                      value={campaignn.thumbnail}
-                      onChange={(e) => setCampaignn({ ...campaignn, thumbnail: e.target.value })}
+                      type="file"
+                      onChange={(e) => transformFile(e)}
                       size="60"
-                    />
-                  </div>
-                  <div className='grid gap-2'>
-                    <label>Video URL </label>
-                    <input
-
-                      className='p-3 placeholder:text-green-800 text-sm outline-none border border-green-500 rounded focus:ring-1 focus:ring-green-600 focus:ring-offset-1'
-                      type="text"
-                      placeholder='Paste url of your video'
-                      onChange={(e) => setCampaignn({ ...campaignn, videoUrl: e.target.value })}
-                      value={campaignn.videoUrl}
                     />
                   </div>
                 </div>

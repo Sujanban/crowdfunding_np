@@ -19,7 +19,7 @@ const CampaignSchema = new schema({
     required: true,
   },
   thumbnail: {
-    type: String,
+    type: Object,
     required: true,
   },
   goalAmount: {
