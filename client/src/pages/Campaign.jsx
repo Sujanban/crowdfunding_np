@@ -16,6 +16,7 @@ import { fetchSingleCampaign } from '../app/feature/campaignSlice'
 import Story from '../components/Story'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
+import DonationList from '../components/DonationList'
 
 
 const Campaign = () => {
@@ -156,28 +157,7 @@ const Campaign = () => {
                         <div>
                             <h1 className='p-4 text-xl'>Words from supporters</h1>
                             <div>
-                                <div className='m-1 p-4  rounded-xl flex space-x-8'>
-                                    <div className='  '>
-                                        <GiLifeSupport size={30} className='text-yellow-500' />
-                                    </div>
-                                    <div>
-                                        <h1 className='text-black font-black'>Aman Johnson</h1>
-                                        <p className='text-slate-600'>$50</p>
-                                        <p>Sorry for your loss. hoping this small donation will help you.</p>
-                                    </div>
-                                </div>
-
-                                <div className='m-1 p-4  rounded-xl flex space-x-8'>
-                                    <div className='  '>
-                                        <GiLifeSupport size={30} className='text-yellow-500' />
-                                    </div>
-                                    <div>
-                                        <h1 className='text-black font-black'>Ramesh Das</h1>
-                                        <p className='text-slate-600'>$500</p>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, nesciunt. Sorry for your loss. hoping this small donation will help you.</p>
-                                    </div>
-                                </div>
-
+                                <DonationList donations={donations} />
                             </div>
                         </div>
                     </div>
