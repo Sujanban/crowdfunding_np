@@ -154,7 +154,8 @@ const getCampaign = async (req, res) => {
   try {
     const { id } = req.params;
     if (!id) return res.json({ error: "Id is required" });
-    const existCampaign = await Campaign.findById(id);
+    const existCampaign = await Campaign.findById(id).populate("campaignOwner",
+      "firstName lastName email");
     if (!existCampaign) return res.json({ error: "Campaign not found" });
     res.json(existCampaign);
   } catch (err) {

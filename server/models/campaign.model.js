@@ -3,7 +3,8 @@ const schema = mongoose.Schema;
 
 const CampaignSchema = new schema({
   campaignOwner: {
-    type: String,
+    type: schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
   campaignTitle: {
@@ -39,6 +40,7 @@ const CampaignSchema = new schema({
     enum: ['active', 'completed'],
     default: 'active'
   }
-});
+},
+  { timestamps: true });
 
 module.exports = mongoose.model("Campaign", CampaignSchema);

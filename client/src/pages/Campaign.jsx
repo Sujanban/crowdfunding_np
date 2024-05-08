@@ -17,6 +17,7 @@ import Story from '../components/Story'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import DonationList from '../components/DonationList'
+import { formatDate } from '../utils/dateFormater'
 
 
 const Campaign = () => {
@@ -65,6 +66,7 @@ const Campaign = () => {
         dispatch(fetchSingleCampaign(id));
         fetchDonationByCampaign(id)
     }, [])
+    console.log(campaignPost)
 
     return (
         <div>
@@ -84,8 +86,9 @@ const Campaign = () => {
                         <img className='rounded cursor-pointer h-[450px] w-full object-cover' src={campaignPost?.thumbnail?.url} alt="" />
                         <div className='p-4 flex items-center justify-between'>
                             <div>
-                                <h1 className='py-2 font-black text-xl'><GoPeople size={30} /> {campaignPost?.campaignOwner}</h1>
-                                <p className='flex items-center'><LuClock3 size={15} color='black' /> <span className='p-2 text-sm text-slate-600'>2hr ago</span></p>
+                                <h1 className='py-2 font-black text-xl'><GoPeople size={30} /> {campaignPost?.campaignOwner?.email}</h1>
+                                <p className='flex items-center'>
+                                    <LuClock3 size={15} color='black' /> <span className='p-2 text-sm text-slate-600'>{formatDate(campaignPost?.createdAt)}</span></p>
                             </div>
                             <div className=' flex items-center'>
                                 <h1 className='p-2'>Share</h1>
@@ -102,14 +105,13 @@ const Campaign = () => {
                             <h1 className='p-4 text-xl font-black'>Storyline</h1>
                             <p className='p-4 text-slate-600'>{campaignPost?.campaignDescription}</p>
                         </div>
-
                         <hr />
                         <h1 className='p-4 text-xl'>Organizer</h1>
                         <div className='p-4 flex items-center space-x-4'>
                             <GoPeople size={30} />
                             <div>
-                                <h1>{campaignPost?.campaignOwner}</h1>
-                                <p>Software Engineer Texes,USA</p>
+                                <h1 className='capitalize'>{campaignPost?.campaignOwner?.email}</h1>
+                                <p className='capitalize'>{campaignPost?.campaignOwner?.firstName + ' ' + campaignPost?.campaignOwner?.lastName}</p>
                                 <p className='text-slate-600'>Organizer</p>
                             </div>
                         </div>
@@ -122,6 +124,11 @@ const Campaign = () => {
                             </div>
                         </div>
                     </div>
+
+
+
+
+
                     <div className='relative '>
                         <div className='max-w-[425px] top-0 sticky scroll-auto p-4'>
 
