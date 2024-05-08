@@ -117,7 +117,10 @@ const CreateCampaign = () => {
             </div>
 
             <div className='p-4'>
-              <button type='submit' disabled={isLoading} className='w-full p-3 bg-yellow-600 transition-all duration-400 rounded text-white hover:bg-yellow-700'>{isLoading ? <FaSpinner className='mx-auto animate-spin' /> : 'Create Campaign'}</button></div>
+              <button type='submit' disabled={isLoading} className='flex items-center px-4 py-3 text-sm bg-emerald-600 transition-all duration-300 rounded-xl text-white hover:bg-emerald-700'>
+                Create Campaign {isLoading && <FaSpinner className='animate-spin' />}
+              </button>
+            </div>
           </form>
         </div>
         <Footer />

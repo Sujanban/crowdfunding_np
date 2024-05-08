@@ -7,6 +7,7 @@ import { updateCampaign } from '../../app/feature/campaignSlice'
 import axios from 'axios'
 import { LuChevronRight } from "react-icons/lu";
 import Search from '../../components/admin/Search'
+import { FaSpinner } from "react-icons/fa6";
 
 const EditCampaign = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const EditCampaign = () => {
   const { id } = useParams();
   const [users, setUsers] = useState([]);
   const [campaignn, setCampaignn] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const transformFile = (e) => {
     const file = e.target.files[0];
@@ -28,8 +30,10 @@ const EditCampaign = () => {
 
   // updaing campaign
   const handleUpdate = (e) => {
+    setIsLoading(true);
     e.preventDefault();
     dispatch(updateCampaign(campaignn)).then(res => {
+      setIsLoading(false);
       if (res.payload.message) {
         navigate('/admin/campaigns')
       }
@@ -133,6 +137,7 @@ const EditCampaign = () => {
                 <input type="file" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Help me fund my college fee"
                   onChange={(e) => transformFile(e)}
                 />
+                <img className='w-32' src={campaignn?.thumbnail?.url} alt="" />
               </div>
 
               <div className='py-4'>
@@ -146,9 +151,9 @@ const EditCampaign = () => {
 
               <div className='py-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
-                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                value={campaignn.status} 
-                onChange={(e) => setCampaignn({ ...campaignn, status: e.target.value })}>
+                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  value={campaignn.status}
+                  onChange={(e) => setCampaignn({ ...campaignn, status: e.target.value })}>
                   <option value='active' >Active</option>
                   <option value='completed' >Completed</option>
                 </select>
@@ -157,12 +162,12 @@ const EditCampaign = () => {
               {/* campaign owner */}
               <div className='py-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Campaign Creator *</label>
-                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                value={campaignn.campaignOwner} 
-                onChange={(e) => setCampaignn({ ...campaignn, campaignOwner: e.target.value })}>
+                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  value={campaignn.campaignOwner}
+                  onChange={(e) => setCampaignn({ ...campaignn, campaignOwner: e.target.value })}>
                   {
-                    users && users.map((user, index) => 
-                    <option key={index} value={user._id} >{user.firstName + " " + user.lastName}</option>
+                    users && users.map((user, index) =>
+                      <option key={index} value={user._id} >{user.firstName + " " + user.lastName}</option>
                     )
                   }
                 </select>
@@ -177,8 +182,9 @@ const EditCampaign = () => {
               </div>
 
               <div className='py-4'>
-                <input type="submit" value='Update Campaign'
-                  className=' px-4 py-3 text-sm bg-emerald-600 transition-all duration-300 rounded-xl text-white hover:bg-emerald-700 cursor-pointer' />
+                <button type='submit' disabled={isLoading} className='flex items-center px-4 py-3 text-sm bg-emerald-600 transition-all duration-300 rounded-xl text-white hover:bg-emerald-700'>
+                  Update Campaign {isLoading && <FaSpinner className='animate-spin' />}
+                </button>
               </div>
             </form>
           </div>

@@ -74,7 +74,6 @@ const updateCampaign = async (req, res) => {
       !campaignTitle ||
       !campaignDescription ||
       !location ||
-      !thumbnail ||
       !goalAmount ||
       !category
     ) {

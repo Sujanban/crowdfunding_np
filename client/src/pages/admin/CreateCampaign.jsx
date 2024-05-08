@@ -73,27 +73,27 @@ const CreateCampaign = () => {
         <Search />
         <div className='h-[90vh] overflow-y-auto'>
           <div className=' mx-auto'>
-          <div className='p-8'>
-            <nav className="w-full flex">
-              <ol className="inline-flex items-center space-x-1 md:space-x-3">
-                <li className="inline-flex items-center">
-                  <Link to={"/admin/dashboard"} className=" inline-flex text-sm font-medium text-gray-800 hover:underline md:ml-2" >Dashboard</Link>
-                </li>
-                <li>
-                  <div className="flex items-center">
-                    <LuChevronRight className="h-4 w-4" />
-                    <Link to={'/admin/campaigns'} className=" text-sm font-medium text-gray-800 hover:underline md:ml-2"> Campaigns </Link>
-                  </div>
-                </li>
-                <li>
-                  <div className="flex items-center">
-                    <LuChevronRight className="h-4 w-4" />
-                    <Link to={''} className=" text-sm font-medium text-gray-800 hover:underline md:ml-2"> Create Campaign </Link>
-                  </div>
-                </li>
-              </ol>
-            </nav>
-          </div>
+            <div className='p-8'>
+              <nav className="w-full flex">
+                <ol className="inline-flex items-center space-x-1 md:space-x-3">
+                  <li className="inline-flex items-center">
+                    <Link to={"/admin/dashboard"} className=" inline-flex text-sm font-medium text-gray-800 hover:underline md:ml-2" >Dashboard</Link>
+                  </li>
+                  <li>
+                    <div className="flex items-center">
+                      <LuChevronRight className="h-4 w-4" />
+                      <Link to={'/admin/campaigns'} className=" text-sm font-medium text-gray-800 hover:underline md:ml-2"> Campaigns </Link>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="flex items-center">
+                      <LuChevronRight className="h-4 w-4" />
+                      <Link to={''} className=" text-sm font-medium text-gray-800 hover:underline md:ml-2"> Create Campaign </Link>
+                    </div>
+                  </li>
+                </ol>
+              </nav>
+            </div>
             <div className='md:px-8  flex text-left '>
               <h1 className=' text-xl md:text-2xl font-semibold border-b-2 border-yellow-600'>Create Campaign</h1>
             </div>
@@ -140,15 +140,14 @@ const CreateCampaign = () => {
                 </select>
               </div>
 
-              {/* campaign owner */}
               <div className='p-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Campaign Creator *</label>
-                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                value={campaign.campaignOwner} 
-                onChange={(e) => setCampaign({ ...campaign, campaignOwner: e.target.value })}>
+                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  value={campaign.campaignOwner}
+                  onChange={(e) => setCampaign({ ...campaign, campaignOwner: e.target.value })}>
                   {
-                    users && users.map((user, index) => 
-                    <option key={index} value={user._id} >{user.firstName + " " + user.lastName}</option>
+                    users && users.map((user, index) =>
+                      <option key={index} value={user._id} >{user.firstName + " " + user.lastName}</option>
                     )
                   }
                 </select>
@@ -163,7 +162,9 @@ const CreateCampaign = () => {
               </div>
 
               <div className='p-4'>
-                <button type='submit' disabled={isLoading} className='px-4 py-3 text-sm bg-emerald-600 transition-all duration-300 rounded-xl text-white hover:bg-emerald-700'>{isLoading ? <FaSpinner className='animate-spin'/> : 'Create Campaign'}</button></div>
+                <button type='submit' disabled={isLoading} className='flex items-center px-4 py-3 text-sm bg-emerald-600 transition-all duration-300 rounded-xl text-white hover:bg-emerald-700'>
+                  Create Campaign {isLoading && <FaSpinner className='animate-spin' />}
+                </button></div>
             </form>
           </div>
         </div>

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../../components/admin/Navbar'
 import axios from 'axios'
 import { LuHome, LuChevronRight } from "react-icons/lu";
 import Search from '../../components/admin/Search'
 import { updateCategory } from '../../app/feature/categorySlice'
+import { FaSpinner } from 'react-icons/fa'
 
 
 
@@ -14,6 +15,7 @@ const EditCategory = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({});
+    const { isLoading } = useSelector(state => state.category)
 
     const handleUpdate = (e) => {
         e.preventDefault();
@@ -81,8 +83,9 @@ const EditCategory = () => {
                             </div>
 
                             <div className='py-4'>
-                                <input type="submit" value='Update'
-                                    className='px-4 py-3 text-sm bg-emerald-600 transition-all duration-300 rounded-xl text-white hover:bg-emerald-700 cursor-pointer' />
+                                <button type='submit' disabled={isLoading} className='flex items-center px-4 py-3 text-sm bg-emerald-600 transition-all duration-300 rounded-xl text-white hover:bg-emerald-700'>
+                                    Update {isLoading && <FaSpinner className='animate-spin' />}
+                                </button>
                             </div>
                         </form>
                     </div>

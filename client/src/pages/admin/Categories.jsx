@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import WarningPopup from '../../components/WarningPopup';
 import { addCategory, fetchCategory } from '../../app/feature/categorySlice';
 import { VscEdit, VscTrash } from "react-icons/vsc";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaSpinner } from "react-icons/fa";
 import { TiPen } from "react-icons/ti";
 
 
@@ -15,6 +15,7 @@ import { TiPen } from "react-icons/ti";
 const Categories = () => {
     const [popupVisible, setPopupVisible] = useState(false);
     const category = useSelector(state => state.category.data)
+    const { isLoading } = useSelector(state => state.category)
     const [selectedCategoryId, setSelectedCategoryId] = useState(null);
 
     const dispatch = useDispatch()
@@ -65,15 +66,6 @@ const Categories = () => {
                         <div className='p-4 flex-grow bg-white rounded-xl '>
                             <div className='p-2 flex items-center justify-between'>
                                 <h1 className='border-b-2 border-emerald-600 font-bold'>Category</h1>
-                                <div className='relative pr-4'>
-                                    {/* <button className='border rounded px-4 text-sm py-2 flex items-center hover:bg-gray-50'>Filter <IoFunnelOutline className='ml-2' /></button> */}
-                                    {/* {
-                                    toggleFilter && <div className='p-2 w-32 text-xs absolute top-10 left-0 z-50 shadow bg-white'>
-                                        <button className='px-2 py-3 w-full border-b'>Highest to lowest</button>
-                                        <button className='px-2 py-3 w-full'>Lowest to highest</button>
-                                    </div>
-                                } */}
-                                </div>
                             </div>
 
 
@@ -136,7 +128,9 @@ const Categories = () => {
                                         />
                                     </div>
                                     <div className='p-4 flex justify-end'>
-                                        <button type='submit' className='px-4 py-2 flex items-center text-sm bg-emerald-600 transition-all cursor-pointer duration-300 text-white hover:bg-emerald-700 rounded-xl'><TiPen className='mr-2'/> Create</button>
+                                        <button type='submit' className='px-4 py-2 flex items-center text-sm bg-emerald-600 transition-all cursor-pointer duration-300 text-white hover:bg-emerald-700 rounded-xl'>
+                                            <TiPen className='mr-2'/> Create {isLoading && <FaSpinner className='animate-spin' />}
+                                            </button>
                                     </div>
                                 </form>
                             </div>

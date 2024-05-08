@@ -109,6 +109,26 @@ export const category = createSlice({
       .addCase(getCategoryById.rejected, (state, action) => {
         state.isLoading = false;
         state.errorMessage = action.payload;
+      })
+      .addCase(addCategory.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addCategory.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(addCategory.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorMessage = action.payload;
+      })
+      .addCase(updateCategory.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateCategory.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(updateCategory.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorMessage = action.payload;
       });
   },
 });
