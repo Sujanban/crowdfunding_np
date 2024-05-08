@@ -136,7 +136,17 @@ export const campaign = createSlice({
       .addCase(fetchCampaignsByUserID.rejected, (state, action) => {
         state.isLoading = false;
         state.errorMessage = action.payload;
-      });
+      })
+      .addCase(postCamaign.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(postCamaign.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(postCamaign.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorMessage = action.payload;
+      })
   },
 });
 

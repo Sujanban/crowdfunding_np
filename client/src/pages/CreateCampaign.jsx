@@ -5,11 +5,14 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { fetchCategory, getCategories } from '../app/feature/categorySlice'
 import { postCamaign } from '../app/feature/campaignSlice'
+import { FaSpinner } from "react-icons/fa6";
+
 
 const CreateCampaign = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.data)
   const category = useSelector(getCategories);
+  const { isLoading } = useSelector((state) => state.campaign);
   const dispatch = useDispatch();
   const [campaign, setCampaign] = useState({
     campaignOwner: user._id,
@@ -114,7 +117,7 @@ const CreateCampaign = () => {
             </div>
 
             <div className='p-4'>
-              <button type='submit' className='w-full p-3 bg-yellow-600 transition-all duration-400 rounded text-white hover:bg-yellow-700'>Create</button></div>
+              <button type='submit' disabled={isLoading} className='w-full p-3 bg-yellow-600 transition-all duration-400 rounded text-white hover:bg-yellow-700'>{isLoading ? <FaSpinner className='mx-auto animate-spin' /> : 'Create Campaign'}</button></div>
           </form>
         </div>
         <Footer />

@@ -7,11 +7,14 @@ import { fetchCategory, getCategories } from '../../app/feature/categorySlice'
 import { postCamaign } from '../../app/feature/campaignSlice'
 import { LuChevronRight } from "react-icons/lu";
 import axios from 'axios'
+import { FaSpinner } from "react-icons/fa6";
+
 
 const CreateCampaign = () => {
   const navigate = useNavigate();
   const userId = useSelector((state) => state.user.data._id);
   const category = useSelector(getCategories);
+  const { isLoading } = useSelector((state) => state.campaign);
   const dispatch = useDispatch();
   const [users, setUsers] = useState([]);
   const [campaign, setCampaign] = useState({
@@ -160,7 +163,7 @@ const CreateCampaign = () => {
               </div>
 
               <div className='p-4'>
-                <button type='submit' className='px-4 py-3 text-sm bg-emerald-600 transition-all duration-300 rounded-xl text-white hover:bg-emerald-700'>Create Campaign</button></div>
+                <button type='submit' disabled={isLoading} className='px-4 py-3 text-sm bg-emerald-600 transition-all duration-300 rounded-xl text-white hover:bg-emerald-700'>{isLoading ? <FaSpinner className='animate-spin'/> : 'Create Campaign'}</button></div>
             </form>
           </div>
         </div>
