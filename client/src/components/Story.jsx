@@ -11,21 +11,25 @@ const Story = ({ id }) => {
     }, [])
     return (
         <div>
-            <h1 className='p-4 text-xl'>Updates from the Campaigner</h1>
-            <div className='px-4 '>
-                {
-                    story && story.map((item,index) =>
-                        <div key={index} className='flex p-2'>
-                           <GoPeople size={30} />
-                            <div className='px-2'>
-                                <p className='ml-2'>{item.updateContent}</p>
-                                <p className='ml-2 text-red-600'>Updated at :{item.createdAt}</p>
-                            </div>
-                        </div>
-                    )
-                }
-            </div>
-            <hr />
+            {
+                story.length > 0 &&
+                <>
+                    <h1 className='py-2 font-bold'>Updates from the Campaigner</h1>
+                    <div className='px-4 '>
+                        {
+                            story && story.map((item, index) =>
+                                <div key={index} className='flex p-2'>
+                                    <GoPeople size={30} />
+                                    <div className='px-2'>
+                                        <p className='ml-2'>{item.updateContent}</p>
+                                        <p className='ml-2 text-red-600'>Updated at :{item.createdAt}</p>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </div>
+                </>
+            }
         </div>
     )
 }

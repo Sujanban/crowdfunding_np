@@ -92,7 +92,7 @@ const Explore = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='p-2 col-span-4 md:grid grid-cols-3 gap-2'>
+                    <div className='p-2 col-span-4 md:grid grid-cols-3 gap-8'>
                         {
                             filteredCampaign
                                 ?

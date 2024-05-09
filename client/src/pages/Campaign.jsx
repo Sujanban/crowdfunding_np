@@ -22,7 +22,7 @@ import { formatDate } from '../utils/dateFormater'
 
 const Campaign = () => {
     const { id } = useParams();
-    const [toggleStatus, setToggleStatus] = useState(true);
+    const [openTab, setOpenTab] = useState(1);
     const dispatch = useDispatch();
     const campaignPost = useSelector((state) => state.campaign.data)
     const { isLoading, errorMessage } = useSelector((state) => state.campaign)
@@ -65,6 +65,7 @@ const Campaign = () => {
     useEffect(() => {
         dispatch(fetchSingleCampaign(id));
         fetchDonationByCampaign(id)
+        window.scrollTo(0, 0);
     }, [])
     console.log(campaignPost)
 
@@ -76,141 +77,91 @@ const Campaign = () => {
                     <Loading />
                 </div> : ''
             }
-            <div className='px-4 py-20 max-w-7xl mx-auto '>
-                <div className='  pb-8'>
-                    <Link className='px-2 font-semibold'>Home</Link>/<Link className='px-2 text-slate-600'>campaign</Link>/<Link className='px-2 text-slate-600'>{id}</Link>
-                </div>
-                <h1 className='p-4 max-w-5xl text-3xl font-semibold'>{campaignPost?.campaignTitle}</h1>
-                <div className='grid grid-cols-3'>
-                    <div className='p-4 col-span-2'>
-                        <img className='rounded cursor-pointer h-[450px] w-full object-cover' src={campaignPost?.thumbnail?.url} alt="" />
-                        <div className='p-4 flex items-center justify-between'>
-                            <div>
-                                <h1 className='py-2 font-black text-xl'><GoPeople size={30} /> {campaignPost?.campaignOwner?.email}</h1>
-                                <p className='flex items-center'>
-                                    <LuClock3 size={15} color='black' /> <span className='p-2 text-sm text-slate-600'>{formatDate(campaignPost?.createdAt)}</span></p>
+            <div className='px-4 py-16 max-w-7xl mx-auto '>
+                <div className='md:grid grid-cols-6 gap-4'>
+                    <div className='col-span-4'>
+                        <img className='w-full h-96 object-cover rounded' src={campaignPost?.thumbnail?.url} alt="" />
+                        <h1 className='px-2 py-4 text-xl'>{campaignPost?.campaignTitle}</h1>
+                        <div className='py--2 flex items-center space-x-2'>
+                            <div className='bg-orange-400 rounded-full p-2'>
+                                <GoPeople size={25} className='' color='white' />
                             </div>
-                            <div className=' flex items-center'>
-                                <h1 className='p-2'>Share</h1>
-                                <div className='py-2 flex items-center'>
-                                    <Link className='p-2 rounded transition-all duration-400 hover:bg-yellow-200'><IoLogoInstagram size={25} /></Link>
-                                    <Link className='p-2 rounded transition-all duration-400 hover:bg-yellow-200'><IoLogoFacebook size={25} /></Link>
-                                    <Link className='p-2 rounded transition-all duration-400 hover:bg-yellow-200'><BsTwitterX size={25} /></Link>
-                                    <Link className='p-2 rounded transition-all duration-400 hover:bg-yellow-200'><IoShareSocialSharp size={25} /></Link>
+                            <div>
+                                <h1 className=' flex items-center'> {campaignPost?.campaignOwner?.firstName} {campaignPost?.campaignOwner?.lastName}</h1>
+                            </div>
+                        </div>
+
+
+                        <div className='py-2 font-bold flex items-center space-x-2'>
+                            <button onClick={() => setOpenTab(1)} className={`p-2 transition-all duration-300 hover:border-b-2 hover:border-emerald-600 ${openTab === 1 ? 'border-b-2 border-emerald-600' : ''}`}>Overview</button>
+                            <button onClick={() => setOpenTab(2)} className={`relative p-2 transition-all duration-300 hover:border-b-2 hover:border-emerald-600 ${openTab === 2 ? 'border-b-2 border-emerald-600' : ''}`}>Donations
+
+                            {
+                                donations.length > 0 && <p className='absolute font-thin top-0 right-0 h-3.5 w-3.5 flex items-center justify-center text-[8px] bg-emerald-600 rounded-full text-white'>{donations.length}</p>
+                            }
+                            
+                            </button>
+                            <button onClick={() => setOpenTab(3)} className={`p-2 transition-all duration-300 hover:border-b-2 hover:border-emerald-600 ${openTab === 3 ? 'border-b-2 border-emerald-600' : ''}`}>Updates</button>
+                        </div>
+
+                        {
+                            openTab === 1 &&
+                            <div className='py-2'>
+                                <h1 className='py-1 font-bold'>Details:</h1>
+                                <p>{campaignPost?.campaignDescription}</p>
+                            </div>
+                        }
+
+                        {
+                            openTab === 2 &&
+                            <div>
+                                <h1 className='py-2 font-bold'>Supporters:</h1>
+                                <div>
+                                    <DonationList donations={donations} />
                                 </div>
                             </div>
-                        </div>
-                        <hr />
-                        <div>
-                            <h1 className='p-4 text-xl font-black'>Storyline</h1>
-                            <p className='p-4 text-slate-600'>{campaignPost?.campaignDescription}</p>
-                        </div>
-                        <hr />
-                        <h1 className='p-4 text-xl'>Organizer</h1>
-                        <div className='p-4 flex items-center space-x-4'>
-                            <GoPeople size={30} />
-                            <div>
-                                <h1 className='capitalize'>{campaignPost?.campaignOwner?.email}</h1>
-                                <p className='capitalize'>{campaignPost?.campaignOwner?.firstName + ' ' + campaignPost?.campaignOwner?.lastName}</p>
-                                <p className='text-slate-600'>Organizer</p>
-                            </div>
-                        </div>
-                        <hr />
-                        <Story id={id} />
-                        <div>
-                            <h1 className='p-4 text-xl'>Words from supporters</h1>
-                            <div>
-                                <DonationList donations={donations} />
-                            </div>
-                        </div>
+                        }
+
+                        {
+                            openTab === 3 &&
+                            <Story id={id} />
+                        }
                     </div>
 
 
 
-
-
-                    <div className='relative '>
-                        <div className='max-w-[425px] top-0 sticky scroll-auto p-4'>
-
-                            <h1 className='text-2xl py-4'><b>$ {donationRaised}</b> <span className=''>raised of <b className='text-green-600'>${campaignPost?.goalAmount}</b> goal</span></h1>
-                            <div className="w-full bg-gray-200 rounded-full h-2.5">
-                                <div className="bg-yellow-600 h-2.5 rounded-full"  style={{ width: `${calculateGoalPercent()}%` }}></div>
+                    {/* right side */}
+                    <div className='my-8 md:m-0 p-4 pt-0 col-span-2  rounded-xl shadow'>
+                        <h1 className='pb-2 text-3xl text-orange-600'>${donationRaised}<sub className='text-xs'>Raised</sub></h1>
+                        <div className="my-4 w-full bg-gray-200 rounded-full h-1.5">
+                            <div className={`bg-emerald-600 h-1.5 rounded-full`}  style={{ width: `${calculateGoalPercent()}%` }}></div>
+                        </div>
+                        <div className=' grid grid-cols-2 gap-2'>
+                            <div className=' py-1 rounded'>
+                                <h1 className='text-lg '>${campaignPost?.goalAmount}</h1>
+                                <h1 className='text-gray-500 text-sm'>Goal</h1>
                             </div>
-                            <p className='py-4 flex items-center'><FaHeart color='red' /> <span className='px-2 text-sm'>{donations.length} Supporters</span></p>
-                            <form onSubmit={handleDonation} className='py-2'>
-                                <label>Donation Amount : </label>
-                                <input type="number"
-                                    value={amount} onChange={(e) => setAmount(e.target.value)} placeholder='50$' className='outline-none my-4 rounded w-full p-3 border border-green-200 focus:border-green-500' />
-                                <input type="submit" value='Donate Now' className='rounded-full bg-green-600 text-white w-full p-3 ' />
-                            </form>
-                            <hr />
-                            <div>
-                                <div className='grid grid-cols-2 gap-4'>
-                                    <button onClick={() => setToggleStatus(false)} className={`${toggleStatus ? 'w-full p-2 ' : 'w-full p-2 underline underline-offset-2'}`}>Recent Donations</button>
-                                    <button onClick={() => setToggleStatus(true)} className={`${toggleStatus ? 'w-full p-2  underline underline-offset-2' : 'w-full p-2'}`}>Top Donations</button>
-
-                                </div>
-
-                                {/* Recent Donators */}
-                                {
-                                    !toggleStatus &&
-                                    <div>
-                                        <div className='m-1 p-4 shadow  rounded-xl flex items-center space-x-8'>
-                                            <GiLifeSupport size={30} className='text-yellow-500' />
-                                            <div>
-                                                <h1 className='text-slate-600'>Sameul Johnson</h1>
-                                                <p className='font-semibold text-green-700'>$100</p>
-                                            </div>
-                                        </div>
-                                        <div className='m-1 p-4 shadow  rounded-xl flex items-center space-x-8'>
-                                            <GiLifeSupport size={30} className='text-yellow-500' />
-                                            <div>
-                                                <h1 className='text-slate-600'>Julian Rojer</h1>
-                                                <p className='font-semibold text-green-700'>$1000</p>
-                                            </div>
-                                        </div>
-                                        <div className='m-1 p-4 shadow  rounded-xl flex items-center space-x-8'>
-                                            <GiLifeSupport size={30} className='text-yellow-500' />
-                                            <div>
-                                                <h1 className='text-slate-600'>Aman Johnson</h1>
-                                                <p className='font-semibold text-green-700'>$50</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-
-
-                                {/* top donators */}
-
-
-                                {
-                                    toggleStatus &&
-                                    <div>
-                                        <div className='m-1 p-4 shadow  rounded-xl flex items-center space-x-8 text-yellow-500'>
-                                            <GiTrophyCup size={40} color='' />
-                                            <div>
-                                                <h1 className='text-slate-600'>Sameul Johnson</h1>
-                                                <p className='font-semibold text-green-700'>$1000</p>
-                                            </div>
-                                        </div>
-                                        <div className='m-1 p-4 shadow  rounded-xl flex items-center space-x-8 text-yellow-500'>
-                                            <GiTrophyCup size={40} color='' />
-                                            <div>
-                                                <h1 className='text-slate-600'>Alina Adam</h1>
-                                                <p className='font-semibold text-green-700'>$950</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-
-
-
+                            <div className=' py-1 rounded'>
+                                <h1 className='text-lg'>{donations.length} </h1>
+                                <h1 className='text-gray-500 text-sm'>Contributers</h1>
+                            </div>
+                            <div className=' py-1 rounded'>
+                                <h1 className='text-lg'>$20</h1>
+                                <h1 className='text-gray-500 text-sm'>Min. Contribution</h1>
+                            </div>
+                            <div className=' py-1 rounded'>
+                                <h1 className='text-lg'>{formatDate(campaignPost?.createdAt)}</h1>
+                                <h1 className='text-gray-500 text-sm flex items-center'><LuClock3 className='mr-2 text-orange-600' size={15} /> Created at</h1>
                             </div>
                         </div>
+                        <form onSubmit={handleDonation} className='py-4'>
+                            <label className='font-bold'>Support with a Donation </label>
+                            <input type="number"
+                                value={amount} onChange={(e) => setAmount(e.target.value)} placeholder='50$' className='shadow outline-none my-4 rounded-xl w-full p-3 border focus:border-2 focus:border-stone-500' />
+                            <input type="submit" value='Donate Now' className='rounded-xl bg-emerald-600 cursor-pointer transition-all duration-300 hover:bg-emerald-700 text-white w-full p-3 ' />
+                        </form>
                     </div>
-                </div>
-                <div>
-                    <CtaBanner />
+
                 </div>
 
             </div>

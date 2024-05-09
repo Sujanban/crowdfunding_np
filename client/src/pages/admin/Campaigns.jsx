@@ -53,7 +53,7 @@ const Campaigns = () => {
         try {
             const res = await axios.get('/api/user/users')
             if (res.data.error) {
-                toastr.error(res.data.error)
+                toast.error(res.data.error)
             } else {
                 setUsers(res.data)
             }

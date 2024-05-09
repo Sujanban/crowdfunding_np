@@ -48,12 +48,12 @@ const CampaignGrid = () => {
                             <button
                                 key={index}
                                 onClick={() => handelFilter(item.category)}
-                                className={`${selectedCategory === item.category ? 'border-2 border-green-500 text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full' : 'text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'} `}>{item.category} <IoIosArrowDown /></button>
+                                className={`ring-1 ring-emerald-600 ${selectedCategory === item.category ? 'border-2 border-green-500 text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full' : 'text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'} `}>{item.category} <IoIosArrowDown /></button>
                         ))
                     }
                 </div>
                 <div className=''>
-                    <button onClick={resetFilter} className='text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>Reset <MdTune /></button>
+                    <button onClick={resetFilter} className='ring-1 ring-emerald-600 text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>Reset <MdTune /></button>
                 </div>
             </div>
             <div className='py-4 md:grid md:grid-cols-2 lg:grid-cols-4 gap-4'>

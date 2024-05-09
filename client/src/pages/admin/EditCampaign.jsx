@@ -8,6 +8,7 @@ import axios from 'axios'
 import { LuChevronRight } from "react-icons/lu";
 import Search from '../../components/admin/Search'
 import { FaSpinner } from "react-icons/fa6";
+import {toast} from 'react-hot-toast'
 
 const EditCampaign = () => {
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ const EditCampaign = () => {
     try {
       const res = await axios.get('/api/user/users')
       if (res.data.error) {
-        toastr.error(res.data.error)
+        toast.error(res.data.error)
       } else {
         setUsers(res.data)
       }

@@ -1,16 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Cambo&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 
-
-.madimi-one-regular {
+/* .madimi-one-regular {
   font-family: "Madimi One", sans-serif;
   font-weight: 400;
   font-style: normal;
-}
+} */
 
 * {
   font-family: "Cambo", serif;
+  box-sizing: border-box;
+  /* font-family: "Roboto", sans-serif; */
   /* font-family: "Poppins", sans-serif; */
 }
 li {
@@ -19,15 +21,6 @@ li {
 a {
   text-decoration: none;
 }
-/* .home{
-    background: url(https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D) no-repeat;
-    object-fit: cover;
-    background-position: center;
-  } */
-
-/* .folder-container{
-    background: url(https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvNDc5LW1rLTk2OTAucG5n.pnglient);
-  } */
 
 .sub_menu {
   border: 2px solid black;
