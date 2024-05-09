@@ -5,9 +5,9 @@ import CtaBanner from '../components/CtaBanner'
 import { Link, useParams } from 'react-router-dom'
 import Loading from '../components/Loading'
 import { FaHeart } from "react-icons/fa";
-import { GiLifeSupport } from "react-icons/gi";
+import { GiFlowerPot, GiLifeSupport } from "react-icons/gi";
 import { LuClock3 } from "react-icons/lu";
-import { GoPeople } from "react-icons/go";
+import { GoGoal, GoPeople } from "react-icons/go";
 import { IoShareSocialSharp, IoLogoInstagram, IoLogoFacebook } from "react-icons/io5";
 import { BsTwitterX } from "react-icons/bs";
 import { GiTrophyCup } from "react-icons/gi";
@@ -96,10 +96,10 @@ const Campaign = () => {
                             <button onClick={() => setOpenTab(1)} className={`p-2 transition-all duration-300 hover:border-b-2 hover:border-emerald-600 ${openTab === 1 ? 'border-b-2 border-emerald-600' : ''}`}>Overview</button>
                             <button onClick={() => setOpenTab(2)} className={`relative p-2 transition-all duration-300 hover:border-b-2 hover:border-emerald-600 ${openTab === 2 ? 'border-b-2 border-emerald-600' : ''}`}>Donations
 
-                            {
-                                donations.length > 0 && <p className='absolute font-thin top-0 right-0 h-3.5 w-3.5 flex items-center justify-center text-[8px] bg-emerald-600 rounded-full text-white'>{donations.length}</p>
-                            }
-                            
+                                {
+                                    donations.length > 0 && <p className='absolute font-thin top-0 right-0 h-3.5 w-3.5 flex items-center justify-center text-[8px] bg-emerald-600 rounded-full text-white'>{donations.length}</p>
+                                }
+
                             </button>
                             <button onClick={() => setOpenTab(3)} className={`p-2 transition-all duration-300 hover:border-b-2 hover:border-emerald-600 ${openTab === 3 ? 'border-b-2 border-emerald-600' : ''}`}>Updates</button>
                         </div>
@@ -132,22 +132,22 @@ const Campaign = () => {
 
                     {/* right side */}
                     <div className='my-8 md:m-0 p-4 pt-0 col-span-2  rounded-xl shadow'>
-                        <h1 className='pb-2 text-3xl text-orange-600'>${donationRaised}<sub className='text-xs'>Raised</sub></h1>
+                        <h1 className='pb-2 text-3xl text-emerald-600'>${donationRaised}<sub className='text-xs'>Raised</sub></h1>
                         <div className="my-4 w-full bg-gray-200 rounded-full h-1.5">
-                            <div className={`bg-emerald-600 h-1.5 rounded-full`}  style={{ width: `${calculateGoalPercent()}%` }}></div>
+                            <div className={`bg-emerald-600 h-1.5 rounded-full`} style={{ width: `${calculateGoalPercent()}%` }}></div>
                         </div>
                         <div className=' grid grid-cols-2 gap-2'>
                             <div className=' py-1 rounded'>
                                 <h1 className='text-lg '>${campaignPost?.goalAmount}</h1>
-                                <h1 className='text-gray-500 text-sm'>Goal</h1>
+                                <h1 className='text-gray-500 text-sm flex items-center space-x-2'><GoGoal color='green'/><span>Goal</span></h1>
                             </div>
                             <div className=' py-1 rounded'>
                                 <h1 className='text-lg'>{donations.length} </h1>
-                                <h1 className='text-gray-500 text-sm'>Contributers</h1>
+                                <h1 className='flex items-center space-x-2 text-gray-500 text-sm'><FaHeart className='text-red-600' /><span>Contributers</span></h1>
                             </div>
                             <div className=' py-1 rounded'>
                                 <h1 className='text-lg'>$20</h1>
-                                <h1 className='text-gray-500 text-sm'>Min. Contribution</h1>
+                                <h1 className='text-gray-500 text-sm flex items-center space-x-2'><GiFlowerPot className='text-emerald-600'/><span>Min. Contribution</span></h1>
                             </div>
                             <div className=' py-1 rounded'>
                                 <h1 className='text-lg'>{formatDate(campaignPost?.createdAt)}</h1>

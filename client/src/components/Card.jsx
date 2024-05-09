@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { GiUpgrade } from "react-icons/gi";
 import axios from 'axios';
 import { FaHeart } from 'react-icons/fa6';
-
+import {BsLightningCharge} from 'react-icons/bs'
 
 const Card = ({ campaign, index }) => {
     const [donations, setDonations] = useState([]);
@@ -63,7 +63,7 @@ const Card = ({ campaign, index }) => {
                 <div className='h-40 bg-gray-100 relative'>
                     <div>
                         <div className='absolute -z-10 -right-2 bottom-0 rotate-45 w-4 h-4 bg-emerald-600'></div>
-                        <div className='absolute p-1 px-3 -right-3 bottom-2 text-xs bg-emerald-600 text-white'>Featured Campaign</div>
+                        <div className='absolute flex items-center space-x-2 p-1 px-3 -right-3 bottom-2 text-xs bg-emerald-600 text-white'><BsLightningCharge/> <span>Featured</span></div>
                     </div>
                     <div className='absolute left-2 bottom-2 p-2'>
                         <div className=' h-10 w-10 flex items-center justify-center animate-pulse text-emerald-600 bg-white rounded-full text-xl outline outline-offset-2 outline-emerald-600 outline-1'>
