@@ -11,6 +11,8 @@ import Loading from '../components/Loading'
 const CampaignStoryUpdates = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const user = useSelector(state => state.user.data);
+  console.log(user)
   const { error, data, isLoading } = useSelector(state => state.campaign);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -53,15 +55,12 @@ const CampaignStoryUpdates = () => {
 
         <div className='relative px-8 py-12 grid grid-cols-3 gap-4'>
           <div className='bg-green-500 p-4 rounded'>
-            {/* <img className='w-12 h-12 rounded-full object-cover' src="https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp" alt="" /> */}
-
             <h1 className='py-4 text-xl'>Organizer</h1>
             <div className='flex  space-x-4'>
               <GoPeople size={30} />
               <div>
-                <h1>Sam Sulek </h1>
-                <p>Software Engineer Texes,USA</p>
-                <p className='text-slate-600'>Organizer</p>
+                <h1>{user.email}</h1>
+                <p>{user.firstName} {user.lastName}</p>
               </div>
             </div>
           </div>
@@ -89,7 +88,7 @@ const CampaignStoryUpdates = () => {
                 <p className='text-xs text-red-600'>Note*: Updates will be posted according to the current timestamp</p>
               </div>
               <div>
-                <button type='submit' className='px-4 py-2 bg-green-600 text-white  rounded'>Post Updates</button>
+                <button type='submit' className='px-4 py-2 bg-emerald-600 transition-all duration-300 text-white hover:bg-emerald-700 rounded-xl'>Post Updates</button>
               </div>
             </form>
 

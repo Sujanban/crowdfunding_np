@@ -25,7 +25,6 @@ const EditCampaign = () => {
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setCampaignn({ ...campaignn, thumbnail: reader.result });
-      console.log(reader.result);
     };
   };
 
@@ -70,7 +69,6 @@ const EditCampaign = () => {
     fetchAllUsers();
   }, [])
 
-  console.log(campaignn)
   return (
     <div className='flex max-w-7xl mx-auto'>
       <Navbar />
@@ -164,8 +162,9 @@ const EditCampaign = () => {
               <div className='py-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Campaign Creator *</label>
                 <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  value={campaignn.campaignOwner}
+                  value={campaignn.campaignOwner?._id}
                   onChange={(e) => setCampaignn({ ...campaignn, campaignOwner: e.target.value })}>
+                    
                   {
                     users && users.map((user, index) =>
                       <option key={index} value={user._id} >{user.firstName + " " + user.lastName}</option>
