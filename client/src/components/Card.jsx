@@ -23,7 +23,6 @@ const Card = ({ campaign, index }) => {
     useEffect(() => {
         fetchDonationByCampaign()
     }, [])
-    console.log(calculateGoalPercent())
     return (
         <div className=' shadow-lg rounded-lg'>
             <Link className='z-20' to={`/campaign/${campaign._id}`} key={index} >

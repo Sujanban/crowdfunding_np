@@ -3,32 +3,25 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { Link } from 'react-router-dom'
 import { HiOutlineExternalLink } from "react-icons/hi";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios'
 import {formatDate} from '../utils/dateFormater'
+import { fetchDonationByUser } from '../app/feature/donationSlice';
 
 
 const Donations = () => {
   let count = 0;
   const user = useSelector(state => state.user.data)
-  const [donations, setDonations] = useState([]);
+  const donations = useSelector(state=> state.donation.data)
+  const dispatch = useDispatch()
+  
   useEffect(() => {
-    const fetchDonationByUser = async () => {
-      try {
-        const res = await axios.get(`/api/donation/fetchDonationByUser/${user._id}`);
-        setDonations(res.data);
-        console.log(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchDonationByUser();
+    dispatch(fetchDonationByUser(user._id));
   }, []);
   return (
     <div>
       <Navbar />
       <div className='px-8 py-20 mx-auto max-w-7xl w-full'>
-        {/* <div className='text-2xl font-semibold'>Donations Received</div> */}
         <div>
           <h1 className='font-bold'>My Donation History</h1>
           <div className="p-2 relative overflow-x-auto sm:rounded-lg">
@@ -44,12 +37,12 @@ const Donations = () => {
               </thead>
               <tbody>
                 {
-                  donations && donations.map((donation) => {
+                  donations && donations.map((donation,index) => {
                     return (
-                      <tr className='text-slate-600 text-xs border-b'>
+                      <tr key={index} className='text-slate-600 text-xs border-b'>
                         <td scope="col" className="px-2 py-2">{++count}</td>
                         <td scope="col" className=" py-2">{formatDate(donation.createdAt)}</td>
-                        <td scope="col" className="px-6 py-2 font-bold ">{donation.campaignId?.campaignTitle}</td>
+                        <td scope="col" className="px-6 py-2 font-bold ">{donation.campaignId?.campaignTitle ? donation.campaignId?.campaignTitle : "Campaign Unavailable N/A"}</td>
                         <td scope="col" className="px-6 py-2">₹ {donation.amount}</td>
                         <td scope="col" className="px-6 py-2">
                           <Link to={`/admin/donations/donation/32423423432`}

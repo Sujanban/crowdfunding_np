@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import CtaBanner from '../components/CtaBanner'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Loading from '../components/Loading'
 import { FaHeart } from "react-icons/fa";
-import { GiFlowerPot, GiLifeSupport } from "react-icons/gi";
+import { GiFlowerPot } from "react-icons/gi";
 import { LuClock3 } from "react-icons/lu";
 import { GoGoal, GoPeople } from "react-icons/go";
-import { IoShareSocialSharp, IoLogoInstagram, IoLogoFacebook } from "react-icons/io5";
-import { BsTwitterX } from "react-icons/bs";
-import { GiTrophyCup } from "react-icons/gi";
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchSingleCampaign } from '../app/feature/campaignSlice'
 import Story from '../components/Story'
-import axios from 'axios'
-import { toast } from 'react-hot-toast'
 import DonationList from '../components/DonationList'
 import { formatDate } from '../utils/dateFormater'
+import { createDonation, fetchDonationByCampaign } from '../app/feature/donationSlice'
 
 
 const Campaign = () => {
@@ -25,18 +20,11 @@ const Campaign = () => {
     const [openTab, setOpenTab] = useState(1);
     const dispatch = useDispatch();
     const campaignPost = useSelector((state) => state.campaign.data)
-    const { isLoading, errorMessage } = useSelector((state) => state.campaign)
+    const donations = useSelector((state) => state.donation.data)
+    const { isLoading } = useSelector((state) => state.campaign)
     const userId = useSelector((state) => state.user?.data._id);
 
-
-    // tracking donation
-    const [donations, setDonations] = useState([]);
-
-    const fetchDonationByCampaign = async (id) => {
-        const res = await axios.get(`/api/donation/fetchDonationByCampaign/${id}`);
-        setDonations(res.data)
-    }
-
+    // calculating donation raised by campaign
     const donationRaised = donations.reduce((acc, curr) => acc + curr.amount, 0);
 
     const calculateGoalPercent = () => {
@@ -47,27 +35,14 @@ const Campaign = () => {
     const [amount, setAmount] = useState();
     const handleDonation = async (e) => {
         e.preventDefault();
-        try {
-            const res = await axios.post(`/api/donation/createDonation/${id}`, { userId, amount, campaignId: id });
-            console.log(res)
-            if (res.data.url) {
-                window.location.href = res.data.url
-            }
-            if (res.data.error) {
-                toast.error(res.data.error);
-            }
-        } catch (err) {
-            console.log(err)
-            console.log('Error fetching API ' + err);
-        }
+        dispatch(createDonation({id, userId, amount}));
     }
 
     useEffect(() => {
         dispatch(fetchSingleCampaign(id));
-        fetchDonationByCampaign(id)
+        dispatch(fetchDonationByCampaign(id));
         window.scrollTo(0, 0);
     }, [])
-    console.log(campaignPost)
 
     return (
         <div>

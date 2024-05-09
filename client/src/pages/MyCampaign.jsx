@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchCampaignsByUserID } from '../app/feature/campaignSlice';
 import Loading from '../components/Loading'
 import LoggedUserCampaignCard from '../components/LoggedUserCampaignCard'
-
 import { useNavigate } from 'react-router-dom';
 
 const MyCampaign = () => {
@@ -41,7 +40,7 @@ const MyCampaign = () => {
         <div className=' py-12 md:py-20 md:grid grid-cols-4 gap-4 '>
           {isLoading ? <Loading /> :
             myCampaigns && myCampaigns.map((campaign, index) =>
-              <LoggedUserCampaignCard popupVisible={popupVisible} setPopupVisible={setPopupVisible} campaign={campaign} index={index} />
+              <LoggedUserCampaignCard key={index} popupVisible={popupVisible} setPopupVisible={setPopupVisible} campaign={campaign} index={index} />
             )
           }
         </div>
