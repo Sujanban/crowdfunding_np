@@ -22,6 +22,7 @@ const Story = ({ id }) => {
                                 <div key={index} className='flex p-2'>
                                     <GoPeople className='text-emerald-600' size={25} />
                                     <div className='px-2'>
+                                        {/* <h1>{item.userId.firstName} {item.userId.lastName}</h1> */}
                                         <p className='ml-2'>{item.updateContent}</p>
                                         <p className='ml-2 text-sm text-emerald-600'>{formatDate(item.createdAt)} - {formatTime(item.createdAt)}</p>
                                     </div>

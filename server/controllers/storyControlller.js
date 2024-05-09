@@ -18,6 +18,12 @@ const getStory = async (req, res) => {
 const updateStory = async (req, res) => {
   try {
     const { id } = req.params;
+    const userId = req.user._id;
+
+
+   
+
+
     const { updateContent } = req.body;
     if (!id) {
       return res.json({ error: "Invalid campaign" });

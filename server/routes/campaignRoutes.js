@@ -11,22 +11,23 @@ const {
 } = require("../controllers/campaignController");
 
 const multer = require("multer");
-const {checkAuth, isAdmin} = require("../middlewares/userAuth");
+const { checkAuth, isAdmin } = require("../middlewares/userAuth");
+const checkCampaignOwnership = require("../middlewares/campaignPermission");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads')
+    cb(null, "./uploads");
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    cb(null, file.fieldname + '-' + uniqueSuffix)
-  }
-})
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + "-" + uniqueSuffix);
+  },
+});
 
-const upload = multer({ storage: storage })
+const upload = multer({ storage: storage });
 
-router.post('/upload', upload.single('file'), (req, res) => {
-  console.log(req.file)
-})
+router.post("/upload", upload.single("file"), (req, res) => {
+  console.log(req.file);
+});
 
 router.use(
   cors({
@@ -36,7 +37,7 @@ router.use(
 );
 
 //CREATE CAMPAIGN
-router.post("/createCampaign",checkAuth, createCampaign);
+router.post("/createCampaign", checkAuth, createCampaign);
 // router.post("/createCampaign", upload.single('file'), createCampaign);
 
 //GET CAMPAIGN
@@ -46,13 +47,27 @@ router.get("/getCampaign/:id", getCampaign);
 router.get("/getCampaigns", getCampaigns);
 
 // GET CAMPAIGNS BY USERID
-router.get('/getCampaignsByUserID/:userId', checkAuth, getCampaignsByUserID);
+router.get(
+  "/getCampaignsByUserID/:userId",
+  checkAuth,
+  getCampaignsByUserID
+);
 
 // UPDATE CAMPAIGN
-router.put("/updateCampaign/:id",checkAuth, updateCampaign);
+router.put(
+  "/updateCampaign/:id",
+  checkAuth,
+  checkCampaignOwnership,
+  updateCampaign
+);
 
 // DELETE CAMPAIGN
-router.delete("/deleteCampaign/:id",checkAuth, deleteCampaign);
+router.delete(
+  "/deleteCampaign/:id",
+  checkAuth,
+  checkCampaignOwnership,
+  deleteCampaign
+);
 
 // UPLOAD IMAGE
 

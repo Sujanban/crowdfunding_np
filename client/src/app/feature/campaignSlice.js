@@ -62,19 +62,20 @@ export const updateCampaign = createAsyncThunk(
   "updateCampaign",
   async (data) => {
     try {
-      const res = await axios.put(
-        `/api/campaign/updateCampaign/${data._id}`,
-        data
-      );
-      if (res.data.message) {
+      const res = await axios.put(`/api/campaign/updateCampaign/${data._id}`, data);
+      if(res.data.message) {
         toast.success(res.data.message);
       }
-      if (res.data.error) {
+      if(res.data.error) {
         toast.error(res.data.error);
       }
+      console.log(res.data)
       return res.data;
     } catch (error) {
-      console.log("Server Error while fetching API " + error);
+      if(error.response.status === 403){
+        toast.error(error.response.data.error);
+      }
+      console.log("Unexpected Error Occured")
     }
   }
 );

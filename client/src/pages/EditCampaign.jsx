@@ -7,7 +7,6 @@ import { fetchCategory, getCategories } from '../app/feature/categorySlice'
 import { postCamaign, updateCampaign, deleteCampaign } from '../app/feature/campaignSlice'
 import { CiEdit } from "react-icons/ci";
 import axios from 'axios'
-
 import { LuHome, LuChevronRight } from "react-icons/lu";
 
 
@@ -43,10 +42,6 @@ const EditCampaign = () => {
       }
     })
   }
-
-
-
-
 
   // fetching campaign from id
   const fetchCampaign = async (id) => {
