@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchSingleCampaign } from '../app/feature/campaignSlice'
 import { addStory } from '../app/feature/storySlice'
 import { useNavigate, useParams } from 'react-router-dom'
-import Loading from '../components/Loading'
+import Loader from '../components/Loader'
 
 const CampaignStoryUpdates = () => {
   const { id } = useParams();
@@ -37,7 +37,7 @@ const CampaignStoryUpdates = () => {
 
   if (isLoading) {
     return <div className='w-full flex justify-center items-center h-screen text-2xl'>
-      <Loading />
+      <Loader />
     </div>
   }
 

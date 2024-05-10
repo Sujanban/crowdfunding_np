@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { useParams } from 'react-router-dom'
-import Loading from '../components/Loading'
+import Loader from '../components/Loader'
 import { FaHeart } from "react-icons/fa";
 import { GiFlowerPot } from "react-icons/gi";
 import { LuClock3 } from "react-icons/lu";
@@ -52,7 +52,7 @@ const Campaign = () => {
             <Navbar />
             {
                 isLoading ? <div className='w-full flex justify-center items-center h-screen text-2xl'>
-                    <Loading />
+                    <Loader />
                 </div> : ''
             }
             <div className='px-4 py-16 max-w-7xl mx-auto '>

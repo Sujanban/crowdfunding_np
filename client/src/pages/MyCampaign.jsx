@@ -3,9 +3,9 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCampaignsByUserID } from '../app/feature/campaignSlice';
-import Loading from '../components/Loading'
 import LoggedUserCampaignCard from '../components/LoggedUserCampaignCard'
 import { useNavigate } from 'react-router-dom';
+import Loader from '../components/Loader';
 
 const MyCampaign = () => {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const MyCampaign = () => {
       <Navbar />
       {
         isLoading ? <div className='w-full flex justify-center items-center h-screen text-2xl'>
-          <Loading />
+          <Loader />
         </div> : ''
       }
       <div className={`md:px-8 my-12 md:py-20 max-w-7xl mx-auto `}>

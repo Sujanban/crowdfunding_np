@@ -8,23 +8,28 @@ import { fetchCampaign } from '../../app/feature/campaignSlice';
 import WarningPopup from '../../components/WarningPopup';
 import { VscEdit, VscTrash } from 'react-icons/vsc';
 import axios from 'axios';
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaSpinner } from "react-icons/fa";
 import { IoFunnelOutline } from "react-icons/io5";
 import { TiPen } from "react-icons/ti";
 import { SiVirustotal } from "react-icons/si";
+import Loader from '../../components/Loader';
 
 
 const Campaigns = () => {
+    const dispatch = useDispatch();
+    const campaign = useSelector(state => state.campaign.data)
+    const { isLoading } = useSelector(state => state.campaign)
     const [toggleFilter, setToggleFilter] = useState(false);
     const [popupVisible, setPopupVisible] = useState(false);
+    const [selectedCampaignId, setSelectedCampaignId] = useState(null);
+    const [users, setUsers] = useState([]);
+    let count = 0;
 
 
     // pagination
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(1)
     const [limit, setLimit] = useState(10);
-    const [sortOrder, setSortOrder] = useState('asc');
-
 
     const handlePreviousPage = () => {
         if (page > 1) {
@@ -36,13 +41,6 @@ const Campaigns = () => {
         setPage(page + 1);
         setSearchParams({ page: page + 1, limit });
     }
-
-
-    const campaign = useSelector(state => state.campaign.data)
-    const [selectedCampaignId, setSelectedCampaignId] = useState(null);
-    const dispatch = useDispatch();
-    const [users, setUsers] = useState([]);
-    let count = 0;
 
     const handleDelete = (id) => {
         setSelectedCampaignId(id)
@@ -62,7 +60,7 @@ const Campaigns = () => {
         }
     }
 
-    
+
 
     useEffect(() => {
         dispatch(fetchCampaign())
@@ -125,6 +123,9 @@ const Campaigns = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {
+                                                isLoading && <Loader />
+                                            }
                                             {
                                                 campaign && campaign.map((item, index) =>
                                                     <tr key={index} className='text-slate-600 border-b'>
