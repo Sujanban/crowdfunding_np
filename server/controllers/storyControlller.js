@@ -6,42 +6,46 @@ const getStory = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Find campaign updates with the given campaignId
+    if (!id) {
+      return res.status(400).json({ error: "Campaign ID is required" });
+    }
+
     const updates = await Story.find({ campaignId: id });
 
-    res.json(updates);
+    return res.status(200).json(updates); 
   } catch (error) {
-    res.json({ error: error.message });
+    console.error("Error retrieving story updates:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 const updateStory = async (req, res) => {
   try {
     const { id } = req.params;
     const userId = req.user._id;
-
-
-   
-
-
     const { updateContent } = req.body;
+
     if (!id) {
-      return res.json({ error: "Invalid campaign" });
+      return res.status(400).json({ error: "Campaign ID is required" });
     }
     if (!updateContent) {
-      return res.json({ error: "Update content is required" });
+      return res.status(400).json({ error: "Update content is required" });
     }
-    // Create a new update
+
     const newUpdate = new Story({
+      userId,
       campaignId: id,
-      updateContent: updateContent,
+      updateContent,
     });
-    // Save the new update
     await newUpdate.save();
-    res.json({ message: "Progress Updated Sucessfully" });
+
+    return res.status(200).json({ message: "Progress updated successfully" });
   } catch (error) {
-    res.json({ error: error.message });
+    console.error("Error updating story:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 module.exports = { updateStory, getStory };

@@ -24,18 +24,16 @@ const createCampaign = async (req, res) => {
       !goalAmount ||
       !category
     ) {
-      return res.json({ error: "All fields are required" });
+      return res.status(400).json({ error: "All fields are required" });
     }
-
-    // cloudinary file upload
     const imageUploadResponse = await cloudinary.uploader.upload(thumbnail, {
       upload_preset: "collab-crowdfunding",
     });
+
     const thumbnailData = {
       public_id: imageUploadResponse.public_id,
       url: imageUploadResponse.secure_url,
     };
-
     const newCampaign = new Campaign({
       campaignOwner,
       campaignTitle,
@@ -47,9 +45,10 @@ const createCampaign = async (req, res) => {
     });
 
     await newCampaign.save();
-    res.json({ message: "Campaign created successfully" });
+    res.status(201).json({ message: "Campaign created successfully" });
   } catch (err) {
-    res.json({ error: err.message });
+    console.error("Error in createCampaign:", err);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -57,6 +56,9 @@ const createCampaign = async (req, res) => {
 const updateCampaign = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ error: "Campaign ID is required" });
+    }
     const {
       campaignOwner,
       campaignTitle,
@@ -67,8 +69,6 @@ const updateCampaign = async (req, res) => {
       category,
       status,
     } = req.body;
-
-    // Check if required fields are present in the request body
     if (
       !campaignOwner ||
       !campaignTitle ||
@@ -77,88 +77,72 @@ const updateCampaign = async (req, res) => {
       !goalAmount ||
       !category
     ) {
-      return res.json({ error: "All fields are required" });
+      return res.status(400).json({ error: "All fields are required" });
+    }
+    const existCampaign = await Campaign.findById(id);
+    if (!existCampaign) {
+      return res.status(404).json({ error: "Campaign not found" });
     }
 
-    const imageUploadResponse = await cloudinary.uploader.upload(thumbnail, {
-      upload_preset: "collab-crowdfunding",
-    });
-    const thumbnailData = {
-      public_id: imageUploadResponse.public_id,
-      url: imageUploadResponse.secure_url,
-    };
-
-    // Check if the ID is provided
-    if (!id) return res.json({ error: "Id is required" });
-
-    // Find the campaign by ID
-    const existCampaign = await Campaign.findById(id);
-    if (!existCampaign) return res.json({ error: "Campaign not found" });
-
+    let thumbnailData = existCampaign.thumbnail;
     if (thumbnail) {
-      const deleteResponse = await cloudinary.uploader.destroy(
-        existCampaign.thumbnail.public_id
-      );
-      if (deleteResponse.result === "ok") {
-        console.log("Existing file deleted");
+      const imageUploadResponse = await cloudinary.uploader.upload(thumbnail, {
+        upload_preset: "collab-crowdfunding",
+      });
+      thumbnailData = {
+        public_id: imageUploadResponse.public_id,
+        url: imageUploadResponse.secure_url,
+      };
+      if (existCampaign.thumbnail.public_id) {
+        await cloudinary.uploader.destroy(existCampaign.thumbnail.public_id);
       }
     }
+    const updatedCampaign = await Campaign.findByIdAndUpdate(
+      id,
+      {
+        campaignOwner,
+        campaignTitle,
+        campaignDescription,
+        location,
+        thumbnail: thumbnailData,
+        goalAmount,
+        category,
+        status, // Only set status if provided
+      },
+      { new: true }
+    );
 
-    // Update the campaign
-    let updated;
-    if (status) {
-      updated = await Campaign.findByIdAndUpdate(
-        id,
-        {
-          campaignOwner,
-          campaignTitle,
-          campaignDescription,
-          location,
-          thumbnail: thumbnailData,
-          goalAmount,
-          category,
-          status,
-        },
-        { new: true }
-      );
+    if (updatedCampaign) {
+      return res.status(200).json({
+        message: "Campaign updated successfully",
+        updated: updatedCampaign,
+      });
     } else {
-      updated = await Campaign.findByIdAndUpdate(
-        id,
-        {
-          campaignOwner,
-          campaignTitle,
-          campaignDescription,
-          location,
-          thumbnail: thumbnailData,
-          goalAmount,
-          category,
-        },
-        { new: true }
-      );
-    }
-
-    // Check if the update was successful
-    if (updated) {
-      return res.json({ message: "Campaign updated successfully", updated });
-    } else {
-      return res.json({ error: "Something went wrong" });
+      return res.status(500).json({ error: "Failed to update campaign" });
     }
   } catch (err) {
-    // Catch any errors that occur during the update process
-    return res.json({ error: err.message });
+    console.error("Error during update:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
 const getCampaign = async (req, res) => {
   try {
     const { id } = req.params;
-    if (!id) return res.json({ error: "Id is required" });
-    const existCampaign = await Campaign.findById(id).populate("campaignOwner",
-      "firstName lastName email");
-    if (!existCampaign) return res.json({ error: "Campaign not found" });
-    res.json(existCampaign);
+    if (!id) {
+      return res.status(400).json({ error: "Campaign ID is required" });
+    }
+    const existCampaign = await Campaign.findById(id).populate(
+      "campaignOwner",
+      "firstName lastName email"
+    );
+    if (!existCampaign) {
+      return res.status(404).json({ error: "Campaign not found" });
+    }
+    return res.status(200).json(existCampaign);
   } catch (err) {
-    res.json({ error: err.message });
+    console.error("Error fetching campaign:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -166,9 +150,10 @@ const getCampaign = async (req, res) => {
 const getCampaigns = async (req, res) => {
   try {
     const campaigns = await Campaign.find({});
-    return res.json(campaigns);
+    return res.status(200).json(campaigns);
   } catch (err) {
-    return res.json({ error: err.message });
+    console.error("Error fetching campaigns:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -176,13 +161,14 @@ const getCampaigns = async (req, res) => {
 const getCampaignsByUserID = async (req, res) => {
   try {
     const userId = req.params.userId;
-    // const userId = req.user._id;
-    // console.log(userId);
-    if (!userId) return res.json({ error: "Id is required" });
+    if (!userId) {
+      return res.status(400).json({ error: "User ID is required" });
+    }
     const campaigns = await Campaign.find({ campaignOwner: userId });
-    return res.json(campaigns);
+    return res.status(200).json(campaigns);
   } catch (err) {
-    return res.json({ error: err.message });
+    console.error("Error fetching campaigns by user ID:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -190,17 +176,25 @@ const getCampaignsByUserID = async (req, res) => {
 const deleteCampaign = async (req, res) => {
   try {
     const { id } = req.params;
-    const campaign = await Campaign.findById(id);
-    if (campaign) {
-      await cloudinary.uploader.destroy(
-        campaign.thumbnail.public_id);
+    if (!id) {
+      return res.status(400).json({ error: "Campaign ID is required" });
     }
-    const del = await Campaign.findByIdAndDelete(id);
-    if (del) {
-      res.json({ message: "Campaign deleted successfully" });
+    const campaign = await Campaign.findById(id);
+    if (!campaign) {
+      return res.status(404).json({ error: "Campaign not found" });
+    }
+    if (campaign.thumbnail.public_id) {
+      await cloudinary.uploader.destroy(campaign.thumbnail.public_id);
+    }
+    const deletedCampaign = await Campaign.findByIdAndDelete(id);
+    if (deletedCampaign) {
+      return res.status(200).json({ message: "Campaign deleted successfully" });
+    } else {
+      return res.status(500).json({ error: "Failed to delete campaign" });
     }
   } catch (err) {
-    res.json({ error: err.message });
+    console.error("Error deleting campaign:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 

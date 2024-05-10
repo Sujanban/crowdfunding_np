@@ -9,7 +9,7 @@ export const fetchCampaign = createAsyncThunk(
       const res = await axios.get("/api/campaign/getCampaigns");
       return res.data;
     } catch (error) {
-      console.log("Server Error while fetching API " + error);
+      console.log(error);
     }
   }
 );
@@ -21,7 +21,7 @@ export const fetchSingleCampaign = createAsyncThunk(
       const res = await axios.get("/api/campaign/getCampaign/" + id);
       return res.data;
     } catch (error) {
-      console.log("Server Error while fetching API " + error);
+      console.log(error);
     }
   }
 );
@@ -37,7 +37,7 @@ export const fetchCampaignsByUserID = createAsyncThunk(
         return res.data;
       }
     } catch (error) {
-      console.log("Server Error while fetching API " + error);
+      console.log(error);
     }
   }
 );
@@ -53,7 +53,7 @@ export const postCamaign = createAsyncThunk("postCampaign", async (data) => {
     }
     return res.data;
   } catch (error) {
-    console.log("Server Error while fetching API " + error);
+    console.log(error);
   }
 });
 
@@ -74,7 +74,7 @@ export const updateCampaign = createAsyncThunk(
       if(error.response.status === 403){
         toast.error(error.response.data.error);
       }
-      console.log("Unexpected Error Occured")
+      console.log(error)
     }
   }
 );
@@ -90,7 +90,7 @@ export const deleteCampaign = createAsyncThunk("deleteCampaign", async (id) => {
     }
     return res.data;
   } catch (error) {
-    console.log("Server Error while fetching API " + error);
+    console.log(error);
   }
 });
 

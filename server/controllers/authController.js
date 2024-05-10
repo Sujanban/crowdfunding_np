@@ -3,99 +3,115 @@ const bcrypt = require("bcrypt");
 const validator = require("email-validator");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-const test = (req, res) => {
-  res.json("test is working");
-};
-
-// const isAdmin = async (req, res, next) => {
-//   try {
-//     const token = req.cookies.token;
-//     const decoded = jwt.verify(token, process.env.SECRETE_KEY);
-//     const user = await User.findById(decoded._id);
-//     if (user.role !== 1) {
-//       return res.json({ error: "Need Admin Privilege!" });
-//     }
-//     next();
-//   } catch (error) {
-//     res.json({ error: error.message });
-//   }
-// };
 
 // handling user registration
 const handleRegister = async (req, res) => {
   try {
     const { firstName, lastName, email, password } = req.body;
+
+    // Validate request body
     if (!firstName || !lastName || !email || !password) {
-      return res.json({ error: "All fields are required" });
+      return res.status(400).json({ error: "All fields are required" });
     }
-    const isValid = validator.validate(email);
-    if (!isValid) {
-      return res.json({ error: "Email is not valid" });
+
+    // Validate email format
+    if (!validator.validate(email)) {
+      return res.status(400).json({ error: "Invalid email format" });
     }
+
+    // Validate password length
     if (password.length < 6) {
-      return res.json({ error: "Password must be at least 6 characters" });
+      return res
+        .status(400)
+        .json({ error: "Password must be at least 6 characters long" });
     }
-    let existUser = await User.findOne({ email });
+
+    // Check if user already exists
+    const existUser = await User.findOne({ email });
     if (existUser) {
-      return res.json({ error: "User already exist" });
+      return res.status(409).json({ error: "User already exists" }); // 409 Conflict
     }
 
+    // Hash the password and create the new user
     const hashPassword = await bcrypt.hash(password, 10);
-
     const newUser = new User({
       firstName,
       lastName,
       email,
       password: hashPassword,
     });
-    await newUser.save();
-    res.json({ message: "User created successfully" });
+
+    await newUser.save(); // Save the new user to the database
+
+    // Respond with 201 Created
+    res.status(201).json({ message: "User created successfully" });
   } catch (err) {
-    res.json({ error: err.message });
+    console.error("Server error:", err);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
 //login controller
 const handleLogin = async (req, res) => {
   const { email, password } = req.body;
+
   try {
+    // Validate required fields
     if (!email || !password) {
-      return res.json({ error: "All fields are required" });
+      return res.status(400).json({ error: "All fields are required" });
     }
-    const isValidEmail = validator.validate(email);
-    if (!isValidEmail) {
-     return res.json({ error: "Email is not valid" });
+
+    // Validate email format
+    if (!validator.validate(email)) {
+      return res.status(400).json({ error: "Invalid email format" });
     }
+
+    // Check if the user exists
     const validUser = await User.findOne({ email });
     if (!validUser) {
-     return res.json({ error: "User does not exist" });
+      return res.status(404).json({ error: "User does not exist" });
     }
+
+    // Check if the password matches
     const isMatch = await bcrypt.compare(password, validUser.password);
     if (!isMatch) {
-     return res.json({ error: "Invalid credentials" });
+      return res.status(401).json({ error: "Invalid credentials" }); // 401 Unauthorized
     }
 
-    // creating jwt token
-    const token = jwt.sign({ _id: validUser._id, role: validUser.role }, process.env.SECRETE_KEY, {
-      expiresIn: "7d",
-    });
-    const userData = await User.findById(validUser._id).select('-password');
-    // console.log(userData)
-    res.cookie("token", token, { httpOnly: true }).json(userData);
+    // Create JWT token
+    const token = jwt.sign(
+      { _id: validUser._id, role: validUser.role },
+      process.env.SECRETE_KEY,
+      { expiresIn: "7d" }
+    );
+
+    // Return user data without password
+    const userData = await User.findById(validUser._id).select("-password");
+
+    // Set cookie and send response
+    res
+      .status(200) // 200 OK for successful login
+      .cookie("token", token, { httpOnly: true })
+      .json({ message: "Login successful", userData });
   } catch (error) {
-    res.json({ error: error.message });
+    console.error("Error during login:", error);
+    res.status(500).json({ error: "Internal server error" }); // 500 Internal Server Error
   }
 };
-
-
 
 // handeling user logout
 const handleLogout = async (req, res) => {
   try {
+    // Clear the authentication cookie
     res.clearCookie("token");
-    res.json({ message: "Logout successful" });
+
+    // Respond with a success message
+    res.status(200).json({ message: "Logout successful" }); // 200 OK for successful logout
   } catch (error) {
-    res.json({ error: error.message });
+    console.error("Error during logout:", error);
+
+    // Respond with an error message
+    res.status(500).json({ error: "Failed to log out. Please try again." }); // 500 Internal Server Error for unexpected issues
   }
 };
 
@@ -120,7 +136,8 @@ const handleGoogleLogin = async (req, res) => {
       if (!userExist) {
         const id = new mongoose.Types.ObjectId();
         const token = jwt.sign({ _id: id }, process.env.SECRETE_KEY, {
-          expiresIn: "1h"});
+          expiresIn: "1h",
+        });
         const newUser = new User({
           _id: id,
           firstName: jwtDecoded.given_name,
@@ -138,26 +155,28 @@ const handleGoogleLogin = async (req, res) => {
   }
 };
 
-
+// fetching user profile
 const fetchUserProfile = async (req, res) => {
   try {
-    const  userId  = req.user._id;
-    const user = await User.findById(userId).select('-password');
-    if (!user) return res.json({ error: "User not found" });
-    return res.json(user);
+    const userId = req.user._id; // Assume user information is in req.user
+    const user = await User.findById(userId).select("-password"); // Fetch user profile without password
 
+    if (!user) {
+      return res.status(404).json({ error: "User not found" }); // 404 Not Found if user doesn't exist
+    }
+
+    // If user is found, return user profile data
+    return res.status(200).json(user); // 200 OK
   } catch (error) {
-    return res.json({ error: error.message });
+    console.error("Error fetching user profile:", error);
+    return res.status(500).json({ error: "Internal server error" }); // 500 Internal Server Error for unexpected errors
   }
 };
 
 module.exports = {
-  test,
   handleRegister,
   handleLogin,
   handleLogout,
   fetchUserProfile,
-  // checkAuth,
-  // isAdmin,
   handleGoogleLogin,
 };

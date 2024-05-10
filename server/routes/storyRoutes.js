@@ -5,6 +5,9 @@ const { updateStory, getStory } = require("../controllers/storyControlller");
 
 const {checkAuth} = require("../middlewares/userAuth");
 
+
+const  checkCampaignOwnership  = require("../middlewares/campaignPermission");
+
 router.use(
   cors({
     origin: "http://localhost:5173",
@@ -13,6 +16,6 @@ router.use(
 );
 
 router.get("/getStory/:id", getStory);
-router.post("/updateStory/:id", checkAuth, updateStory);
+router.post("/addStory/:id", checkAuth, checkCampaignOwnership , updateStory);
 
 module.exports = router;

@@ -4,28 +4,42 @@ const Campaign = require("../models/campaign.model");
 const fetchUsers = async (req, res) => {
   try {
     const users = await User.find({});
-    if (!users) {
-      res.json({ error: "No User Found" });
+
+    if (users.length === 0) {
+      return res.status(404).json({ error: "No users found" });
     }
-    res.json(users);
+
+    return res.status(200).json(users);
   } catch (err) {
-    return res.json({ error: err.message });
+    console.error("Error fetching users:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
+
 const deleteUser = async (req, res) => {
-    try{
-        const userId = req.params.userId;
-        
-        const deleteUser = await User.findByIdAndDelete(userId) && await Campaign.deleteMany({ campaignOwner: userId });
-        if(!deleteUser) {
-            return res.json({ error: "Error deleting User!" });
-        }else{
-            return res.json({message: "User deleted Sucessfully!" });
-        }
-    }catch(err){
-        return res.json({ error: err.message });
+  try {
+    const { userId } = req.params;
+
+    if (!userId) {
+      return res.status(400).json({ error: "User ID is required" });
     }
+
+    const userToDelete = await User.findById(userId);
+    if (!userToDelete) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Delete user and their campaigns
+    await User.findByIdAndDelete(userId);
+    await Campaign.deleteMany({ campaignOwner: userId });
+
+    return res.status(200).json({ message: "User deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting user:", err);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 };
+
 
 module.exports = { fetchUsers,deleteUser };

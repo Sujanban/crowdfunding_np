@@ -29,16 +29,10 @@ export const loginUser = createAsyncThunk("loginUser", async (formData) => {
       toast.error(res.data.error);
     } else {
       toast.success("Login Successful");
-      const user = res.data;
+      const user = res.data.userData;
       localStorage.setItem("user", JSON.stringify(user));
       return user;
     }
-    // if (res.data) {
-    //   toast.success("Login Successful");
-    //   const user = res.data;
-    //   localStorage.setItem("user", JSON.stringify(user));
-    //   return user;
-    // }
   } catch (error) {
     console.log("Server Error while fetching API " + error);
   }

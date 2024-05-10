@@ -4,11 +4,12 @@ import storyReducer from '../feature/storySlice'
 import categoryReduser from '../feature/categorySlice'
 import userSlice from '../feature/userSlice';
 import donationReducer from '../feature/donationSlice'
+import storySlice from '../feature/storySlice';
 
 const store = configureStore({
     reducer: {
         campaign : campaignReducer,
-        story : storyReducer,
+        story : storySlice,
         category : categoryReduser,
         user: userSlice,
         donation: donationReducer

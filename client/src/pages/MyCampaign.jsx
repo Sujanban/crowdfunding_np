@@ -39,7 +39,7 @@ const MyCampaign = () => {
         </div>
         <div className=' py-12 md:py-20 md:grid grid-cols-4 gap-4 '>
           {isLoading ? <Loading /> :
-            myCampaigns && myCampaigns.map((campaign, index) =>
+            myCampaigns.length > 0 && myCampaigns.map((campaign, index) =>
               <LoggedUserCampaignCard key={index} popupVisible={popupVisible} setPopupVisible={setPopupVisible} campaign={campaign} index={index} />
             )
           }

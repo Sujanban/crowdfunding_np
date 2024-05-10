@@ -4,46 +4,44 @@ import Footer from '../components/Footer'
 import { GoPeople } from 'react-icons/go'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchSingleCampaign, getCampaigns } from '../app/feature/campaignSlice'
-import { updateCampaignStory } from '../app/feature/storySlice'
+import { addStory } from '../app/feature/storySlice'
 import { useNavigate, useParams } from 'react-router-dom'
 import Loading from '../components/Loading'
 
 const CampaignStoryUpdates = () => {
-  const navigate = useNavigate();
   const { id } = useParams();
-  const user = useSelector(state => state.user.data);
-  console.log(user)
-  const { error, data, isLoading } = useSelector(state => state.campaign);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchSingleCampaign(id));
-  }, [])
+  const user = useSelector(state => state.user.data);
+  const { data, isLoading } = useSelector(state => state.campaign);
 
   // form state
   const [story, setStory] = useState({
     campaignId: id,
     updateContent: ''
   });
-
-
+  
   // handling story update
   const handleStoryUpdate = (e) => {
     e.preventDefault();
-    dispatch(updateCampaignStory(story)).then((res) => {
+    dispatch(addStory(story)).then((res) => {
       if (res.payload.message) {
         navigate('/mycampaigns');
       }
     })
   }
+
+  useEffect(() => {
+    dispatch(fetchSingleCampaign(id));
+  }, [])
+
   if (isLoading) {
     return <div className='w-full flex justify-center items-center h-screen text-2xl'>
       <Loading />
     </div>
   }
 
-
   return (
-
     <div className='bg-gray-100'>
       <Navbar />
 
