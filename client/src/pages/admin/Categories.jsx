@@ -23,7 +23,11 @@ const Categories = () => {
     const [newCategory, setNewCategory] = useState('');
     const handleCategoryCreation = (e) => {
         e.preventDefault();
-        dispatch(addCategory(newCategory))
+        dispatch(addCategory(newCategory)).then(res => {
+            if (res.payload.message) {
+                setNewCategory('');
+            }
+        })
     }
 
     const handleDelete = (id) => {
@@ -125,6 +129,7 @@ const Categories = () => {
                                         <input type="text"
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Health"
                                             onChange={(e) => setNewCategory(e.target.value)}
+                                            value={newCategory}
 
                                         />
                                     </div>
