@@ -8,7 +8,7 @@ import { fetchCategory } from '../app/feature/categorySlice'
 import Card from './Card';
 
 const CampaignGrid = () => {
-    const category = useSelector(state => state.category.date)
+    const category = useSelector(state => state.category.data)
     const campaign = useSelector(state=> state.campaign.data)
 
     const dispatch = useDispatch();
