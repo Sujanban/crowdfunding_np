@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { fetchCategory, getCategories } from '../app/feature/categorySlice'
-import { postCamaign } from '../app/feature/campaignSlice'
+import { postCampaign } from '../app/feature/campaignSlice'
 import { FaSpinner } from "react-icons/fa6";
 
 
@@ -37,7 +37,7 @@ const CreateCampaign = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(postCamaign(campaign)).then(res => {
+    dispatch(postCampaign(campaign)).then(res => {
       if (res.payload.message) {
         navigate('/mycampaigns')
       }

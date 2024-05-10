@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { IoIosArrowDown } from "react-icons/io";
-import { MdSearch, MdTune } from "react-icons/md";
-import { FaHeart } from "react-icons/fa";
+import { MdTune } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
-import { getCampaigns, fetchCampaign } from '../app/feature/campaignSlice'
-import { fetchCategory, getCategories } from '../app/feature/categorySlice'
+import { fetchCampaign } from '../app/feature/campaignSlice'
+import { fetchCategory } from '../app/feature/categorySlice'
 import Card from './Card';
 
 const CampaignGrid = () => {
-    const category = useSelector(getCategories)
-    const campaign = useSelector(getCampaigns)
+    const category = useSelector(state => state.category.date)
+    const campaign = useSelector(state=> state.campaign.data)
 
     const dispatch = useDispatch();
 

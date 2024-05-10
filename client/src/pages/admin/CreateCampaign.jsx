@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../../components/admin/Navbar'
 import Search from '../../components/admin/Search'
 import { fetchCategory, getCategories } from '../../app/feature/categorySlice'
-import { postCamaign } from '../../app/feature/campaignSlice'
+import { postCampaign } from '../../app/feature/campaignSlice'
 import { LuChevronRight } from "react-icons/lu";
 import axios from 'axios'
 import { FaSpinner } from "react-icons/fa6";
@@ -30,7 +30,7 @@ const CreateCampaign = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(postCamaign(campaign)).then(res => {
+    dispatch(postCampaign(campaign)).then(res => {
       if (res.payload.message) {
         navigate('/admin/campaigns')
       }

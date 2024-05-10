@@ -11,20 +11,16 @@ import { MdTune } from "react-icons/md";
 
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCategory, getCategories } from '../app/feature/categorySlice'
-import { fetchCampaign, getCampaigns } from '../app/feature/campaignSlice'
+import { fetchCampaign } from '../app/feature/campaignSlice'
 
 const Explore = () => {
-    const category = useSelector(getCategories)
-    const campaign = useSelector(getCampaigns)
-
-
-
     const dispatch = useDispatch();
-
-
+    const category = useSelector(state => state.category.data)
+    const campaign = useSelector(state => state.campaign.data)
     const [filteredCampaign, setFilteredCampaign] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [isloading, setIsLoading] = useState(false);
+
     const handleFilter = (data) => {
         setIsLoading(true);
         const filteredData = campaign.filter(campaign => campaign.category === data);
@@ -43,13 +39,10 @@ const Explore = () => {
         return campaign && campaign.filter(item => item.category === cat).length;
     }
 
-
     useEffect(() => {
         dispatch(fetchCategory())
         dispatch(fetchCampaign())
     }, [])
-
-
     return (
         <>
             <Navbar />

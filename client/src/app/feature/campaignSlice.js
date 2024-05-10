@@ -4,77 +4,87 @@ import { toast } from "react-hot-toast";
 
 export const fetchCampaign = createAsyncThunk(
   "fetchAllCampaign",
-  async () => {
+  async (_, { rejectWithValue }) => {
     try {
       const res = await axios.get("/api/campaign/getCampaigns");
       return res.data;
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching campaigns:", error);
+      const errorMessage =
+        error.response?.data?.error || "Failed to fetch campaigns";
+      return rejectWithValue(errorMessage);
     }
   }
 );
 
 export const fetchSingleCampaign = createAsyncThunk(
   "fetchSingleCampaign",
-  async (id) => {
+  async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.get("/api/campaign/getCampaign/" + id);
+      const res = await axios.get(`/api/campaign/getCampaign/${id}`);
       return res.data;
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching single campaign:", error);
+      const errorMessage =
+        error.response?.data?.error || "Failed to fetch campaign";
+      return rejectWithValue(errorMessage);
     }
   }
 );
 
 export const fetchCampaignsByUserID = createAsyncThunk(
   "fetchCampaignsByUserID",
-  async (userId) => {
+  async (userId, { rejectWithValue }) => {
     try {
       const res = await axios.get(
         `/api/campaign/getCampaignsByUserID/${userId}`
       );
-      if (res.data) {
-        return res.data;
-      }
+      return res.data;
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching campaigns by user ID:", error);
+      const errorMessage =
+        error.response?.data?.error || "Failed to fetch campaigns by user ID";
+      return rejectWithValue(errorMessage);
     }
   }
 );
 
-export const postCamaign = createAsyncThunk("postCampaign", async (data) => {
-  try {
-    const res = await axios.post("/api/campaign/createCampaign", data);
-    if (res.data.message) {
-      toast.success(res.data.message);
+export const postCampaign = createAsyncThunk(
+  "postCampaign",
+  async (data, { rejectWithValue }) => {
+    try {
+      const res = await axios.post("/api/campaign/createCampaign", data);
+      if (res.data.message) {
+        toast.success(res.data.message);
+      }
+      return res.data;
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.error || "Failed to create campaign";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
     }
-    if (res.data.error) {
-      toast.error(res.data.error);
-    }
-    return res.data;
-  } catch (error) {
-    console.log(error);
   }
-});
+);
 
 export const updateCampaign = createAsyncThunk(
   "updateCampaign",
-  async (data) => {
+  async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.put(`/api/campaign/updateCampaign/${data._id}`, data);
-      if(res.data.message) {
+      const res = await axios.put(
+        `/api/campaign/updateCampaign/${data._id}`,
+        data
+      );
+      if (res.data.message) {
         toast.success(res.data.message);
       }
-      if(res.data.error) {
-        toast.error(res.data.error);
-      }
-      console.log(res.data)
+
       return res.data;
     } catch (error) {
-      if(error.response.status === 403){
-        toast.error(error.response.data.error);
-      }
-      console.log(error)
+      const errorMessage =
+        error.response?.data?.error || "Failed to update campaign";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -104,6 +114,7 @@ export const campaign = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+    // getting all campaigns
       .addCase(fetchCampaign.pending, (state) => {
         state.isLoading = true;
       })
@@ -115,6 +126,8 @@ export const campaign = createSlice({
         state.isLoading = false;
         state.errorMessage = action.payload;
       })
+
+      // getting a single campaign
       .addCase(fetchSingleCampaign.pending, (state) => {
         state.isLoading = true;
       })
@@ -126,6 +139,8 @@ export const campaign = createSlice({
         state.isLoading = false;
         state.errorMessage = action.payload;
       })
+
+      // getting campaigns by user id
       .addCase(fetchCampaignsByUserID.pending, (state) => {
         state.isLoading = true;
       })
@@ -137,19 +152,52 @@ export const campaign = createSlice({
         state.isLoading = false;
         state.errorMessage = action.payload;
       })
-      .addCase(postCamaign.pending, (state) => {
+
+      // creating campaign
+      .addCase(postCampaign.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(postCamaign.fulfilled, (state, action) => {
+      .addCase(postCampaign.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.data.push(action.payload);
       })
-      .addCase(postCamaign.rejected, (state, action) => {
+      .addCase(postCampaign.rejected, (state, action) => {
         state.isLoading = false;
         state.errorMessage = action.payload;
       })
+
+      // updating campaign
+      .addCase(updateCampaign.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateCampaign.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const updatedCampaign = action.payload;
+        const index = state.data.findIndex(
+          (c) => c._id === updatedCampaign._id
+        );
+        if (index !== -1) {
+          state.data[index] = updatedCampaign;
+        }
+      })
+      .addCase(updateCampaign.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorMessage = action.payload;
+      })
+
+      // delete
+      .addCase(deleteCampaign.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteCampaign.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = state.data.filter((c) => c._id !== action.payload._id);
+      })
+      .addCase(deleteCampaign.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorMessage = action.payload;
+      });
   },
 });
-
-export const getCampaigns = (state) => state.campaign.data;
 
 export default campaign.reducer;

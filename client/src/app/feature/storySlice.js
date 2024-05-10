@@ -1,8 +1,7 @@
-import {createSlice} from '@reduxjs/toolkit'
-import axios from 'axios'
+import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 import { toast } from "react-hot-toast";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
 
 // fetching story from id
 export const getStorys = createAsyncThunk(
@@ -12,26 +11,35 @@ export const getStorys = createAsyncThunk(
       const res = await axios.get(`/api/story/getStory/${campaignId}`);
       return res.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data?.error || "Failed to fetch stories"); // Ensure error is passed
+      return rejectWithValue(
+        error.response?.data?.error || "Failed to fetch stories"
+      );
     }
   }
 );
-  
+
 // Campaign updating story
 export const addStory = createAsyncThunk(
   "addStory",
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.post(`/api/story/addStory/${data.campaignId}`, data);
-      toast.success(res.data.message);
-      return res.data; // Successful addition
+      const res = await axios.post(
+        `/api/story/addStory/${data.campaignId}`,
+        data
+      );
+
+      if (res.data.message) {
+        toast.success(res.data.message);
+      }
+
+      return res.data;
     } catch (error) {
-      toast.error(error.response.data.error);
-      return rejectWithValue(error.response?.data?.error || "Failed to add story"); // Ensure error is passed
+      const errorMessage = error.response?.data?.error || "Failed to add story";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
     }
   }
 );
-
 
 export const storySlice = createSlice({
   name: "story",
@@ -60,7 +68,6 @@ export const storySlice = createSlice({
       .addCase(addStory.fulfilled, (state, action) => {
         state.isLoading = false;
         state.errorMessage = null;
-
       })
       .addCase(addStory.rejected, (state, action) => {
         state.isLoading = false;
