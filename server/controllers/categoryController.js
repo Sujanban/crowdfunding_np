@@ -6,25 +6,26 @@ const addCategory = async (req, res) => {
     const category = req.body.category;
 
     if (!category) {
-      return res.status(400).json({ error: "Category cannot be empty" }); 
+      return res.status(400).json({ error: "Category cannot be empty" });
     }
 
     const categoryExists = await Category.findOne({ category });
     if (categoryExists) {
-      return res.status(409).json({ error: "Category already exists" }); 
+      return res.status(409).json({ error: "Category already exists" });
     }
 
     const newCategory = new Category({ category });
     await newCategory.save();
 
-    return res.status(201).json({ message: "Category added successfully" });
+    return res
+      .status(201)
+      .json({ message: "Category added successfully", category: newCategory});
   } catch (err) {
     console.error("Error adding category:", err);
 
     return res.status(500).json({ error: "Internal server error" });
   }
 };
-
 
 // RETRIVING CATEGORY
 const getCategory = async (req, res) => {
@@ -41,7 +42,6 @@ const getCategory = async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 };
-
 
 // retriving individual category by id
 const getCategoryById = async (req, res) => {
@@ -64,7 +64,6 @@ const getCategoryById = async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 };
-
 
 // EDITING CATEGORY
 const editCategory = async (req, res) => {
@@ -98,7 +97,6 @@ const editCategory = async (req, res) => {
   }
 };
 
-
 // DELETING CATEGORY
 const deleteCategory = async (req, res) => {
   try {
@@ -114,15 +112,13 @@ const deleteCategory = async (req, res) => {
       return res.status(404).json({ error: "Category not found" });
     }
 
-    return res.status(200).json({ message: "Category deleted successfully" });
+    return res.status(200).json({ message: "Category deleted successfully", category: deleted });
   } catch (error) {
     console.error("Error deleting category:", error);
 
     return res.status(500).json({ error: "Internal server error" });
   }
 };
-
-
 
 module.exports = {
   addCategory,

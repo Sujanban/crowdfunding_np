@@ -1,31 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/admin/Navbar'
 import Search from '../../components/admin/Search'
-import { LuChevronRight } from "react-icons/lu";
+import WarningPopup from '../../components/WarningPopup';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import WarningPopup from '../../components/WarningPopup';
 import { addCategory, fetchCategory } from '../../app/feature/categorySlice';
 import { VscEdit, VscTrash } from "react-icons/vsc";
+import { LuChevronRight } from "react-icons/lu";
 import { FaChevronLeft, FaChevronRight, FaSpinner } from "react-icons/fa";
 import { TiPen } from "react-icons/ti";
 
-
-
 const Categories = () => {
-    const [popupVisible, setPopupVisible] = useState(false);
+    const dispatch = useDispatch()
     const category = useSelector(state => state.category.data)
     const { isLoading } = useSelector(state => state.category)
+    const [popupVisible, setPopupVisible] = useState(false);
     const [selectedCategoryId, setSelectedCategoryId] = useState(null);
 
-    const dispatch = useDispatch()
     let count = 0;
 
     // handeling handleCategoryCreation
-    const [catData, setCatData] = useState('');
+    const [newCategory, setNewCategory] = useState('');
     const handleCategoryCreation = (e) => {
         e.preventDefault();
-        dispatch(addCategory(catData))
+        dispatch(addCategory(newCategory))
     }
 
     const handleDelete = (id) => {
@@ -80,6 +78,9 @@ const Categories = () => {
                                     </thead>
                                     <tbody>
                                         {
+                                            isLoading && <div className='flex justify-center items-center'><FaSpinner className='text-emerald-600 animate-spin' size={30} /></div>
+                                        }
+                                        {
                                             category && category.map((category, index) =>
                                                 <tr key={index} className=" text-sm text-slate-600 odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                                     <td className="px-2 py-2"> {++count} </td>
@@ -123,7 +124,7 @@ const Categories = () => {
                                     <div className='p-4'>
                                         <input type="text"
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Health"
-                                            onChange={(e) => setCatData(e.target.value)}
+                                            onChange={(e) => setNewCategory(e.target.value)}
 
                                         />
                                     </div>
