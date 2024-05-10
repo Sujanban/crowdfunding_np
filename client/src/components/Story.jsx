@@ -4,19 +4,8 @@ import { getStorys } from '../app/feature/storySlice';
 import { GoPeople } from "react-icons/go";
 import { formatDate, formatTime } from '../utils/dateFormater';
 import { FaSpinner } from "react-icons/fa6";
-import toast from 'react-hot-toast';
 
-const Story = ({ id }) => {
-    const dispatch = useDispatch();
-    const story = useSelector((state) => state.story.data);
-    const { errorMessage, isLoading } = useSelector((state) => state.story);
-
-    useEffect(() => {
-        dispatch(getStorys(id));
-    }, [])
-    if (isLoading) {
-        return <FaSpinner className='text-emerald-600 animate-spin' size={25} />
-    }
+const Story = ({ story }) => {
     return (
         <div>
             {

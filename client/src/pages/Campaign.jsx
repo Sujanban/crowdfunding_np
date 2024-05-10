@@ -13,6 +13,7 @@ import Story from '../components/Story'
 import DonationList from '../components/DonationList'
 import { formatDate } from '../utils/dateFormater'
 import { createDonation, fetchDonationByCampaign } from '../app/feature/donationSlice'
+import { getStorys } from '../app/feature/storySlice'
 
 
 const Campaign = () => {
@@ -23,6 +24,7 @@ const Campaign = () => {
     const donations = useSelector((state) => state.donation.data)
     const { isLoading } = useSelector((state) => state.campaign)
     const userId = useSelector((state) => state.user?.data._id);
+    const story = useSelector((state) => state.story.data);
 
     // calculating donation raised by campaign
     const donationRaised = donations.reduce((acc, curr) => acc + curr.amount, 0);
@@ -35,12 +37,13 @@ const Campaign = () => {
     const [amount, setAmount] = useState();
     const handleDonation = async (e) => {
         e.preventDefault();
-        dispatch(createDonation({id, userId, amount}));
+        dispatch(createDonation({ id, userId, amount }));
     }
 
     useEffect(() => {
         dispatch(fetchSingleCampaign(id));
         dispatch(fetchDonationByCampaign(id));
+        dispatch(getStorys(id));
         window.scrollTo(0, 0);
     }, [])
 
@@ -72,11 +75,15 @@ const Campaign = () => {
                             <button onClick={() => setOpenTab(2)} className={`relative p-2 transition-all duration-300 hover:border-b-2 hover:border-emerald-600 ${openTab === 2 ? 'border-b-2 border-emerald-600' : ''}`}>Donations
 
                                 {
-                                    donations.length > 0 && <p className='absolute font-thin top-0 right-0 h-3.5 w-3.5 flex items-center justify-center text-[8px] bg-emerald-600 rounded-full text-white'>{donations.length}</p>
+                                    donations.length > 0 && <p className='absolute font-thin top-0 right-0 h-3.5 w-3.5 flex items-center justify-center text-[8px] bg-red-500 rounded-full text-white'>{donations.length}</p>
                                 }
 
                             </button>
-                            <button onClick={() => setOpenTab(3)} className={`p-2 transition-all duration-300 hover:border-b-2 hover:border-emerald-600 ${openTab === 3 ? 'border-b-2 border-emerald-600' : ''}`}>Updates</button>
+                            <button onClick={() => setOpenTab(3)} className={`relative p-2 transition-all duration-300 hover:border-b-2 hover:border-emerald-600 ${openTab === 3 ? 'border-b-2 border-emerald-600' : ''}`}>Updates
+                                {
+                                    story.length > 0 && <p className='absolute font-thin top-0 right-0 h-3.5 w-3.5 flex items-center justify-center text-[8px] bg-red-500 rounded-full text-white'>{story.length}</p>
+                                }
+                            </button>
                         </div>
 
                         {
@@ -99,7 +106,7 @@ const Campaign = () => {
 
                         {
                             openTab === 3 &&
-                            <Story id={id} />
+                            <Story story={story} />
                         }
                     </div>
 
@@ -114,7 +121,7 @@ const Campaign = () => {
                         <div className=' grid grid-cols-2 gap-2'>
                             <div className=' py-1 rounded'>
                                 <h1 className='text-lg '>${campaignPost?.goalAmount}</h1>
-                                <h1 className='text-gray-500 text-sm flex items-center space-x-2'><GoGoal color='green'/><span>Goal</span></h1>
+                                <h1 className='text-gray-500 text-sm flex items-center space-x-2'><GoGoal color='green' /><span>Goal</span></h1>
                             </div>
                             <div className=' py-1 rounded'>
                                 <h1 className='text-lg'>{donations.length} </h1>
@@ -122,7 +129,7 @@ const Campaign = () => {
                             </div>
                             <div className=' py-1 rounded'>
                                 <h1 className='text-lg'>$20</h1>
-                                <h1 className='text-gray-500 text-sm flex items-center space-x-2'><GiFlowerPot className='text-emerald-600'/><span>Min. Contribution</span></h1>
+                                <h1 className='text-gray-500 text-sm flex items-center space-x-2'><GiFlowerPot className='text-emerald-600' /><span>Min. Contribution</span></h1>
                             </div>
                             <div className=' py-1 rounded'>
                                 <h1 className='text-lg'>{formatDate(campaignPost?.createdAt)}</h1>
