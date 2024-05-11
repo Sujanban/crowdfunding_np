@@ -69,6 +69,11 @@ const updateCampaign = async (req, res) => {
       category,
       status,
     } = req.body;
+
+    // console.log(typeof thumbnail)
+    // console.log(thumbnail)
+
+   
     if (
       !campaignOwner ||
       !campaignTitle ||
@@ -85,18 +90,25 @@ const updateCampaign = async (req, res) => {
     }
 
     let thumbnailData = existCampaign.thumbnail;
-    if (thumbnail) {
-      const imageUploadResponse = await cloudinary.uploader.upload(thumbnail, {
-        upload_preset: "collab-crowdfunding",
-      });
-      thumbnailData = {
-        public_id: imageUploadResponse.public_id,
-        url: imageUploadResponse.secure_url,
-      };
-      if (existCampaign.thumbnail.public_id) {
-        await cloudinary.uploader.destroy(existCampaign.thumbnail.public_id);
+
+    if(typeof thumbnail === "string") {
+      console.log("can enter thumbnail")
+      if (thumbnail) {
+        const imageUploadResponse = await cloudinary.uploader.upload(thumbnail, {
+          upload_preset: "collab-crowdfunding",
+        });
+        thumbnailData = {
+          public_id: imageUploadResponse.public_id,
+          url: imageUploadResponse.secure_url,
+        };
+        if (existCampaign.thumbnail.public_id) {
+          await cloudinary.uploader.destroy(existCampaign.thumbnail.public_id);
+        }
       }
     }
+    
+
+
     const updatedCampaign = await Campaign.findByIdAndUpdate(
       id,
       {
