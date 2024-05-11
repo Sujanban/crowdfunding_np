@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { FaHeart } from "react-icons/fa";
-import axios from 'axios'
-import { Link } from 'react-router-dom'
 import CtaBanner from '../components/CtaBanner';
 import Card from '../components/Card';
-
 import { MdTune } from "react-icons/md";
-
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCategory, getCategories } from '../app/feature/categorySlice'
+import { fetchCategory } from '../app/feature/categorySlice'
 import { fetchCampaign } from '../app/feature/campaignSlice'
 
 const Explore = () => {
@@ -19,7 +14,7 @@ const Explore = () => {
     const campaign = useSelector(state => state.campaign.data)
     const [filteredCampaign, setFilteredCampaign] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const [isloading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleFilter = (data) => {
         setIsLoading(true);
@@ -36,7 +31,7 @@ const Explore = () => {
 
     // counting filtered campaign length
     const filteredItemCount = (cat) => {
-        return campaign && campaign.filter(item => item.category === cat).length;
+        return campaign.length > 0 && campaign.filter(item => item.category === cat).length;
     }
 
     useEffect(() => {
@@ -68,9 +63,7 @@ const Explore = () => {
                 </div>
 
                 {/* grid of campaign cards */}
-
                 <div className='py-4  md:grid grid-cols-5 gap-2'>
-                    {/* {isloading ? <Loading /> : null} */}
                     <div className='col-span-1'>
                         <div className='p-2 grid gap-4'>
                             <div className='grid gap-1 md:gap-4 w-full '>
@@ -79,31 +72,26 @@ const Explore = () => {
                                         <button
                                             key={index}
                                             onClick={() => handleFilter(item.category)}
-                                            className={`${selectedCategory === item.category ? 'border-2 border-green-500 text-sm py-2 px-6 flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 justify-between' : 'text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 justify-between'}`}><h1>{item.category}</h1> <span className='flex justify-center items-center h-6 w-6 text-xs rounded-full bg-yellow-600 text-white'>{filteredItemCount(item.category)}</span> </button>
+                                            className={`${selectedCategory === item.category ? 'border-2 border-green-500 text-sm py-2 px-6 flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 justify-between' : 'text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 justify-between'}`}>
+                                            <h1>{item.category}</h1>
+                                            <span className='flex justify-center items-center h-6 w-6 text-xs rounded-full bg-emerald-600 text-white'>{filteredItemCount(item.category)}</span>
+                                        </button>
                                     )
                                 }
                             </div>
                         </div>
                     </div>
                     <div className='p-2 col-span-4 md:grid grid-cols-3 gap-8'>
-                        {
-                            filteredCampaign
-                                ?
-                                filteredCampaign.map((campaign, index) =>
-                                    <Card key={index} campaign={campaign} />
-                                )
-                                : campaign
-                                &&
-                                campaign.map((campaign, index) =>
-                                    <Card key={index} campaign={campaign} />
-                                )
-                        }
-                        {
-                            filteredCampaign 
-                            && 
-                            filteredCampaign.length === 0 
-                            &&
-                             <h1>No campaign found</h1>
+                        {isLoading ? <Loader /> : null}
+                        {filteredCampaign
+                            ? filteredCampaign.map((campaign, index) =>
+                                <Card key={index} campaign={campaign} />
+                            )
+                            : campaign.length > 0 && campaign.map((campaign, index) =>
+                                <Card key={index} campaign={campaign} />
+                            )}
+                        {filteredCampaign && filteredCampaign.length === 0 &&
+                            <h1>No campaign found</h1>
                         }
                     </div>
 

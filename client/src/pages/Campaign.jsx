@@ -134,7 +134,10 @@ const Campaign = () => {
                         </div>
 
                         {
-                            user ? <CreateDonation id={id} /> :
+                            user
+                                ?
+                                <CreateDonation id={id} />
+                                :
                                 <div className='relative'>
                                     <form className=' py-4 blur'>
                                         <label className='font-bold'>Support with a Donation </label>
@@ -143,20 +146,12 @@ const Campaign = () => {
                                         <input type="submit" value='Donate Now' className='rounded-xl bg-emerald-600 cursor-pointer transition-all duration-300 hover:bg-emerald-700 text-white w-full p-3 ' />
                                     </form>
                                     <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center'>
-                                        <p className='flex items-center space-x-2 '><MdOutlineReportGmailerrorred className='text-red-600' /><span>Please Login! </span></p>
+                                        <p className=''><MdOutlineReportGmailerrorred className='text-red-600 mx-auto' size={25} /><span>Please Login! </span></p>
                                     </div>
                                 </div>
                         }
-                        {/* <form onSubmit={handleDonation} className='py-4'>
-                            <label className='font-bold'>Support with a Donation </label>
-                            <input type="number"
-                                value={amount} onChange={(e) => setAmount(e.target.value)} placeholder='50$' className='shadow outline-none my-4 rounded-xl w-full p-3 border focus:border-2 focus:border-stone-500' />
-                            <input type="submit" value='Donate Now' className='rounded-xl bg-emerald-600 cursor-pointer transition-all duration-300 hover:bg-emerald-700 text-white w-full p-3 ' />
-                        </form> */}
                     </div>
-
                 </div>
-
             </div>
             <Footer />
         </div>
