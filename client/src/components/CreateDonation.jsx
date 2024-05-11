@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import { createDonation } from '../app/feature/donationSlice';
+import { useSelector, useDispatch } from 'react-redux'
 
 const CreateDonation = ({id}) => {
+    const dispatch = useDispatch();
     const userId = useSelector((state) => state?.user?.data._id);
     const [amount, setAmount] = useState();
     const handleDonation = async (e) => {
         e.preventDefault();
+        console.log(id, userId, amount);
         dispatch(createDonation({ id, userId, amount }));
     }
     return (

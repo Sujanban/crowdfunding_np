@@ -19,7 +19,6 @@ import MyCampaign from './pages/MyCampaign'
 import ManageCampaign from './pages/ManageCampaign'
 import CampaignStoryUpdates from './pages/CampaignStoryUpdates'
 import EditCampaign from './pages/EditCampaign'
-import { useSelector } from 'react-redux'
 import SearchResult from './pages/SearchResult'
 import ManageCategory from './pages/ManageCategory'
 import Dashboard from './pages/admin/Dashboard'
@@ -36,6 +35,9 @@ import Donation from './pages/admin/Donation'
 import UserDonation from './pages/Donations'
 import ViewCollectedDonations from './pages/ViewCollectedDonations'
 
+import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchUserProfile } from './app/feature/userSlice'
 
 
 
@@ -47,6 +49,7 @@ axios.defaults.baseURL = "http://localhost:5000"
 axios.defaults.withCredentials = true
 
 function App() {
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const user = useSelector(state => state.user.data)
   return (
     <GoogleOAuthProvider clientId="113038173634-mal1sarh7mrqbaq1k833nt7goushh797.apps.googleusercontent.com">
@@ -62,40 +65,52 @@ function App() {
           <Route path='/contact' element={<Contact />} />
           <Route path='/s' element={<Search />} />
           <Route path='/search/:searchTerm' element={<SearchResult />} />
-
-
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path='/*' element={<Error404 />} />
 
-          {/* logged user routes */}
-          {/* admin access */}
-          <Route path='/admin/dashboard' element={user && user.role===1 ? <Dashboard /> : <Navigate to="/login" />} />
-          <Route path='/admin/campaigns' element={user && user.role===1 ? <Campaigns /> : <Navigate to="/login" />} />
-          <Route path='/admin/createcampaign' element={user && user.role===1 ? <AdminCreateCampaign /> : <Navigate to="/login" />} />
-          <Route path='/admin/editcampaign/:id' element={user && user.role===1 ? <AdminEditCampaign /> : <Navigate to="/login" />} />
-          <Route path='/admin/categories' element={user && user.role===1 ? <Categories /> : <Navigate to="/login" />} />
-          <Route path='/admin/editcategory/:id' element={user && user.role===1 ? <AdminEditCategory /> : <Navigate to="/login" />} />
-          <Route path='/admin/users' element={user && user.role===1 ? <Users /> : <Navigate to="/login" />} />
-          <Route path='/admin/donations' element={user && user.role===1 ? <Donations /> : <Navigate to="/login" />} />
-          <Route path='/admin/donations/donation/:id' element={user && user.role===1 ? <Donation /> : <Navigate to="/login" />} />
-
 
 
           {/* general user access */}
-          <Route path='/mycampaigns' element={user ?<MyCampaign /> : <Navigate to="/login"/>} />
-          <Route path='/managecampaign/:id' element={user ? <ManageCampaign />: <Navigate to="/login"/>} />
-          <Route path='/manageCategory' element={user ? <ManageCategory />: <Navigate to="/login"/>} />
+          {isAuthenticated ?
+            <>
+              <Route path='/mycampaigns' element={<MyCampaign />} />
+              <Route path='/managecampaign/:id' element={<ManageCampaign />} />
+              <Route path='/manageCategory' element={<ManageCategory />} />
+              <Route path='/editcampaign/:id' element={<EditCampaign />} />
+              <Route path='/campaignStoryUpdates/:id' element={<CampaignStoryUpdates />} />
+              <Route path='/createCampaign' element={<CreateCampaign />} />
+              <Route path='/profile' element={<Profile />} />
+              <Route path='/donations' element={<UserDonation />} />
+              <Route path='/viewDonations/:id' element={<ViewCollectedDonations />} />
+              <Route path='/success' element={<Success />} />
+              <Route path='/failed' element={<Failed />} />
+            </>
+            :
+            <>
+              <Route path='/login' element={<Login />} />
+            </>
+          }
 
-          <Route path='/editcampaign/:id' element={user ? <EditCampaign /> : <Navigate to="/login"/>} />
-          <Route path='/campaignStoryUpdates/:id' element={user ? <CampaignStoryUpdates /> : <Navigate to="/login"/>} />
-          <Route path='/createCampaign' element={ user ? <CreateCampaign/> : <Navigate to="/login"/>} />
-          <Route path='/profile' element={user ? <Profile /> : <Navigate to="/login" />} />
-          <Route path='/donations' element={user ? <UserDonation /> : <Navigate to="/login" />} />
-          <Route path='/viewDonations/:id' element={user ? <ViewCollectedDonations /> : <Navigate to="/login" />} />
 
-          <Route path='/success' element={<Success />} />
-          <Route path='/failed' element={<Failed />} />
+
+          {user?.role === 1 && isAuthenticated && 
+          <>
+            <Route path='/admin/dashboard' element={<Dashboard />} />
+            <Route path='/admin/campaigns' element={<Campaigns />} />
+            <Route path='/admin/createcampaign' element={<AdminCreateCampaign />} />
+            <Route path='/admin/editcampaign/:id' element={<AdminEditCampaign />} />
+            <Route path='/admin/categories' element={<Categories />} />
+            <Route path='/admin/editcategory/:id' element={<AdminEditCategory />} />
+            <Route path='/admin/users' element={<Users />} />
+            <Route path='/admin/donations' element={<Donations />} />
+            <Route path='/admin/donations/donation/:id' element={<Donation />} />
+            <Route path='/profile' element={<Profile />} />
+
+          </>
+          }
+          <Route render={() => <Navigate to="/" />} />
+
         </Routes>
       </div>
     </GoogleOAuthProvider>

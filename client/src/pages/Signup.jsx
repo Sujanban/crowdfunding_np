@@ -17,7 +17,7 @@ const Signup = () => {
     const handleSignup = (e) => {
         e.preventDefault();
         dispatch(registerUser(formData)).then((res) => {
-            if (res.payload) {
+            if (res.payload.message) {
                 navigate('/login');
             }
         })

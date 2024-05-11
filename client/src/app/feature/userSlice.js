@@ -2,6 +2,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 
+
+
+
+
 // fetching user from local storage
 const loadUserFromLocalStorage = () => {
   const userJson = localStorage.getItem("user");
@@ -11,48 +15,55 @@ const loadUserFromLocalStorage = () => {
 // fetch user profile
 export const fetchUserProfile = createAsyncThunk(
   "fetchUserProfile",
-  async () => {
+  async (_, { rejectWithValue }) => {
     try {
       const res = await axios.get("/api/user/profile/");
       return res.data;
     } catch (error) {
-      console.log("Server Error while fetching API " + error);
+      const errorMessage =
+        error.response?.data?.error || "Server Error while fetching API";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
     }
   }
 );
 
 // login function
-export const loginUser = createAsyncThunk("loginUser", async (formData) => {
-  try {
-    const res = await axios.post("/api/auth/login", formData);
-    if (res.data.error) {
-      toast.error(res.data.error);
-    } else {
-      toast.success("Login Successful");
-      const user = res.data.userData;
-      localStorage.setItem("user", JSON.stringify(user));
-      return user;
+export const loginUser = createAsyncThunk(
+  "loginUser",
+  async (formData, { rejectWithValue }) => {
+    try {
+      const res = await axios.post("/api/auth/login", formData);
+      if (res.data.message) {
+        toast.success(res.data.message);
+        const user = res.data.userData;
+        localStorage.setItem("user", JSON.stringify(user));
+        return user;
+      }
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.error || "Server Error while fetching API";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
     }
-  } catch (error) {
-    console.log("Server Error while fetching API " + error);
   }
-});
+);
 
 // register function
 export const registerUser = createAsyncThunk(
   "registerUser",
-  async (formData) => {
+  async (formData, { rejectWithValue }) => {
     try {
       const res = await axios.post("/api/auth/register", formData);
-      if (res.data.error) {
-        toast.error(res.data.error);
-      }
       if (res.data.message) {
-        toast.success("Register Successful");
+        toast.success(res.data.message);
       }
       return res.data;
     } catch (error) {
-      console.log("Server Error while fetching API " + error);
+      const errorMessage =
+        error.response?.data?.error || "Server Error while fetching API";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -78,6 +89,7 @@ const user = createSlice({
   name: "user",
   initialState: {
     data: loadUserFromLocalStorage(),
+    isAuthenticated: loadUserFromLocalStorage() ? true : false,
     isLoading: false,
     errorMessage: null,
   },
@@ -90,6 +102,7 @@ const user = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.data = action.payload;
+        state.isAuthenticated = true;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -105,7 +118,21 @@ const user = createSlice({
       .addCase(fetchUserProfile.rejected, (state, action) => {
         state.isLoading = false;
         state.errorMessage = action.payload;
-      });
+      })
+      .addCase(logoutUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(logoutUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = null;
+        state.isAuthenticated = false;
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorMessage = action.payload;
+      })
+      
+      ;
   },
 });
 

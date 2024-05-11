@@ -3,9 +3,10 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 
+// create donation
 export const createDonation = createAsyncThunk(
-  'createDonation',
-  async (id, userId, amount) => {
+  "createDonation",
+  async ( {id, userId, amount }, { rejectWithValue }) => {
     try {
       const res = await axios.post(`/api/donation/createDonation/${id}`, {
         userId,
@@ -18,31 +19,46 @@ export const createDonation = createAsyncThunk(
       if (res.data.error) {
         toast.error(res.data.error);
       }
-    } catch (err) {
-      console.log(err);
-    }
-  }
-);
-export const fetchDonationByCampaign = createAsyncThunk(
-  'fetchDonationByCampaign',
-  async (id) => {
-    try {
-      const res = await axios.get(`/api/donation/fetchDonationByCampaign/${id}`);
       return res.data;
     } catch (err) {
-      console.log(err);
+      const errorMessage =
+        err.response?.data?.error || "Failed to create donation";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
     }
   }
 );
 
+// get donation by campaign
+export const fetchDonationByCampaign = createAsyncThunk(
+  "fetchDonationByCampaign",
+  async (id, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(
+        `/api/donation/fetchDonationByCampaign/${id}`
+      );
+      return res.data;
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.error || "Failed to fetch donations";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
+// get donation by user
 export const fetchDonationByUser = createAsyncThunk(
-  'fetchDonationByUser',
-  async (id) => {
+  "fetchDonationByUser",
+  async (id, { rejectWithValue }) => {
     try {
       const res = await axios.get(`/api/donation/fetchDonationByUser/${id}`);
       return res.data;
     } catch (err) {
-      console.log(err);
+      const errorMessage =
+        err.response?.data?.error || "Failed to fetch donations";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -57,8 +73,11 @@ export const donation = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+
+      // create donation
       .addCase(createDonation.pending, (state) => {
         state.isLoading = true;
+        state.errorMessage = null;
       })
       .addCase(createDonation.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -68,8 +87,10 @@ export const donation = createSlice({
         state.errorMessage = action.payload;
       })
 
+      // get donation by campaign
       .addCase(fetchDonationByCampaign.pending, (state) => {
         state.isLoading = true;
+        state.errorMessage = null;
       })
       .addCase(fetchDonationByCampaign.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -80,8 +101,10 @@ export const donation = createSlice({
         state.errorMessage = action.payload;
       })
 
+      // get donation by user
       .addCase(fetchDonationByUser.pending, (state) => {
         state.isLoading = true;
+        state.errorMessage = null;
       })
       .addCase(fetchDonationByUser.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -89,9 +112,9 @@ export const donation = createSlice({
       })
       .addCase(fetchDonationByUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.errorMessage = action.payload;  
-      })
+        state.errorMessage = action.payload;
+      });
   },
 });
 
-export default donation.reducer
+export default donation.reducer;

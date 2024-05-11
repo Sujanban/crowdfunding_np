@@ -6,8 +6,8 @@ const Campaign = require("../models/campaign.model");
 // creating a donation
 const createDonation = async (req, res) => {
   try {
-    const { amount, userId,  id } = req.body.campaignId;
-    let campaignId = id;
+    const { amount, userId,  campaignId } = req.body;
+    console.log(amount, userId, campaignId)
     
     if (!amount) return res.json({ error: "Please enter an amount to Donate!" });
     if (amount < 20) return res.json({ error: "Minimum Donation is 20" });

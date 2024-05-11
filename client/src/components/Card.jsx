@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { GiUpgrade } from "react-icons/gi";
 import axios from 'axios';
 import { FaHeart } from 'react-icons/fa6';
 import { BsLightningCharge } from 'react-icons/bs'

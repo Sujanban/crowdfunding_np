@@ -2,10 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-// import image from './images.js';
-
-// import images from '../assets/images/index.js'
-
 
 import create from '../assets/images/create1.png'
 import campaign from '../assets/images/campaign1.png'
@@ -13,10 +9,8 @@ import money from '../assets/images/money1.png'
 import CampaignGrid from '../components/CampaignGrid';
 import Faq from '../components/Faq';
 
-// count up
 import CountUp from 'react-countup';
 
-// import Swiper core and required modules
 import { Navigation, Pagination, Autoplay, Scrollbar, A11y } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
