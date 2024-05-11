@@ -44,6 +44,7 @@ export const fetchCampaignsByUserID = createAsyncThunk(
       console.error("Error fetching campaigns by user ID:", error);
       const errorMessage =
         error.response?.data?.error || "Failed to fetch campaigns by user ID";
+        toast.error(errorMessage);
       return rejectWithValue(errorMessage);
     }
   }
@@ -89,20 +90,24 @@ export const updateCampaign = createAsyncThunk(
   }
 );
 
-export const deleteCampaign = createAsyncThunk("deleteCampaign", async (id) => {
-  try {
-    const res = await axios.delete("/api/campaign/deleteCampaign/" + id);
-    if (res.data.message) {
-      toast.success(res.data.message);
+export const deleteCampaign = createAsyncThunk(
+  "deleteCampaign",
+  async (id, { rejectWithValue }) => {
+    try {
+      const res = await axios.delete(`/api/campaign/deleteCampaign/${id}`);
+
+      if (res.data.message) {
+        toast.success(res.data.message);
+      }
+      return res.data;
+    } catch (error) {
+      console.error("Error deleting campaign:", error);
+      const errorMessage = error.response?.data?.error || "Failed to delete campaign";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
     }
-    if (res.data.error) {
-      toast.error(res.data.error);
-    }
-    return res.data;
-  } catch (error) {
-    console.log(error);
   }
-});
+);
 
 export const campaign = createSlice({
   name: "campaigns",
@@ -172,7 +177,7 @@ export const campaign = createSlice({
       })
       .addCase(updateCampaign.fulfilled, (state, action) => {
         state.isLoading = false;
-        const updatedCampaign = action.payload;
+        const updatedCampaign = action.payload.campaign;
         const index = state.data.findIndex(
           (c) => c._id === updatedCampaign._id
         );
@@ -191,7 +196,7 @@ export const campaign = createSlice({
       })
       .addCase(deleteCampaign.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.data = state.data.filter((c) => c._id !== action.payload._id);
+        state.data = state.data.filter((c) => c._id !== action.payload.campaign._id);
       })
       .addCase(deleteCampaign.rejected, (state, action) => {
         state.isLoading = false;

@@ -1,12 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const cors = require("cors");
-const { updateStory, getStory } = require("../controllers/storyControlller");
+const {
+  addStory,
+  getStories,
+  deleteStory,
+} = require("../controllers/storyControlller");
 
-const {checkAuth} = require("../middlewares/userAuth");
+const { checkAuth } = require("../middlewares/userAuth");
 
-
-const  checkCampaignOwnership  = require("../middlewares/campaignPermission");
+const checkCampaignOwnership = require("../middlewares/campaignPermission");
+const checkStoryOwnership = require("../middlewares/checkStoryOwnership");
 
 router.use(
   cors({
@@ -15,7 +19,13 @@ router.use(
   })
 );
 
-router.get("/getStory/:id", getStory);
-router.post("/addStory/:id", checkAuth, checkCampaignOwnership , updateStory);
+router.get("/getStory/:id", getStories);
+router.post("/addStory/:id", checkAuth, checkCampaignOwnership, addStory);
+router.delete(
+  "/deleteStory/:id",
+  checkAuth,
+  checkStoryOwnership,
+  deleteStory
+);
 
 module.exports = router;

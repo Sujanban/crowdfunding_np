@@ -13,7 +13,7 @@ import Story from '../components/Story'
 import DonationList from '../components/DonationList'
 import { formatDate } from '../utils/dateFormater'
 import { createDonation, fetchDonationByCampaign } from '../app/feature/donationSlice'
-import { getStorys } from '../app/feature/storySlice'
+import { getStories } from '../app/feature/storySlice'
 
 
 const Campaign = () => {
@@ -43,7 +43,7 @@ const Campaign = () => {
     useEffect(() => {
         dispatch(fetchSingleCampaign(id));
         dispatch(fetchDonationByCampaign(id));
-        dispatch(getStorys(id));
+        dispatch(getStories(id));
         window.scrollTo(0, 0);
     }, [])
 

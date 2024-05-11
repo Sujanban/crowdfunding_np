@@ -115,7 +115,7 @@ const updateCampaign = async (req, res) => {
     if (updatedCampaign) {
       return res.status(200).json({
         message: "Campaign updated successfully",
-        updated: updatedCampaign,
+        campaign: updatedCampaign,
       });
     } else {
       return res.status(500).json({ error: "Failed to update campaign" });
@@ -187,8 +187,9 @@ const deleteCampaign = async (req, res) => {
       await cloudinary.uploader.destroy(campaign.thumbnail.public_id);
     }
     const deletedCampaign = await Campaign.findByIdAndDelete(id);
-    if (deletedCampaign) {
-      return res.status(200).json({ message: "Campaign deleted successfully" });
+    const deleteStory = await Story.deleteMany({ campaignId: id });
+    if (deletedCampaign && deleteStory) {
+      return res.status(200).json({ message: "Campaign deleted successfully", campaign: deletedCampaign });
     } else {
       return res.status(500).json({ error: "Failed to delete campaign" });
     }

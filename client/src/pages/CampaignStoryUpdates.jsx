@@ -4,15 +4,20 @@ import Footer from '../components/Footer'
 import { GoPeople } from 'react-icons/go'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchSingleCampaign } from '../app/feature/campaignSlice'
-import { addStory } from '../app/feature/storySlice'
+import { addStory, getStories, deleteStory } from '../app/feature/storySlice'
 import { useNavigate, useParams } from 'react-router-dom'
 import Loader from '../components/Loader'
+import Story from '../components/Story'
+import { formatDate, formatTime } from '../utils/dateFormater'
+import {VscTrash} from 'react-icons/vsc'
 
 const CampaignStoryUpdates = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector(state => state.user.data);
+  const stories = useSelector(state => state.story.data);
+  const campaign = useSelector(state => state.campaign.data);
   const { data, isLoading } = useSelector(state => state.campaign);
 
   // form state
@@ -20,26 +25,18 @@ const CampaignStoryUpdates = () => {
     campaignId: id,
     updateContent: ''
   });
-  
+
   // handling story update
   const handleStoryUpdate = (e) => {
     e.preventDefault();
-    dispatch(addStory(story)).then((res) => {
-      if (res.payload.message) {
-        navigate('/mycampaigns');
-      }
-    })
+    dispatch(addStory(story));
+    dispatch(fetchSingleCampaign(id));
   }
 
   useEffect(() => {
     dispatch(fetchSingleCampaign(id));
+    dispatch(getStories(id))
   }, [])
-
-  if (isLoading) {
-    return <div className='w-full flex justify-center items-center h-screen text-2xl'>
-      <Loader />
-    </div>
-  }
 
   return (
     <div className='bg-gray-100'>
@@ -51,16 +48,44 @@ const CampaignStoryUpdates = () => {
           <h1 className='text-2xl font-semibold border-b-2 border-green-600 text-center'>Update your Progress</h1>
         </div>
 
+        {
+          isLoading && <Loader />
+        }
+
         <div className='relative px-8 py-12 grid grid-cols-3 gap-4'>
-          <div className='bg-green-500 p-4 rounded'>
+          <div className='ring-1 ring-emerald-600 p-4 rounded'>
             <h1 className='py-4 text-xl'>Organizer</h1>
             <div className='flex  space-x-4'>
               <GoPeople size={30} />
               <div>
-                <h1>{user.email}</h1>
-                <p>{user.firstName} {user.lastName}</p>
+                <h1>{campaign?.campaignOwner?.email}</h1>
+                <p>{campaign?.campaignOwner?.firstName} {campaign?.campaignOwner?.lastName}</p>
               </div>
             </div>
+
+
+            {/* displaying all the available story for this campaign */}
+            <div>
+              <h1 className='py-2 font-bold'>Updates:</h1>
+              <div className='px-4 '>
+                {
+                  stories.map((item, index) =>
+                    <div key={index} className='flex p-2'>
+                      <GoPeople className='text-emerald-600' size={25} />
+                      <div className='px-2'>
+                        <p className='ml-2 text-red-600'>{item.userId?.firstName} {item.userId?.lastName} </p>
+                        <p className='ml-2'>{item.updateContent}</p>
+                        <p className='ml-2 text-sm text-emerald-600'>{formatDate(item.createdAt)} - {formatTime(item.createdAt)}</p>
+                      </div>
+                      <button onClick={() => dispatch(deleteStory(item._id))} className='ml-auto'><VscTrash size={25} className='text-red-600 bg-orange-100 p-1 rounded-full'/></button>
+                    </div>
+                  )
+                }
+              </div>
+            </div>
+
+
+
           </div>
           <div className='p-4 bg-white col-span-2'>
             <form onSubmit={handleStoryUpdate} className='grid gap-8' action="">

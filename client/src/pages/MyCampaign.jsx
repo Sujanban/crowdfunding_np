@@ -38,7 +38,7 @@ const MyCampaign = () => {
           <h1 className='text-xl md:text-2xl font-semibold border-b-2 border-green-600'>Manage your campaigns</h1>
         </div>
         <div className=' py-12 md:py-20 md:grid grid-cols-4 gap-4 '>
-          {isLoading ? <Loading /> :
+          {
             myCampaigns.length > 0 && myCampaigns.map((campaign, index) =>
               <LoggedUserCampaignCard key={index} popupVisible={popupVisible} setPopupVisible={setPopupVisible} campaign={campaign} index={index} />
             )
