@@ -12,8 +12,10 @@ import { fetchSingleCampaign } from '../app/feature/campaignSlice'
 import Story from '../components/Story'
 import DonationList from '../components/DonationList'
 import { formatDate } from '../utils/dateFormater'
-import { createDonation, fetchDonationByCampaign } from '../app/feature/donationSlice'
+import { fetchDonationByCampaign } from '../app/feature/donationSlice'
 import { getStories } from '../app/feature/storySlice'
+import CreateDonation from '../components/CreateDonation'
+import { MdOutlineReportGmailerrorred } from "react-icons/md";
 
 
 const Campaign = () => {
@@ -23,21 +25,15 @@ const Campaign = () => {
     const campaignPost = useSelector((state) => state.campaign.data)
     const donations = useSelector((state) => state.donation.data)
     const { isLoading } = useSelector((state) => state.campaign)
-    const userId = useSelector((state) => state.user?.data._id);
+    const user = useSelector((state) => state?.user?.data);
     const story = useSelector((state) => state.story.data);
+
 
     // calculating donation raised by campaign
     const donationRaised = donations.reduce((acc, curr) => acc + curr.amount, 0);
 
     const calculateGoalPercent = () => {
         return Math.round((donationRaised / campaignPost.goalAmount) * 100);
-    }
-
-    // handeling donation
-    const [amount, setAmount] = useState();
-    const handleDonation = async (e) => {
-        e.preventDefault();
-        dispatch(createDonation({ id, userId, amount }));
     }
 
     useEffect(() => {
@@ -136,12 +132,27 @@ const Campaign = () => {
                                 <h1 className='text-gray-500 text-sm flex items-center'><LuClock3 className='mr-2 text-orange-600' size={15} /> Created at</h1>
                             </div>
                         </div>
-                        <form onSubmit={handleDonation} className='py-4'>
+
+                        {
+                            user ? <CreateDonation id={id} /> :
+                                <div className='relative'>
+                                    <form className=' py-4 blur'>
+                                        <label className='font-bold'>Support with a Donation </label>
+                                        <input type="number"
+                                            placeholder='50$' className='shadow outline-none my-4 rounded-xl w-full p-3 border focus:border-2 focus:border-stone-500' />
+                                        <input type="submit" value='Donate Now' className='rounded-xl bg-emerald-600 cursor-pointer transition-all duration-300 hover:bg-emerald-700 text-white w-full p-3 ' />
+                                    </form>
+                                    <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center'>
+                                        <p className='flex items-center space-x-2 '><MdOutlineReportGmailerrorred className='text-red-600' /><span>Please Login! </span></p>
+                                    </div>
+                                </div>
+                        }
+                        {/* <form onSubmit={handleDonation} className='py-4'>
                             <label className='font-bold'>Support with a Donation </label>
                             <input type="number"
                                 value={amount} onChange={(e) => setAmount(e.target.value)} placeholder='50$' className='shadow outline-none my-4 rounded-xl w-full p-3 border focus:border-2 focus:border-stone-500' />
                             <input type="submit" value='Donate Now' className='rounded-xl bg-emerald-600 cursor-pointer transition-all duration-300 hover:bg-emerald-700 text-white w-full p-3 ' />
-                        </form>
+                        </form> */}
                     </div>
 
                 </div>
