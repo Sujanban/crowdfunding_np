@@ -2,6 +2,8 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import screenshot1 from '../assets/images/screenshot2.png'
+import screenshot2 from '../assets/images/screenshot22.png'
+import screenshot3 from '../assets/images/screenshot3.png'
 
 const Howitworks = () => {
     return (
@@ -21,7 +23,7 @@ const Howitworks = () => {
                     <img className='p-2 h-full' src={screenshot1} alt="" />
                 </div>
                 <div className='md:grid grid-cols-2 gap-4'>
-                    <img className='p-2 h-full' src={screenshot1} alt="" />
+                    <img className='p-2 h-full' src={screenshot2} alt="" />
                     <div className='p-2 md:p-4 m-auto'>
                         <h1 className='w-12 h-12 md:w-16 md:h-16 flex items-center justify-center bg-yellow-500 rounded-full md:text-2xl'>02</h1>
                         <h1 className='py-2 md:py-6 text-xl md:text-3xl'>Create Campaign</h1>
@@ -35,7 +37,7 @@ const Howitworks = () => {
                         <h1 className='py-2 md:py-6 text-xl md:text-3xl'>Withdraw Money</h1>
                         <p className='md:text-lg text-slate-600'>Add your bank details and Withdraw money from your account.</p>
                     </div>
-                    <img className='p-2 h-full' src={screenshot1} alt="" />
+                    <img className='p-2 h-full' src={screenshot3} alt="" />
                 </div>
             </div>
             <Footer />

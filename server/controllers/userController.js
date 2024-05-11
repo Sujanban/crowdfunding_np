@@ -1,5 +1,7 @@
 const User = require("../models/user.model");
 const Campaign = require("../models/campaign.model");
+const Story = require("../models/story.model");
+const Donation = require("../models/donation.model");
 
 const fetchUsers = async (req, res) => {
   try {
@@ -15,7 +17,6 @@ const fetchUsers = async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 };
-
 
 const deleteUser = async (req, res) => {
   try {
@@ -33,6 +34,8 @@ const deleteUser = async (req, res) => {
     // Delete user and their campaigns
     await User.findByIdAndDelete(userId);
     await Campaign.deleteMany({ campaignOwner: userId });
+    await Story.deleteMany({ userId: userId });
+    await Donation.deleteMany({ userId: userId });
 
     return res.status(200).json({ message: "User deleted successfully" });
   } catch (err) {
@@ -41,5 +44,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-
-module.exports = { fetchUsers,deleteUser };
+module.exports = { fetchUsers, deleteUser };

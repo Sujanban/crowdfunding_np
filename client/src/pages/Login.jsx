@@ -38,7 +38,7 @@ const Login = () => {
     const handleLogin =  async (e) => {
         e.preventDefault();
         dispatch(loginUser(user)).then((res) => {
-            if (res.payload.message) {
+            if (res.payload?.email) {
                 console.log(res.payload);
                 navigate('/');
             }

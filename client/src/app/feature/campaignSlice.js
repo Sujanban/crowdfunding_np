@@ -164,7 +164,7 @@ export const campaign = createSlice({
       })
       .addCase(postCampaign.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.data.push(action.payload);
+        state.data.push(action.payload.campaign);
       })
       .addCase(postCampaign.rejected, (state, action) => {
         state.isLoading = false;

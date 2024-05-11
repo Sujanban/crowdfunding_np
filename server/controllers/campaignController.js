@@ -45,7 +45,7 @@ const createCampaign = async (req, res) => {
     });
 
     await newCampaign.save();
-    res.status(201).json({ message: "Campaign created successfully" });
+    res.status(201).json({ message: "Campaign created successfully", campaign: newCampaign });
   } catch (err) {
     console.error("Error in createCampaign:", err);
     res.status(500).json({ error: "Internal server error" });

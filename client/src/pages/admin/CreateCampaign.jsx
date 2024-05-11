@@ -21,7 +21,6 @@ const CreateCampaign = () => {
     campaignOwner: userId,
     campaignTitle: '',
     campaignDescription: '',
-    country: '',
     location: '',
     thumbnail: '',
     goalAmount: '',
@@ -56,7 +55,6 @@ const CreateCampaign = () => {
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setCampaign({ ...campaign, thumbnail: reader.result });
-      console.log(reader.result);
     };
   };
 
@@ -132,8 +130,9 @@ const CreateCampaign = () => {
               </div>
 
               <div className='p-4'>
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select your country</label>
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Category *</label>
                 <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={campaign.category} onChange={(e) => setCampaign({ ...campaign, category: e.target.value })}>
+                <option value="">Select a category</option>
                   {category && category.map((item, index) => (
                     <option key={index} value={item.category} >{item.category}</option>
                   ))}
