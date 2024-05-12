@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserProfile } from '../app/feature/userSlice';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { VscEdit, VscTrash } from 'react-icons/vsc';
 
 
 const Profile = () => {
     const [stripeAccount, setStripeAccount] = useState('');
-    const [account, setAccount] = useState('');
+    const [account, setAccount] = useState(null);
     const [toggleAccountAdd, setToggleAccountAdd] = useState(false);
     const dispatch = useDispatch();
     const user = useSelector(state => state.user.data)
@@ -22,22 +23,33 @@ const Profile = () => {
         }
     }
 
-    useEffect(() => {
-        dispatch(fetchUserProfile())
-        fetchBankAccount()
-    }, [])
+    const handleBankDelete = async (id) => {
+        const res = await axios.delete(`/api/bank/deleteBank/${id}`);
+        if (res.data.error) {
+            toast.error(res.data.error);
+        } else {
+            toast.success(res.data.message);
+        }
+    }
+
     const handleBankAdd = async (e) => {
         e.preventDefault();
         const res = await axios.post('/api/bank/addBank', { stripeAccount });
         if (res.data.error) {
             toast.error(res.data.error);
-
         } else {
             toast.success(res.data.message);
+            setToggleAccountAdd(false)
         }
-        setToggleAccountAdd(false)
-
     }
+
+    useEffect(() => {
+        console.log(account)
+        dispatch(fetchUserProfile())
+        fetchBankAccount()
+    }, [dispatch])
+
+ 
     return (
         <div>
             <Navbar />
@@ -58,7 +70,10 @@ const Profile = () => {
                     {
                         account ?
                             <div className='p-4 max-w-xl'>
-                                <h1 className='py-4 grid grid-cols-2'><span>Account Details</span> <span>{account.stripeAccountId}</span></h1>
+                                <h1 className='py-4 grid grid-cols-2'><span>Account Details</span> <span className='flex items-center'>{account.stripeAccountId}
+                                    <button onClick={() => handleBankDelete(account._id)} className="mx-1 p-1 text-orange-600 bg-orange-100 rounded-xl hover:bg-orange-200 transition-all duration-300">
+                                        <VscTrash />
+                                    </button> </span></h1>
                             </div>
                             :
                             <div>
@@ -75,14 +90,16 @@ const Profile = () => {
                 <div className='absolute popup top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-4 ring ring-blue-400 max-w-xl rounded-xl'>
                     <div className=''>
                         <h1 className='pb-4 font-bold'>Payout Account</h1>
-                        <img className='w-40' src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/2560px-Stripe_Logo%2C_revised_2016.svg.png" alt="" />
-                        <h1 className=' p-4 pb-0 grid grid-cols-2'>
-                            <span className='my-auto'>Account Name</span>
-                            <form className='flex space-x-2' onSubmit={handleBankAdd}>
-                                <input className='px-4 w-96 py-2 border rounded-xl' type="text" onChange={(e) => setStripeAccount(e.target.value)} placeholder='Enter Stripe AccountID' />
-                                <input className='shadow px-4 py-3 bg-emerald-600 text-white hover:bg-emerald-700 transition-all duration-300 cursor-pointer rounded-xl text-sm' type="submit" value={'Add'} />
-                            </form>
-                        </h1>
+                        <div className='flex items-center space-x-4'>
+                            <img className='h-20' src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/2560px-Stripe_Logo%2C_revised_2016.svg.png" alt="" />
+                            <div className=' p-4 pb-0 grid '>
+                                <h1 className='pb-2'>Stripe account ID</h1>
+                                <form className='grid' onSubmit={handleBankAdd}>
+                                    <input className='px-4 w-72 py-2 border rounded text-sm' type="text" onChange={(e) => setStripeAccount(e.target.value)} placeholder='acc_e6wb38n28byugy' />
+                                    <input className='my-2 shadow px-4 py-3 bg-emerald-600 text-white hover:bg-emerald-700 transition-all duration-300 cursor-pointer rounded-xl text-sm' type="submit" value={'Add'} />
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             }

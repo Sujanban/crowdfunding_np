@@ -11,7 +11,6 @@ import axios from 'axios';
 import { FaChevronLeft, FaChevronRight, FaSpinner } from "react-icons/fa";
 import { IoFunnelOutline } from "react-icons/io5";
 import { TiPen } from "react-icons/ti";
-import { SiVirustotal } from "react-icons/si";
 import Loader from '../../components/Loader';
 
 
