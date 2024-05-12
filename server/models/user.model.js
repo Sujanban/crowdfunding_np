@@ -24,6 +24,10 @@ const UserSchema = new Schema({
       ref: "Donation",
     },
   ],
+  bank:{
+    type: Schema.Types.ObjectId,
+    ref: "Bank",
+  },
   role: {
     type: Number,
     default: 0,

@@ -44,6 +44,7 @@ const Users = () => {
         }
     }
 
+
     useEffect(() => {
         fetchUsers();
         dispatch(fetchCampaign());

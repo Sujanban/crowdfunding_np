@@ -5,6 +5,7 @@ import categoryReduser from '../feature/categorySlice'
 import userSlice from '../feature/userSlice';
 import donationReducer from '../feature/donationSlice'
 import storySlice from '../feature/storySlice';
+import bankSlice from '../feature/bankSlice';
 
 const store = configureStore({
     reducer: {
@@ -12,7 +13,8 @@ const store = configureStore({
         story : storySlice,
         category : categoryReduser,
         user: userSlice,
-        donation: donationReducer
+        donation: donationReducer,
+        bank: bankSlice
     }
 });
 

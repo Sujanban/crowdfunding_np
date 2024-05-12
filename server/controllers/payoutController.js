@@ -17,7 +17,9 @@ const addBankAccount = async (req, res) => {
       stripeAccountId: stripeAccount,
     });
     await bank.save();
-    return res.status(200).json({ message: "Bank account added successfully", bank });
+    return res
+      .status(200)
+      .json({ message: "Bank account added successfully", bank });
   } catch (err) {
     return res.json({ error: err.message });
   }
@@ -27,7 +29,17 @@ const getBankAccount = async (req, res) => {
   const { _id } = req.user;
   try {
     const bank = await Bank.findOne({ userId: _id });
-    return res.status(200).json( bank );
+    return res.status(200).json(bank);
+  } catch (err) {
+    console.log(err);
+    return res.json({ error: err.message });
+  }
+};
+
+const getBankAccounts = async (req, res) => {
+  try {
+    const bank = await Bank.find();
+    return res.status(200).json(bank);
   } catch (err) {
     console.log(err);
     return res.json({ error: err.message });
@@ -35,16 +47,18 @@ const getBankAccount = async (req, res) => {
 };
 
 const deleteBankAccount = async (req, res) => {
-  try{
+  try {
     const id = req.params.id;
     const bank = await Bank.findByIdAndDelete(id);
     if (!bank) {
       return res.status(404).json({ error: "Bank account not found" });
     }
-    return res.status(200).json({ message: "Bank account deleted successfully", bank });
-  }catch(error){
+    return res
+      .status(200)
+      .json({ message: "Bank account deleted successfully", bank });
+  } catch (error) {
     return res.status(500).json({ error: error.message });
   }
-}
+};
 
-module.exports = { addBankAccount,getBankAccount,deleteBankAccount };
+module.exports = { addBankAccount, getBankAccount, deleteBankAccount,getBankAccounts };
