@@ -5,7 +5,7 @@ const addBankAccount = async (req, res) => {
   const { _id } = req.user;
   const { stripeAccount } = req.body;
   if (!stripeAccount) {
-    return res.json({ error: "Please enter stripe account details" });
+    return res.status(400).json({ error: "Please enter stripe account details" });
   }
   try {
     const user = await User.findById(_id);
@@ -17,10 +17,24 @@ const addBankAccount = async (req, res) => {
       stripeAccountId: stripeAccount,
     });
     await bank.save();
-    return res.status(200).json({ message: "Bank account added successfully" });
+    return res.status(200).json({ message: "Bank account added successfully", bank });
   } catch (err) {
     return res.json({ error: err.message });
   }
 };
 
-module.exports = { addBankAccount };
+const getBankAccount = async (req, res) => {
+  const { _id } = req.user;
+  try {
+    const bank = await Bank.findOne({ userId: _id });
+    if (!bank) {
+      return res.status(404).json({ error: "Bank account not found" });
+    }
+    return res.status(200).json( bank );
+  } catch (err) {
+    console.log(err);
+    return res.json({ error: err.message });
+  }
+};
+
+module.exports = { addBankAccount,getBankAccount };

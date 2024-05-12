@@ -3,7 +3,7 @@ const router = express.Router();
 const cors = require("cors");
 
 const {checkAuth} = require("../middlewares/userAuth");
-const { addBankAccount } = require("../controllers/payoutController");
+const { addBankAccount, getBankAccount } = require("../controllers/payoutController");
 
 router.use(
   cors({
@@ -13,5 +13,6 @@ router.use(
 );
 
 router.post("/addBank", checkAuth, addBankAccount);
+router.get("/getBank", checkAuth, getBankAccount);
 
 module.exports = router;

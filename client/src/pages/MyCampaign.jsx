@@ -6,6 +6,7 @@ import { fetchCampaignsByUserID } from '../app/feature/campaignSlice';
 import LoggedUserCampaignCard from '../components/LoggedUserCampaignCard'
 import { useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader';
+import AddBankBanner from '../components/AddBankBanner';
 
 const MyCampaign = () => {
   const navigate = useNavigate();
@@ -44,22 +45,7 @@ const MyCampaign = () => {
             )
           }
         </div>
-      </div>
-      <div className='bg-slate-100'>
-        <div className='px-4 md:px-8 py-12 md:py-20 flex  flex-wrap items-center justify-between max-w-5xl mx-auto'>
-          <div className='relative md:hidden mx-auto'>
-            <img className='h-32 ' src='https://img.icons8.com/bubbles/300/000000/bank-building.png' alt="" />
-          </div>
-          <div className='md:p-6 text-center md:text-left'>
-            <h1 className='md:m-2 text-xl md:text-2xl font-semibold border-b-2 border-green-600'>Setup your Banking Details</h1>
-            <p className='md:px-2'>Fillup your banking credentials in order to withdraw your money to the bank.</p>
-            <p className='md:px-2'>No Charge Applied</p>
-            <button className='my-3 py-2 px-6 bg-yellow-500 text-black text-xs md:text-md rounded-full'>Let's Start</button>
-          </div>
-          <div className='relative hidden md:flex'>
-            <img className='-40' src='https://img.icons8.com/bubbles/300/000000/bank-building.png' alt="" />
-          </div>
-        </div>
+      <AddBankBanner/>
       </div>
       <Footer />
     </>

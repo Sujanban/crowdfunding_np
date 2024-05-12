@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios'
 import {formatDate} from '../utils/dateFormater'
 import { fetchDonationByUser } from '../app/feature/donationSlice';
+import AddBankBanner from '../components/AddBankBanner';
 
 
 const Donations = () => {
@@ -22,7 +23,7 @@ const Donations = () => {
     <div>
       <Navbar />
       <div className='px-8 py-20 mx-auto max-w-7xl w-full'>
-        <div>
+        <div className='py-12'>
           <h1 className='font-bold'>My Donation History</h1>
           <div className="p-2 relative overflow-x-auto sm:rounded-lg">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
@@ -52,11 +53,11 @@ const Donations = () => {
                     )
                   })
                 }
-
               </tbody>
             </table>
           </div>
         </div>
+        <AddBankBanner/>
       </div>
       <Footer />
     </div>
