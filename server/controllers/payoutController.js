@@ -131,6 +131,23 @@ const getPayoutRequests = async (req, res) => {
   }
 };
 
+const hanldePayoutStatus = async (req, res) => {
+  // const { _id } = req.user;
+  const { payoutId } = req.params;
+  const { status } = req.body;
+  try {
+    const request = await PayoutRequest.findById(payoutId);
+    if (!request) {
+      return res.status(404).json({ error: "No payout request found" });
+    }
+    request.status = status;
+    await request.save();
+    return res.status(200).json({ message: "Payout request status updated" });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   addBankAccount,
   getBankAccount,
@@ -138,5 +155,6 @@ module.exports = {
   getBankAccounts,
   handlePayoutRequest,
   getPayoutRequests,
-  getPayoutRequestByUser
+  getPayoutRequestByUser,
+  hanldePayoutStatus
 };

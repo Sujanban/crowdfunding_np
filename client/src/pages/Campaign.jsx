@@ -33,7 +33,11 @@ const Campaign = () => {
     const donationRaised = donations.reduce((acc, curr) => acc + curr.amount, 0);
 
     const calculateGoalPercent = () => {
-        return Math.round((donationRaised / campaignPost.goalAmount) * 100);
+        const goal =  Math.round((donationRaised / campaignPost.goalAmount) * 100);
+        if(goal > 100){
+            return 100
+        }
+        return goal
     }
 
     useEffect(() => {

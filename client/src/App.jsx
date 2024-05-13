@@ -39,6 +39,7 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchUserProfile } from './app/feature/userSlice'
 import Banks from './pages/admin/Banks'
+import Payouts from './pages/admin/Payouts'
 
 
 
@@ -109,6 +110,7 @@ function App() {
             <Route path='/admin/donations' element={<Donations />} />
             <Route path='/admin/donations/donation/:id' element={<Donation />} />
             <Route path='/admin/banks' element={<Banks />} />
+            <Route path='/admin/payouts' element={<Payouts />} />
 
             <Route path='/profile' element={<Profile />} />
             <Route path='/*' element={<Login />} />

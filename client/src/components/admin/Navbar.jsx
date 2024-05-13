@@ -38,7 +38,12 @@ const Navbar = () => {
             name: 'Banks',
             path: '/admin/banks',
             icon: <CiBank size={20} />
-        }
+        },
+        {
+            name: 'Payouts',
+            path: '/admin/payouts',
+            icon: <TbBrandCampaignmonitor size={20} />
+        },
     ]
     return (
         <div className='block h-screen top-0'>

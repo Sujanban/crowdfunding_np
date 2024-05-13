@@ -33,7 +33,6 @@ const Profile = () => {
             console.log(error)
         }
     }
-    console.log(payoutRequests)
 
 
     const handleBankDelete = async (id) => {

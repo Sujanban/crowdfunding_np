@@ -45,8 +45,6 @@ const Banks = () => {
             console.log(error)
         }
     }
-    
-    console.log(payoutRequests)
 
     useEffect(() => {
         dispatch(getBanks())
@@ -60,38 +58,7 @@ const Banks = () => {
                 <div className='p-4 h-[90vh] overflow-y-auto bg-gray-100'>
                     <div className='p-4  '>
                         <div className='col-span-2'>
-                            {/* payout requests */}
-                            <div className="p-4 bg-white rounded-xl">
-                                <h1 className="py-2 font-bold">Payout Requests</h1>
-                                <div className="grid grid-cols-3 gap-4">
-                                    {
-                                        payoutRequests.length > 0 && payoutRequests.map((item) =>
-                                            <div key={item._id} className="p-4 border border-gray-200 rounded-lg">
-                                                <div className=" font-semibold flex items-center space-x-2">
-                                                    <IoPersonOutline size={25} className="text-orange-600" />
-                                                    <h1>{item.userId.email}</h1>
-                                                </div>
-                                                <div className="grid grid-cols-2 gap-2">
-                                                    {/* <div className="p-4">
-                                                        <h1 className="text-sm">Available</h1>
-                                                        <p className="flex items-center space-x-2"><IoIosWallet size={20} className="text-emerald-600" /> <span>{item.availableBalance || '52,750'}</span></p>
-                                                    </div> */}
-                                                    <div className="p-4">
-                                                        <h1 className="text-sm">Requested</h1>
-                                                        <p className="flex items-center space-x-2"><HiOutlineCash size={20} className="text-red-600" /> <span>{item.amount || '52,750'}</span></p>
-                                                    </div>
-                                                </div>
-
-                                                <div className="px-4 flex items-center justify-between">
-                                                    <button className="p-2 rounded-xl bg-orange-100 flex items-center transition-all duration-300 hover:bg-orange-300"><LuBadgeMinus size={15} className="mr-2 text-orange-600" />Reject</button>
-                                                    <button className="p-2 rounded-xl bg-emerald-100 flex items-center transition-all duration-300 hover:bg-emerald-300"><LuBadgeCheck size={15} className="mr-2 text-emerald-600" />Approve</button>
-                                                </div>
-
-                                            </div>
-                                        )
-                                    }
-                                </div>
-                            </div>
+                            
                             {/* Donation Tables */}
                             <div className='mt-4'>
                                 <div className='p-4 bg-white rounded-xl'>
