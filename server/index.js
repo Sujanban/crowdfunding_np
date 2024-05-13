@@ -14,7 +14,9 @@ const uri = process.env.ATLAS_URI;
 
 const app = express();
 app.use(cookie_parser());
-app.use(express.urlencoded({limit: '50mb',  extended: true, parameterLimit: 50000 }));
+app.use(
+  express.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 })
+);
 app.use("/static", express.static("uploads"));
 
 mongoose
@@ -69,6 +71,11 @@ app.post(
             { new: true }
           );
           await updateCampaign.save();
+
+          // Increase the account balance of the campaign owner
+          const campaignOwner = await User.findById(campaign.campaignOwner);
+          campaignOwner.accountBalance += amount; // Assuming account balance is in the user document
+          await campaignOwner.save();
         } catch (error) {
           console.error("Error handling  payment:", error);
         }
@@ -79,7 +86,7 @@ app.post(
     response.send();
   }
 );
-app.use(express.json({limit: '50mb'}));
+app.use(express.json({ limit: "50mb" }));
 
 app.use("/api/auth/", require("./routes/authRoutes"));
 app.use("/api/category/", require("./routes/categoryRoutes"));

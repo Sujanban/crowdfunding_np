@@ -66,4 +66,26 @@ const deleteBankAccount = async (req, res) => {
   }
 };
 
-module.exports = { addBankAccount, getBankAccount, deleteBankAccount,getBankAccounts };
+// handle payout requests
+const handlePayoutRequest = async (req, res) => {
+  const { _id } = req.user;
+  const { amount } = req.body;
+  try {
+    const user = await User.findById(_id);
+    if (!user) {
+      return res.json({ error: "User not found" });
+    }
+    // TODO: check if user has enough balance
+    if (user.accountBalance < amount) {
+      return res.json({ error: "Insufficient balance" });
+    }
+    // TODO: update user balance
+    user.accountBalance -= amount;
+    await user.save();
+    return res.json({ message: "Payout request sent successfully" });
+  } catch (err) {
+    return res.json({ error: err.message });
+  }
+};
+
+module.exports = { addBankAccount, getBankAccount, deleteBankAccount,getBankAccounts,handlePayoutRequest };

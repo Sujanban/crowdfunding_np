@@ -18,6 +18,10 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  accountBalance: {
+    type: Number,
+    default: 0,
+  },
   donations: [
     {
       type: Schema.Types.ObjectId,

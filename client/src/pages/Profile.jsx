@@ -55,14 +55,21 @@ const Profile = () => {
                     {
                         bank ?
                             <div className='p-4 max-w-xl'>
-                                <h1 className='py-4 grid grid-cols-2'>
+                                <div className='py-4 grid grid-cols-2'>
                                     <span>Account Details</span>
                                     <span className='flex items-center'>{bank.stripeAccountId}
                                         <button onClick={() => handleBankDelete(bank._id)} className="mx-1 p-1 text-orange-600 bg-orange-100 rounded-xl hover:bg-orange-200 transition-all duration-300">
                                             <VscTrash />
                                         </button>
                                     </span>
-                                </h1>
+                                </div>
+                                <div className='py-4 grid grid-cols-2'>
+                                    <span>Account Balance</span>
+                                    <div className='flex items-center space-x-2'>
+                                        <h1>${user.accountBalance}</h1>
+                                        <button className='text-sm px-3 py-2 rounded shadow bg-emerald-100'>Request Payout</button>
+                                    </div>
+                                </div>
                             </div>
                             :
                             <div>
