@@ -29,6 +29,22 @@ const Profile = () => {
         })
     }
 
+    // request payout
+    const handlePayoutRequest = async (amount) => {
+        try {
+            const res = await axios.post('/api/bank/requestPayout', {amount});
+            console.log(res.data)
+            if (res.data.message) {
+                toast.success(res.data.message);
+            }
+            if (res.data.error) {
+                toast.error(res.data.error);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     useEffect(() => {
         dispatch(fetchUserProfile())
         dispatch(getBank())
@@ -67,7 +83,7 @@ const Profile = () => {
                                     <span>Account Balance</span>
                                     <div className='flex items-center space-x-2'>
                                         <h1>${user.accountBalance}</h1>
-                                        <button className='text-sm px-3 py-2 rounded shadow bg-emerald-100'>Request Payout</button>
+                                        <button onClick={() => handlePayoutRequest(user.accountBalance)} className='text-sm px-3 py-2 rounded shadow bg-emerald-100'>Request Payout</button>
                                     </div>
                                 </div>
                             </div>

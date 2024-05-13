@@ -70,6 +70,7 @@ const deleteBankAccount = async (req, res) => {
 const handlePayoutRequest = async (req, res) => {
   const { _id } = req.user;
   const { amount } = req.body;
+  console.log(req.body);
   try {
     const user = await User.findById(_id);
     if (!user) {
