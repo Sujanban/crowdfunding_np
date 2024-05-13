@@ -1,5 +1,6 @@
 const User = require("../models/user.model");
 const BankAccount = require("../models/bank.model");
+const PayoutRequest = require("../models/payoutRequest.model");
 
 const addBankAccount = async (req, res) => {
   const { _id } = req.user;
@@ -39,9 +40,11 @@ const getBankAccount = async (req, res) => {
 const getBankAccounts = async (req, res) => {
   try {
     console.log("hello");
-    const bank = await BankAccount.find({})
-    .populate('userId', 'email');
-    if(!bank){
+    const bank = await BankAccount.find({}).populate(
+      "userId",
+      "email accountBalance"
+    );
+    if (!bank) {
       return res.status(404).json({ error: "Bank account not found" });
     }
     return res.status(200).json(bank);
@@ -66,12 +69,17 @@ const deleteBankAccount = async (req, res) => {
   }
 };
 
+// Payout request sextion
+
 // handle payout requests
 const handlePayoutRequest = async (req, res) => {
   const { _id } = req.user;
   const { amount } = req.body;
   console.log(req.body);
   try {
+    if (amount <= 100) {
+      return res.json({ error: "Your balance is less than 100" });
+    }
     const user = await User.findById(_id);
     if (!user) {
       return res.json({ error: "User not found" });
@@ -83,10 +91,52 @@ const handlePayoutRequest = async (req, res) => {
     // TODO: update user balance
     user.accountBalance -= amount;
     await user.save();
+
+    // sending payout request
+    const payoutRequest = new PayoutRequest({
+      userId: _id,
+      amount: amount,
+      status: "pending",
+    });
+    await payoutRequest.save();
     return res.json({ message: "Payout request sent successfully" });
   } catch (err) {
     return res.json({ error: err.message });
   }
 };
 
-module.exports = { addBankAccount, getBankAccount, deleteBankAccount,getBankAccounts,handlePayoutRequest };
+// get payout request
+const getPayoutRequestByUser = async (req, res) => {
+  const { _id } = req.user;
+  try {
+    const request = await PayoutRequest.find({ userId: _id });
+    if (!request) {
+      return res.status(404).json({ error: "No payout request found" });
+    }
+    return res.status(200).json(request);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+const getPayoutRequests = async (req, res) => {
+  try {
+    const requests = await PayoutRequest.find({}).populate("userId", "email");
+    if (!requests) {
+      return res.status(404).json({ error: "No payout requests found" });
+    }
+    return res.status(200).json(requests);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = {
+  addBankAccount,
+  getBankAccount,
+  deleteBankAccount,
+  getBankAccounts,
+  handlePayoutRequest,
+  getPayoutRequests,
+  getPayoutRequestByUser
+};

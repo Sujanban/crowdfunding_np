@@ -21,6 +21,7 @@ const Navbar = () => {
 
     const handleLogout = () => {
         dispatch(logoutUser()).then((res) => {
+            console.log(res)
             if (res.payload) {
                 console.log(res.payload);
                 window.location.reload();

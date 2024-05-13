@@ -7,14 +7,34 @@ import toast from 'react-hot-toast';
 import { VscEdit, VscTrash } from 'react-icons/vsc';
 import BankAddForm from '../components/BankAddForm';
 import { addBank, deleteBank, getBank } from '../app/feature/bankSlice';
+import { formatDate } from '../utils/dateFormater'
 
 
 const Profile = () => {
+    let count = 0;
+    const dispatch = useDispatch();
     const bank = useSelector(state => state.bank.data)
     const [stripeAccount, setStripeAccount] = useState(null);
     const [toggleAccountAdd, setToggleAccountAdd] = useState(false);
-    const dispatch = useDispatch();
     const user = useSelector(state => state.user.data)
+
+
+    const [payoutRequests, setPayoutRequests] = useState(null)
+
+    const getPayoutRequestByUser = async () => {
+        try {
+            const res = await axios.get('/api/bank/getPayoutRequestByUser')
+            if (res.data.error) {
+                toast.error(res.data.errror)
+            } else {
+                setPayoutRequests(res.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    console.log(payoutRequests)
+
 
     const handleBankDelete = async (id) => {
         dispatch(deleteBank(id))
@@ -32,7 +52,7 @@ const Profile = () => {
     // request payout
     const handlePayoutRequest = async (amount) => {
         try {
-            const res = await axios.post('/api/bank/requestPayout', {amount});
+            const res = await axios.post('/api/bank/requestPayout', { amount });
             console.log(res.data)
             if (res.data.message) {
                 toast.success(res.data.message);
@@ -48,6 +68,7 @@ const Profile = () => {
     useEffect(() => {
         dispatch(fetchUserProfile())
         dispatch(getBank())
+        getPayoutRequestByUser();
     }, [dispatch])
     return (
         <div className='relative'>
@@ -95,6 +116,42 @@ const Profile = () => {
                                 </h1>
                             </div>
                     }
+                </div>
+
+                {/* payout history */}
+                <div className=' '>
+                    <h1 className='py-4 text-cencter text-xl font-bold border-b'>Payout History</h1>
+                    <div className='p-4  rounded-xl'>
+                        <div className="p-2 relative overflow-x-auto sm:rounded-lg">
+                            <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
+                                <thead className="text-slate-900 capitalize bg-gray-50">
+                                    <tr>
+                                        <th scope="col" className=" py-4">SN</th>
+                                        <th scope="col" className=" py-4">Date</th>
+                                        <th scope="col" className="px-6 py-4">Amount</th>
+                                        <th scope="col" className="px-6 py-4">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        payoutRequests && payoutRequests.map((request, index) => (
+                                            <tr key={index} className="text-slate-600 capitalize border-b">
+                                                <td scope="col" className=" py-4">{++count}</td>
+                                                <td scope="col" className=" py-4">{formatDate(request.createdAt)}</td>
+                                                <td scope="col" className="px-6 py-4">₹ {request.amount}</td>
+                                                <td scope="col" className="px-6 py-4 font-bold ">
+                                                    <span className='flex items-center space-x-2 text-xs'>
+                                                        <div className={`w-2 h-2 rounded-full animate-pulse ${request.status === 'pending' ? 'bg-red-500' : 'bg-emerald-500'}`}></div>
+                                                        <span>{request.status}</span>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
             {
