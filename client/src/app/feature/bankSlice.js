@@ -22,7 +22,22 @@ export const addBank = createAsyncThunk(
   }
 );
 
-// get donation by campaign
+
+export const getBanks = createAsyncThunk(
+  "getBanks",
+  async (id, { rejectWithValue }) => {
+    try {
+      const res = await axios.get("/api/bank/getBanks");
+      return res.data;
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.error || err?.res?.data ||"Failed to fetch bank details";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
 export const getBank = createAsyncThunk(
   "getBank",
   async (id, { rejectWithValue }) => {
@@ -78,6 +93,18 @@ export const bank = createSlice({
         state.data = action.payload.bank;
       })
       .addCase(addBank.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorMessage = action.payload;
+      })
+      .addCase(getBanks.pending, (state) => {
+        state.isLoading = true;
+        state.errorMessage = null;
+      })
+      .addCase(getBanks.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = action.payload;
+      })
+      .addCase(getBanks.rejected, (state, action) => {
         state.isLoading = false;
         state.errorMessage = action.payload;
       })

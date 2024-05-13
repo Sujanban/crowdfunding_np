@@ -38,6 +38,7 @@ import ViewCollectedDonations from './pages/ViewCollectedDonations'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchUserProfile } from './app/feature/userSlice'
+import Banks from './pages/admin/Banks'
 
 
 
@@ -85,6 +86,8 @@ function App() {
               <Route path='/viewDonations/:id' element={<ViewCollectedDonations />} />
               <Route path='/success' element={<Success />} />
               <Route path='/failed' element={<Failed />} />
+              <Route path='/*' element={<Login />} />
+
             </>
             :
             <>
@@ -105,7 +108,11 @@ function App() {
             <Route path='/admin/users' element={<Users />} />
             <Route path='/admin/donations' element={<Donations />} />
             <Route path='/admin/donations/donation/:id' element={<Donation />} />
+            <Route path='/admin/banks' element={<Banks />} />
+
             <Route path='/profile' element={<Profile />} />
+            <Route path='/*' element={<Login />} />
+
 
           </>
           }

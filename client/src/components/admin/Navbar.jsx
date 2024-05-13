@@ -5,6 +5,7 @@ import { TbBrandCampaignmonitor } from "react-icons/tb";
 import { MdOutlineCategory } from "react-icons/md";
 import { LiaMoneyBillWaveAltSolid } from "react-icons/lia";
 import { GiGolfFlag } from "react-icons/gi";
+import { CiBank } from "react-icons/ci";
 
 const Navbar = () => {
     const nav = [
@@ -32,6 +33,11 @@ const Navbar = () => {
             name: 'Donations',
             path: '/admin/donations',
             icon: <LiaMoneyBillWaveAltSolid size={20} />
+        },
+        {
+            name: 'Banks',
+            path: '/admin/banks',
+            icon: <CiBank size={20} />
         }
     ]
     return (

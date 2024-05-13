@@ -27,6 +27,10 @@ const CampaignSchema = new schema({
     type: Number,
     required: true,
   },
+  raisedAmount: {
+    type: Number,
+    default: 0,
+  },
   category: {
     type: String,
     required: true,

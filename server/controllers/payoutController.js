@@ -1,5 +1,5 @@
 const User = require("../models/user.model");
-const Bank = require("../models/bank.model");
+const BankAccount = require("../models/bank.model");
 
 const addBankAccount = async (req, res) => {
   const { _id } = req.user;
@@ -12,7 +12,7 @@ const addBankAccount = async (req, res) => {
     if (!user) {
       return res.json({ error: "User not found" });
     }
-    const bank = new Bank({
+    const bank = new BankAccount({
       userId: _id,
       stripeAccountId: stripeAccount,
     });
@@ -28,7 +28,7 @@ const addBankAccount = async (req, res) => {
 const getBankAccount = async (req, res) => {
   const { _id } = req.user;
   try {
-    const bank = await Bank.findOne({ userId: _id });
+    const bank = await BankAccount.findOne({ userId: _id });
     return res.status(200).json(bank);
   } catch (err) {
     console.log(err);
@@ -38,7 +38,12 @@ const getBankAccount = async (req, res) => {
 
 const getBankAccounts = async (req, res) => {
   try {
-    const bank = await Bank.find();
+    console.log("hello");
+    const bank = await BankAccount.find({})
+    .populate('userId', 'email');
+    if(!bank){
+      return res.status(404).json({ error: "Bank account not found" });
+    }
     return res.status(200).json(bank);
   } catch (err) {
     console.log(err);
@@ -49,7 +54,7 @@ const getBankAccounts = async (req, res) => {
 const deleteBankAccount = async (req, res) => {
   try {
     const id = req.params.id;
-    const bank = await Bank.findByIdAndDelete(id);
+    const bank = await BankAccount.findByIdAndDelete(id);
     if (!bank) {
       return res.status(404).json({ error: "Bank account not found" });
     }

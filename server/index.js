@@ -60,8 +60,17 @@ app.post(
             session: sessionId,
           });
           await donation.save();
+
+          const updateCampaign = await Campaign.findByIdAndUpdate(
+            campaignId,
+            {
+              $inc: { raisedAmount: amount },
+            },
+            { new: true }
+          );
+          await updateCampaign.save();
         } catch (error) {
-          console.error("Error handling successful payment:", error);
+          console.error("Error handling  payment:", error);
         }
         break;
       default:

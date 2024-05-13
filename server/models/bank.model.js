@@ -11,6 +11,9 @@ const BankAccount = new Schema({
     type: String,
     unique: true,
   },
+  availableBalance: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model("BankAccount", BankAccount);

@@ -6,14 +6,13 @@ import { BsLightningCharge } from 'react-icons/bs'
 
 const Card = ({ campaign, index }) => {
     const [donations, setDonations] = useState([]);
-    const donationRaised = donations.reduce((acc, curr) => acc + curr.amount, 0);
     const fetchDonationByCampaign = async () => {
         const res = await axios.get(`/api/donation/fetchDonationByCampaign/${campaign._id}`);
         setDonations(res.data)
     }
 
     const calculateGoalPercent = () => {
-        const data = Math.round((donationRaised / campaign.goalAmount) * 100);
+        const data = Math.round((campaign.raisedAmount / campaign.goalAmount) * 100);
         if (data > 100) {
             return 100
         }
@@ -40,7 +39,7 @@ const Card = ({ campaign, index }) => {
 
                 <div className='p-4 grid gap-1'>
                     <h1 className='font-bold'>{campaign.campaignTitle.slice(0, 40)}</h1>
-                    <h1 className='text-sm text-gray-500'><b className='text-black'>₹{donationRaised}</b> raised of ₹{campaign.goalAmount}</h1>
+                    <h1 className='text-sm text-gray-500'><b className='text-black'>₹{campaign.raisedAmount}</b> raised of ₹{campaign.goalAmount}</h1>
                     <div className="w-full bg-gray-200 rounded-full h-1.5">
                         <div className={`bg-emerald-600 h-1.5 rounded-full`} style={{ width: `${calculateGoalPercent()}%` }}></div>
                     </div>

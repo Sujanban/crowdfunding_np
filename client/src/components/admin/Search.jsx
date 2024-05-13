@@ -47,7 +47,7 @@ const Search = () => {
                             isSubMenuVisible ?
                                 <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className=' absolute  bg-white px-6 block  shadow'>
                                     <li className=' grid'>
-                                        <NavLink to='/dashboard/profile' className='p-2 w-full'>Profile</NavLink>
+                                        <NavLink to='/profile' className='p-2 w-full'>Profile</NavLink>
                                     </li>
                                     <li className=' grid'>
                                         <button onClick={handleLogout} className='p-2 w-full'>Sign out</button>
