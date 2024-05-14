@@ -80,7 +80,7 @@ const Payouts = () => {
 
                                                         <button onClick={() => hanldePayoutStatus(request._id, 'approved' )} className='px-3 py-2 rounded-xl bg-emerald-600 text-white transition-all duration-300 hover:bg-emerald-700 '>Approve</button>
 
-                                                        <button onClick={() => hanldePayoutStatus(request._id, 'rejected' )} className='px-3 py-2 rounded-xl bg-orange-500 text-white transition-all duration-300 hover:bg-orange-600 '>Decline</button>
+                                                        {/* <button onClick={() => hanldePayoutStatus(request._id, 'rejected' )} className='px-3 py-2 rounded-xl bg-orange-500 text-white transition-all duration-300 hover:bg-orange-600 '>Decline</button> */}
 
                                                     </div>
                                                 </div>
