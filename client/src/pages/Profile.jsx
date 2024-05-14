@@ -138,10 +138,14 @@ const Profile = () => {
                                                 <td scope="col" className=" py-4">{++count}</td>
                                                 <td scope="col" className=" py-4">{formatDate(request.createdAt)}</td>
                                                 <td scope="col" className="px-6 py-4">₹ {request.amount}</td>
-                                                <td scope="col" className="px-6 py-4 font-bold ">
+                                                <td scope="col" className="px-6 py-4 ">
                                                     <span className='flex items-center space-x-2 text-xs'>
                                                         <div className={`w-2 h-2 rounded-full animate-pulse ${request.status === 'pending' ? 'bg-red-500' : 'bg-emerald-500'}`}></div>
                                                         <span>{request.status}</span>
+                                                        {/* {
+                                                            request.status === 'rejected' &&
+                                                            <button onClick={() => handlePayoutRequest(request.amount)} className='text-xs text-white px-3 py-2 rounded-xl shadow bg-emerald-600'>Request Payout</button>
+                                                        } */}
                                                     </span>
                                                 </td>
                                             </tr>

@@ -75,10 +75,9 @@ const deleteBankAccount = async (req, res) => {
 const handlePayoutRequest = async (req, res) => {
   const { _id } = req.user;
   const { amount } = req.body;
-  console.log(req.body);
   try {
-    if (amount <= 100) {
-      return res.json({ error: "Your balance is less than 100" });
+    if (amount <= 50) {
+      return res.json({ error: "Your balance is less than 50" });
     }
     const user = await User.findById(_id);
     if (!user) {

@@ -6,16 +6,21 @@ const Campaign = require("../models/campaign.model");
 // creating a donation
 const createDonation = async (req, res) => {
   try {
-    const { amount, userId,  campaignId } = req.body;
-    console.log(amount, userId, campaignId)
-    
-    if (!amount) return res.json({ error: "Please enter an amount to Donate!" });
+    const { amount, userId, campaignId } = req.body;
+    console.log(amount, userId, campaignId);
+
+    if (!amount)
+      return res.json({ error: "Please enter an amount to Donate!" });
     if (amount < 20) return res.json({ error: "Minimum Donation is 20" });
     if (!userId) return res.json({ error: "Please Login to Donate" });
-    if (!campaignId) return res.json({ error: "Please select a campaign to Donate" });
+    if (!campaignId)
+      return res.json({ error: "Please select a campaign to Donate" });
 
     const user = await User.findById(userId);
     const campaign = await Campaign.findById(campaignId);
+    if (userId == campaign.campaignOwner) {
+      return res.json({ error: "You cannot donate to your own campaign" });
+    }
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
@@ -40,7 +45,7 @@ const createDonation = async (req, res) => {
     });
     res.json({ url: session.url });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).json({ error: "Failed to create Stripe session" });
     return;
   }
@@ -71,8 +76,10 @@ const fetchAllDonation = async (req, res) => {
 const fetchDonationByUser = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const donations = await Donation.find({ userId })
-      .populate("campaignId", "campaignTitle campaignDescription");
+    const donations = await Donation.find({ userId }).populate(
+      "campaignId",
+      "campaignTitle campaignDescription"
+    );
     res.status(200).json(donations);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch donations" });
@@ -105,8 +112,6 @@ const fetchDonation = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch donation" });
   }
 };
-
-
 
 module.exports = {
   createDonation,
