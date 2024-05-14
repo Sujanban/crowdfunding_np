@@ -1,6 +1,7 @@
 const User = require("../models/user.model");
 const BankAccount = require("../models/bank.model");
 const PayoutRequest = require("../models/payoutRequest.model");
+const sendPaymentInitiationEmail = require("../utils/nodemailer");
 
 const addBankAccount = async (req, res) => {
   const { _id } = req.user;
@@ -140,7 +141,14 @@ const hanldePayoutStatus = async (req, res) => {
       return res.status(404).json({ error: "No payout request found" });
     }
     request.status = status;
-    await request.save();
+    const updatedRequest = await request.save();
+    if (updatedRequest.status === "approved") {
+      console.log("Request Approved");
+      const user = await User.findById(updatedRequest.userId);
+
+      console.log(user.email)
+      sendPaymentInitiationEmail(user.email);
+    }
     return res.status(200).json({ message: "Payout request status updated" });
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -155,5 +163,5 @@ module.exports = {
   handlePayoutRequest,
   getPayoutRequests,
   getPayoutRequestByUser,
-  hanldePayoutStatus
+  hanldePayoutStatus,
 };
