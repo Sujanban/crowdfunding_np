@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '../../app/feature/userSlice';
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { getPayoutRequests } from '../../app/feature/payoutSlice';
+import { GrAnnounce } from "react-icons/gr";
 
 
 const Search = () => {
@@ -69,7 +70,7 @@ const Search = () => {
                                         pendingPayouts?.length > 0 ?
                                             <li className='p-2 grid text-slate-500'>
                                                 <Link to={'/admin/payouts'} className='hover:underline' onClick={() => setNotificationVisible(!isNotificationVisible)}>
-                                                    <h1 className='w-36'>you have {pendingPayouts?.length} pending payout requests</h1>
+                                                    <h1 className='w-36 flex'><GrAnnounce size={20} className='mr-2'/> you have {pendingPayouts?.length} pending payout requests</h1>
                                                 </Link>
                                             </li>
                                             :

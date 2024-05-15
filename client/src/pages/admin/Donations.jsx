@@ -124,8 +124,8 @@ const Donations = () => {
                                             <button onClick={() => setToggleFilter(!toggleFilter)} className='border rounded px-4 text-sm py-2 flex items-center hover:bg-gray-50'>Filter <IoFunnelOutline className='ml-2' /></button>
                                             {
                                                 toggleFilter && <div className='p-2 w-32 text-xs absolute top-10 left-0 z-50 shadow bg-white'>
-                                                    <button onClick={() => [setSortOrder("asc"), setToggleFilter(false)]} className='px-2 py-3 w-full border-b'>Newest to oldest</button>
-                                                    <button onClick={() => [setSortOrder("desc"), setToggleFilter(false)]} className='px-2 py-3 w-full'>Oldest to newest</button>
+                                                    <button onClick={() => [setSortOrder("desc"), setToggleFilter(false)]} className='px-2 py-3 w-full border-b'>Newest to oldest</button>
+                                                    <button onClick={() => [setSortOrder("asc"), setToggleFilter(false)]} className='px-2 py-3 w-full'>Oldest to newest</button>
                                                 </div>
                                             }
                                         </div>

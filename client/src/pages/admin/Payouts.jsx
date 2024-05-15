@@ -20,8 +20,8 @@ const Payouts = () => {
 
     const hanldePayoutStatus = async (id, status) => {
         try {
-            console.log(id,status)
-            const res = await axios.post('/api/bank/hanldePayoutStatus/'+id, {  status })
+            console.log(id, status)
+            const res = await axios.post('/api/bank/hanldePayoutStatus/' + id, { status })
             console.log(res.data)
             if (res.data.error) {
                 toast.error(res.data.errror)
@@ -65,12 +65,9 @@ const Payouts = () => {
                                                             <span className='text-sm'>{request.status}</span>
                                                         </div>
                                                     </div>
-                                                    <div className='py-2 text-xs flex items-center space-x-4'>
-
-                                                        <button onClick={() => hanldePayoutStatus(request._id, 'approved' )} className='px-3 py-2 rounded-xl bg-emerald-600 text-white transition-all duration-300 hover:bg-emerald-700 '>Approve</button>
-
+                                                    <div className='py-2 text-xs'>
+                                                        <button onClick={() => hanldePayoutStatus(request._id, 'approved')} className='px-3 py-2 rounded-xl bg-emerald-600 text-white transition-all duration-300 hover:bg-emerald-700 '>Approve</button>
                                                         {/* <button onClick={() => hanldePayoutStatus(request._id, 'rejected' )} className='px-3 py-2 rounded-xl bg-orange-500 text-white transition-all duration-300 hover:bg-orange-600 '>Decline</button> */}
-
                                                     </div>
                                                 </div>
                                                 <div className='text-right w-full'>
@@ -78,10 +75,10 @@ const Payouts = () => {
                                                 </div>
 
                                             </div>
+
                                         ))
                                             :
                                             <h1 className='p-4 bg-white rounded-xl'>No request found.</h1>
-
                                     }
                                 </div>
                             </div>

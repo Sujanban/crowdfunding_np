@@ -121,7 +121,7 @@ const getPayoutRequestByUser = async (req, res) => {
 
 const getPayoutRequests = async (req, res) => {
   try {
-    const requests = await PayoutRequest.find({}).populate("userId", "email");
+    const requests = await PayoutRequest.find({}).populate("userId", "email").sort({ createdAt: -1 });
     if (!requests) {
       return res.status(404).json({ error: "No payout requests found" });
     }
@@ -132,7 +132,6 @@ const getPayoutRequests = async (req, res) => {
 };
 
 const hanldePayoutStatus = async (req, res) => {
-  // const { _id } = req.user;
   const { payoutId } = req.params;
   const { status } = req.body;
   try {
