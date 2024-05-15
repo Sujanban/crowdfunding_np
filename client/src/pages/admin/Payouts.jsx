@@ -45,7 +45,7 @@ const Payouts = () => {
 
     useEffect(() => {
         getPayoutRequests()
-    }, [])
+    }, [hanldePayoutStatus])
 
     return (
         <div className='flex max-w-7xl mx-auto w-full rounded-xl'>

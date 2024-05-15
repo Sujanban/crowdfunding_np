@@ -23,7 +23,7 @@ const Search = () => {
     const handleLogout = () => {
         dispatch(logoutUser()).then((res) => {
             if (res.payload) {
-                console.log(res.payload);
+                console.log(res.payload.message);
                 window.location.reload();
                 navigate('/');
             }
