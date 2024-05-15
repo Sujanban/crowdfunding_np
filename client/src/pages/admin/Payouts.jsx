@@ -5,28 +5,18 @@ import axios from 'axios'
 import { formatDate } from '../../utils/dateFormater'
 import { toast } from 'react-hot-toast'
 import { BiUser } from 'react-icons/bi'
+import { useDispatch, useSelector } from 'react-redux'
+import { getPayoutRequests } from '../../app/feature/payoutSlice'
 
 
 
 const Payouts = () => {
     let count = 0
-    const [payoutRequests, setPayoutRequests] = useState(null)
+    const dispatch = useDispatch();
+    const payoutRequests = useSelector(state => state.payout.data);
 
     const payoutHistory = payoutRequests?.filter(request => request.status === 'rejected' || request.status === 'approved')
     const pendingPayouts = payoutRequests?.filter(request => request.status === 'pending')
-
-    const getPayoutRequests = async () => {
-        try {
-            const res = await axios.get('/api/bank/getPayoutRequests')
-            if (res.data.error) {
-                toast.error(res.data.errror)
-            } else {
-                setPayoutRequests(res.data)
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     const hanldePayoutStatus = async (id, status) => {
         try {
@@ -44,7 +34,7 @@ const Payouts = () => {
     }
 
     useEffect(() => {
-        getPayoutRequests()
+        dispatch(getPayoutRequests());
     }, [hanldePayoutStatus])
 
     return (
@@ -55,13 +45,12 @@ const Payouts = () => {
                 <div className='p-4 h-[90vh] overflow-y-auto bg-gray-100'>
                     <div className='p-4  '>
                         <div className='col-span-2'>
-
-                            <h1 className='py-2 font-bold'>Payout Requests</h1>
+                            <h1 className='pb-2 font-bold'>Payout Requests</h1>
                             {/* payout requests */}
                             <div className='p-4dd bg-whithhe w-full rounded-xl'>
                                 <div className='grid grid-cols-3 gap-4'>
                                     {
-                                        pendingPayouts ? pendingPayouts.map((request, index) => (
+                                        pendingPayouts?.length ? pendingPayouts.map((request, index) => (
                                             <div key={index} className="flex space-x-4 shadow p-4 bg-white w-full rounded-xl">
                                                 <img src='https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg' className='w-12 h-12 rounded-full object-cover' />
                                                 <div>
@@ -91,7 +80,7 @@ const Payouts = () => {
                                             </div>
                                         ))
                                             :
-                                            <h1>No request found.</h1>
+                                            <h1 className='p-4 bg-white rounded-xl'>No request found.</h1>
 
                                     }
                                 </div>

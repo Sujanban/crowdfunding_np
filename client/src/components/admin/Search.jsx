@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { CiSearch } from "react-icons/ci";
 import { GoPeople } from "react-icons/go";
 import { IoIosArrowDown } from "react-icons/io";
@@ -6,13 +6,22 @@ import { IoIosArrowDown } from "react-icons/io";
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '../../app/feature/userSlice';
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { getPayoutRequests } from '../../app/feature/payoutSlice';
 
 
 const Search = () => {
-    const navigate = useNavigate();
-    const user = useSelector(state => state.user.data)
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const payoutRequests = useSelector(state => state.payout.data)
+    const user = useSelector(state => state.user.data)
     const [isSubMenuVisible, setSubMenuVisible] = useState(false);
+
+
+
+    // filtering a payout request which is pending
+    const pendingPayouts = payoutRequests?.filter(request => request.status === 'pending')
+    
     const handleMouseEnter = () => {
         setSubMenuVisible(true);
     };
@@ -29,6 +38,10 @@ const Search = () => {
             }
         })
     }
+
+    useEffect(() => {
+        dispatch(getPayoutRequests())
+    }, [])
     return (
         <div className='p-4 w-full border-b'>
             <div className='px-4 max-w-6xl flex justify-between items-center'>
@@ -36,27 +49,32 @@ const Search = () => {
                     <div className='ring-1 ring-gray-200 focus: flex rounded items-center bg-white px-2'><CiSearch size={20} /><input placeholder='Search' type="search" className='p-2 w-60 text-sm outline-none  placeholder:font-light placeholder:text-slate-800 ' /></div>
                 </form>
                 <div className='flex items-center gap-4 '>
-                    <div>
-                        <li className='' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                        <li className=''>
+                            <button className='p-1 flex relative items-center'>
+                                <IoMdNotificationsOutline size={20} />
+                                <span className='absolute top-0 right-0 w-3 h-3 rounded-full bg-orange-500 text-white text-[8px]'>{pendingPayouts?.length}</span>
+                            </button>
+                        </li>
+                        <li className='relative' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                             <NavLink to='' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>
                                 <GoPeople className='' size={20} /> {user.firstName}
                                 <IoIosArrowDown className='hover:rotate-180 transition-all duration-400' />
                             </NavLink>
+                            {
+                                isSubMenuVisible
+                                    ?
+                                    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className=' absolute top-[100%] left-0 ring  bg-white px-2 block  shadow'>
+                                        <li className=' grid'>
+                                            <NavLink to='/profile' className='p-2 '>Profile</NavLink>
+                                        </li>
+                                        <li className=' grid'>
+                                            <button onClick={handleLogout} className='p-2 '>Sign out</button>
+                                        </li>
+                                    </div>
+                                    :
+                                    <></>
+                            }
                         </li>
-                        {
-                            isSubMenuVisible ?
-                                <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className=' absolute  bg-white px-6 block  shadow'>
-                                    <li className=' grid'>
-                                        <NavLink to='/profile' className='p-2 w-full'>Profile</NavLink>
-                                    </li>
-                                    <li className=' grid'>
-                                        <button onClick={handleLogout} className='p-2 w-full'>Sign out</button>
-                                    </li>
-                                </div>
-                                :
-                                <></>
-                        }
-                    </div>
                 </div>
             </div>
         </div>
