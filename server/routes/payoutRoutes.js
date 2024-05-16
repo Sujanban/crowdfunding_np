@@ -3,7 +3,8 @@ const router = express.Router();
 const cors = require("cors");
 
 const {checkAuth, isAdmin} = require("../middlewares/userAuth");
-const { addBankAccount, getBankAccount, deleteBankAccount, getBankAccounts, handlePayoutRequest,getPayoutRequestByUser, getPayoutRequests, hanldePayoutStatus } = require("../controllers/payoutController");
+const { addBank, getBank, deleteBank, getBanks, 
+  handleRequest,getRequestsByUser, getRequests, hanldePayoutStatus } = require("../controllers/payoutController");
 
 router.use(
   cors({
@@ -12,16 +13,16 @@ router.use(
   })
 );
 
-router.post("/addBank", checkAuth, addBankAccount);
-router.get("/getBank", checkAuth, getBankAccount);
-router.get("/getBanks", checkAuth, isAdmin, getBankAccounts);
-router.delete("/deleteBank/:id", checkAuth, deleteBankAccount);
+router.post("/addBank", checkAuth, addBank);
+router.get("/getBank", checkAuth, getBank);
+router.get("/getBanks", checkAuth, isAdmin, getBanks);
+router.delete("/deleteBank/:id", checkAuth, deleteBank);
 
 
 // payout requests
-router.get('/getPayoutRequestByUser', checkAuth, getPayoutRequestByUser)
-router.get("/getPayoutRequests", checkAuth, getPayoutRequests);
-router.post('/requestPayout', checkAuth, handlePayoutRequest)
+router.get('/getPayoutRequestByUser', checkAuth, getRequestsByUser)
+router.get("/getPayoutRequests", checkAuth, getRequests);
+router.post('/requestPayout', checkAuth, handleRequest)
 router.post('/hanldePayoutStatus/:payoutId', checkAuth,isAdmin, hanldePayoutStatus)
 
 module.exports = router;

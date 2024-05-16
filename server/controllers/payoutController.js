@@ -3,7 +3,7 @@ const BankAccount = require("../models/bank.model");
 const PayoutRequest = require("../models/payoutRequest.model");
 const sendPaymentInitiationEmail = require("../utils/nodemailer");
 
-const addBankAccount = async (req, res) => {
+const addBank = async (req, res) => {
   const { _id } = req.user;
   const { stripeAccount } = req.body;
   if (!stripeAccount) {
@@ -27,7 +27,7 @@ const addBankAccount = async (req, res) => {
   }
 };
 
-const getBankAccount = async (req, res) => {
+const getBank = async (req, res) => {
   const { _id } = req.user;
   try {
     const bank = await BankAccount.findOne({ userId: _id });
@@ -38,7 +38,7 @@ const getBankAccount = async (req, res) => {
   }
 };
 
-const getBankAccounts = async (req, res) => {
+const getBanks = async (req, res) => {
   try {
     console.log("hello");
     const bank = await BankAccount.find({}).populate(
@@ -55,7 +55,7 @@ const getBankAccounts = async (req, res) => {
   }
 };
 
-const deleteBankAccount = async (req, res) => {
+const deleteBank = async (req, res) => {
   try {
     const id = req.params.id;
     const bank = await BankAccount.findByIdAndDelete(id);
@@ -71,9 +71,8 @@ const deleteBankAccount = async (req, res) => {
 };
 
 // Payout request sextion
-
 // handle payout requests
-const handlePayoutRequest = async (req, res) => {
+const handleRequest = async (req, res) => {
   const { _id } = req.user;
   const { amount } = req.body;
   try {
@@ -84,16 +83,13 @@ const handlePayoutRequest = async (req, res) => {
     if (!user) {
       return res.json({ error: "User not found" });
     }
-    // TODO: check if user has enough balance
     if (user.accountBalance < amount) {
       return res.json({ error: "Insufficient balance" });
     }
-    // TODO: update user balance
     user.accountBalance -= amount;
     user.freezeBalance += amount;
     await user.save();
 
-    // sending payout request
     const payoutRequest = new PayoutRequest({
       userId: _id,
       amount: amount,
@@ -107,7 +103,7 @@ const handlePayoutRequest = async (req, res) => {
 };
 
 // get payout request
-const getPayoutRequestByUser = async (req, res) => {
+const getRequestsByUser = async (req, res) => {
   const { _id } = req.user;
   try {
     const request = await PayoutRequest.find({ userId: _id }).sort({
@@ -122,7 +118,7 @@ const getPayoutRequestByUser = async (req, res) => {
   }
 };
 
-const getPayoutRequests = async (req, res) => {
+const getRequests = async (req, res) => {
   try {
     const requests = await PayoutRequest.find({})
       .populate("userId", "email")
@@ -148,13 +144,13 @@ const hanldePayoutStatus = async (req, res) => {
     const updatedRequest = await request.save();
     const user = await User.findById(updatedRequest.userId);
 
-    if(updatedRequest.status === "approved"){
+    if (updatedRequest.status === "approved") {
       user.freezeBalance -= request.amount;
       sendPaymentInitiationEmail(user.email);
       await user.save();
     }
 
-    if(updatedRequest.status === "rejected"){
+    if (updatedRequest.status === "rejected") {
       user.accountBalance += request.amount;
       user.freezeBalance -= request.amount;
       await user.save();
@@ -169,12 +165,12 @@ const hanldePayoutStatus = async (req, res) => {
 };
 
 module.exports = {
-  addBankAccount,
-  getBankAccount,
-  deleteBankAccount,
-  getBankAccounts,
-  handlePayoutRequest,
-  getPayoutRequests,
-  getPayoutRequestByUser,
+  addBank,
+  getBank,
+  deleteBank,
+  getBanks,
+  handleRequest,
+  getRequests,
+  getRequestsByUser,
   hanldePayoutStatus,
 };
