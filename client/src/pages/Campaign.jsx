@@ -88,7 +88,7 @@ const Campaign = () => {
 
                         {
                             openTab === 1 &&
-                            <div className='py-2'>
+                            <div className='py-2 max-h-96 overflow-auto'>
                                 <h1 className='py-1 font-bold'>Details:</h1>
                                 <p>{campaignPost?.campaignDescription}</p>
                             </div>
@@ -96,7 +96,7 @@ const Campaign = () => {
 
                         {
                             openTab === 2 &&
-                            <div>
+                            <div className='max-h-96 overflow-auto'>
                                 <h1 className='py-2 font-bold'>Supporters:</h1>
                                 <div>
                                     <DonationList donations={donations} />
@@ -106,7 +106,9 @@ const Campaign = () => {
 
                         {
                             openTab === 3 &&
-                            <Story story={story} />
+                            <div className='max-h-96 overflow-auto'>
+                                <Story story={story} />
+                            </div>
                         }
                     </div>
 

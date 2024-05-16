@@ -48,34 +48,34 @@ const Navbar = () => {
                         user && user.role === 0 ?
                             <>
                                 <li className='py-4'>
-                                    <NavLink to='/explore' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Explore</NavLink>
+                                    <NavLink to='/explore' className={({ isActive }) => isActive ? ' underline underline-offset-4  p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Explore</NavLink>
                                 </li>
                                 <li className='py-4'>
-                                    <NavLink to='/createCampaign' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Create Campaign</NavLink>
+                                    <NavLink to='/createCampaign' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md underline underline-offset-4  p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Create Campaign</NavLink>
                                 </li>
                                 <li className='py-4'>
-                                    <NavLink to='/mycampaigns' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>My Campaigns</NavLink>
+                                    <NavLink to='/mycampaigns' className={({ isActive }) => isActive ? ' underline underline-offset-4  p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>My Campaigns</NavLink>
                                 </li>
                                 <li className='py-4'>
-                                    <NavLink to='/donations' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Donations</NavLink>
+                                    <NavLink to='/donations' className={({ isActive }) => isActive ? ' underline underline-offset-4  p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Donations</NavLink>
                                 </li>
                             </>
                             :
                             <>
                                 <li className='py-4'>
-                                    <NavLink to='/explore' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Explore</NavLink>
+                                    <NavLink to='/explore' className={({ isActive }) => isActive ? ' underline underline-offset-4  p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Explore</NavLink>
                                 </li>
                                 <li className='py-4'>
-                                    <NavLink to='/howitworks' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>How it works</NavLink>
+                                    <NavLink to='/howitworks' className={({ isActive }) => isActive ? ' underline underline-offset-4  p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>How it works</NavLink>
                                 </li>
                                 <li className='py-4'>
-                                    <NavLink to='/blog' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Blog</NavLink>
+                                    <NavLink to='/blog' className={({ isActive }) => isActive ? ' underline underline-offset-4  p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Blog</NavLink>
                                 </li>
                                 <li className='py-4'>
-                                    <NavLink to='/contact' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Contact</NavLink>
+                                    <NavLink to='/contact' className={({ isActive }) => isActive ? ' underline underline-offset-4  p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Contact</NavLink>
                                 </li>
                                 <li className='py-4 md:hidden'>
-                                    <NavLink to='/login' className={({ isActive }) => isActive ? 'bg-gray-100 rounded-md p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Login</NavLink>
+                                    <NavLink to='/login' className={({ isActive }) => isActive ? 'underline underline-offset-4 p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Login</NavLink>
                                 </li>
                             </>
                     }
