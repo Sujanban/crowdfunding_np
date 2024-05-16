@@ -48,7 +48,7 @@ const Users = () => {
     useEffect(() => {
         fetchUsers();
         dispatch(fetchCampaign());
-    }, [users]);
+    }, []);
     return (
         <div className='flex max-w-7xl mx-auto w-full'>
             <Navbar />

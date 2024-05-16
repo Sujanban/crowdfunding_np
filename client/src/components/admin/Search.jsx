@@ -7,7 +7,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '../../app/feature/userSlice';
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { getPayoutRequests } from '../../app/feature/payoutSlice';
+import { getRequests } from '../../app/feature/payoutSlice';
 import { GrAnnounce } from "react-icons/gr";
 
 
@@ -42,7 +42,7 @@ const Search = () => {
     }
 
     useEffect(() => {
-        dispatch(getPayoutRequests())
+        dispatch(getRequests())
     }, [])
     return (
         <div className='p-4 w-full border-b'>

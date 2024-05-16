@@ -18,6 +18,10 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  freezeBalance: {
+    type: Number,
+    default: 0,
+  },
   accountBalance: {
     type: Number,
     default: 0,
@@ -28,7 +32,7 @@ const UserSchema = new Schema({
       ref: "Donation",
     },
   ],
-  bank:{
+  bank: {
     type: Schema.Types.ObjectId,
     ref: "Bank",
   },

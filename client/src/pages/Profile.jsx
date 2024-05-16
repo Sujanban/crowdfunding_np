@@ -100,6 +100,10 @@ const Profile = () => {
                                     </span>
                                 </div>
                                 <div className='py-4 grid grid-cols-2'>
+                                    <span>Freeze Balance</span>
+                                    <h1>${user.freezeBalance}</h1>
+                                </div>
+                                <div className='py-4 grid grid-cols-2'>
                                     <span>Account Balance</span>
                                     <div className='flex items-center space-x-2'>
                                         <h1>${user.accountBalance}</h1>
@@ -140,12 +144,8 @@ const Profile = () => {
                                                 <td scope="col" className="px-6 py-4">₹ {request.amount}</td>
                                                 <td scope="col" className="px-6 py-4 ">
                                                     <span className='flex items-center space-x-2 text-xs'>
-                                                        <div className={`w-2 h-2 rounded-full animate-pulse ${request.status === 'pending' ? 'bg-red-500' : 'bg-emerald-500'}`}></div>
+                                                        <div className={`w-2 h-2 rounded-full  ${request.status === 'pending' ? 'bg-yellow-500 animate-pulse' : 'bg-emerald-500'} ${request.status === 'rejected' ? 'bg-red-500' : 'bg-emerald-500'}`}></div>
                                                         <span>{request.status}</span>
-                                                        {/* {
-                                                            request.status === 'rejected' &&
-                                                            <button onClick={() => handlePayoutRequest(request.amount)} className='text-xs text-white px-3 py-2 rounded-xl shadow bg-emerald-600'>Request Payout</button>
-                                                        } */}
                                                     </span>
                                                 </td>
                                             </tr>

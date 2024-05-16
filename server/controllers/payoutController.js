@@ -90,6 +90,7 @@ const handlePayoutRequest = async (req, res) => {
     }
     // TODO: update user balance
     user.accountBalance -= amount;
+    user.freezeBalance += amount;
     await user.save();
 
     // sending payout request
@@ -109,7 +110,9 @@ const handlePayoutRequest = async (req, res) => {
 const getPayoutRequestByUser = async (req, res) => {
   const { _id } = req.user;
   try {
-    const request = await PayoutRequest.find({ userId: _id });
+    const request = await PayoutRequest.find({ userId: _id }).sort({
+      createdAt: -1,
+    });
     if (!request) {
       return res.status(404).json({ error: "No payout request found" });
     }
@@ -121,7 +124,9 @@ const getPayoutRequestByUser = async (req, res) => {
 
 const getPayoutRequests = async (req, res) => {
   try {
-    const requests = await PayoutRequest.find({}).populate("userId", "email").sort({ createdAt: -1 });
+    const requests = await PayoutRequest.find({})
+      .populate("userId", "email")
+      .sort({ createdAt: -1 });
     if (!requests) {
       return res.status(404).json({ error: "No payout requests found" });
     }
@@ -141,14 +146,23 @@ const hanldePayoutStatus = async (req, res) => {
     }
     request.status = status;
     const updatedRequest = await request.save();
-    if (updatedRequest.status === "approved") {
-      console.log("Request Approved");
-      const user = await User.findById(updatedRequest.userId);
+    const user = await User.findById(updatedRequest.userId);
 
-      console.log(user.email)
+    if(updatedRequest.status === "approved"){
+      user.freezeBalance -= request.amount;
       sendPaymentInitiationEmail(user.email);
+      await user.save();
     }
-    return res.status(200).json({ message: "Payout request status updated" });
+
+    if(updatedRequest.status === "rejected"){
+      user.accountBalance += request.amount;
+      user.freezeBalance -= request.amount;
+      await user.save();
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Payout status updated", request: updatedRequest });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

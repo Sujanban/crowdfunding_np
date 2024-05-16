@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/admin/Navbar'
 import Search from '../../components/admin/Search'
-import axios from 'axios'
 import { formatDate } from '../../utils/dateFormater'
-import { toast } from 'react-hot-toast'
-import { BiUser } from 'react-icons/bi'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPayoutRequests } from '../../app/feature/payoutSlice'
+import { getRequests, handlePayout } from '../../app/feature/payoutSlice'
+import Loader from '../../components/Loader'
 
 
 
@@ -14,28 +12,18 @@ const Payouts = () => {
     let count = 0
     const dispatch = useDispatch();
     const payoutRequests = useSelector(state => state.payout.data);
+    const isLoading = useSelector(state => state.payout.isLoading);
 
     const payoutHistory = payoutRequests?.filter(request => request.status === 'rejected' || request.status === 'approved')
     const pendingPayouts = payoutRequests?.filter(request => request.status === 'pending')
 
     const hanldePayoutStatus = async (id, status) => {
-        try {
-            console.log(id, status)
-            const res = await axios.post('/api/bank/hanldePayoutStatus/' + id, { status })
-            console.log(res.data)
-            if (res.data.error) {
-                toast.error(res.data.errror)
-            } else {
-                toast.success(res.data.message)
-            }
-        } catch (error) {
-            console.log(error)
-        }
+        dispatch(handlePayout({ id, status }))
     }
 
     useEffect(() => {
-        dispatch(getPayoutRequests());
-    }, [hanldePayoutStatus])
+        dispatch(getRequests());
+    }, [])
 
     return (
         <div className='flex max-w-7xl mx-auto w-full rounded-xl'>
@@ -43,6 +31,9 @@ const Payouts = () => {
             <div className='w-full '>
                 <Search />
                 <div className='p-4 h-[90vh] overflow-y-auto bg-gray-100'>
+                    {
+                        isLoading && <Loader />
+                    }
                     <div className='p-4  '>
                         <div className='col-span-2'>
                             <h1 className='pb-2 font-bold'>Payout Requests</h1>
@@ -65,9 +56,9 @@ const Payouts = () => {
                                                             <span className='text-sm'>{request.status}</span>
                                                         </div>
                                                     </div>
-                                                    <div className='py-2 text-xs'>
+                                                    <div className='py-2 text-xs flex items-center space-x-2'>
                                                         <button onClick={() => hanldePayoutStatus(request._id, 'approved')} className='px-3 py-2 rounded-xl bg-emerald-600 text-white transition-all duration-300 hover:bg-emerald-700 '>Approve</button>
-                                                        {/* <button onClick={() => hanldePayoutStatus(request._id, 'rejected' )} className='px-3 py-2 rounded-xl bg-orange-500 text-white transition-all duration-300 hover:bg-orange-600 '>Decline</button> */}
+                                                        <button onClick={() => hanldePayoutStatus(request._id, 'rejected' )} className='px-3 py-2 rounded-xl bg-orange-500 text-white transition-all duration-300 hover:bg-orange-600 '>Decline</button>
                                                     </div>
                                                 </div>
                                                 <div className='text-right w-full'>
@@ -87,7 +78,7 @@ const Payouts = () => {
                             {/* payout history */}
                             <div className='mt-4 p-4 bg-white w-full rounded-xl'>
                                 <h1 className='px-2 font-bold'>Payout Records</h1>
-                                <div className="p-2 relative overflow-x-auto sm:rounded-lg">
+                                <div className="p-2 max-w-5xl relative overflow-x-auto sm:rounded-lg">
                                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
                                         <thead className="text-slate-900 capitalize bg-gray-50">
                                             <tr>
