@@ -5,17 +5,16 @@ import { formatDate } from '../../utils/dateFormater'
 import { useDispatch, useSelector } from 'react-redux'
 import { getRequests, handlePayout } from '../../app/feature/payoutSlice'
 import Loader from '../../components/Loader'
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
 
 
 const Payouts = () => {
-    let count = 0
     const dispatch = useDispatch();
     const payoutRequests = useSelector(state => state.payout.data);
     const isLoading = useSelector(state => state.payout.isLoading);
 
     const payoutHistory = payoutRequests?.filter(request => request.status === 'rejected' || request.status === 'approved')
-    console.log(payoutHistory)
     const pendingPayouts = payoutRequests?.filter(request => request.status === 'pending')
 
     const hanldePayoutStatus = async (id, status) => {
@@ -25,6 +24,15 @@ const Payouts = () => {
     useEffect(() => {
         dispatch(getRequests());
     }, [])
+
+
+    // implementing pagination in frontend
+    const numberOfItems = 10;
+    const [currentPage, setCurrentPage] = useState(1);
+    const indexOfLastItem = currentPage * numberOfItems;
+    const indexOfFirstItem = indexOfLastItem - numberOfItems;
+    const currentItems = payoutHistory?.slice(indexOfFirstItem, indexOfLastItem);
+
 
     return (
         <div className='flex max-w-7xl mx-auto w-full rounded-xl'>
@@ -91,7 +99,7 @@ const Payouts = () => {
                                         </thead>
                                         <tbody>
                                             {
-                                                payoutHistory && payoutHistory.map((request, index) => (
+                                                currentItems && currentItems.map((request, index) => (
                                                     <tr key={index} className={`border-b bg-opacity-30 ${request.status === 'approved' ? 'bg-emerald-50' : 'bg-orange-50 '}`}>
                                                         <td scope="col" className="px-4 py-6 flex items-center">{request.userId?.email}</td>
                                                         <td scope="col" className=" py-6">₹ {request.amount}</td>
@@ -109,6 +117,17 @@ const Payouts = () => {
                                             }
                                         </tbody>
                                     </table>
+
+                                    {/* pagination */}
+                                    <div className='py-4 flex justify-between items-center'>
+                                        <div className='text-xs text-slate-600'>
+                                            <h1>Showing {(10 * (currentPage - 1)) + 1} to {10 * (currentPage - 1) + currentItems.length} entries</h1>
+                                        </div>
+                                        <div className='flex items-center text-xs'>
+                                            <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} className={`py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border`}><FaChevronLeft className='mr-2' /> Back</button>
+                                            <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentItems.length < numberOfItems} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>Next<FaChevronRight className='ml-2' /></button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
