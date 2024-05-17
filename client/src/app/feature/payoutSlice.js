@@ -16,6 +16,42 @@ export const getRequests = createAsyncThunk(
   }
 );
 
+export const getRequestsByUser = createAsyncThunk(
+  "getRequestsByUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axios.get("/api/bank/getPayoutRequestByUser");
+      return res.data;
+    } catch (err) {
+      const errorMessage = err.response?.data?.error || err?.data?.error;
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
+export const requestPayout = createAsyncThunk(
+  "requestPayout",
+  async (amount, { rejectWithValue }) => {
+    try {
+      const res = await axios.post("/api/bank/requestPayout", { amount });
+      if (res.data.message) {
+        toast.success(res.data.message);
+      }
+      if (res.data.error) {
+        toast.error(res.data.error);
+      }
+      return res.data;
+    } catch (err) {
+      console.log(err)
+      const errorMessage =
+        err.response?.data?.error || err?.data?.error ;
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
 export const handlePayout = createAsyncThunk(
   "handlePayout",
   async ({ id, status }, { rejectWithValue }) => {
@@ -24,7 +60,6 @@ export const handlePayout = createAsyncThunk(
       const res = await axios.post("/api/bank/hanldePayoutStatus/" + id, {
         status,
       });
-      console.log(res.data)
       if (res.data.message) {
         toast.success(res.data.message);
       }
@@ -58,6 +93,21 @@ const payoutSlice = createSlice({
       state.isLoading = false;
       state.errorMessage = action.payload;
     });
+
+
+    builder.addCase(getRequestsByUser.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getRequestsByUser.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.data = action.payload;
+    });
+    builder.addCase(getRequestsByUser.rejected, (state, action) => {
+      state.isLoading = false;
+      state.errorMessage = action.payload;
+    });
+
+
     builder.addCase(handlePayout.pending, (state) => {
       state.isLoading = true;
     });

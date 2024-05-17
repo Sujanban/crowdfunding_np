@@ -2,37 +2,21 @@ import React, { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserProfile } from '../app/feature/userSlice';
-import axios from 'axios';
-import toast from 'react-hot-toast';
-import { VscEdit, VscTrash } from 'react-icons/vsc';
+import { VscTrash } from 'react-icons/vsc';
 import BankAddForm from '../components/BankAddForm';
 import { addBank, deleteBank, getBank } from '../app/feature/bankSlice';
 import { formatDate } from '../utils/dateFormater'
+import { getRequestsByUser, requestPayout } from '../app/feature/payoutSlice';
 
 
 const Profile = () => {
     let count = 0;
     const dispatch = useDispatch();
-    const bank = useSelector(state => state.bank.data)
+    const bank = useSelector(state => state.bank.data);
+    const payoutRequests = useSelector(state => state.payout.data)
     const [stripeAccount, setStripeAccount] = useState(null);
     const [toggleAccountAdd, setToggleAccountAdd] = useState(false);
     const user = useSelector(state => state.user.data)
-
-
-    const [payoutRequests, setPayoutRequests] = useState(null)
-
-    const getPayoutRequestByUser = async () => {
-        try {
-            const res = await axios.get('/api/bank/getPayoutRequestByUser')
-            if (res.data.error) {
-                toast.error(res.data.errror)
-            } else {
-                setPayoutRequests(res.data)
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
 
     const handleBankDelete = async (id) => {
@@ -48,26 +32,10 @@ const Profile = () => {
         })
     }
 
-    // request payout
-    const handlePayoutRequest = async (amount) => {
-        try {
-            const res = await axios.post('/api/bank/requestPayout', { amount });
-            console.log(res.data)
-            if (res.data.message) {
-                toast.success(res.data.message);
-            }
-            if (res.data.error) {
-                toast.error(res.data.error);
-            }
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
     useEffect(() => {
         dispatch(fetchUserProfile())
         dispatch(getBank())
-        getPayoutRequestByUser();
+        dispatch(getRequestsByUser())
     }, [dispatch])
     return (
         <div className='relative'>
@@ -107,7 +75,7 @@ const Profile = () => {
                                     <span>Account Balance</span>
                                     <div className='flex items-center justify-between space-x-2'>
                                         <h1>${user.accountBalance}</h1>
-                                        <button onClick={() => handlePayoutRequest(user.accountBalance)} className='text-sm px-3 py-2 rounded-xl shadow text-white bg-emerald-600'>Request Payout</button>
+                                        <button onClick={() => dispatch(requestPayout(user.accountBalance))} className='text-sm px-3 py-2 rounded-xl shadow text-white bg-emerald-600'>Request Payout</button>
                                     </div>
                                 </div>
                             </div>
@@ -144,10 +112,10 @@ const Profile = () => {
                                                 <td scope="col" className="px-6 py-6">₹ {request.amount}</td>
                                                 <td scope="col" className="px-6 py-6 ">
                                                     <div className='flex'>
-                                                    <span className={`px-2 py-1 ring-1 rounded-full flex items-center space-x-2 text-xs ${request.status === 'pending' ? 'text-gray-600  ring-gray-600 animate-pulse' : 'text-emerald-600 ring-emerald-600'} ${request.status === 'rejected' ? 'text-orange-600 ring-orange-600' : 'text-emerald-600 ring-emerald-600'}`}>
-                                                        <div className={`w-2 h-2 rounded-full  ${request.status === 'pending' ? 'bg-gray-500 animate-pulse' : 'bg-emerald-500'} ${request.status === 'rejected' ? 'bg-orange-500' : 'bg-emerald-500'}`}></div>
-                                                        <span>{request.status}</span>
-                                                    </span>
+                                                        <span className={`px-2 py-1 ring-1 rounded-full flex items-center space-x-2 text-xs ${request.status === 'pending' ? 'text-gray-600  ring-gray-600 animate-pulse' : 'text-emerald-600 ring-emerald-600'} ${request.status === 'rejected' ? 'text-orange-600 ring-orange-600' : 'text-emerald-600 ring-emerald-600'}`}>
+                                                            <div className={`w-2 h-2 rounded-full  ${request.status === 'pending' ? 'bg-gray-500 animate-pulse' : 'bg-emerald-500'} ${request.status === 'rejected' ? 'bg-orange-500' : 'bg-emerald-500'}`}></div>
+                                                            <span>{request.status}</span>
+                                                        </span>
                                                     </div>
                                                 </td>
                                             </tr>
