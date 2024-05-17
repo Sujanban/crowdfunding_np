@@ -26,8 +26,8 @@ const Users = () => {
     }
     // counting number of campaigns by each users
     const countCampaignsByUserId = (userId) => {
-        const userCampaigns = campaigns.filter(campaign => campaign.campaignOwner === userId);
-        return userCampaigns.length;
+        const userCampaigns = campaigns?.filter(campaign => campaign.campaignOwner === userId);
+        return userCampaigns?.length;
     }
 
     const deleteUser = async (id) => {
@@ -49,6 +49,15 @@ const Users = () => {
         fetchUsers();
         dispatch(fetchCampaign());
     }, []);
+
+
+    // implementing pagination in frontend
+    const numberOfItems = 10;
+    const [currentPage, setCurrentPage] = useState(1);
+    const indexOfLastItem = currentPage * numberOfItems;
+    const indexOfFirstItem = indexOfLastItem - numberOfItems;
+    const currentItems = users?.slice(indexOfFirstItem, indexOfLastItem);
+
     return (
         <div className='flex max-w-7xl mx-auto w-full'>
             <Navbar />
@@ -79,15 +88,6 @@ const Users = () => {
                         <div className='p-4 bg-white rounded-xl'>
                             <div className='p-2 flex items-center justify-between'>
                                 <h1 className='border-b-2 border-emerald-600 font-bold'>Users</h1>
-                                <div className='relative pr-4'>
-                                    {/* <button className='border rounded px-4 text-sm py-2 flex items-center hover:bg-gray-50'>Filter <IoFunnelOutline className='ml-2' /></button> */}
-                                    {/* {
-                                    toggleFilter && <div className='p-2 w-32 text-xs absolute top-10 left-0 z-50 shadow bg-white'>
-                                        <button className='px-2 py-3 w-full border-b'>Highest to lowest</button>
-                                        <button className='px-2 py-3 w-full'>Lowest to highest</button>
-                                    </div>
-                                } */}
-                                </div>
                             </div>
 
                             <div className="p-2 relative overflow-x-auto sm:rounded-lg">
@@ -104,7 +104,7 @@ const Users = () => {
                                     </thead>
                                     <tbody>
                                         {
-                                            users && users.map((user, index) =>
+                                            currentItems && currentItems.map((user, index) =>
                                                 <tr key={index} className='border-b'>
                                                     <td scope="col" className="px-2 py-2">{++count}</td>
                                                     <td scope="col" className="px-6 py-2">{user.email}</td>
@@ -118,18 +118,15 @@ const Users = () => {
                                         }
                                     </tbody>
                                 </table>
-                                {/* table footer */}
+
+                                {/* pagination */}
                                 <div className='py-4 flex justify-between items-center'>
                                     <div className='text-xs text-slate-600'>
-                                        <h1>Showing 1 to 10 of 5 entries</h1>
+                                        <h1>Showing {(10 * (currentPage - 1)) + 1} to {10 * (currentPage - 1) + currentItems?.length} of {currentPage} entries</h1>
                                     </div>
-                                    <div className='flex items-center text-xs'>
-                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'><FaChevronLeft className='mr-2' /> Back</button>
-                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>1</button>
-                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>2</button>
-                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>3</button>
-                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>...</button>
-                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>Next<FaChevronRight className='ml-2' /></button>
+                                    <div className='flex items-center space-x-2 text-xs'>
+                                        <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} className={`py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border`}><FaChevronLeft className='mr-2' /> Back</button>
+                                        <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentItems?.length < numberOfItems} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>Next<FaChevronRight className='ml-2' /></button>
                                     </div>
                                 </div>
                             </div>

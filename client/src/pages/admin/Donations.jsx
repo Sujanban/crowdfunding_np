@@ -163,12 +163,8 @@ const Donations = () => {
                                                 <h1>Showing 1 to {donation.length} of {page} entries</h1>
 
                                             </div>
-                                            <div className='flex items-center text-xs'>
+                                            <div className='flex items-center space-x-2 text-xs'>
                                                 <button onClick={handlePreviousPage} disabled={page <= 1} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'><FaChevronLeft className='mr-2' /> Back</button>
-                                                {/* <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>1</button>
-                                                <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>2</button>
-                                                <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>3</button>
-                                                <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>...</button> */}
                                                 <button onClick={handleNextPage} disabled={donation.length < 10} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>Next<FaChevronRight className='ml-2' /></button>
                                             </div>
                                         </div>

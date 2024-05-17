@@ -15,6 +15,15 @@ const Banks = () => {
     useEffect(() => {
         dispatch(getBanks())
     }, [])
+
+
+    // implementing pagination in frontend
+    const numberOfItems = 10;
+    const [currentPage, setCurrentPage] = useState(1);
+    const indexOfLastItem = currentPage * numberOfItems;
+    const indexOfFirstItem = indexOfLastItem - numberOfItems;
+    const currentItems = bank?.slice(indexOfFirstItem, indexOfLastItem);
+
     return (
         <div className='flex max-w-7xl mx-auto w-full rounded-xl'>
             <Navbar />
@@ -42,7 +51,7 @@ const Banks = () => {
                                             </thead>
                                             <tbody>
                                                 {
-                                                    bank.length > 0 && bank.map((item) =>
+                                                    currentItems.length > 0 && currentItems.map((item) =>
                                                         <tr key={item._id} className='text-slate-600 text-sm border-b'>
                                                             <td scope="col" className=" py-2">{++count}</td>
                                                             <td scope="col" className="px-6 py-2 font-bold ">{item.userId.email}</td>
@@ -54,15 +63,14 @@ const Banks = () => {
                                             </tbody>
                                         </table>
 
-                                        {/* table footer */}
+                                        {/* pagination */}
                                         <div className='py-4 flex justify-between items-center'>
                                             <div className='text-xs text-slate-600'>
-                                                <h1>Showing 1 to 3 of 1 entries</h1>
-
+                                                <h1>Showing {(10 * (currentPage - 1)) + 1} to {10 * (currentPage - 1) + currentItems?.length} of {currentPage} entries</h1>
                                             </div>
-                                            <div className='flex items-center text-xs'>
-                                                <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'><FaChevronLeft className='mr-2' /> Back</button>
-                                                <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>Next<FaChevronRight className='ml-2' /></button>
+                                            <div className='flex items-center space-x-2 text-xs'>
+                                                <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} className={`py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border`}><FaChevronLeft className='mr-2' /> Back</button>
+                                                <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentItems?.length < numberOfItems} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>Next<FaChevronRight className='ml-2' /></button>
                                             </div>
                                         </div>
                                     </div>

@@ -22,24 +22,7 @@ const Campaigns = () => {
     const [popupVisible, setPopupVisible] = useState(false);
     const [selectedCampaignId, setSelectedCampaignId] = useState(null);
     const [users, setUsers] = useState([]);
-    let count = 0;
 
-
-    // pagination
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [page, setPage] = useState(1)
-    const [limit, setLimit] = useState(10);
-
-    const handlePreviousPage = () => {
-        if (page > 1) {
-            setPage(page - 1);
-            setSearchParams({ page: page - 1, limit });
-        }
-    }
-    const handleNextPage = () => {
-        setPage(page + 1);
-        setSearchParams({ page: page + 1, limit });
-    }
 
     const handleDelete = (id) => {
         setSelectedCampaignId(id)
@@ -65,6 +48,15 @@ const Campaigns = () => {
         dispatch(fetchCampaign())
         fetchAllUsers();
     }, [])
+
+
+    // implementing pagination in frontend
+    const numberOfItems = 10;
+    const [currentPage, setCurrentPage] = useState(1);
+    const indexOfLastItem = currentPage * numberOfItems;
+    const indexOfFirstItem = indexOfLastItem - numberOfItems;
+    const currentItems = campaign?.slice(indexOfFirstItem, indexOfLastItem);
+
 
 
 
@@ -126,7 +118,7 @@ const Campaigns = () => {
                                                 isLoading && <Loader />
                                             }
                                             {
-                                                campaign && campaign.map((item, index) =>
+                                                currentItems && currentItems.map((item, index) =>
                                                     <tr key={index} className={`text-slate-600 border-b bg-opacity-20 ${item.status === "active" ? "bg-emerald-50" : "bg-orange-50"}`}>
                                                         {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
                                                         <td scope="col" className="px-6 py-4">{item.campaignTitle.slice(0, 50)}</td>
@@ -154,14 +146,14 @@ const Campaigns = () => {
                                         </tbody>
                                     </table>
 
-                                    {/* table footer */}
+                                    {/* pagination */}
                                     <div className='py-4 flex justify-between items-center'>
                                         <div className='text-xs text-slate-600'>
-                                            <h1>Showing 1 to 10 of 5 entries</h1>
+                                            <h1>Showing {(10 * (currentPage - 1)) + 1} to {10 * (currentPage - 1) + currentItems.length} of {currentPage} entries</h1>
                                         </div>
-                                        <div className='flex items-center text-xs'>
-                                            <button onClick={handlePreviousPage} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'><FaChevronLeft className='mr-2' /> Back</button>
-                                            <button onClick={handleNextPage} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>Next<FaChevronRight className='ml-2' /></button>
+                                        <div className='flex items-center space-x-2 text-xs'>
+                                            <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} className={`py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border`}><FaChevronLeft className='mr-2' /> Back</button>
+                                            <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentItems.length < numberOfItems} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>Next<FaChevronRight className='ml-2' /></button>
                                         </div>
                                     </div>
                                 </div>

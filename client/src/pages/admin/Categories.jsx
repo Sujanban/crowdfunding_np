@@ -38,6 +38,17 @@ const Categories = () => {
     useEffect(() => {
         dispatch(fetchCategory())
     }, [dispatch])
+
+
+    // implementing pagination in frontend
+    const numberOfItems = 10;
+    const [currentPage, setCurrentPage] = useState(1);
+    const indexOfLastItem = currentPage * numberOfItems;
+    const indexOfFirstItem = indexOfLastItem - numberOfItems;
+    const currentItems = category?.slice(indexOfFirstItem, indexOfLastItem);
+
+
+
     return (
         <div className='flex max-w-7xl mx-auto w-full'>
             <Navbar />
@@ -85,7 +96,7 @@ const Categories = () => {
                                             isLoading && <div className='flex justify-center items-center'><FaSpinner className='text-emerald-600 animate-spin' size={30} /></div>
                                         }
                                         {
-                                            category && category.map((category, index) =>
+                                            currentItems && currentItems.map((category, index) =>
                                                 <tr key={index} className=" text-sm text-slate-600 odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                                     <td className="px-2 py-2"> {++count} </td>
                                                     <td className="px-6 py-2 font-medium  whitespace-nowrap dark:text-white"> {category.category} </td>
@@ -102,18 +113,15 @@ const Categories = () => {
                                             )}
                                     </tbody>
                                 </table>
-                                {/* table footer */}
+
+                                {/* pagination */}
                                 <div className='py-4 flex justify-between items-center'>
                                     <div className='text-xs text-slate-600'>
-                                        <h1>Showing 1 to 10 of 5 entries</h1>
+                                        <h1>Showing {(10 * (currentPage - 1)) + 1} to {10 * (currentPage - 1) + currentItems.length} of {currentPage} entries</h1>
                                     </div>
-                                    <div className='flex items-center text-xs'>
-                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'><FaChevronLeft className='mr-2' /> Back</button>
-                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>1</button>
-                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>2</button>
-                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>3</button>
-                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>...</button>
-                                        <button className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>Next<FaChevronRight className='ml-2' /></button>
+                                    <div className='flex items-center space-x-2 text-xs'>
+                                        <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} className={`py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border`}><FaChevronLeft className='mr-2' /> Back</button>
+                                        <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentItems.length < numberOfItems} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>Next<FaChevronRight className='ml-2' /></button>
                                     </div>
                                 </div>
                             </div>
@@ -135,8 +143,8 @@ const Categories = () => {
                                     </div>
                                     <div className='p-4 flex justify-end'>
                                         <button type='submit' className='px-4 py-2 flex items-center text-sm bg-emerald-600 transition-all cursor-pointer duration-300 text-white hover:bg-emerald-700 rounded-xl'>
-                                            <TiPen className='mr-2'/> Create {isLoading && <FaSpinner className='animate-spin' />}
-                                            </button>
+                                            <TiPen className='mr-2' /> Create {isLoading && <FaSpinner className='animate-spin' />}
+                                        </button>
                                     </div>
                                 </form>
                             </div>
