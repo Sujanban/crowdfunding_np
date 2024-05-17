@@ -9,6 +9,7 @@ import { VscEdit, VscTrash } from "react-icons/vsc";
 import { LuChevronRight } from "react-icons/lu";
 import { FaChevronLeft, FaChevronRight, FaSpinner } from "react-icons/fa";
 import { TiPen } from "react-icons/ti";
+import Pagination from '../../components/Pagination';
 
 const Categories = () => {
     const dispatch = useDispatch()
@@ -115,15 +116,12 @@ const Categories = () => {
                                 </table>
 
                                 {/* pagination */}
-                                <div className='py-4 flex justify-between items-center'>
-                                    <div className='text-xs text-slate-600'>
-                                        <h1>Showing {(10 * (currentPage - 1)) + 1} to {10 * (currentPage - 1) + currentItems.length} of {currentPage} entries</h1>
-                                    </div>
-                                    <div className='flex items-center space-x-2 text-xs'>
-                                        <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} className={`py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border`}><FaChevronLeft className='mr-2' /> Back</button>
-                                        <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentItems.length < numberOfItems} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>Next<FaChevronRight className='ml-2' /></button>
-                                    </div>
-                                </div>
+                                <Pagination
+                                    currentPage={currentPage}
+                                    setCurrentPage={setCurrentPage}
+                                    currentItems={currentItems}
+                                    numberOfItems={numberOfItems}
+                                />
                             </div>
                         </div>
                         {/* campaign creation */}
