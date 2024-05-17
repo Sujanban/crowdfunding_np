@@ -15,6 +15,7 @@ const Payouts = () => {
     const isLoading = useSelector(state => state.payout.isLoading);
 
     const payoutHistory = payoutRequests?.filter(request => request.status === 'rejected' || request.status === 'approved')
+    console.log(payoutHistory)
     const pendingPayouts = payoutRequests?.filter(request => request.status === 'pending')
 
     const hanldePayoutStatus = async (id, status) => {
@@ -43,7 +44,7 @@ const Payouts = () => {
                                     {
                                         pendingPayouts?.length ? pendingPayouts.map((request, index) => (
                                             <div key={index} className="flex space-x-4 shadow p-4 bg-white w-full rounded-xl">
-                                                <img src='https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg' className='w-12 h-12 rounded-full object-cover' />
+                                                <img src='https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg' className='w-10 h-10 rounded-full object-cover' />
                                                 <div>
                                                     <div>
                                                         <h1 className='font-bold'>{request.userId?.firstName} {request.userId?.lastName}</h1>
@@ -58,7 +59,7 @@ const Payouts = () => {
                                                     </div>
                                                     <div className='py-2 text-xs flex items-center space-x-2'>
                                                         <button onClick={() => hanldePayoutStatus(request._id, 'approved')} className='px-3 py-2 rounded-xl bg-emerald-600 text-white transition-all duration-300 hover:bg-emerald-700 '>Approve</button>
-                                                        <button onClick={() => hanldePayoutStatus(request._id, 'rejected' )} className='px-3 py-2 rounded-xl bg-orange-500 text-white transition-all duration-300 hover:bg-orange-600 '>Decline</button>
+                                                        <button onClick={() => hanldePayoutStatus(request._id, 'rejected')} className='px-3 py-2 rounded-xl bg-orange-500 text-white transition-all duration-300 hover:bg-orange-600 '>Decline</button>
                                                     </div>
                                                 </div>
                                                 <div className='text-right w-full'>
@@ -81,24 +82,27 @@ const Payouts = () => {
                                 <div className="p-2 max-w-5xl relative overflow-x-auto sm:rounded-lg">
                                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
                                         <thead className="text-slate-900 capitalize bg-gray-50">
-                                            <tr>
-                                                <th scope="col" className=" py-4">SN</th>
-                                                <th scope="col" className=" py-4">Date</th>
-                                                <th scope="col" className=" py-4">Initiator</th>
+                                            <tr className=''>
+                                                <th scope="col" className="px-4 py-4">Initiator</th>
                                                 <th scope="col" className=" py-4">Amount</th>
+                                                <th scope="col" className=" py-4">Date</th>
                                                 <th scope="col" className=" py-4">Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
                                                 payoutHistory && payoutHistory.map((request, index) => (
-                                                    <tr key={index} className="text-slate-600 border-b">
-                                                        <td scope="col" className=" py-4">{++count}</td>
-                                                        <td scope="col" className=" py-4">{formatDate(request.createdAt)}</td>
-                                                        <td scope="col" className=" py-4">{request.userId?.email}</td>
-                                                        <td scope="col" className=" py-4">₹ {request.amount}</td>
-                                                        <td scope="col" className=" py-4 ">
-                                                            <span className={`px-2 py-1 rounded-full ${request.status === 'approved' ? 'bg-emerald-100 text-emerald-600' : 'text-orange-600 bg-orange-100'}`}>{request.status}</span>
+                                                    <tr key={index} className={`bg-opacity-30 ${request.status === 'approved' ? 'bg-emerald-50' : 'bg-orange-50 '}`}>
+                                                        <td scope="col" className="px-4 py-6 flex items-center">{request.userId?.email}</td>
+                                                        <td scope="col" className=" py-6">₹ {request.amount}</td>
+                                                        <td scope="col" className=" py-6">{formatDate(request.createdAt)}</td>
+                                                        <td scope="col" className=" py-6 text-xs">
+                                                            <span className=' flex items-center'>
+                                                                <div className={`ring-1 flex items-center space-x-2 px-2 py-1 rounded-full ${request.status === 'rejected' ? 'ring-orange-600 text-orange-600' : 'ring-emerald-600 text-emerald-600'}`}>
+                                                                    <div className={`w-2 h-2 rounded-full  ${request.status === 'pending' ? 'bg-yellow-500 animate-pulse' : 'bg-emerald-500'} ${request.status === 'rejected' ? 'bg-red-500' : 'bg-emerald-500'}`}></div>
+                                                                    <span>{request.status}</span>
+                                                                </div>
+                                                            </span>
                                                         </td>
                                                     </tr>
                                                 ))

@@ -105,9 +105,9 @@ const Profile = () => {
                                 </div>
                                 <div className='py-4 grid grid-cols-2'>
                                     <span>Account Balance</span>
-                                    <div className='flex items-center space-x-2'>
+                                    <div className='flex items-center justify-between space-x-2'>
                                         <h1>${user.accountBalance}</h1>
-                                        <button onClick={() => handlePayoutRequest(user.accountBalance)} className='text-sm px-3 py-2 rounded shadow bg-emerald-100'>Request Payout</button>
+                                        <button onClick={() => handlePayoutRequest(user.accountBalance)} className='text-sm px-3 py-2 rounded-xl shadow text-white bg-emerald-600'>Request Payout</button>
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@ const Profile = () => {
                 <div className=' '>
                     <h1 className='py-4 text-cencter text-xl font-bold border-b'>Payout History</h1>
                     <div className='p-4  rounded-xl'>
-                        <div className="p-2 relative overflow-x-auto sm:rounded-lg">
+                        <div className="max-h-96 p-2 relative overflow-x-auto sm:rounded-lg">
                             <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
                                 <thead className="text-slate-900 capitalize bg-gray-50">
                                     <tr>
@@ -139,14 +139,16 @@ const Profile = () => {
                                     {
                                         payoutRequests && payoutRequests.map((request, index) => (
                                             <tr key={index} className="text-slate-600 capitalize border-b">
-                                                <td scope="col" className=" py-4">{++count}</td>
-                                                <td scope="col" className=" py-4">{formatDate(request.createdAt)}</td>
-                                                <td scope="col" className="px-6 py-4">₹ {request.amount}</td>
-                                                <td scope="col" className="px-6 py-4 ">
-                                                    <span className='flex items-center space-x-2 text-xs'>
-                                                        <div className={`w-2 h-2 rounded-full  ${request.status === 'pending' ? 'bg-yellow-500 animate-pulse' : 'bg-emerald-500'} ${request.status === 'rejected' ? 'bg-red-500' : 'bg-emerald-500'}`}></div>
+                                                <td scope="col" className=" py-6">{++count}</td>
+                                                <td scope="col" className=" py-6">{formatDate(request.createdAt)}</td>
+                                                <td scope="col" className="px-6 py-6">₹ {request.amount}</td>
+                                                <td scope="col" className="px-6 py-6 ">
+                                                    <div className='flex'>
+                                                    <span className={`px-2 py-1 ring-1 rounded-full flex items-center space-x-2 text-xs ${request.status === 'pending' ? 'text-gray-600  ring-gray-600 animate-pulse' : 'text-emerald-600 ring-emerald-600'} ${request.status === 'rejected' ? 'text-orange-600 ring-orange-600' : 'text-emerald-600 ring-emerald-600'}`}>
+                                                        <div className={`w-2 h-2 rounded-full  ${request.status === 'pending' ? 'bg-gray-500 animate-pulse' : 'bg-emerald-500'} ${request.status === 'rejected' ? 'bg-orange-500' : 'bg-emerald-500'}`}></div>
                                                         <span>{request.status}</span>
                                                     </span>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         ))
