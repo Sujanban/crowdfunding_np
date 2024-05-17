@@ -92,7 +92,7 @@ const Payouts = () => {
                                         <tbody>
                                             {
                                                 payoutHistory && payoutHistory.map((request, index) => (
-                                                    <tr key={index} className={`bg-opacity-30 ${request.status === 'approved' ? 'bg-emerald-50' : 'bg-orange-50 '}`}>
+                                                    <tr key={index} className={`border-b bg-opacity-30 ${request.status === 'approved' ? 'bg-emerald-50' : 'bg-orange-50 '}`}>
                                                         <td scope="col" className="px-4 py-6 flex items-center">{request.userId?.email}</td>
                                                         <td scope="col" className=" py-6">₹ {request.amount}</td>
                                                         <td scope="col" className=" py-6">{formatDate(request.createdAt)}</td>

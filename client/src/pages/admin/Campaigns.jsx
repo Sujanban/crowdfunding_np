@@ -114,7 +114,7 @@ const Campaigns = () => {
                                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
                                         <thead className=" text-slate-900 capitalize bg-gray-50">
                                             <tr className=''>
-                                                <th scope="col" className="px-2 py-3">SN</th>
+                                                {/* <th scope="col" className="px-2 py-3">SN</th> */}
                                                 <th scope="col" className="px-6 py-3">Campaign</th>
                                                 <th scope="col" className="px-6 py-3">Creator</th>
                                                 <th scope="col" className="px-6 py-3">Status</th>
@@ -127,16 +127,21 @@ const Campaigns = () => {
                                             }
                                             {
                                                 campaign && campaign.map((item, index) =>
-                                                    <tr key={index} className='text-slate-600 border-b'>
-                                                        <td scope="col" className="px-2 py-2">{++count}</td>
-                                                        <td scope="col" className="px-6 py-2">{item.campaignTitle.slice(0, 50)}</td>
-                                                        <td scope="col" className="px-6 py-2">
+                                                    <tr key={index} className={`text-slate-600 border-b bg-opacity-20 ${item.status === "active" ? "bg-emerald-50" : "bg-orange-50"}`}>
+                                                        {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
+                                                        <td scope="col" className="px-6 py-4">{item.campaignTitle.slice(0, 50)}</td>
+                                                        <td scope="col" className="px-6 py-4">
                                                             {users.filter(user => user._id === item.campaignOwner)[0]?.firstName + " " + users.filter(user => user._id === item.campaignOwner)[0]?.lastName}
                                                         </td>
-                                                        <td scope="col" className="px-6 py-2">
-                                                            <span className={`${item.status === "active" ? "px-1.5 py-0.5 text-emerald-600 bg-green-100 ring-1 ring-emerald-600 rounded-xl" : "px-1.5 py-0.5 text-red-600 bg-orange-100 ring-1 ring-orange-600 rounded-xl"}`}>{item.status}</span>
+                                                        <td scope="col" className="px-6 py-4 text-xs">
+                                                            <div className='flex items-center'>
+                                                                <span className={`px-2 py-1 ring-1 flex items-center rounded-full space-x-2 ${item.status === "active" ? " text-emerald-600  ring-emerald-600" : " text-red-600 ring-orange-600"}`}>
+                                                                    <div className={`w-2 h-2 rounded-full  ${item.status === "active" ? " bg-emerald-600" : " bg-red-600"}`}></div>
+                                                                    <span>{item.status}</span>
+                                                                </span>
+                                                            </div>
                                                         </td>
-                                                        <td scope="col" className="px-6 py-2 flex items-center">
+                                                        <td scope="col" className="px-6 py-4 flex items-center">
                                                             <Link to={`/admin/editcampaign/${item._id}`} className="m-1 px-4 py-2 bg-emerald-100 text-emerald-600 rounded-xl hover:bg-emerald-200 transition-all duration-300"><VscEdit size={20} /></Link>
                                                             <button onClick={() => handleDelete(item._id)} className="px-4 py-2 text-orange-600 bg-orange-100 rounded-xl hover:bg-orange-200 transition-all duration-300"><VscTrash size={20} /></button>
                                                             {
