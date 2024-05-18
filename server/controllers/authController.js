@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const validator = require("email-validator");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
+const { sendMail } = require("../utils/nodemailer");
 
 // handling user registration
 const handleRegister = async (req, res) => {
@@ -173,10 +174,53 @@ const fetchUserProfile = async (req, res) => {
   }
 };
 
+const forgetPassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const token = jwt.sign({ _id: user._id }, process.env.SECRETE_KEY, {
+      expiresIn: "10m",
+    });
+    const link = `http://localhost:5173/reset-password/${token}`;
+    sendMail(email, link);
+    res.status(200).json({ message: "Password reset link sent to your email" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  try {
+    const { password } = req.body;
+    const { token } = req.params;
+    const { _id } = jwt.verify(token, process.env.SECRETE_KEY);
+    if (!_id) {
+      return res.status(404).json({ error: "Token Expired!" });
+    }
+    const user = await User.findById(_id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    user.password = hashedPassword;
+    await user.save();
+    res.status(200).json({ message: "Password reset successful" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 module.exports = {
   handleRegister,
   handleLogin,
   handleLogout,
   fetchUserProfile,
   handleGoogleLogin,
+  forgetPassword,
+  resetPassword,
 };

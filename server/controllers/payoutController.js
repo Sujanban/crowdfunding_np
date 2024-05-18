@@ -1,7 +1,7 @@
 const User = require("../models/user.model");
 const BankAccount = require("../models/bank.model");
 const PayoutRequest = require("../models/payoutRequest.model");
-const sendPaymentInitiationEmail = require("../utils/nodemailer");
+const {sendPaymentInitiationEmail} = require("../utils/nodemailer");
 
 const addBank = async (req, res) => {
   const { _id } = req.user;

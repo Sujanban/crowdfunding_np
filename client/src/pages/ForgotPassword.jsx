@@ -1,49 +1,27 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { GoogleLogin } from '@react-oauth/google';
-import { jwtDecode } from 'jwt-decode';
-import { useDispatch } from 'react-redux';
-import { loginUser } from '../app/feature/userSlice';
+import toast from 'react-hot-toast';
 
 
 
 const Login = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const [showPassword, setShowPassword] = useState(false);
-    const [user, setUser] = useState({
-        email: '',
-        password: ''
-    });
+    const [email, setEmail] = useState(null);
 
-    const handleGoogleLogin = async (credentialResponse) => {
-        const res = await axios.post('/api/auth/googlelogin',
-            {
-                credentialResponse,
-                jwtDecoded: jwtDecode(credentialResponse.credential),
+    const resetPassword = async (e) => {
+        e.preventDefault()
+        try {
+            const res = await axios.post('/api/auth/forgetPassword', { email });
+            if (res.data.message) {
+                toast.success(res.data.message)
             }
-        );
-        if (res.data.message) {
-            console.log(res.data.user);
-            localStorage.setItem('user', JSON.stringify(res.data.user));
-            navigate('/');
+        }
+        catch (err) {
+            toast.error(err?.response?.data?.error)
+            console.log(err)
         }
     }
 
-
-    // handling user login data
-    const handleLogin =  async (e) => {
-        e.preventDefault();
-        dispatch(loginUser(user)).then((res) => {
-            if (res.payload?.email) {
-                console.log(res.payload);
-                navigate('/');
-            }
-        })
-    }
     return (
         <div className='w-full h-screen bg-stone-100'>
             <div className='lg:p-12 lg:grid grid-cols-3 gap-4'>
@@ -55,7 +33,7 @@ const Login = () => {
                     </div>
                     <div className='p-4 md:p-8 '>
                         <p className='text-lg'>Welcome back</p>
-                        <h1 className='py-6 text-3xl md:text-4xl'>Sign in to Collab</h1>
+                        <h1 className='py-6 text-3xl md:text-4xl'>Reset Password to Collab</h1>
                     </div>
 
                 </div>
@@ -64,53 +42,16 @@ const Login = () => {
                         <p>Don't have an account? <Link className='underline' to='/signup'>Sign up</Link></p>
                     </div>
                     <div className='md:px-8 md:py-16'>
-                        <h2 className='hidden md:block p-4 text-xl'>Your account details</h2>
-                        <form className='' onSubmit={handleLogin}>
+                        <h2 className='hidden md:block p-4 text-xl'>Enter your Email</h2>
+                        <form className='' onSubmit={resetPassword}>
                             <div className=' w-full lg:max-w-2xl px-4 md:py-4 block gap-2'>
                                 <div className='py-2 grid'>
                                     <input
-                                        onChange={(e) => setUser({ ...user, email: e.target.value })}
-                                        value={user.email}
+                                        onChange={(e) => setEmail(e.target.value)}
+
                                         className='text-md font-light border border-stone-600 p-4 rounded-md'
                                         type="email"
                                         placeholder='Email Address' />
-                                </div>
-                                <div className='py-2 grid relative'>
-                                    <input
-                                        onChange={(e) => setUser({ ...user, password: e.target.value })}
-                                        value={user.password}
-                                        className='text-md font-light border border-stone-600 p-4 rounded-md'
-                                        type={showPassword ? "text" : "password"}
-                                        placeholder='Password' />
-
-                                    {
-                                        showPassword ?
-                                            <AiOutlineEyeInvisible
-                                                onClick={() => setShowPassword(!showPassword)}
-                                                color='gray'
-                                                size={25}
-                                                className='absolute right-4 top-1/2 -translate-y-1/2' />
-                                            :
-                                            <AiOutlineEye
-                                                onClick={() => setShowPassword(!showPassword)}
-                                                size={25}
-                                                color='gray'
-                                                className='absolute right-4 top-1/2 -translate-y-1/2' />
-                                    }
-                                </div>
-                                <div className='py-4  '>
-                                    <Link to='/forgotPassword' className='underline'>Forgot your password?</Link>
-                                </div>
-                                <p className='text-slate-500 text-center'>or</p>
-                                <div className='p-4 flex items-center justify-center'>
-                                    <GoogleLogin
-                                        onSuccess={credentialResponse => {
-                                            handleGoogleLogin(credentialResponse);
-                                        }}
-                                        onError={() => {
-                                            console.log('Login Failed');
-                                        }}
-                                    />
                                 </div>
                             </div>
 
@@ -119,10 +60,12 @@ const Login = () => {
                                     <Link className='underline'> Terms of Service </Link>
                                     and acknowledge the
                                     <Link className='underline'> Privacy Notice</Link>
-                                    .</p>
+                                </p>
                             </div>
                             <div className='p-4 block md:flex justify-end '>
-                                <button type='submit' className='w-full lg:w-auto px-5 py-3 bg-emerald-600 hover:bg-emerald-700 transition-all duration-300 text-white rounded-xl'>Sign In</button>
+                                <button type='submit'
+                                    className='w-full lg:w-auto px-5 py-3 bg-emerald-600 hover:bg-emerald-700 transition-all 
+                                duration-300 text-white rounded-xl'>Reset Password</button>
                             </div>
                         </form>
                     </div>

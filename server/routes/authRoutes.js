@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const cors = require("cors");
-const {handleRegister,handleLogin,handleLogout,handleGoogleLogin} = require("../controllers/authController");
+const {handleRegister,handleLogin, forgetPassword, resetPassword, handleLogout,handleGoogleLogin} = require("../controllers/authController");
 
 // middleware
 router.use(
@@ -22,5 +22,8 @@ router.get("/logout", handleLogout);
 
 // GOOGLE LOGIN
 router.post("/googlelogin", handleGoogleLogin);
+
+router.post("/forgetPassword", forgetPassword);
+router.post("/reset-password/:token", resetPassword);
 
 module.exports = router;

@@ -34,12 +34,14 @@ import Donations from './pages/admin/Donations'
 import Donation from './pages/admin/Donation'
 import UserDonation from './pages/Donations'
 import ViewCollectedDonations from './pages/ViewCollectedDonations'
+import ForgotPassword from './pages/ForgotPassword'
 
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchUserProfile } from './app/feature/userSlice'
 import Banks from './pages/admin/Banks'
 import Payouts from './pages/admin/Payouts'
+import ResetPassword from './pages/ResetPassword'
 
 
 
@@ -69,6 +71,9 @@ function App() {
           <Route path='/search/:searchTerm' element={<SearchResult />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+
           <Route path='/*' element={<Error404 />} />
 
 
