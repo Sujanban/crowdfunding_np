@@ -56,7 +56,7 @@ const Login = () => {
                             </div>
 
                             <div className='p-4'>
-                                <p className='text-slate-500'>By clicking the Sign In button below, you agree to the Collab
+                            <p className='text-slate-500'>By using collab, you agree to the Collab
                                     <Link className='underline'> Terms of Service </Link>
                                     and acknowledge the
                                     <Link className='underline'> Privacy Notice</Link>

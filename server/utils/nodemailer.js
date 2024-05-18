@@ -44,9 +44,9 @@ function sendMail(email, link) {
     to: email,
     subject: "Reset Password",
     html: `<h1>Reset Your Password</h1>
-    <p>Click on the following link to reset your password:</p>
-    <a href="${link}">Reset Password</a>
-    <p>The link will expire in 10 minutes.</p>
+    <p style="margin-bottom: 20px;">Click on the following link to reset your password:</p>
+    <a style="background-color: #059669; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;" href="${link}">Reset Password</a>
+    <p style="margin-top: 20px;">The link will expire in 10 minutes.</p>
     <p>If you didn't request a password reset, please ignore this email.</p>`,
   };
 

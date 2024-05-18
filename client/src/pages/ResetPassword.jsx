@@ -16,7 +16,7 @@ const ResetPassword = () => {
     const resetPassword = async (e) => {
         e.preventDefault()
         try {
-            const res = await axios.post('/api/auth/reset-password/'+token, { password });
+            const res = await axios.post('/api/auth/reset-password/' + token, { password });
             if (res.data.message) {
                 toast.success(res.data.message)
                 navigate('/login')
@@ -45,10 +45,10 @@ const ResetPassword = () => {
                 </div>
                 <div className='col-span-2 bg-white rounded-xl'>
                     <div className='p-4 flex md:justify-end'>
-                        <p>Don't have an account? <Link className='underline' to='/signup'>Sign up</Link></p>
+                        <p> <Link className='underline' to='/login'>Login</Link></p>
                     </div>
                     <div className='md:px-8 md:py-16'>
-                        <h2 className='hidden md:block p-4 text-xl'>Enter Password</h2>
+                        <h2 className='hidden md:block px-4 text-xl'>Choose new password</h2>
                         <form className='' onSubmit={resetPassword}>
                             <div className=' w-full lg:max-w-2xl px-4 md:py-4 block gap-2'>
                                 <div className='py-2 grid relative'>
@@ -59,20 +59,30 @@ const ResetPassword = () => {
                                         placeholder='Password' />
 
                                     {
-                                        showPassword ?
+                                        showPassword
+                                            ?
                                             <AiOutlineEyeInvisible
                                                 onClick={() => setShowPassword(!showPassword)}
                                                 color='gray'
                                                 size={25}
-                                                className='absolute right-4 top-1/2 -translate-y-1/2' />
+                                                className='absolute right-4 top-1/2 -translate-y-1/2'
+                                            />
                                             :
                                             <AiOutlineEye
                                                 onClick={() => setShowPassword(!showPassword)}
                                                 size={25}
                                                 color='gray'
-                                                className='absolute right-4 top-1/2 -translate-y-1/2' />
+                                                className='absolute right-4 top-1/2 -translate-y-1/2'
+                                            />
                                     }
                                 </div>
+                            </div>
+                            <div className='p-4'>
+                                <p className='text-slate-500'>By using collab, you agree to the Collab
+                                    <Link className='underline'> Terms of Service </Link>
+                                    and acknowledge the
+                                    <Link className='underline'> Privacy Notice</Link>
+                                </p>
                             </div>
 
                             <div className='p-4 block md:flex justify-end '>

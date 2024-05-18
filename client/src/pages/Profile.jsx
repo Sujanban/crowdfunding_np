@@ -7,7 +7,8 @@ import BankAddForm from '../components/BankAddForm';
 import { addBank, deleteBank, getBank } from '../app/feature/bankSlice';
 import { formatDate } from '../utils/dateFormater'
 import { getRequestsByUser, requestPayout } from '../app/feature/payoutSlice';
-
+import { Link } from 'react-router-dom'
+import {FaStarOfLife } from 'react-icons/fa'
 
 const Profile = () => {
     let count = 0;
@@ -46,9 +47,16 @@ const Profile = () => {
                 <div className=' '>
                     <h1 className='py-4 text-cencter text-xl font-bold border-b'>User</h1>
                     <div className='p-4 max-w-xl rounded-xl'>
-                        <h1 className='py-4 grid grid-cols-2'><span>Email</span> <span>{user.email}</span></h1>
-                        <h1 className='py-4 grid grid-cols-2'><span>Name</span> <span>{user.firstName} {user.lastName}</span></h1>
-                        <h1 className='py-4 grid grid-cols-2'><span>Password</span> <span>{user.password || '**********'}</span></h1>
+                        <h1 className='py-4 grid grid-cols-2'><span>Email</span>
+                            <span>{user.email}</span></h1>
+                        <h1 className='py-4 grid grid-cols-2'><span>Name</span>
+                            <span>{user.firstName} {user.lastName}</span></h1>
+                        <h1 className='py-4 grid grid-cols-2'><span>Password</span>
+                            <div className='flex items-center'>
+                                <span className='flex items-center space-x-1'><FaStarOfLife size={6} /><FaStarOfLife size={6} /><FaStarOfLife size={6} /><FaStarOfLife size={6} /><FaStarOfLife size={6} /><FaStarOfLife size={6} /><FaStarOfLife size={6} /></span> 
+                                <Link className='text-sm ml-3 px-3 py-2 text-orange-600 bg-orange-100 rounded-xl hover:bg-orange-200 transition-all duration-300' to={'/forgotPassword'}>Change</Link>
+                            </div>
+                        </h1>
                     </div>
                 </div>
 

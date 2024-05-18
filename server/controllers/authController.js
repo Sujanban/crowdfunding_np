@@ -177,6 +177,9 @@ const fetchUserProfile = async (req, res) => {
 const forgetPassword = async (req, res) => {
   const { email } = req.body;
   try {
+    if (!email) {
+      return res.status(400).json({ error: "Email is required" });
+    }
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -197,6 +200,15 @@ const resetPassword = async (req, res) => {
   try {
     const { password } = req.body;
     const { token } = req.params;
+    if (!password) {
+      return res.status(400).json({ error: "Password is required" });
+    }
+    if(password.length < 6){
+      return res.status(400).json({ error: "Password must be at least 6 characters long" });
+    }
+    if (!token) {
+      return res.status(400).json({ error: "Token is required" });
+    }
     const { _id } = jwt.verify(token, process.env.SECRETE_KEY);
     if (!_id) {
       return res.status(404).json({ error: "Token Expired!" });
