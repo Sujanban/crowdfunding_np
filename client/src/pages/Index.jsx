@@ -2,14 +2,16 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-
 import create from '../assets/images/create1.png'
 import campaign from '../assets/images/campaign1.png'
 import money from '../assets/images/money1.png'
 import CampaignGrid from '../components/CampaignGrid';
 import Faq from '../components/Faq';
-
+import BlogGrid from '../components/BlogGrid';
+import CtaBanner from '../components/CtaBanner';
 import CountUp from 'react-countup';
+import FeaturedCampaignGrid from '../components/FeaturedCampaignGrid';
+
 
 import { Navigation, Pagination, Autoplay, Scrollbar, A11y } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -20,8 +22,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import "swiper/css/autoplay";
-import BlogGrid from '../components/BlogGrid';
-import CtaBanner from '../components/CtaBanner';
 
 const Index = () => {
   return (
@@ -87,6 +87,7 @@ const Index = () => {
           </div>
         </div>
       </div>
+      <FeaturedCampaignGrid/>
 
       {/* campaign Grid */}
       <CampaignGrid />
