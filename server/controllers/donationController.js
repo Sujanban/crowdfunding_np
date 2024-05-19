@@ -51,27 +51,6 @@ const createDonation = async (req, res) => {
   }
 };
 
-// fetching all donations
-const fetchAllDonation = async (req, res) => {
-  try {
-    const sortOrder = req.query.sortOrder === "asc" ? 1 : -1;
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
-    const skip = (page - 1) * limit;
-
-    const donations = await Donation.find()
-      .populate("userId", "firstName lastName email")
-      .populate("campaignId", "campaignTitle campaignDescription")
-      .sort({ createdAt: sortOrder })
-      .skip(skip)
-      .limit(limit);
-
-    res.status(200).json({ donations, page, limit });
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch donations" });
-  }
-};
-
 // fetch donations
 const fetchDonations = async (req, res) => {
   try {
@@ -128,7 +107,7 @@ const fetchDonation = async (req, res) => {
 
 module.exports = {
   createDonation,
-  fetchAllDonation,
+  
   fetchDonation,
   fetchDonationByCampaign,
   fetchDonationByUser,

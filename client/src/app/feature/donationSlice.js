@@ -3,6 +3,24 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 
+
+// fetchDonations
+export const getDonations = createAsyncThunk(
+  "getDonations",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(`/api/donation/getDonations`);
+      return res.data;
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.error || "Failed to fetch donations";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
+
 // create donation
 export const createDonation = createAsyncThunk(
   "createDonation",
@@ -83,6 +101,20 @@ export const donation = createSlice({
         state.isLoading = false;
       })
       .addCase(createDonation.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorMessage = action.payload;
+      })
+
+      // get donations
+      .addCase(getDonations.pending, (state) => {
+        state.isLoading = true;
+        state.errorMessage = null;
+      })
+      .addCase(getDonations.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = action.payload;
+      })
+      .addCase(getDonations.rejected, (state, action) => {
         state.isLoading = false;
         state.errorMessage = action.payload;
       })

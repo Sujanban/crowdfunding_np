@@ -13,63 +13,23 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { IoFunnelOutline } from "react-icons/io5";
 import axios from 'axios';
 import { formatDate, formatTime } from '../../utils/dateFormater'
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDonations } from '../../app/feature/donationSlice';
+import Loader from "../../components/Loader"
+import DonationStats from '../../components/admin/DonationStats';
 
 
 
 const Donations = () => {
     const [toggleFilter, setToggleFilter] = useState(false);
-    let count = 0;
+    const dispatch = useDispatch();
+    const donations = useSelector(state => state.donation.data)
+    const isLoading = useSelector(state => state.donation.isLoading)
 
-
-    // fetching all donations 
-    const [donation, setDonation] = useState([]);
-    const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(10);
-    const [sortOrder, setSortOrder] = useState("asc");
-    const [searchParams, setSearchParams] = useSearchParams();
-
-    const handleNextPage = () => {
-        setPage(page + 1);
-        setSearchParams({ page: page + 1, limit });
-    };
-
-    const handlePreviousPage = () => {
-        if (page > 1) {
-            setPage(page - 1);
-            setSearchParams({ page: page - 1, limit });
-        }
-    };
-
-    const fetchAllDonation = async () => {
-        const res = await axios.get('/api/donation/fetchAllDonation', {
-            params: {
-                page,
-                limit,
-                sortOrder
-            }
-        });
-        if (res.status === 200) {
-            setDonation(res.data.donations);
-        }
-    }
-
-    // calculating total donation
-    const [totalDonation, setTotalDonation] = useState(null);
-    const fetchDonations = async () => {
-        const res = await axios.get('/api/donation/fetchDonations');
-        if (res.status === 200) {
-            console.log(res.data);
-            setTotalDonation(res.data.donations);
-        }
-    }
-
-   
 
     useEffect(() => {
-        fetchAllDonation();
-        fetchDonations();
-    }, [page, limit, sortOrder])
+        dispatch(getDonations())
+    }, [dispatch])
 
 
     return (
@@ -78,6 +38,9 @@ const Donations = () => {
             <div className='w-full '>
                 <Search />
                 <div className='p-4 h-[90vh] overflow-y-auto bg-gray-100'>
+                    {
+                        isLoading && <Loader />
+                    }
                     {/* breadcrumbs */}
                     <div className='p-2'>
                         <nav className="w-full flex" aria-label="Breadcrumb">
@@ -101,35 +64,7 @@ const Donations = () => {
                         <div className='col-span-2'>
 
                             {/* donation stats grid */}
-                            <div className=' grid grid-cols-3 gap-4'>
-                                <div className='p-4 rounded-xl shadow flex items-center bg-white'>
-                                    <div className=''>
-                                        <MdOutlineAttachMoney className='text-orange-600 bg-orange-100 rounded-xl' size={30} />
-                                    </div>
-                                    <div className='p-2'>
-                                        <h1 className='text-sm'>Total Donations</h1>
-                                        <h1 className='text-xl font-semibold'>₹ 120,500</h1>
-                                    </div>
-                                </div>
-                                <div className='p-4 rounded-xl shadow flex items-center bg-white'>
-                                    <div className=''>
-                                        <LiaPeopleCarrySolid className='text-pink-600 bg-yellow-100 rounded-xl' size={30} />
-                                    </div>
-                                    <div className='p-2'>
-                                        <h1 className='text-sm'>Top Donation</h1>
-                                        <h1 className='text-xl font-semibold'>₹ 1000</h1>
-                                    </div>
-                                </div>
-                                <div className='p-4 rounded-xl shadow flex items-center bg-white'>
-                                    <div className=''>
-                                        <GiGolfFlag className='text-emerald-600 bg-emerald-100 rounded-xl' size={30} />
-                                    </div>
-                                    <div className='p-2'>
-                                        <h1 className='text-sm'>Top Contributer</h1>
-                                        <h1 className='text-xl font-semibold'>John Cena</h1>
-                                    </div>
-                                </div>
-                            </div>
+                            <DonationStats donations={donations} />
                             {/* Donation Tables */}
                             <div className='py-4'>
                                 <div className='p-4 bg-white rounded-xl'>
@@ -157,7 +92,7 @@ const Donations = () => {
                                             </thead>
                                             <tbody>
                                                 {
-                                                    donation && donation.map((item) =>
+                                                    donations && donations.map((item) =>
                                                         <tr key={item._id} className='text-slate-600 text-xs border-b'>
                                                             {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
                                                             <td scope="col" className=" py-2">{formatDate(item.createdAt)}</td>
@@ -173,7 +108,7 @@ const Donations = () => {
                                         </table>
 
                                         {/* table footer */}
-                                        <div className='py-4 flex justify-between items-center'>
+                                        {/* <div className='py-4 flex justify-between items-center'>
                                             <div className='text-xs text-slate-600'>
                                                 <h1>Showing 1 to {donation.length} of {page} entries</h1>
 
@@ -182,7 +117,7 @@ const Donations = () => {
                                                 <button onClick={handlePreviousPage} disabled={page <= 1} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'><FaChevronLeft className='mr-2' /> Back</button>
                                                 <button onClick={handleNextPage} disabled={donation.length < 10} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900  border'>Next<FaChevronRight className='ml-2' /></button>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>

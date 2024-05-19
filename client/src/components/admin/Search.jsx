@@ -48,7 +48,7 @@ const Search = ({ searchQuery, onSearch }) => {
         <div className='p-4 w-full border-b'>
             <div className='px-4 max-w-6xl flex justify-between items-center'>
                 <form action="">
-                    <div className='ring-1 ring-gray-200 focus: flex rounded items-center bg-white px-2'><CiSearch size={20} />
+                    <div className='flex rounded-xl shadow border items-center bg-white px-2'><CiSearch size={20} className='text-emerald-700' />
                         <input
                             placeholder='Search'
                             value={searchQuery}

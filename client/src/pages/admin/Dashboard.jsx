@@ -11,15 +11,19 @@ import { fetchCampaign } from '../../app/feature/campaignSlice';
 import { useEffect, useState } from 'react';
 import { MdOutlineAttachMoney } from 'react-icons/md'
 import { GiGolfFlag } from 'react-icons/gi';
+import DonationStats from '../../components/admin/DonationStats';
+import { getDonations } from '../../app/feature/donationSlice';
 
 
 const Dashboard = () => {
     const [openTab, setOpenTab] = useState('recent');
     const campaign = useSelector(state => state.campaign.data)
+    const donations = useSelector(state => state.donation.data)
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(fetchCampaign())
+        dispatch(getDonations())
     }, [])
     return (
         <div className='flex max-w-7xl mx-auto w-full rounded-xl'>
@@ -50,45 +54,7 @@ const Dashboard = () => {
                         <div className=''>
 
                             {/* donation stats grid */}
-                            <div className=' grid grid-cols-3 gap-4'>
-                                <div className='p-4 rounded-xl shadow flex items-center bg-white'>
-                                    <div className=''>
-                                        <MdOutlineAttachMoney className='text-orange-600 bg-orange-100 rounded-xl' size={30} />
-                                    </div>
-                                    <div className='p-2'>
-                                        <h1 className='text-sm'>Total Donations</h1>
-                                        <h1 className='text-xl font-semibold'>₹ 120,500</h1>
-                                    </div>
-                                </div>
-                                <div className='p-4 rounded-xl shadow flex items-center bg-white'>
-                                    <div className=''>
-                                        <LiaPeopleCarrySolid className='text-pink-600 bg-yellow-100 rounded-xl' size={30} />
-                                    </div>
-                                    <div className='p-2'>
-                                        <h1 className='text-sm'>Top Donation</h1>
-                                        <h1 className='text-xl font-semibold'>₹ 1000</h1>
-                                    </div>
-                                </div>
-                                <div className='p-4 rounded-xl shadow flex items-center bg-white'>
-                                    <div className=''>
-                                        <GiGolfFlag className='text-emerald-600 bg-emerald-100 rounded-xl' size={30} />
-                                    </div>
-                                    <div className='p-2'>
-                                        <h1 className='text-sm'>Top Contributer</h1>
-                                        <h1 className='text-xl font-semibold'>John Cena</h1>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            {/* donation records table */}
-                            {/* <div className='py-4 '>
-                                <div className='p-4 bg-white rounded-xl'>
-                                    <h1 className=' font-bold'>Donation Records</h1>
-                                    <div className='grid grid-cols-3 gap-4'>
-                                    </div>
-                                </div>
-                            </div> */}
+                            <DonationStats donations={donations} />
                         </div>
                         <div className='py-4 grid grid-cols-3 gap-4 '>
                             <div className='col-span-2 rounded-xl bg-white'>
@@ -96,7 +62,7 @@ const Dashboard = () => {
 
                                 </div>
                             </div>
-                            <div className='ring-1 ring-slate-200 rounded-xl shadow bg-white'>
+                            {/* <div className='ring-1 ring-slate-200 rounded-xl shadow bg-white'>
                                 <div className='grid grid-cols-2 gap-2'>
                                     <button
                                         onClick={() => setOpenTab('recent')}
@@ -234,7 +200,7 @@ const Dashboard = () => {
                                             </li>
                                         </div>
                                 }
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
