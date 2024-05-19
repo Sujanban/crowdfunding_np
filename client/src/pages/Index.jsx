@@ -22,52 +22,20 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import "swiper/css/autoplay";
+import Hero from '../components/Hero';
 
 const Index = () => {
   return (
     <>
       <Navbar />
-      <div className='home w-full h-[70h]'>
-        <div className='px-4 max-w-7xl mx-auto relative'>
-          <div className='py-12 w-full text-center relative'>
-            <h1 className='py-4 text-center max-w-lg mx-auto text-2xl md:text-5xl'>Great future are built with a small charity</h1>
-            <p className='md:py-4 max-w-sm mx-auto text-slate-600'>The world's largest social fundraising platform, optimized for your charity in a more easy way</p>
-            <div className='py-4 flex flex-wrap items-center justify-center gap-4'>
-              <Link to='/createCampaign' className='px-4 py-3 text-sm bg-emerald-600 text-white hover:bg-emerald-700 transition-all duration-300 rounded-xl'>Create Campaign</Link>
-              <Link to='/howitworks' className='px-4 py-3 text-sm ring-1 ring-emerald-600 text-emerald-600 hover:bg-emerald-700 hover:text-white transition-all duration-300 rounded-xl'>Learn more</Link>
-            </div>
-          </div>
-          <div className='py-8 md:py-20 '>
-            <div className='md:p-4 grid sm:grid-cols-2 md:grid-cols-4 '>
-              <div className="py-2 md:p-4 shadow ">
-                <h3 className='relative px-4 sm:text-xl md:text-3xl font-bold'>
-                  <CountUp start={0} end={100} />M+ <span className='absolute left-0 bg-yellow-500 w-1.5 h-full'></span></h3>
-                <p className='p-2'>Projects funded on our platform</p>
-              </div>
-              <div className="py-2 md:p-4 shadow ">
-                <h3 className='relative px-4 sm:text-xl md:text-3xl font-bold'> <CountUp start={0} end={15000} />+ <span className='absolute left-0 bg-yellow-500 w-1.5 h-full'></span></h3>
-                <p className='p-2'>Peak concurrent backers</p>
-              </div>
-              <div className="py-2 md:p-4 shadow ">
-                <h3 className='relative px-4 sm:text-xl md:text-3xl font-bold'><CountUp start={0} end={99} />% <span className='absolute left-0 bg-yellow-500 w-1.5 h-full'></span></h3>
-                <p className='p-2'>Historical uptime for our platform</p>
-              </div>
-              {/* <div classNamd:me="p-4 shadow ">
-                <h3 className='relative px-4 sm:text-xl md:text-3xl font-bold'>80%</h3>
-                <p className='p-2'>Success rate for funded projects</p>
-              </div> */}
-              <div className="py-2 md:p-4 shadow ">
-                <h3 className='relative px-4 sm:text-xl md:text-3xl font-bold'><CountUp start={0} end={200} />+ <span className='absolute left-0 bg-yellow-500 w-1.5 h-full'></span></h3>
-                <p className='p-2'>Countries reached by our platform</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      
+      <Hero/>
+
+      <FeaturedCampaignGrid/>
 
 
       {/* how it works */}
-      <div className='px-4 py-8 md:py-20 max-w-7xl mx-auto border-2 bg-green-600 text-center rounded'>
+      <div className='px-4 py-8 md:py-20 max-w-7xl mx-auto border-2 bg-emerald-600 text-center rounded-xl'>
         <h1 className='pb-4 md:pb-12 text-xl md:text-3xl '>Fundraising on Collab takes just a few minutes</h1>
         <div className='max-w-5xl mx-auto md:grid grid-cols-3 gap-4 '>
           <div className='p-2 md:p-4'>
@@ -87,7 +55,7 @@ const Index = () => {
           </div>
         </div>
       </div>
-      <FeaturedCampaignGrid/>
+      
 
       {/* campaign Grid */}
       <CampaignGrid />

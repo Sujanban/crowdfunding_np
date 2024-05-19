@@ -72,7 +72,7 @@ const Search = ({ searchQuery, onSearch }) => {
                         {
                             isNotificationVisible &&
                             <div className=''>
-                                <div className='p-2 text-xs absolute top-[100%] left-0   bg-white px-2 block  shadow'>
+                                <div className='p-2 text-xs absolute top-[100%] right-0   bg-white px-2 block  shadow'>
                                     {
                                         pendingPayouts?.length > 0 ?
                                             <li className='p-2 grid text-slate-500'>
@@ -87,6 +87,9 @@ const Search = ({ searchQuery, onSearch }) => {
                             </div>
                         }
                     </li>
+
+
+
                     <li className='relative' onClick={() => setSubMenuVisible(!isSubMenuVisible)}>
                         <NavLink to='' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>
                             <GoPeople className='' size={20} /> {user.firstName}
@@ -95,12 +98,12 @@ const Search = ({ searchQuery, onSearch }) => {
                         {
                             isSubMenuVisible
                                 ?
-                                <div className=' absolute top-[100%] left-0 text-sm w-full  bg-white px-2 block  shadow'>
-                                    <li className=' grid'>
-                                        <NavLink to='/profile' className='p-2 '>Profile</NavLink>
+                                <div className=' absolute top-[100%] right-0 w-32  bg-white block  shadow'>
+                                    <li className='grid hover:bg-gray-200'>
+                                        <NavLink to='/profile' className='px-6 py-2 '>Profile</NavLink>
                                     </li>
-                                    <li className=' '>
-                                        <button onClick={handleLogout} className='p-2 '>Sign out</button>
+                                    <li className='hover:bg-gray-200 '>
+                                        <button onClick={handleLogout} className='px-6 py-2 '>Sign out</button>
                                     </li>
                                 </div>
                                 :
