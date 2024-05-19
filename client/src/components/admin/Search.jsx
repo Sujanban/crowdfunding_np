@@ -11,7 +11,7 @@ import { getRequests } from '../../app/feature/payoutSlice';
 import { GrAnnounce } from "react-icons/gr";
 
 
-const Search = () => {
+const Search = ({ searchQuery, onSearch }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const payoutRequests = useSelector(state => state.payout.data)
@@ -48,7 +48,14 @@ const Search = () => {
         <div className='p-4 w-full border-b'>
             <div className='px-4 max-w-6xl flex justify-between items-center'>
                 <form action="">
-                    <div className='ring-1 ring-gray-200 focus: flex rounded items-center bg-white px-2'><CiSearch size={20} /><input placeholder='Search' type="search" className='p-2 w-60 text-sm outline-none  placeholder:font-light placeholder:text-slate-800 ' /></div>
+                    <div className='ring-1 ring-gray-200 focus: flex rounded items-center bg-white px-2'><CiSearch size={20} />
+                        <input
+                            placeholder='Search'
+                            value={searchQuery}
+                            onChange={(e) => onSearch(e.target.value)}
+                            type="search"
+                            className='p-2 w-60 text-sm outline-none  placeholder:font-light placeholder:text-slate-800 ' />
+                    </div>
                 </form>
                 <div className='flex items-center gap-4 '>
                     <li className='p-2 relative'>
@@ -70,7 +77,7 @@ const Search = () => {
                                         pendingPayouts?.length > 0 ?
                                             <li className='p-2 grid text-slate-500'>
                                                 <Link to={'/admin/payouts'} className='hover:underline' onClick={() => setNotificationVisible(!isNotificationVisible)}>
-                                                    <h1 className='w-36 flex'><GrAnnounce size={20} className='mr-2'/> you have {pendingPayouts?.length} pending payout requests</h1>
+                                                    <h1 className='w-36 flex'><GrAnnounce size={20} className='mr-2' /> you have {pendingPayouts?.length} pending payout requests</h1>
                                                 </Link>
                                             </li>
                                             :

@@ -194,10 +194,11 @@ import { IoFunnelOutline } from 'react-icons/io5';
 const Payouts = () => {
     const dispatch = useDispatch();
     const [toggleFilter, setToggleFilter] = useState(false);
+    const [sortedHistory, setSortedHistory] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
     const payoutRequests = useSelector(state => state.payout.data);
     const isLoading = useSelector(state => state.payout.isLoading);
-    const [sortedHistory, setSortedHistory] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
 
     const numberOfItems = 10;
     const indexOfLastItem = currentPage * numberOfItems;
@@ -230,7 +231,33 @@ const Payouts = () => {
             if (sort === "lowestFirst") return a.amount - b.amount;
         });
         setSortedHistory(sorted);
+
+        // handeling sort according to status
+        // if (sort === "approved") {
+        //     const sorted = [...sortedHistory].filter(request => request.status === 'approved');
+        //     setSortedHistory(sorted);
+        // } else {
+        //     const sorted = [...sortedHistory].filter(request => request.status === 'rejected');
+        //     setSortedHistory(sorted);
+        // }
     };
+
+
+    // search
+    const handleSearch = (query) => {
+        setSearchQuery(query);
+        if (query) {
+            const filtered = sortedHistory.filter(request =>
+                request.userId.email.toLowerCase().includes(query.toLowerCase())
+            );
+            setSortedHistory(filtered);
+        } else {
+            const payoutHistory = payoutRequests.filter(
+                request => request.status === 'rejected' || request.status === 'approved'
+            );
+            setSortedHistory(payoutHistory);
+        }
+    }
 
     const currentItems = sortedHistory.slice(indexOfFirstItem, indexOfLastItem);
 
@@ -238,7 +265,7 @@ const Payouts = () => {
         <div className='flex max-w-7xl mx-auto w-full rounded-xl'>
             <Navbar />
             <div className='w-full'>
-                <Search />
+                <Search searchQuery={searchQuery} onSearch={handleSearch} />
                 <div className='p-4 h-[90vh] overflow-y-auto bg-gray-100'>
                     {isLoading && <Loader />}
                     <div className='p-4'>
@@ -263,7 +290,7 @@ const Payouts = () => {
                                                 </div>
                                                 <div className='py-2 text-xs flex items-center space-x-2'>
                                                     <button onClick={() => handlePayoutStatus(request._id, 'approved')} className='px-3 py-2 rounded-xl bg-emerald-600 text-white transition-all duration-300 hover:bg-emerald-700 '>Approve</button>
-                                                    <button onClick={() => handlePayoutStatus(request._id, 'rejected')} className='px-3 py-2 rounded-xl bg-orange-500 text-white transition-all duration-300 hover:bg-orange-600 '>Decline</button>
+                                                    <button onClick={() => handlePayoutStatus(request._id, 'rejected')} className='px-3 py-2 rounded-xl bg-orange-500 text-white transition-all duration-300 hover:bg-orange-600 '>Reject</button>
                                                 </div>
                                             </div>
                                             <div className='text-right w-full'>
@@ -285,7 +312,7 @@ const Payouts = () => {
                                             <IoFunnelOutline className='ml-2' />
                                         </button>
                                         {toggleFilter && (
-                                            <div className='py-2 w-36 text-xs absolute top-10 right-0 z-50 shadow bg-white'>
+                                            <div className='text-left pt-2 w-36 text-xs absolute top-10 right-0 z-50 shadow bg-white'>
                                                 <div className='border-b'>
                                                     <button onClick={() => { handleSort("desc"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Newest to Oldest</button>
                                                 </div>
@@ -298,6 +325,12 @@ const Payouts = () => {
                                                 <div className='border-b'>
                                                     <button onClick={() => { handleSort("lowestFirst"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Lowest to Highest</button>
                                                 </div>
+                                                {/* <div className='border-b'>
+                                                    <button onClick={() => { handleSort("approved"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Approved</button>
+                                                </div>
+                                                <div className='border-b'>
+                                                    <button onClick={() => { handleSort("rejected"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Rejected</button>
+                                                </div> */}
                                             </div>
                                         )}
                                     </div>
