@@ -54,9 +54,24 @@ const Donations = () => {
         }
     }
 
+    // calculating total donation
+    const [totalDonation, setTotalDonation] = useState(null);
+    const fetchDonations = async () => {
+        const res = await axios.get('/api/donation/fetchDonations');
+        if (res.status === 200) {
+            console.log(res.data);
+            setTotalDonation(res.data.donations);
+        }
+    }
+
+   
+
     useEffect(() => {
         fetchAllDonation();
+        fetchDonations();
     }, [page, limit, sortOrder])
+
+
     return (
         <div className='flex max-w-7xl mx-auto w-full rounded-xl'>
             <Navbar />

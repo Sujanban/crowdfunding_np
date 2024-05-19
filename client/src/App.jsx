@@ -58,7 +58,7 @@ function App() {
   return (
     <GoogleOAuthProvider clientId="113038173634-mal1sarh7mrqbaq1k833nt7goushh797.apps.googleusercontent.com">
       <div className='leading-relaxed'>
-        <Toaster position='top-right' toastOptions={{ duration: 2000 }} />
+        <Toaster position='bottom-center' toastOptions={{ duration: 2000 , success: { iconTheme: { primary: '#059669', secondary: 'white' }} }} />
         <Routes>
           {/* general routes */}
           <Route path='/' element={<Index />} />

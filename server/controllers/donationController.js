@@ -72,6 +72,19 @@ const fetchAllDonation = async (req, res) => {
   }
 };
 
+// fetch donations
+const fetchDonations = async (req, res) => {
+  try {
+    const donations = await Donation.find()
+      .populate("userId", "firstName lastName email")
+      .populate("campaignId", "campaignTitle campaignDescription");
+
+    res.status(200).json(donations);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch donations" });
+  }
+};
+
 // fetch donation by user
 const fetchDonationByUser = async (req, res) => {
   try {
@@ -119,4 +132,5 @@ module.exports = {
   fetchDonation,
   fetchDonationByCampaign,
   fetchDonationByUser,
+  fetchDonations
 };

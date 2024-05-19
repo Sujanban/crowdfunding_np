@@ -5,26 +5,23 @@ import { formatDate } from '../../utils/dateFormater'
 import { useDispatch, useSelector } from 'react-redux'
 import { getRequests, handlePayout } from '../../app/feature/payoutSlice'
 import Loader from '../../components/Loader'
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import Pagination from '../../components/Pagination'
+import { IoFunnelOutline } from 'react-icons/io5'
 
 
 
 const Payouts = () => {
     const dispatch = useDispatch();
+    const [toggleFilter, setToggleFilter] = useState(false);
     const payoutRequests = useSelector(state => state.payout.data);
     const isLoading = useSelector(state => state.payout.isLoading);
-
     const payoutHistory = payoutRequests?.filter(request => request.status === 'rejected' || request.status === 'approved')
+    const [sortedHistory, setSortedHistory] = useState(payoutHistory);
     const pendingPayouts = payoutRequests?.filter(request => request.status === 'pending')
 
     const hanldePayoutStatus = async (id, status) => {
         dispatch(handlePayout({ id, status }))
     }
-
-    useEffect(() => {
-        dispatch(getRequests());
-    }, [])
 
 
     // implementing pagination in frontend
@@ -32,8 +29,27 @@ const Payouts = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const indexOfLastItem = currentPage * numberOfItems;
     const indexOfFirstItem = indexOfLastItem - numberOfItems;
-    const currentItems = payoutHistory?.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = sortedHistory ? sortedHistory.slice(indexOfFirstItem, indexOfLastItem) : payoutHistory && payoutHistory.slice(indexOfFirstItem, indexOfLastItem);
 
+    // sort items according to donation amount
+    const handleSort = (sort) => {
+        const sorted = [...payoutHistory].sort((a, b) => {
+            if (sort === "asc") {
+                return new Date(a.createdAt) - new Date(b.createdAt);
+            } else if (sort === "desc") {
+                return new Date(b.createdAt) - new Date(a.createdAt);
+            } else if (sort === "highestFirst") {
+                return b.amount - a.amount;
+            } else if (sort === "lowestFirst") {
+                return a.amount - b.amount;
+            }
+        });
+        setSortedHistory(sorted);
+    };
+
+    useEffect(() => {
+        dispatch(getRequests());
+    }, [dispatch])
 
     return (
         <div className='flex max-w-7xl mx-auto w-full rounded-xl'>
@@ -87,7 +103,29 @@ const Payouts = () => {
 
                             {/* payout history */}
                             <div className='mt-4 p-4 bg-white w-full rounded-xl'>
-                                <h1 className='px-2 font-bold'>Payout Records</h1>
+                                <div className='px-2 flex items-center justify-between'>
+                                    <h1 className=' font-bold'>Payouts History</h1>
+                                    <div className='relative'>
+                                        <button onClick={() => setToggleFilter(!toggleFilter)} className='border rounded px-4 text-sm py-2 flex items-center hover:bg-gray-100'>Filter
+                                            <IoFunnelOutline className='ml-2' /></button>
+                                        {
+                                            toggleFilter && <div className='py-2 w-36 text-xs absolute top-10 right-0 z-50 shadow bg-white'>
+                                                <div className='border-b'>
+                                                    <button onClick={() => [handleSort("desc"), setToggleFilter(false)]} className='px-5 py-3 hover:bg-gray-100 w-full'>Newest to Oldest</button>
+                                                </div>
+                                                <div className='border-b'>
+                                                    <button onClick={() => [handleSort("asc"), setToggleFilter(false)]} className='px-5 py-3 hover:bg-gray-100 w-full'>Oldest to Newest</button>
+                                                </div>
+                                                <div className='border-b'>
+                                                    <button onClick={() => [handleSort("highestFirst"), setToggleFilter(false)]} className='px-5 py-3 hover:bg-gray-100 w-full'>Highest to Lowest</button>
+                                                </div>
+                                                <div className='border-b'>
+                                                    <button onClick={() => [handleSort("lowestFirst"), setToggleFilter(false)]} className='px-5 py-3 hover:bg-gray-100 w-full'>Lowest to Highest</button>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
                                 <div className="p-2 max-w-5xl relative overflow-x-auto sm:rounded-lg">
                                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
                                         <thead className="text-slate-900 capitalize bg-gray-50">

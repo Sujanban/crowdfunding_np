@@ -10,6 +10,7 @@ import Card from './Card';
 const CampaignGrid = () => {
     const category = useSelector(state => state.category.data)
     const campaign = useSelector(state=> state.campaign.data)
+    const campaignn = campaign?.filter(campaign => campaign.featured === false)
 
     const dispatch = useDispatch();
 
@@ -21,7 +22,7 @@ const CampaignGrid = () => {
     const [filteredData, setFilteredData] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const handelFilter = (data) => {
-        const filteredDataa = campaign.filter(campaign => campaign.category === data);
+        const filteredDataa = campaignn.filter(campaign => campaign.category === data);
         setFilteredData(filteredDataa);
         setSelectedCategory(data);
     }
@@ -61,7 +62,7 @@ const CampaignGrid = () => {
                         <Card key={index} campaign={campaign} />
                     )
                         :
-                        campaign && campaign.length > 0 && campaign.slice(0, 4).map((campaign, index) =>
+                        campaignn && campaignn.length > 0 && campaignn.slice(0, 8).map((campaign, index) =>
                             <Card key={index} campaign={campaign} />
                         )
                 }
@@ -71,7 +72,7 @@ const CampaignGrid = () => {
 
             </div>
             {
-                campaign && campaign.length > 4 &&
+                campaignn && campaignn.length > 8 &&
                 <div className='p-4 flex justify-center text-white'>
                     <Link to='/explore' className='px-4 py-3 text-sm bg-emerald-600 text-white hover:bg-emerald-700 transition-all duration-300 rounded-xl flex items-center'>Explore more <IoIosArrowDown /></Link>
                 </div>}
