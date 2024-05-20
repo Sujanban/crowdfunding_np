@@ -69,16 +69,26 @@ const Donations = () => {
                             <div className='py-4'>
                                 <div className='p-4 bg-white rounded-xl'>
                                     <div className='px-2 flex items-center justify-between'>
-                                        <h1 className=' font-bold'>Recent Donations</h1>
-                                        <div className='relative pr-4'>
-                                            <button onClick={() => setToggleFilter(!toggleFilter)} className='border rounded px-4 text-sm py-2 flex items-center hover:bg-gray-50'>Filter <IoFunnelOutline className='ml-2' /></button>
-                                            {
-                                                toggleFilter && <div className='p-2 w-32 text-xs absolute top-10 left-0 z-50 shadow bg-white'>
-                                                    <button onClick={() => [setSortOrder("desc"), setToggleFilter(false)]} className='px-2 py-3 w-full border-b'>Newest to oldest</button>
-                                                    <button onClick={() => [setSortOrder("asc"), setToggleFilter(false)]} className='px-2 py-3 w-full'>Oldest to newest</button>
+                                        <h1 className=' font-medium'>Recent Donations</h1>
+                                        <div className='relative '>
+                                        <button onClick={() => setToggleFilter(!toggleFilter)} className='border rounded px-4 text-sm py-2 flex items-center hover:bg-gray-100'>Filter <IoFunnelOutline className='ml-2' /></button>
+                                        {toggleFilter && (
+                                            <div className='text-left pt-2 w-40 text-xs absolute top-10 right-0 z-50 shadow bg-white'>
+                                                <div className='border-b'>
+                                                    <button onClick={() => { handleSort("desc"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Newest to Oldest</button>
                                                 </div>
-                                            }
-                                        </div>
+                                                <div className='border-b'>
+                                                    <button onClick={() => { handleSort("asc"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Oldest to Newest</button>
+                                                </div>
+                                                <div className='border-b'>
+                                                    <button onClick={() => { handleSort("highestFirst"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Highest to Lowest</button>
+                                                </div>
+                                                <div className='border-b'>
+                                                    <button onClick={() => { handleSort("lowestFirst"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Lowest to Highest</button>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
                                     </div>
                                     <div className="p-2 relative overflow-x-auto sm:rounded-lg">
                                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
@@ -96,7 +106,7 @@ const Donations = () => {
                                                         <tr key={item._id} className='text-slate-600 text-xs border-b'>
                                                             {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
                                                             <td scope="col" className=" py-2">{formatDate(item.createdAt)}</td>
-                                                            <td scope="col" className="px-6 py-2 font-bold ">{item.userId.email}</td>
+                                                            <td scope="col" className="px-6 py-2 font-medium ">{item.userId.email}</td>
                                                             <td scope="col" className="px-6 py-2">₹ {item.amount}</td>
                                                             <td scope="col" className="px-6 py-2">
                                                                 <Link to={`/admin/donations/donation/${item._id}`} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>

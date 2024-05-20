@@ -58,9 +58,9 @@ const Navbar = () => {
                 {
                     nav.map((item, index) =>
                         <NavLink key={index} className={({ isActive }) => isActive ?
-                            'p-2 rounded-xl bg-emerald-600 text-white text-sm hover:bg-emerald-600 hover:text-white text-sate-700 flex items-center transition-all duration-300'
+                            'p-2 rounded-xl bg-emerald-600 text-white text-md hover:bg-emerald-600 hover:text-white text-sate-700 flex items-center transition-all duration-300'
                             :
-                            'p-2 rounded-xl  text-sm hover:bg-emerald-600 hover:text-white text-slate-700 flex items-center  transition-all duration-300'} to={item.path}>
+                            'p-2 rounded-xl  text-md hover:bg-emerald-600 hover:text-white text-slate-700 flex items-center  transition-all duration-300'} to={item.path}>
                             {item.icon}<span className='px-2'>{item.name}</span>
                         </NavLink>
                     )

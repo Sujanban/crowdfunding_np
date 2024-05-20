@@ -40,7 +40,7 @@ const DonationStats = ({ donations }) => {
                 </div>
                 <div className='p-2'>
                     <h1 className='text-sm'>Total Donations</h1>
-                    <h1 className=' font-semibold'>₹ {totalDonation()}</h1>
+                    <h1 className=' font-medium'>₹ {totalDonation()}</h1>
                 </div>
             </div>
             <div className='p-4 rounded-xl shadow flex items-center bg-white'>
@@ -49,7 +49,7 @@ const DonationStats = ({ donations }) => {
                 </div>
                 <div className='p-2'>
                     <h1 className='text-sm'>Top Donation</h1>
-                    <h1 className=' font-semibold'>₹ {topDonation()}</h1>
+                    <h1 className=' font-medium'>₹ {topDonation()}</h1>
                 </div>
             </div>
             <div className='p-4 rounded-xl shadow flex items-center bg-white'>
@@ -58,7 +58,7 @@ const DonationStats = ({ donations }) => {
                 </div>
                 <div className='p-2'>
                     <h1 className='text-sm'>Top Contributer</h1>
-                    <h1 className=' font-semibold capitalize'>{topDonator()}</h1>
+                    <h1 className=' font-medium capitalize'>{topDonator()}</h1>
                 </div>
             </div>
         </div>

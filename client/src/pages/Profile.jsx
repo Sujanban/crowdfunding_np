@@ -8,7 +8,7 @@ import { addBank, deleteBank, getBank } from '../app/feature/bankSlice';
 import { formatDate } from '../utils/dateFormater'
 import { getRequestsByUser, requestPayout } from '../app/feature/payoutSlice';
 import { Link } from 'react-router-dom'
-import {FaStarOfLife } from 'react-icons/fa'
+import { FaStarOfLife } from 'react-icons/fa'
 
 const Profile = () => {
     let count = 0;
@@ -43,9 +43,9 @@ const Profile = () => {
 
             <Navbar />
             <div className={`p-8 w-full max-w-7xl mx-auto ${toggleAccountAdd ? 'blur-sm' : ''}`}>
-                <h1 className='py-4 text-cencter text-2xl font-bold underline underline-offset-4'>Profile</h1>
+                <h1 className='py-4 text-cencter text-xl font-medium'>Profile</h1>
                 <div className=' '>
-                    <h1 className='py-4 text-cencter text-xl font-bold border-b'>User</h1>
+                    <h1 className='py-4 text-cencter text-xl font-medium border-b'>User</h1>
                     <div className='p-4 max-w-xl rounded-xl'>
                         <h1 className='py-4 grid grid-cols-2'><span>Email</span>
                             <span>{user.email}</span></h1>
@@ -53,7 +53,7 @@ const Profile = () => {
                             <span>{user.firstName} {user.lastName}</span></h1>
                         <h1 className='py-4 grid grid-cols-2'><span>Password</span>
                             <div className='flex items-center'>
-                                <span className='flex items-center space-x-1'><FaStarOfLife size={6} /><FaStarOfLife size={6} /><FaStarOfLife size={6} /><FaStarOfLife size={6} /><FaStarOfLife size={6} /><FaStarOfLife size={6} /><FaStarOfLife size={6} /></span> 
+                                <span className='flex items-center space-x-1'><FaStarOfLife size={6} /><FaStarOfLife size={6} /><FaStarOfLife size={6} /><FaStarOfLife size={6} /><FaStarOfLife size={6} /><FaStarOfLife size={6} /><FaStarOfLife size={6} /></span>
                                 <Link className='text-sm ml-3 px-3 py-2 text-orange-600 bg-orange-100 rounded-xl hover:bg-orange-200 transition-all duration-300' to={'/forgotPassword'}>Change</Link>
                             </div>
                         </h1>
@@ -63,7 +63,7 @@ const Profile = () => {
 
 
                 <div className=' '>
-                    <h1 className='py-4 text-cencter text-xl font-bold border-b'>Payout Accounts</h1>
+                    <h1 className='py-4 text-cencter text-xl font-medium border-b'>Payout Accounts</h1>
                     {
                         bank ?
                             <div className='p-4 max-w-xl'>
@@ -99,11 +99,11 @@ const Profile = () => {
 
                 {/* payout history */}
                 <div className=' '>
-                    <h1 className='py-4 text-cencter text-xl font-bold border-b'>Payout History</h1>
+                    <h1 className='py-4 text-cencter text-xl font-medium border-b'>Payout History</h1>
                     <div className='p-4  rounded-xl'>
                         <div className="max-h-96 p-2 relative overflow-x-auto sm:rounded-lg">
                             <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
-                                <thead className="text-slate-900 capitalize bg-gray-50">
+                                <thead className="text-slate-900 capitalize bg-gray-50 font-medium">
                                     <tr>
                                         <th scope="col" className=" py-4">SN</th>
                                         <th scope="col" className=" py-4">Date</th>
@@ -117,7 +117,7 @@ const Profile = () => {
                                             <tr key={index} className="text-slate-600 capitalize border-b">
                                                 <td scope="col" className=" py-6">{++count}</td>
                                                 <td scope="col" className=" py-6">{formatDate(request.createdAt)}</td>
-                                                <td scope="col" className="px-6 py-6">₹ {request.amount}</td>
+                                                <td scope="col" className="px-6 py-6">$ {request.amount}</td>
                                                 <td scope="col" className="px-6 py-6 ">
                                                     <div className='flex'>
                                                         <span className={`px-2 py-1 ring-1 rounded-full flex items-center space-x-2 text-xs ${request.status === 'pending' ? 'text-gray-600  ring-gray-600 animate-pulse' : 'text-emerald-600 ring-emerald-600'} ${request.status === 'rejected' ? 'text-orange-600 ring-orange-600' : 'text-emerald-600 ring-emerald-600'}`}>

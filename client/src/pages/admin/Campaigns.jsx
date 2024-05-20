@@ -58,6 +58,9 @@ const Campaigns = () => {
     const indexOfFirstItem = indexOfLastItem - numberOfItems;
     const currentItems = campaign?.slice(indexOfFirstItem, indexOfLastItem);
 
+    const handleSort = (sort) => {
+    }
+
 
 
 
@@ -92,22 +95,31 @@ const Campaigns = () => {
                         <div className=''>
                             <div className='p-4 bg-white rounded-xl'>
                                 <div className='p-2 flex items-center justify-between'>
-                                    <h1 className='border-b-2 border-emerald-600  font-bold'>Campaigns</h1>
-                                    <div className='relative pr-4'>
-                                        <button onClick={() => setToggleFilter(!toggleFilter)} className='border rounded px-4 text-sm py-2 flex items-center hover:bg-gray-50'>Filter <IoFunnelOutline className='ml-2' /></button>
-                                        {
-                                            toggleFilter && <div className='p-2 w-32 text-xs absolute top-10 left-0 z-50 shadow bg-white'>
-                                                <button className='px-2 py-3 w-full border-b'>Highest to lowest</button>
-                                                <button className='px-2 py-3 w-full'>Lowest to highest</button>
+                                    <h1 className='border-b-2 border-emerald-600  font-medium'>Campaigns</h1>
+                                    <div className='relative '>
+                                        <button onClick={() => setToggleFilter(!toggleFilter)} className='border rounded px-4 text-sm py-2 flex items-center hover:bg-gray-100'>Filter <IoFunnelOutline className='ml-2' /></button>
+                                        {toggleFilter && (
+                                            <div className='text-left pt-2 w-40 text-xs absolute top-10 right-0 z-50 shadow bg-white'>
+                                                <div className='border-b'>
+                                                    <button onClick={() => { handleSort("desc"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Newest to Oldest</button>
+                                                </div>
+                                                <div className='border-b'>
+                                                    <button onClick={() => { handleSort("asc"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Oldest to Newest</button>
+                                                </div>
+                                                <div className='border-b'>
+                                                    <button onClick={() => { handleSort("highestFirst"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Highest to Lowest</button>
+                                                </div>
+                                                <div className='border-b'>
+                                                    <button onClick={() => { handleSort("lowestFirst"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Lowest to Highest</button>
+                                                </div>
                                             </div>
-                                        }
+                                        )}
                                     </div>
                                 </div>
                                 <div className="p-2 relative overflow-x-auto sm:rounded-lg">
                                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
                                         <thead className=" text-slate-900 capitalize bg-gray-50">
                                             <tr className=''>
-                                                {/* <th scope="col" className="px-2 py-3">SN</th> */}
                                                 <th scope="col" className="px-6 py-3">Campaign</th>
                                                 <th scope="col" className="px-6 py-3">Creator</th>
                                                 <th scope="col" className="px-6 py-3">Status</th>
@@ -121,7 +133,6 @@ const Campaigns = () => {
                                             {
                                                 currentItems && currentItems.map((item, index) =>
                                                     <tr key={index} className={`text-slate-600 border-b bg-opacity-20 ${item.status === "active" ? "bg-emerald-50" : "bg-orange-50"}`}>
-                                                        {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
                                                         <td scope="col" className="px-6 py-4">{item.campaignTitle.slice(0, 50)}</td>
                                                         <td scope="col" className="px-6 py-4">
                                                             {users.filter(user => user._id === item.campaignOwner)[0]?.firstName + " " + users.filter(user => user._id === item.campaignOwner)[0]?.lastName}

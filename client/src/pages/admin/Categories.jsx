@@ -79,7 +79,7 @@ const Categories = () => {
                         {/*  */}
                         <div className='p-4 flex-grow bg-white rounded-xl '>
                             <div className='p-2 flex items-center justify-between'>
-                                <h1 className='border-b-2 border-emerald-600 font-bold'>Category</h1>
+                                <h1 className='border-b-2 border-emerald-600 font-medium'>Category</h1>
                             </div>
 
 
@@ -128,7 +128,7 @@ const Categories = () => {
                         <div className=' flex-grow '>
                             <div className='p-4 bg-white rounded-xl '>
                                 <div className='px-2 flex'>
-                                    <h1 className='border-b-2 border-emerald-600 font-bold'>Create Category</h1>
+                                    <h1 className='border-b-2 border-emerald-600 font-medium'>Create Category</h1>
                                 </div>
                                 <form onSubmit={handleCategoryCreation}>
                                     <div className='p-4'>

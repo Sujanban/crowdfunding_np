@@ -270,7 +270,7 @@ const Payouts = () => {
                     {isLoading && <Loader />}
                     <div className='p-4'>
                         <div className='col-span-2'>
-                            <h1 className='pb-2 font-bold'>Payout Requests</h1>
+                            <h1 className='pb-2 font-medium'>Payout Requests</h1>
                             <div className='p-4 bg-white w-full rounded-xl'>
                                 <div className='grid grid-cols-3 gap-4'>
                                     {pendingPayouts?.length ? pendingPayouts.map((request, index) => (
@@ -306,13 +306,13 @@ const Payouts = () => {
                             {/* payout history */}
                             <div className='mt-4 p-4 bg-white w-full rounded-xl'>
                                 <div className='px-2 flex items-center justify-between'>
-                                    <h1 className=' font-bold'>Payouts History</h1>
+                                    <h1 className=' font-medium'>Payouts History</h1>
                                     <div className='relative'>
                                         <button onClick={() => setToggleFilter(!toggleFilter)} className='border rounded px-4 text-sm py-2 flex items-center hover:bg-gray-100'>Filter
                                             <IoFunnelOutline className='ml-2' />
                                         </button>
                                         {toggleFilter && (
-                                            <div className='text-left pt-2 w-36 text-xs absolute top-10 right-0 z-50 shadow bg-white'>
+                                            <div className='text-left pt-2 w-40 text-xs absolute top-10 right-0 z-50 shadow bg-white'>
                                                 <div className='border-b'>
                                                     <button onClick={() => { handleSort("desc"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Newest to Oldest</button>
                                                 </div>
@@ -325,12 +325,6 @@ const Payouts = () => {
                                                 <div className='border-b'>
                                                     <button onClick={() => { handleSort("lowestFirst"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Lowest to Highest</button>
                                                 </div>
-                                                {/* <div className='border-b'>
-                                                    <button onClick={() => { handleSort("approved"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Approved</button>
-                                                </div>
-                                                <div className='border-b'>
-                                                    <button onClick={() => { handleSort("rejected"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Rejected</button>
-                                                </div> */}
                                             </div>
                                         )}
                                     </div>
