@@ -43,19 +43,19 @@ const Faq = () => {
 
     return (
         <div className='px-4 py-8 md:py-20 mx-auto max-w-7xl'>
-            <h1 className='relative px-4 text-xl md:text-3xl'>Frequently Asked Questions <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
-            <p className='py-4'>Have another question? Email us at <a className='underline' href="mailto:bansujan@gmail.com">bansujan@gmail.com</a> </p>
+            <div className='w-full flex items-center'>
+            <h1 className=' text-xl font-medium mx-auto border-b border-gray-300'>Frequently Asked Questions</h1>
+            </div>
+            <p className='py-4 text-center'>Have another question? Email us at <a className='underline' href="mailto:bansujan@gmail.com">bansujan@gmail.com</a> </p>
             <div className=' ma-w-5xl mx-auto'>
-
-
                 {
                     faq && faq.map((item, index) =>
-                        <div className='md:p-4 border-b border-b-green-800' key={index}>
+                        <div className='md:p-2 border-b ' key={index}>
                             <div
                                 onClick={(e) => handleOpen(item.id)}
-                                
+
                                 className='py-4 md:p-4 cursor-pointer flex justify-between items-center'>
-                                <h1 className='text-md md:text-2xl '>{item.id + ". " + item.question}</h1>
+                                <h1 className='text-md md:text-lg '>{item.question}</h1>
 
                                 <IoIosArrowDown size={25} />
 
@@ -67,7 +67,6 @@ const Faq = () => {
                         </div>
                     )
                 }
-
             </div>
         </div>
     )

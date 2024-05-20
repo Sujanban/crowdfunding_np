@@ -1,19 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import CountUp from 'react-countup';
-import { FaHeart } from "react-icons/fa";
 
 
 const Hero = () => {
     return (
-        <div className='home w-full'>
-            <div className='max-w-7xl mx-auto relative'>
+        <div className=' w-full'>
+            <div className='home max-w-7xl mx-auto relative'>
 
                 {/* hero info */}
-                <div className='py-16 grid grid-cols-2'>
-                    <div className=' my-auto'>
-                        <h1 className='text-2xl font-bold '>Great future are built with a small charity</h1>
-                        <p className='py-3 max-w-md text-gray-600'>The world's largest social fundraising platform, optimized for your charity in a more easy way</p>
+                <div className='py-32 grid grid-cols-2'>
+                    <div className='pl-8 my-auto'>
+                        <h1 className='text-2xl font-medium '>Great future are built with a small charity</h1>
+                        <p className='py-3 text-gray-600'>The world's largest social fundraising platform, optimized for your charity in a more easy way</p>
                         <div className=' flex items-center space-x-4'>
                             <Link to='/createCampaign'
                                 className='px-4 py-3 text-sm bg-emerald-600 text-white hover:bg-emerald-700 transition-all duration-300 rounded-xl'>Create Campaign</Link>
@@ -23,12 +22,9 @@ const Hero = () => {
                     </div>
 
                     {/* hero image */}
-                    <div className=' flex items-center justify-center'>
+                    <div className=' flex items-center justify-center bg'>
                         <div className='relative grid grid-cols-2 gap-4'>
-                            <FaHeart className='absolute h-8 w-8 top-40 left-20 object-cover text-red-500' />
-                            <img className='col-span-2 h-[200px] w-[200px] mx-auto rounded-full object-cover rounded-xxl' src="https://images.unsplash.com/photo-1640296150617-1ede154483d9?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
-                            <img className=' h-[200px] w-[200px] object-cover rounded-full' src="https://plus.unsplash.com/premium_photo-1677619371152-09e6cfcd4e6d?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
-                            <img className=' h-36 w-36 object-cover rounded-full' src="https://images.unsplash.com/photo-1556012018-50c5c0da73bf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+                            <img className='col-span-2 h-[300px] w-[300px] mx-auto rounded-full object-cover rounded-xxl' src="https://plus.unsplash.com/premium_photo-1677619371152-09e6cfcd4e6d?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
                         </div>
 
                     </div>

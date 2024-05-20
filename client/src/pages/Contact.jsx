@@ -13,7 +13,9 @@ const Contact = () => {
         <>
             <Navbar />
             <div className='px-4 py-8 md:py-20 mx-auto max-w-7xl '>
-                <h1 className='p-4 text-xl md:text-3xl font-bold text-center'>Need help? Get in touch</h1>
+                <div className=' flex items-center justify-center space-x-2'>
+                    <h1 className='text-xl font-medium mx-auto border-b border-gray-300'>Need help? Get in touch</h1>
+                </div>
                 <p className='p-2 md:p-4 text-slate-600 text-left md:text-center'>We’re here to listen,advice and help you sucessfully realize your financial dreams</p>
 
 
@@ -21,21 +23,21 @@ const Contact = () => {
                     <div className='p-4 flex space-x-4 items-center rounded  shadow'>
                         <MdCall className='text-3xl text-emerald-600' />
                         <div>
-                            <h1 className='text-md font-bold md:text-xl p-2'>Ring us</h1>
+                            <h1 className='text-md font-medium md:text-xl p-2'>Ring us</h1>
                             <a className='p-2 text-sm ' href="tel:9832416284">(+977) 982 345 2436</a>
                         </div>
                     </div>
                     <div className='p-4 flex space-x-4 items-center rounded  shadow'>
                         <MdMap className='text-3xl text-emerald-600' />
                         <div>
-                            <h1 className='text-md font-bold md:text-xl p-2'>Visit us</h1>
+                            <h1 className='text-md font-medium md:text-xl p-2'>Visit us</h1>
                             <a className='p-2 text-sm ' >Sundahara 5, Kathmandu Nepal</a>
                         </div>
                     </div>
                     <div className='p-4 flex space-x-4 items-center rounded  shadow'>
                         <IoIosMailUnread className='text-3xl text-emerald-600' />
                         <div>
-                            <h1 className='text-md font-bold md:text-xl p-2'>Send us an Email</h1>
+                            <h1 className='text-md font-medium md:text-xl p-2'>Send us an Email</h1>
                             <a className='p-2 text-sm ' href="mailto:help@collab.com">help@collab.com</a>
                         </div>
                     </div>

@@ -8,7 +8,7 @@ const Story = ({ story }) => {
             {
                 story &&
                 <>
-                    <h1 className='py-2 font-bold'>Updates:</h1>
+                    <h1 className='py-2 font-medium'>Updates:</h1>
                     {
                         story.map((item) =>
                             <div key={item._id} className='m-1 flex space-x-8'>

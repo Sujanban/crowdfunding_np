@@ -42,21 +42,13 @@ const Explore = () => {
         <>
             <Navbar />
 
-            {/* Explore banner */}
-            <div className='explore_banner '>
-                <div className='bg-gradient-to-r from-black to-transparent'>
-                    <div className='px-4 py-8 md:py-20 mx-auto max-w-7xl text-white '>
-                        <h1 className='py-4 text-xl sm:text-3xl sm:font-semibold'>Make a difference</h1>
-                        <p className=' sm:text-2xl max-w-xl'>Thousands are crowdfunding for various causes. Support a fundraiser today.</p>
-                    </div>
-                </div>
-            </div>
-
             {/* explore main */}
             <div className=' py-8 md:py-20 max-w-7xl mx-auto'>
-                <h1 className='relative px-4 text-xl sm:text-3xl'>Explore Campaigns <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
+            <div className=' flex items-center justify-center space-x-2'>
+                <h1 className='text-xl font-medium mx-auto border-b border-gray-300'>Explore campaigns</h1>
+            </div>
                 <div className=' py-2 md:py-4 flex justify-between items-center'>
-                    <h1 className='p-4 sm:text-xl sm:font-semibold'>Filter by</h1>
+                    <h1 className='p-4  sm:font-medium'></h1>
                     <div className='p-4'>
                         <button onClick={resetFilter} className='text-xs sm:text-sm py-2 px-6  flex items-center bg-gray-100 hover:bg-gray-200 transition-all duration-400 rounded-full'>Reset <MdTune /></button>
                     </div>
@@ -67,6 +59,7 @@ const Explore = () => {
                     <div className='col-span-1'>
                         <div className='p-2 grid gap-4'>
                             <div className='grid gap-1 md:gap-4 w-full '>
+                                <h1>Filter by</h1>
                                 {
                                     category && category.map((item, index) =>
                                         <button

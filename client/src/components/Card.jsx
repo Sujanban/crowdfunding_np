@@ -40,8 +40,8 @@ const Card = ({ campaign, index }) => {
                 </div>
 
                 <div className='p-4 grid gap-1'>
-                    <h1 className='font-bold'>{campaign.campaignTitle.slice(0, 40)}</h1>
-                    <h1 className='text-sm text-gray-500'><b className='text-black'>₹{campaign.raisedAmount}</b> raised of ₹{campaign.goalAmount}</h1>
+                    <h1 className='font-medium'>{campaign.campaignTitle.slice(0, 40)}</h1>
+                    <h1 className='text-sm text-gray-500'><b className='text-black/70'>${campaign.raisedAmount}</b> raised of ${campaign.goalAmount}</h1>
                     <div className="w-full bg-gray-200 rounded-full h-1.5">
                         <div className={`bg-emerald-600 h-1.5 rounded-full`} style={{ width: `${calculateGoalPercent()}%` }}></div>
                     </div>

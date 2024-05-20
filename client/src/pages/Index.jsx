@@ -36,21 +36,21 @@ const Index = () => {
 
       {/* how it works */}
       <div className='px-4 py-8 md:py-20 max-w-7xl mx-auto border-2 bg-emerald-600 text-center rounded-xl'>
-        <h1 className='pb-4 md:pb-12 text-xl md:text-3xl '>Fundraising on Collab takes just a few minutes</h1>
+        <h1 className='pb-4 md:pb-12 text-xl md:text-2xl font-medium '>Fundraising on Collab takes just a few minutes</h1>
         <div className='max-w-5xl mx-auto md:grid grid-cols-3 gap-4 '>
           <div className='p-2 md:p-4'>
             <img className='mx-auto w-16 md:w-28' src={create} alt="" />
-            <h1 className='md:py-2 text-lg md:text-2xl '>Register Account</h1>
-            <p className='py-2 text-sm clear-start '> Follow a simple steps by filling up email and password and create a account for fundraising.</p>
+            <h1 className='md:py-2 text-lg md:text-xl '>Register Account</h1>
+            <p className='py-2 text-sm clear-start '> Create a account for fundraising.</p>
           </div>
           <div className='p-2 md:p-4'>
             <img className='mx-auto w-16 md:w-28' src={campaign} />
-            <h1 className='md:py-2 text-lg md:text-2xl '>Create Campaign</h1>
+            <h1 className='md:py-2 text-lg md:text-xl '>Create Campaign</h1>
             <p className='py-2 text-sm clear-start '> Enter your campaign details and start raising money.</p>
           </div>
           <div className='p-2 md:p-4'>
             <img className='mx-auto w-16 md:w-28' src={money} alt="" />
-            <h1 className='md:py-2 text-lg md:text-2xl '>Withdraw Money</h1>
+            <h1 className='md:py-2 text-lg md:text-xl '>Withdraw Money</h1>
             <p className='py-2 text-sm clear-start '>Add your bank details and Withdraw money from your account.</p>
           </div>
         </div>

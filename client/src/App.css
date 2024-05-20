@@ -10,16 +10,21 @@
 } */
 
 * {
-  font-family: "Cambo", serif;
+  /* font-family: "Cambo", serif; */
   box-sizing: border-box;
   /* font-family: "Roboto", sans-serif; */
-  /* font-family: "Poppins", sans-serif; */
+  font-family: "Poppins", sans-serif;
 }
 li {
   list-style-type: none;
 }
 a {
   text-decoration: none;
+}
+
+.home{
+  background: url(https://img.freepik.com/free-vector/white-abstract-background-design_361591-1242.jpg?w=1380&t=st=1716129985~exp=1716130585~hmac=36385a8245137005569e6a1ac9907c104ead59f24c8d30cb01aa824cd65a1a16);
+  
 }
 
 .sub_menu {

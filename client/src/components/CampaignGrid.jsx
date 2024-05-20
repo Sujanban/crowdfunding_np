@@ -40,9 +40,11 @@ const CampaignGrid = () => {
 
     return (
         <div className='px-4 py-20 mx-auto max-w-7xl'>
-            <h1 className='relative px-4 text-xl md:text-3xl'>Explore Campaigns <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
+            <div className='pb-10 flex items-center justify-center space-x-2'>
+                <h1 className='text-xl font-medium mx-auto border-b border-gray-300'>Explore Campaigns</h1>
+            </div>
             <div className=' py-4 hidden md:flex items-center justify-between'>
-                <div className='md:flex  space-x-3'>
+                <div className='md:flex space-x-3'>
                     {
                         category && category.slice(0, 4).map((item, index) => (
                             <button
@@ -71,6 +73,7 @@ const CampaignGrid = () => {
                 }
 
             </div>
+
             {
                 campaignn && campaignn.length > 8 &&
                 <div className='p-4 flex justify-center text-white'>

@@ -13,7 +13,7 @@ const CreateDonation = ({id}) => {
     }
     return (
         <form onSubmit={handleDonation} className='py-4'>
-            <label className='font-bold'>Support with a Donation </label>
+            <label className='font-medium'>Support with a Donation </label>
             <input type="number"
                 value={amount} onChange={(e) => setAmount(e.target.value)} placeholder='50$' className='shadow outline-none my-4 rounded-xl w-full p-3 border focus:border-2 focus:border-stone-500' />
             <input type="submit" value='Donate Now' className='rounded-xl bg-emerald-600 cursor-pointer transition-all duration-300 hover:bg-emerald-700 text-white w-full p-3 ' />

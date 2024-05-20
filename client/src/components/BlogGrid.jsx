@@ -7,12 +7,12 @@ import { GoPeople } from "react-icons/go";
 const BlogGrid = () => {
     return (
         <div className='px-4 py-20 max-w-7xl mx-auto'>
-            <h1 className='relative px-4 text-xl md:text-3xl'>Featured Blog <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
+            <h1 className='relative px-4 text-xl md:text-2xl font-medium'>Featured Blog <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
             <div className='my-4 relative w-full h-60 md:h-[450px] '>
                 <img className='w-full h-full object-cover' src="http://localhost:5173/src/assets/help.jpg" alt="" />
                 <Link className='absolute w-full h-full bottom-0 left-0  flex items-center justify-center bg-gradient-to-t from-black  text-white'>
                     <div>
-                        <h1 className='text-md md:text-3xl p-4 '>Revolutionizing Education with Tech: The Story of ABC Learning App</h1>
+                        <h1 className='text-md md:text-2xl p-4 font-medium '>Revolutionizing Education with Tech: The Story of ABC Learning App</h1>
                         <div className='flex items-center justify-center text-xs md:text-inherit  space-x-3'>
                             <GoPeople />
                             <p className=''>@John Smith</p>

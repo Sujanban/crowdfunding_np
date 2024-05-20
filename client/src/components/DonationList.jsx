@@ -7,13 +7,13 @@ const DonationList = ({ donations }) => {
 
         <div>
             {donations.map((donation) =>
-                <div key={donation._id} className='m-1 flex space-x-8'>
+                <div key={donation._id} className='py-2 m-1 flex space-x-8'>
                     <div className='  '>
                         <GiLifeSupport size={25} className='text-emerald-600' />
                     </div>
                     <div>
-                        <h1 className='text-black font-black capitalize'>{donation.userId.firstName} {donation.userId.lastName}</h1>
-                        <p className='text-slate-600'>${donation.amount}</p>
+                        <h1 className=' font-medium capitalize'>{donation.userId.firstName} {donation.userId.lastName}</h1>
+                        <p className='text-gray-600'>${donation.amount}</p>
                         <p className='text-xs'>{formatDate(donation.createdAt)}</p>
                     </div>
                 </div>

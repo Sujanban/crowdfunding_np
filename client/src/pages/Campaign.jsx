@@ -59,7 +59,7 @@ const Campaign = () => {
                 <div className='md:grid grid-cols-6 gap-4'>
                     <div className='col-span-4'>
                         <img className='w-full h-96 object-cover rounded' src={campaignPost?.thumbnail?.url} alt="" />
-                        <h1 className='px-2 py-4 text-xl'>{campaignPost?.campaignTitle}</h1>
+                        <h1 className='px-2 py-4 text-xl font-medium'>{campaignPost?.campaignTitle}</h1>
                         <div className='py--2 flex items-center space-x-2'>
                             <div className='bg-orange-400 rounded-full p-2'>
                                 <GoPeople size={25} className='' color='white' />
@@ -70,12 +70,12 @@ const Campaign = () => {
                         </div>
 
 
-                        <div className='py-2 font-bold flex items-center space-x-2'>
+                        <div className='py-2 font-medium flex items-center space-x-2'>
                             <button onClick={() => setOpenTab(1)} className={`p-2 transition-all duration-300 hover:border-b-2 hover:border-emerald-600 ${openTab === 1 ? 'border-b-2 border-emerald-600' : ''}`}>Overview</button>
                             <button onClick={() => setOpenTab(2)} className={`relative p-2 transition-all duration-300 hover:border-b-2 hover:border-emerald-600 ${openTab === 2 ? 'border-b-2 border-emerald-600' : ''}`}>Donations
 
                                 {
-                                    donations.length > 0 && <p className='absolute font-thin top-0 right-0 h-3.5 w-3.5 flex items-center justify-center text-[8px] bg-red-500 rounded-full text-white'>{donations.length}</p>
+                                    donations.length > 0 && <p className='absolute  top-0 right-0 h-3.5 w-3.5 flex items-center justify-center text-[8px] bg-red-500 rounded-full text-white'>{donations.length}</p>
                                 }
 
                             </button>
@@ -89,7 +89,7 @@ const Campaign = () => {
                         {
                             openTab === 1 &&
                             <div className='py-2 max-h-96 overflow-auto'>
-                                <h1 className='py-1 font-bold'>Details:</h1>
+                                <h1 className='py-1 font-medium'>Details:</h1>
                                 <p>{campaignPost?.campaignDescription}</p>
                             </div>
                         }
@@ -97,7 +97,7 @@ const Campaign = () => {
                         {
                             openTab === 2 &&
                             <div className='max-h-96 overflow-auto'>
-                                <h1 className='py-2 font-bold'>Supporters:</h1>
+                                <h1 className='py-2 font-medium'>Supporters:</h1>
                                 <div>
                                     <DonationList donations={donations} />
                                 </div>
@@ -146,7 +146,7 @@ const Campaign = () => {
                                 :
                                 <div className='relative'>
                                     <form className=' py-4 blur'>
-                                        <label className='font-bold'>Support with a Donation </label>
+                                        <label className='font-medium'>Support with a Donation </label>
                                         <input type="number"
                                             placeholder='50$' className='shadow outline-none my-4 rounded-xl w-full p-3 border focus:border-2 focus:border-stone-500' />
                                         <input type="submit" value='Donate Now' className='rounded-xl bg-emerald-600 cursor-pointer transition-all duration-300 hover:bg-emerald-700 text-white w-full p-3 ' />
