@@ -106,12 +106,6 @@ const Campaigns = () => {
                                                 <div className='border-b'>
                                                     <button onClick={() => { handleSort("asc"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Oldest to Newest</button>
                                                 </div>
-                                                <div className='border-b'>
-                                                    <button onClick={() => { handleSort("highestFirst"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Highest to Lowest</button>
-                                                </div>
-                                                <div className='border-b'>
-                                                    <button onClick={() => { handleSort("lowestFirst"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Lowest to Highest</button>
-                                                </div>
                                             </div>
                                         )}
                                     </div>

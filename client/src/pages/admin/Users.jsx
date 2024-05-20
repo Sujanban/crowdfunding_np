@@ -100,16 +100,10 @@ const Users = () => {
                                     {toggleFilter && (
                                         <div className='text-left pt-2 w-40 text-xs absolute top-10 right-0 z-50 shadow bg-white'>
                                             <div className='border-b'>
-                                                <button onClick={() => { handleSort("desc"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Newest to Oldest</button>
+                                                <button onClick={() => { handleSort("admin"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Admin</button>
                                             </div>
                                             <div className='border-b'>
-                                                <button onClick={() => { handleSort("asc"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Oldest to Newest</button>
-                                            </div>
-                                            <div className='border-b'>
-                                                <button onClick={() => { handleSort("highestFirst"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Highest to Lowest</button>
-                                            </div>
-                                            <div className='border-b'>
-                                                <button onClick={() => { handleSort("lowestFirst"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Lowest to Highest</button>
+                                                <button onClick={() => { handleSort("user"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>User</button>
                                             </div>
                                         </div>
                                     )}

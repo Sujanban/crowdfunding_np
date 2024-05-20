@@ -44,9 +44,9 @@ const Explore = () => {
 
             {/* explore main */}
             <div className=' py-8 md:py-20 max-w-7xl mx-auto'>
-            <div className=' flex items-center justify-center space-x-2'>
-                <h1 className='text-xl font-medium mx-auto border-b border-gray-300'>Explore campaigns</h1>
-            </div>
+                <div className=' flex items-center justify-center space-x-2'>
+                    <h1 className='text-xl font-medium mx-auto border-b border-gray-300'>Explore campaigns</h1>
+                </div>
                 <div className=' py-2 md:py-4 flex justify-between items-center'>
                     <h1 className='p-4  sm:font-medium'></h1>
                     <div className='p-4'>

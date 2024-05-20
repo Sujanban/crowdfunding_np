@@ -26,7 +26,7 @@ const Banks = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const indexOfLastItem = currentPage * numberOfItems;
     const indexOfFirstItem = indexOfLastItem - numberOfItems;
-    const currentItems = bank?.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = bank && bank?.slice(indexOfFirstItem, indexOfLastItem);
 
 
     const handleSort = (sort) => {}

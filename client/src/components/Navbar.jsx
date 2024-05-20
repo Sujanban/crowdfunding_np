@@ -81,7 +81,7 @@ const Navbar = () => {
                 <div className='flex items-center gap-4'>
                     {
                         user ?
-                            <div>
+                            <div className='relative'>
                                 <div className='flex items-center'>
                                     <li className='' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                                         <NavLink to='' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>
@@ -94,7 +94,7 @@ const Navbar = () => {
                                 </div>
                                 {
                                     isSubMenuVisible ?
-                                        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className=' absolute z-10 bg-white px-6 block  shadow'>
+                                        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className=' absolute right-0 z-10 bg-white px-6 block  shadow'>
                                             {user && user.role === 1 ?
                                                 <li className=' grid'>
                                                     <NavLink to='/admin/dashboard' className='p-2 w-full'>Dashboard</NavLink>
@@ -114,8 +114,8 @@ const Navbar = () => {
                                 }
                             </div>
                             :
-                            <div className='flex items-center'>
-                                <li>
+                            <div className='flex items-center space-x-2'>
+                                <li className=''>
                                     <NavLink to='/s' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'><CiSearch /> <span className='hidden md:flex'>Search</span></NavLink>
                                 </li>
                                 <button className='md:hidden' onClick={toggleSlider}><FaBarsStaggered size={15} /></button>
