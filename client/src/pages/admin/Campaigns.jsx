@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/admin/Navbar'
 import Search from '../../components/admin/Search'
 import { LuChevronRight } from "react-icons/lu";
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCampaign } from '../../app/feature/campaignSlice';
 import WarningPopup from '../../components/WarningPopup';
 import { VscEdit, VscTrash } from 'react-icons/vsc';
 import axios from 'axios';
-import { FaChevronLeft, FaChevronRight, FaSpinner } from "react-icons/fa";
 import { IoFunnelOutline } from "react-icons/io5";
 import { TiPen } from "react-icons/ti";
 import Loader from '../../components/Loader';
@@ -44,23 +43,17 @@ const Campaigns = () => {
         }
     }
 
-
-
     useEffect(() => {
         dispatch(fetchCampaign())
         fetchAllUsers();
     }, [])
-
-
-    console.log(filteredCampaign)
-
 
     // implementing pagination in frontend
     const numberOfItems = 10;
     const [currentPage, setCurrentPage] = useState(1);
     const indexOfLastItem = currentPage * numberOfItems;
     const indexOfFirstItem = indexOfLastItem - numberOfItems;
-    const currentItems = filteredCampaign?.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = filteredCampaign.length? filteredCampaign : campaign.slice(indexOfFirstItem, indexOfLastItem);
 
     const handleSort = (sort) => {
         if(sort === 'active') {
@@ -74,10 +67,6 @@ const Campaigns = () => {
             console.log(data);
         }
     }
-
-
-
-
 
     return (
         <div className='flex max-w-7xl mx-auto w-full'>
