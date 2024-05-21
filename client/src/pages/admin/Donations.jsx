@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getDonations } from '../../app/feature/donationSlice';
 import Loader from "../../components/Loader"
 import DonationStats from '../../components/admin/DonationStats';
+import Pagination from '../../components/Pagination';
 
 
 
@@ -26,6 +27,12 @@ const Donations = () => {
     const donations = useSelector(state => state.donation.data)
     const isLoading = useSelector(state => state.donation.isLoading)
 
+    // pagination 
+    const [currentPage, setCurrentPage] = useState(1);
+    const numberOfItems = 10;
+    const indexOfLastItem = currentPage * numberOfItems;
+    const indexOfFirstItem = indexOfLastItem - numberOfItems;
+    const currentItems = donations && donations?.slice(indexOfFirstItem, indexOfLastItem);
 
     useEffect(() => {
         dispatch(getDonations())
@@ -71,24 +78,24 @@ const Donations = () => {
                                     <div className='px-2 flex items-center justify-between'>
                                         <h1 className=' font-medium'>Recent Donations</h1>
                                         <div className='relative '>
-                                        <button onClick={() => setToggleFilter(!toggleFilter)} className='border rounded px-4 text-sm py-2 flex items-center hover:bg-gray-100'>Filter <IoFunnelOutline className='ml-2' /></button>
-                                        {toggleFilter && (
-                                            <div className='text-left pt-2 w-40 text-xs absolute top-10 right-0 z-50 shadow bg-white'>
-                                                <div className='border-b'>
-                                                    <button onClick={() => { handleSort("desc"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Newest to Oldest</button>
+                                            <button onClick={() => setToggleFilter(!toggleFilter)} className='border rounded px-4 text-sm py-2 flex items-center hover:bg-gray-100'>Filter <IoFunnelOutline className='ml-2' /></button>
+                                            {toggleFilter && (
+                                                <div className='text-left pt-2 w-40 text-xs absolute top-10 right-0 z-50 shadow bg-white'>
+                                                    <div className='border-b'>
+                                                        <button onClick={() => { handleSort("desc"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Newest to Oldest</button>
+                                                    </div>
+                                                    <div className='border-b'>
+                                                        <button onClick={() => { handleSort("asc"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Oldest to Newest</button>
+                                                    </div>
+                                                    <div className='border-b'>
+                                                        <button onClick={() => { handleSort("highestFirst"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Highest to Lowest</button>
+                                                    </div>
+                                                    <div className='border-b'>
+                                                        <button onClick={() => { handleSort("lowestFirst"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Lowest to Highest</button>
+                                                    </div>
                                                 </div>
-                                                <div className='border-b'>
-                                                    <button onClick={() => { handleSort("asc"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Oldest to Newest</button>
-                                                </div>
-                                                <div className='border-b'>
-                                                    <button onClick={() => { handleSort("highestFirst"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Highest to Lowest</button>
-                                                </div>
-                                                <div className='border-b'>
-                                                    <button onClick={() => { handleSort("lowestFirst"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Lowest to Highest</button>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
+                                            )}
+                                        </div>
                                     </div>
                                     <div className="p-2 relative overflow-x-auto sm:rounded-lg">
                                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
@@ -102,8 +109,8 @@ const Donations = () => {
                                             </thead>
                                             <tbody>
                                                 {
-                                                    donations && donations.map((item) =>
-                                                        <tr key={item._id} className='text-slate-600 text-xs border-b'>
+                                                    currentItems && currentItems.map((item) =>
+                                                        <tr key={item._id} className='text-slate-600 text-sm border-b'>
                                                             {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
                                                             <td scope="col" className=" py-2">{formatDate(item.createdAt)}</td>
                                                             <td scope="col" className="px-6 py-2 font-medium ">{item.userId.email}</td>
@@ -117,7 +124,15 @@ const Donations = () => {
                                             </tbody>
                                         </table>
 
-                                        
+                                        {/* Pagination */}
+                                        <Pagination
+                                            currentPage={currentPage}
+                                            setCurrentPage={setCurrentPage}
+                                            currentItems={currentItems}
+                                            numberOfItems={numberOfItems}
+                                        />
+
+
                                     </div>
                                 </div>
                             </div>

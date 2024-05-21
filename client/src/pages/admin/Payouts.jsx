@@ -231,15 +231,6 @@ const Payouts = () => {
             if (sort === "lowestFirst") return a.amount - b.amount;
         });
         setSortedHistory(sorted);
-
-        // handeling sort according to status
-        // if (sort === "approved") {
-        //     const sorted = [...sortedHistory].filter(request => request.status === 'approved');
-        //     setSortedHistory(sorted);
-        // } else {
-        //     const sorted = [...sortedHistory].filter(request => request.status === 'rejected');
-        //     setSortedHistory(sorted);
-        // }
     };
 
 
