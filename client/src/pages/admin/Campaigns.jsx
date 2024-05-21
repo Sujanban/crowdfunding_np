@@ -18,6 +18,7 @@ import Pagination from '../../components/Pagination';
 const Campaigns = () => {
     const dispatch = useDispatch();
     const campaign = useSelector(state => state.campaign.data)
+    const [filteredCampaign, setFilteredCampaign] = useState({})
     const { isLoading } = useSelector(state => state.campaign)
     const [toggleFilter, setToggleFilter] = useState(false);
     const [popupVisible, setPopupVisible] = useState(false);
@@ -51,15 +52,29 @@ const Campaigns = () => {
     }, [])
 
 
+    console.log(filteredCampaign)
+
+
     // implementing pagination in frontend
     const numberOfItems = 10;
     const [currentPage, setCurrentPage] = useState(1);
     const indexOfLastItem = currentPage * numberOfItems;
     const indexOfFirstItem = indexOfLastItem - numberOfItems;
-    const currentItems = campaign?.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = filteredCampaign?.slice(indexOfFirstItem, indexOfLastItem);
 
     const handleSort = (sort) => {
+        if(sort === 'active') {
+            const data = campaign?.filter(data => data.status === 'active');
+            setFilteredCampaign(data)
+            console.log(data);
+        }
+        if(sort === 'completed') {
+            const data = campaign?.filter(data => data.status === 'completed');
+            setFilteredCampaign(data)
+            console.log(data);
+        }
     }
+
 
 
 
@@ -101,10 +116,10 @@ const Campaigns = () => {
                                         {toggleFilter && (
                                             <div className='text-left pt-2 w-40 text-xs absolute top-10 right-0 z-50 shadow bg-white'>
                                                 <div className='border-b'>
-                                                    <button onClick={() => { handleSort("desc"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Newest to Oldest</button>
+                                                    <button onClick={() => { handleSort("active"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Active</button>
                                                 </div>
                                                 <div className='border-b'>
-                                                    <button onClick={() => { handleSort("asc"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Oldest to Newest</button>
+                                                    <button onClick={() => { handleSort("completed"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Completed</button>
                                                 </div>
                                             </div>
                                         )}
