@@ -59,12 +59,13 @@ const Campaigns = () => {
         if(sort === 'active') {
             const data = campaign?.filter(data => data.status === 'active');
             setFilteredCampaign(data)
-            console.log(data);
         }
         if(sort === 'completed') {
             const data = campaign?.filter(data => data.status === 'completed');
             setFilteredCampaign(data)
-            console.log(data);
+        }
+        if(sort === 'default') {
+            setFilteredCampaign(campaign)
         }
     }
 
@@ -103,12 +104,15 @@ const Campaigns = () => {
                                     <div className='relative '>
                                         <button onClick={() => setToggleFilter(!toggleFilter)} className='border rounded px-4 text-sm py-2 flex items-center hover:bg-gray-100'>Filter <IoFunnelOutline className='ml-2' /></button>
                                         {toggleFilter && (
-                                            <div className='text-left pt-2 w-40 text-xs absolute top-10 right-0 z-50 shadow bg-white'>
-                                                <div className='border-b'>
-                                                    <button onClick={() => { handleSort("active"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Active</button>
+                                            <div className=' text-left pt-2 w-40 text-xs absolute top-10 right-0 z-50 shadow bg-white'>
+                                                <div className='border-b '>
+                                                    <button onClick={() => { handleSort("default"); setToggleFilter(false); }} className='text-left px-8 py-3 hover:bg-gray-100 w-full'>Default</button>
+                                                </div>
+                                                <div className='border-b '>
+                                                    <button onClick={() => { handleSort("active"); setToggleFilter(false); }} className='text-left px-8 py-3 hover:bg-gray-100 w-full'>Active</button>
                                                 </div>
                                                 <div className='border-b'>
-                                                    <button onClick={() => { handleSort("completed"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Completed</button>
+                                                    <button onClick={() => { handleSort("completed"); setToggleFilter(false); }} className='text-left px-8 py-3 hover:bg-gray-100 w-full'>Completed</button>
                                                 </div>
                                             </div>
                                         )}
