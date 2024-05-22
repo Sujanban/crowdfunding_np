@@ -6,7 +6,7 @@ import Card from './Card';
 const CampaignGrid = () => {
     const campaign = useSelector(state => state.campaign.data)
     const dispatch = useDispatch();
-    const featuredCampaign = campaign?.filter(campaign => campaign.featured === true)
+    const featuredCampaign = campaign.length && campaign.filter(campaign => campaign.featured === true)
     useEffect(() => {
         dispatch(fetchCampaign())
     }, [])

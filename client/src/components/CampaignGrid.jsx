@@ -10,7 +10,7 @@ import Card from './Card';
 const CampaignGrid = () => {
     const category = useSelector(state => state.category.data)
     const campaign = useSelector(state=> state.campaign.data)
-    const campaignn = campaign?.filter(campaign => campaign.featured === false)
+    const campaignn = campaign.length &&campaign.filter(campaign => campaign.featured === false)
 
     const dispatch = useDispatch();
 
