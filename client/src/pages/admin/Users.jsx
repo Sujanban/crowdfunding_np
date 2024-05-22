@@ -17,6 +17,7 @@ const Users = () => {
     const dispatch = useDispatch();
     const campaigns = useSelector(state => state.campaign.data);
     const [toggleFilter, setToggleFilter] = useState(false);
+    const [filteredData, setFilteredData] = useState({})
     let count = 0;
     // fetching all users from DB
     const fetchUsers = async () => {
@@ -59,10 +60,22 @@ const Users = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const indexOfLastItem = currentPage * numberOfItems;
     const indexOfFirstItem = indexOfLastItem - numberOfItems;
-    const currentItems = users?.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = filteredData.length ? filteredData : users?.slice(indexOfFirstItem, indexOfLastItem);
+
+
 
     const handleSort = (sort) => {
-
+        if (sort === 'admin') {
+            const data = users.filter(user => user.role === 1);
+            setFilteredData(data)
+        }
+        if (sort === 'user') {
+            const data = users.filter(user => user.role === 0);
+            setFilteredData(data)
+        }
+        if (sort === 'default') {
+            setFilteredData(users)
+        }
     }
 
     return (
@@ -82,10 +95,8 @@ const Users = () => {
                                     <div className="flex items-center">
                                         <LuChevronRight className="h-4 w-4" />
                                         <Link to={'/admin/users'} className=" text-sm font-medium text-gray-800 hover:underline md:ml-2"> Users </Link>
-
                                     </div>
                                 </li>
-
                             </ol>
                         </nav>
                     </div>
@@ -100,10 +111,13 @@ const Users = () => {
                                     {toggleFilter && (
                                         <div className='text-left pt-2 w-40 text-xs absolute top-10 right-0 z-50 shadow bg-white'>
                                             <div className='border-b'>
-                                                <button onClick={() => { handleSort("admin"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>Admin</button>
+                                                <button onClick={() => { handleSort("default"); setToggleFilter(false); }} className='text-left px-8 py-3 hover:bg-gray-100 w-full'>Default</button>
                                             </div>
                                             <div className='border-b'>
-                                                <button onClick={() => { handleSort("user"); setToggleFilter(false); }} className='px-5 py-3 hover:bg-gray-100 w-full'>User</button>
+                                                <button onClick={() => { handleSort("admin"); setToggleFilter(false); }} className='text-left px-8 py-3 hover:bg-gray-100 w-full'>Admin</button>
+                                            </div>
+                                            <div className='border-b'>
+                                                <button onClick={() => { handleSort("user"); setToggleFilter(false); }} className='text-left px-8 py-3 hover:bg-gray-100 w-full'>User</button>
                                             </div>
                                         </div>
                                     )}
@@ -124,7 +138,8 @@ const Users = () => {
                                     </thead>
                                     <tbody>
                                         {
-                                            currentItems && currentItems.map((user, index) =>
+                                            currentItems &&
+                                            currentItems.map((user, index) =>
                                                 <tr key={index} className='border-b'>
                                                     <td scope="col" className="px-2 py-2">{++count}</td>
                                                     <td scope="col" className="px-6 py-2">{user.email}</td>
