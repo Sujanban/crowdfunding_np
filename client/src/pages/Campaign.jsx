@@ -115,7 +115,7 @@ const Campaign = () => {
 
 
                     {/* right side */}
-                    <div className='my-8 md:m-0 p-4 pt-0 col-span-2  rounded-xl shadow'>
+                    <div className='my-8 md:m-0 p-4 pt-0 col-span-2  rounded-xl'>
                         <h1 className='pb-2 text-3xl text-emerald-600'>${donationRaised}<sub className='text-xs'>Raised</sub></h1>
                         <div className="my-4 w-full bg-gray-200 rounded-full h-1.5">
                             <div className={`bg-emerald-600 h-1.5 rounded-full`} style={{ width: `${calculateGoalPercent()}%` }}></div>
@@ -152,7 +152,7 @@ const Campaign = () => {
                                         <input type="submit" value='Donate Now' className='rounded-xl bg-emerald-600 cursor-pointer transition-all duration-300 hover:bg-emerald-700 text-white w-full p-3 ' />
                                     </form>
                                     <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center'>
-                                        <p className=''><MdOutlineReportGmailerrorred className='text-red-600 mx-auto' size={25} /><span>Please Login! </span></p>
+                                        <p className='text-slate-800'><MdOutlineReportGmailerrorred className=' mx-auto' size={50} /><span>Please Login! </span></p>
                                     </div>
                                 </div>
                         }
