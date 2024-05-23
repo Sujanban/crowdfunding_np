@@ -9,24 +9,16 @@ const Hero = () => {
             <div className='home max-w-7xl mx-auto relative'>
 
                 {/* hero info */}
-                <div className='py-24 grid grid-cols-2'>
-                    <div className='pl-8 my-auto'>
+                <div className='py-24 flex items-center justify-center grid-cols-2'>
+                    <div className='text-center'>
                         <h1 className='text-2xl font-medium '>Great future are built with a small charity</h1>
-                        <p className='py-3 text-gray-600'>The world's largest social fundraising platform, optimized for your charity in a more easy way</p>
-                        <div className=' flex items-center space-x-4'>
+                        <p className='py-3 max-w-lg text-gray-600'>The world's largest social fundraising platform, optimized for your charity in a more easy way</p>
+                        <div className=' flex items-center justify-center space-x-4'>
                             <Link to='/createCampaign'
                                 className='px-4 py-3 text-sm bg-emerald-600 text-white hover:bg-emerald-700 transition-all duration-300 rounded-xl'>Create Campaign</Link>
                             <Link to='/howitworks'
                                 className='px-4 py-3 text-sm ring-1 ring-emerald-600 text-emerald-600 hover:bg-emerald-700 hover:text-white transition-all duration-300 rounded-xl'>Learn more</Link>
                         </div>
-                    </div>
-
-                    {/* hero image */}
-                    <div className=' flex items-center justify-center bg'>
-                        <div className='relative grid grid-cols-2 gap-4'>
-                            <img className='col-span-2 h-[250px] w-[250px] mx-auto rounded-full object-cover rounded-xxl' src="https://plus.unsplash.com/premium_photo-1677619371152-09e6cfcd4e6d?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
-                        </div>
-
                     </div>
                 </div>
 

@@ -38,6 +38,7 @@ const Explore = () => {
         dispatch(fetchCategory())
         dispatch(fetchCampaign())
     }, [])
+
     return (
         <>
             <Navbar />
