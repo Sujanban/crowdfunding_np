@@ -42,11 +42,11 @@ const Profile = () => {
         <div className='relative'>
 
             <Navbar />
-            <div className={`p-8 w-full max-w-7xl mx-auto ${toggleAccountAdd ? 'blur-sm' : ''}`}>
+            <div className={`p-4 md:p-8 w-full max-w-7xl mx-auto ${toggleAccountAdd ? 'blur-sm' : ''}`}>
                 <h1 className='py-4 text-cencter text-xl font-medium'>Profile</h1>
                 <div className=' '>
-                    <h1 className='py-4 text-cencter text-xl font-medium border-b'>User</h1>
-                    <div className='p-4 max-w-xl rounded-xl'>
+                    <h1 className='py-4 text-cencter md:text-xl font-medium border-b'>User</h1>
+                    <div className='text-sm md:text-md md:p-4 max-w-xl rounded-xl'>
                         <h1 className='py-4 grid grid-cols-2'><span>Email</span>
                             <span>{user.email}</span></h1>
                         <h1 className='py-4 grid grid-cols-2'><span>Name</span>
@@ -63,11 +63,11 @@ const Profile = () => {
 
 
                 <div className=' '>
-                    <h1 className='py-4 text-cencter text-xl font-medium border-b'>Payout Accounts</h1>
+                    <h1 className='py-4 text-cencter md:text-xl font-medium border-b'>Payout Accounts</h1>
                     {
                         bank ?
                             <div className='p-4 max-w-xl'>
-                                <div className='py-4 grid grid-cols-2'>
+                                <div className='text-sm md:text-md py-4 grid grid-cols-2'>
                                     <span>Account Details</span>
                                     <span className='flex items-center'>{bank.stripeAccountId}
                                         <button onClick={() => handleBankDelete(bank._id)} className="mx-1 p-1 text-orange-600 bg-orange-100 rounded-xl hover:bg-orange-200 transition-all duration-300">
@@ -88,7 +88,7 @@ const Profile = () => {
                                 </div>
                             </div>
                             :
-                            <div>
+                            <div className='text-sm md:text-md'>
                                 <h1 className='py-4 flex justify-between items-center '>
                                     <span className=''>No payout accounts found</span>
                                     <button onClick={() => setToggleAccountAdd(!toggleAccountAdd)} className='shadow-2xl rounded-xl border px-3 py-2'>Add account</button>
@@ -99,13 +99,13 @@ const Profile = () => {
 
                 {/* payout history */}
                 <div className=' '>
-                    <h1 className='py-4 text-cencter text-xl font-medium border-b'>Payout History</h1>
-                    <div className='p-4  rounded-xl'>
-                        <div className="max-h-96 p-2 relative overflow-x-auto sm:rounded-lg">
+                    <h1 className='py-4 text-cencter md:text-xl font-medium border-b'>Payout History</h1>
+                    <div className='md rounded-xl'>
+                        <div className="max-h-96 md:p-2 relative overflow-x-auto sm:rounded-lg">
                             <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
                                 <thead className="text-slate-900 capitalize bg-gray-50 font-medium">
                                     <tr>
-                                        <th scope="col" className=" py-4">SN</th>
+                                        {/* <th scope="col" className=" py-4">SN</th> */}
                                         <th scope="col" className=" py-4">Date</th>
                                         <th scope="col" className="px-6 py-4">Amount</th>
                                         <th scope="col" className="px-6 py-4">Status</th>
@@ -115,7 +115,7 @@ const Profile = () => {
                                     {
                                         payoutRequests && payoutRequests.map((request, index) => (
                                             <tr key={index} className="text-slate-600 capitalize border-b">
-                                                <td scope="col" className=" py-6">{++count}</td>
+                                                {/* <td scope="col" className=" py-6">{++count}</td> */}
                                                 <td scope="col" className=" py-6">{formatDate(request.createdAt)}</td>
                                                 <td scope="col" className="px-6 py-6">$ {request.amount}</td>
                                                 <td scope="col" className="px-6 py-6 ">

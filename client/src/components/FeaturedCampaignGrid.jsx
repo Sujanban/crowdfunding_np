@@ -12,11 +12,11 @@ const CampaignGrid = () => {
     }, [])
 
     return (
-        <div className='px-466 py-20 mx-auto max-w-7xl'>
+        <div className='px-4 py-20 mx-auto max-w-7xl'>
             <div className=' flex items-center justify-center space-x-2'>
                 <h1 className='text-xl font-medium mx-auto border-b border-gray-300'>Featured Campaigns</h1>
             </div>
-            <div className='py-4 pt-10 md:grid md:grid-cols-2 lg:grid-cols-4 gap-4'>
+            <div className='py-4 pt-10 sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4'>
                 {
                     featuredCampaign && featuredCampaign.slice(0, 4).map((campaign, index) =>
                         <Card key={index} campaign={campaign} />

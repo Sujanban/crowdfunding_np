@@ -31,7 +31,7 @@ const Index = () => {
       <Hero />
       <FeaturedCampaignGrid />
       <div className='px-4 py-8 md:py-20 max-w-7xl mx-auto border-2 bg-emerald-600 text-center rounded-xl'>
-        <h1 className='pb-4 md:pb-8 text-xl md:text-2xl font-medium '>Fundraising on Collab takes just a few minutes</h1>
+        <h1 className='pb-4 md:pb-8  md:text-2xl font-medium '>Fundraising on Collab takes just a few minutes</h1>
         <div className='max-w-5xl mx-auto md:grid grid-cols-3 gap-4 '>
           <div className='p-2 md:p-4'>
             <img className='mx-auto w-16 md:w-20' src={create} alt="" />

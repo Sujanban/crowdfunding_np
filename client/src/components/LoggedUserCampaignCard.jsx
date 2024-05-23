@@ -19,7 +19,7 @@ const Card = ({ popupVisible, setPopupVisible, campaign, index }) => {
     }, [])
     return (
         <div key={index}>
-            <div className=' h-40 relative'>
+            <div className='my-4 h-40 relative'>
                 <img className='w-full h-full object-cover rounded-t-xl' src={campaign.thumbnail?.url} alt="" />
             </div>
             <div className='grid gap-1 bg-gradient-to-b from-emerald-50'>

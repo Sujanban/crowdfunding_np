@@ -46,22 +46,22 @@ const Faq = () => {
             <div className='w-full flex items-center'>
             <h1 className=' text-xl font-medium mx-auto border-b border-gray-300'>Frequently Asked Questions</h1>
             </div>
-            <p className='py-4 text-center'>Have another question? Email us at <a className='underline' href="mailto:bansujan@gmail.com">bansujan@gmail.com</a> </p>
+            <p className='text-sm md:text-md py-4 text-center'>Have another question? Email us at <a className='underline' href="mailto:bansujan@gmail.com">bansujan@gmail.com</a> </p>
             <div className=' ma-w-5xl mx-auto'>
                 {
                     faq && faq.map((item, index) =>
-                        <div className='md:p-2 border-b ' key={index}>
+                        <div className='md:p-2 border-b' key={index}>
                             <div
                                 onClick={(e) => handleOpen(item.id)}
 
-                                className='py-4 md:p-4 cursor-pointer flex justify-between items-center'>
-                                <h1 className='text-md md:text-lg '>{item.question}</h1>
+                                className='py-4 text-sm md:text-md md:p-4 cursor-pointer flex justify-between items-center'>
+                                <h1 className=' '>{item.question}</h1>
 
                                 <IoIosArrowDown size={25} />
 
                             </div>
                             {open ?
-                                item.id === activeFaq ? <p className='pb-2 md:p-4 '>{item.answer}</p> : <></>
+                                item.id === activeFaq ? <p className='pb-2 md:p-4 text-sm md:text-md'>{item.answer}</p> : <></>
                                 : <></>
                             }
                         </div>

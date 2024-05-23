@@ -2,7 +2,14 @@ import React from 'react'
 
 const BankAddForm = ({ toggleAccountAdd, setToggleAccountAdd, handleBankAdd, setStripeAccount }) => {
     return (
-        <div className='w-full transition-opacity  backdrop-blur-sm bg-black/10 h-full fixed top-0 left-0 z-50 flex justify-center items-center'>
+        <div className='w-full transition-opacity  backdrop-blur-sm bg-black bg-opacity-80 h-full fixed top-0 left-0 z-50 flex justify-center items-center'>
+            
+            <div onClick={() => setToggleAccountAdd(false)} className='absolute top-4 right-4 p-2 cursor-pointer rounded-full bg-gray-200'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </div>
+            
             <div className='popup bg-white w-[600px] p-4 max-w-md text-center rounded-xl shadow-xl '>
                 <h1 className='pt-4 font-bold'>Payout Account</h1>
                 <div className='w-full flex items-center space-x-4'>

@@ -75,7 +75,7 @@ const Explore = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='p-2 col-span-4 md:grid grid-cols-3 gap-8'>
+                    <div className='p-2 col-span-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-8'>
                         {isLoading ? <Loader /> : null}
                         {filteredCampaign
                             ? filteredCampaign.map((campaign, index) =>

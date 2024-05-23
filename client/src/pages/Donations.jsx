@@ -78,9 +78,9 @@ const Donations = () => {
           />
         </div>
 
-        <div className='my-20 py-32 text-center bg-slate-100 bg-grdadient-to-tr from-emerald-500 to-orange-500  rounded-xl'>
-          <h1 className='text-xl font-medium'>View the donations you received from other users</h1>
-          <p className='py-2 text-slate-500'>You can view the donations you received from other users and see how much they donated.</p>
+        <div className='my-4 py-20 text-center bg-slate-100 bg-grdadient-to-tr from-emerald-500 to-orange-500  rounded-xl'>
+          <h1 className='md:text-xl font-medium'>View the donations you received from other users</h1>
+          <p className='py-2 text-sm md:text-md text-slate-500'>You can view the donations you received from other users and see how much they donated.</p>
           <div className='py-2 flex items-center justify-center'>
             <Link to={'/profile'} className='py-2 px-4 flex items-center bg-emerald-600 rounded-xl text-white  transition-all duration-300 hover:bg-emerald-700 '>View Donations</Link>
           </div>

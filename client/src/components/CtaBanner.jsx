@@ -4,11 +4,11 @@ import linePlant from '../assets/images/line-plant.png'
 
 const CtaBanner = () => {
     return (
-        <div className='md:my-4 px-4 md:py-20 max-w-7xl mx-auto'>
+        <div className='px-4 md:py-20 max-w-7xl mx-auto'>
             <div className='md:grid grid-cols-2'>
                 <div className='md:px-4 py-20 bg-yelow-500 m-auto rounded-l text-center md:text-left'>
-                    <h1 className='px-4 text-xl md:text-2xl font-medium'>Need Funds to Pay For a Medical Emergency or Social Cause?</h1>
-                    <p className=' p-4 '>Collab's 0% Platform fees ensures maximum funds for you</p>
+                    <h1 className='px-4  md:text-2xl font-medium'>Need Funds to Pay For a Medical Emergency or Social Cause?</h1>
+                    <p className=' p-4 text-sm md:text-md '>Collab's 0% Platform fees ensures maximum funds for you</p>
                     <div className='p-4'>
                         <Link to='/createCampaign' className='bg-emerald-600 hover:bg-emerald-700 transition-all duration-300 px-4 py-3 text-sm md:text-md rounded-xl text-white'>Start Fundraising</Link>
                     </div>

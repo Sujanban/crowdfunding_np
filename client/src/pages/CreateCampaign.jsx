@@ -52,9 +52,9 @@ const CreateCampaign = () => {
   return (
     <>
       <Navbar />
-      <div className='px-8 py-20 bg-gray-50 rounded w-full h-full '>
+      <div className='sm:px-8 py-12 bg-gray-50 rounded w-full h-full '>
         <div className='  mx-auto max-w-7xl'>
-          <div className=' flex items-center justify-center space-x-2'>
+          <div className='pb-4 flex items-center justify-center space-x-2'>
             <h1 className='text-xl font-medium mx-auto border-b border-gray-300'>Create campaigns</h1>
           </div>
           <form className="max-w-5xl mx-auto" onSubmit={handleSubmit}>

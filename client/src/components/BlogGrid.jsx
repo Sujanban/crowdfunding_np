@@ -6,7 +6,7 @@ import { GoPeople } from "react-icons/go";
 
 const BlogGrid = () => {
     return (
-        <div className='px-4 py-20 max-w-7xl mx-auto'>
+        <div className='px-4 md:py-20 max-w-7xl mx-auto'>
             <h1 className='relative px-4 text-xl md:text-2xl font-medium'>Featured Blog <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
             <div className='my-4 relative w-full h-60 md:h-[450px] '>
                 <img className='w-full h-full object-cover' src="http://localhost:5173/src/assets/help.jpg" alt="" />
