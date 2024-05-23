@@ -6,10 +6,10 @@ import CountUp from 'react-countup';
 const Hero = () => {
     return (
         <div className='mt-1 w-full'>
-            <div className='home max-w-7xl mx-auto relative'>
+            <div className=' max-w-7xl mx-auto relative'>
 
                 {/* hero info */}
-                <div className='px-2 py-24 flex items-center justify-center grid-cols-2'>
+                <div className='home px-2 py-24 flex items-center justify-center grid-cols-2'>
                     <div className='text-center'>
                         <h1 className='text-xl md:text-2xl font-medium '>Great future are built with a small charity</h1>
                         <p className='text-sm md:text-md py-3 max-w-lg text-gray-600'>The world's largest social fundraising platform, optimized for your charity in a more easy way</p>

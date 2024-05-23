@@ -17,8 +17,8 @@ export const fetchCampaign = createAsyncThunk(
   }
 );
 
-export const fetchSingleCampaign = createAsyncThunk(
-  "fetchSingleCampaign",
+export const getCampaign = createAsyncThunk(
+  "getCampaign",
   async (id, { rejectWithValue }) => {
     try {
       const res = await axios.get(`/api/campaign/getCampaign/${id}`);
@@ -133,14 +133,14 @@ export const campaign = createSlice({
       })
 
       // getting a single campaign
-      .addCase(fetchSingleCampaign.pending, (state) => {
+      .addCase(getCampaign.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchSingleCampaign.fulfilled, (state, action) => {
+      .addCase(getCampaign.fulfilled, (state, action) => {
         state.isLoading = false;
         state.data = action.payload;
       })
-      .addCase(fetchSingleCampaign.rejected, (state, action) => {
+      .addCase(getCampaign.rejected, (state, action) => {
         state.isLoading = false;
         state.errorMessage = action.payload;
       })

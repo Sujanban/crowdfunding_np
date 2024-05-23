@@ -3,22 +3,14 @@ import Navbar from '../../components/admin/Navbar'
 import Search from '../../components/admin/Search'
 import { LuChevronRight } from "react-icons/lu";
 import { Link, useParams } from 'react-router-dom';
-import { BiUser } from "react-icons/bi";
-import { MdOutlineAttachMoney } from "react-icons/md";
-import { LiaPeopleCarrySolid } from "react-icons/lia";
-import { GiGolfFlag } from "react-icons/gi";
-import { GiUpgrade } from "react-icons/gi";
-import { HiOutlineExternalLink } from "react-icons/hi";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { IoFunnelOutline } from "react-icons/io5";
 import { IoMailOutline } from "react-icons/io5";
-import success from '../../assets/images/success1.gif'
-import { LiaCcVisa } from "react-icons/lia";
 import { FaCcVisa } from "react-icons/fa";
 import { FaFileArrowDown } from "react-icons/fa6";
 import {formatDate, formatTime} from '../../utils/dateFormater'
 
 import axios from 'axios'
+import { useDispatch } from 'react-redux';
+import { getDonation } from '../../app/feature/donationSlice';
 
 
 
@@ -27,6 +19,12 @@ import axios from 'axios'
 const Donation = () => {
     const [donation, setDonation] = useState({});
     const { id } = useParams();
+    const dispatch = useDispatch()
+    const donationn = useState(state=> state.donation.data)
+    console.log(donationn)
+    useEffect(() => {
+        dispatch(getDonation(id))
+    }, [])
 
     useEffect(() => {
 
@@ -34,7 +32,6 @@ const Donation = () => {
             const res = await axios.get(`/api/donation/fetchDonation/${id}`);
             if (res.status === 200) {
                 setDonation(res.data);
-                console.log(res.data);
             }
         }
         fetchDonation();

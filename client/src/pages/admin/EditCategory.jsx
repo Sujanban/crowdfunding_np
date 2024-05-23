@@ -7,6 +7,7 @@ import { LuHome, LuChevronRight } from "react-icons/lu";
 import Search from '../../components/admin/Search'
 import { updateCategory } from '../../app/feature/categorySlice'
 import { FaSpinner } from 'react-icons/fa'
+import Loader from '../../components/Loader'
 
 
 
@@ -41,6 +42,9 @@ const EditCategory = () => {
 
     return (
         <div className='flex w-full max-w-7xl mx-auto'>
+            {
+                isLoading && <Loader/>
+            }
             <Navbar />
             <div className='w-full'>
                 <Search />
@@ -84,7 +88,7 @@ const EditCategory = () => {
 
                             <div className='py-4'>
                                 <button type='submit' disabled={isLoading} className='flex items-center px-4 py-3 text-sm bg-emerald-600 transition-all duration-300 rounded-xl text-white hover:bg-emerald-700'>
-                                    Update {isLoading && <FaSpinner className='animate-spin' />}
+                                    Update
                                 </button>
                             </div>
                         </form>

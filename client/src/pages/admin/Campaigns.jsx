@@ -53,24 +53,27 @@ const Campaigns = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const indexOfLastItem = currentPage * numberOfItems;
     const indexOfFirstItem = indexOfLastItem - numberOfItems;
-    const currentItems = filteredCampaign.length? filteredCampaign : campaign.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = filteredCampaign.length ? filteredCampaign : campaign.slice(indexOfFirstItem, indexOfLastItem);
 
     const handleSort = (sort) => {
-        if(sort === 'active') {
+        if (sort === 'active') {
             const data = campaign?.filter(data => data.status === 'active');
             setFilteredCampaign(data)
         }
-        if(sort === 'completed') {
+        if (sort === 'completed') {
             const data = campaign?.filter(data => data.status === 'completed');
             setFilteredCampaign(data)
         }
-        if(sort === 'default') {
+        if (sort === 'default') {
             setFilteredCampaign(campaign)
         }
     }
 
     return (
         <div className='flex max-w-7xl mx-auto w-full'>
+            {
+                isLoading && <Loader />
+            }
             <Navbar />
             <div className='w-full'>
                 <Search />
@@ -129,9 +132,6 @@ const Campaigns = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {
-                                                isLoading && <Loader />
-                                            }
                                             {
                                                 currentItems && currentItems.map((item, index) =>
                                                     <tr key={index} className={`text-slate-600 border-b bg-opacity-20 ${item.status === "active" ? "bg-emerald-50" : "bg-orange-50"}`}>

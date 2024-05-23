@@ -8,29 +8,38 @@ const DonationStats = ({ donations }) => {
     const totalDonation = () =>
         donations && donations?.reduce((acc, donation) => acc + donation.amount, 0);
 
-    // finding top donation
+    // finding top donation amount
     const topDonation = () => {
-        const data = donations.reduce((acc, donation) => {
-            if (acc.amount < donation.amount) {
-                return donation;
-            }
-            return acc;
-        }, { amount: 0 });
-        
-        return data.amount
+        if (donations) {
+            const data = donations.reduce((acc, donation) => {
+                if (acc.amount < donation.amount) {
+                    return donation;
+                }
+                return acc;
+            }, { amount: 0 });
+            return data.amount
+        }
+        else {
+            return 0;
+        }
     }
 
     // finding top donator
     const topDonator = () => {
-        const data = donations.reduce((acc, donation) => {
-            if (acc.amount < donation.amount) {
-                return donation;
-            }
-            return acc;
-        }, { amount: 0 });
-        
-        return data?.userId?.firstName + " " + data?.userId?.lastName
+        if (donations.length) {
+            const data = donations.reduce((acc, donation) => {
+                if (acc.amount < donation.amount) {
+                    return donation;
+                }
+                return acc;
+            }, { amount: 0 });
+            return data?.userId?.firstName + " " + data?.userId?.lastName
+        }else{
+            return "No donation found"
+        }
     }
+
+    console.log(topDonator())
 
     return (
         <div className=' grid grid-cols-3 gap-4'>

@@ -7,7 +7,7 @@ import { fetchCategory, getCategories } from '../../app/feature/categorySlice'
 import { postCampaign } from '../../app/feature/campaignSlice'
 import { LuChevronRight } from "react-icons/lu";
 import axios from 'axios'
-import { FaSpinner } from "react-icons/fa6";
+import Loader from '../../components/Loader'
 
 
 const CreateCampaign = () => {
@@ -66,6 +66,9 @@ const CreateCampaign = () => {
 
   return (
     <div className='flex max-w-7xl mx-auto '>
+      {
+        isLoading && <Loader />
+      }
       <Navbar />
       <div className='w-full'>
         <Search />
@@ -132,7 +135,7 @@ const CreateCampaign = () => {
               <div className='p-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Category *</label>
                 <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={campaign.category} onChange={(e) => setCampaign({ ...campaign, category: e.target.value })}>
-                <option value="">Select a category</option>
+                  <option value="">Select a category</option>
                   {category && category.map((item, index) => (
                     <option key={index} value={item.category} >{item.category}</option>
                   ))}
@@ -162,7 +165,7 @@ const CreateCampaign = () => {
 
               <div className='p-4'>
                 <button type='submit' disabled={isLoading} className='flex items-center px-4 py-3 text-sm bg-emerald-600 transition-all duration-300 rounded-xl text-white hover:bg-emerald-700'>
-                  Create Campaign {isLoading && <FaSpinner className='animate-spin' />}
+                  Create Campaign
                 </button></div>
             </form>
           </div>

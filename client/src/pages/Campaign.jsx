@@ -8,7 +8,7 @@ import { GiFlowerPot } from "react-icons/gi";
 import { LuClock3 } from "react-icons/lu";
 import { GoGoal, GoPeople } from "react-icons/go";
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchSingleCampaign } from '../app/feature/campaignSlice'
+import {  getCampaign } from '../app/feature/campaignSlice'
 import Story from '../components/Story'
 import DonationList from '../components/DonationList'
 import { formatDate } from '../utils/dateFormater'
@@ -41,7 +41,7 @@ const Campaign = () => {
     }
 
     useEffect(() => {
-        dispatch(fetchSingleCampaign(id));
+        dispatch(getCampaign(id));
         dispatch(fetchDonationByCampaign(id));
         dispatch(getStories(id));
         window.scrollTo(0, 0);

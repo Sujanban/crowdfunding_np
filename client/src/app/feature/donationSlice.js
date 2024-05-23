@@ -20,6 +20,21 @@ export const getDonations = createAsyncThunk(
   }
 );
 
+export const getDonation = createAsyncThunk(
+  "getDonation",
+  async (id, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(`/api/donation/fetchDonation/${id}`);
+      return res.data;
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.error || "Failed to fetch donation";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
 
 // create donation
 export const createDonation = createAsyncThunk(
@@ -91,6 +106,19 @@ export const donation = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+
+    .addCase(getDonation.pending, (state) => {
+        state.isLoading = true;
+        state.errorMessage = null;
+      })
+      .addCase(getDonation.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = action.payload;
+      })
+      .addCase(getDonation.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorMessage = action.payload;
+      })
 
       // create donation
       .addCase(createDonation.pending, (state) => {

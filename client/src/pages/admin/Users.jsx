@@ -11,11 +11,13 @@ import { VscTrash } from 'react-icons/vsc';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Pagination from '../../components/Pagination';
 import { IoFunnelOutline } from 'react-icons/io5'
+import Loader from '../../components/Loader';
 
 const Users = () => {
     const [users, setUsers] = useState(null);
     const dispatch = useDispatch();
     const campaigns = useSelector(state => state.campaign.data);
+    const { isLoading } = useSelector(state => state.campaign);
     const [toggleFilter, setToggleFilter] = useState(false);
     const [filteredData, setFilteredData] = useState({})
     let count = 0;
@@ -80,6 +82,9 @@ const Users = () => {
 
     return (
         <div className='flex max-w-7xl mx-auto w-full'>
+            {
+                isLoading && <Loader />
+            }
             <Navbar />
             <div className='w-full'>
                 <Search />
@@ -138,7 +143,8 @@ const Users = () => {
                                     </thead>
                                     <tbody>
                                         {
-                                            currentItems &&
+                                            currentItems
+                                            &&
                                             currentItems.map((user, index) =>
                                                 <tr key={index} className='border-b'>
                                                     <td scope="col" className="px-2 py-2">{++count}</td>

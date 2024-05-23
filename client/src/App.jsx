@@ -53,29 +53,23 @@ axios.defaults.baseURL = "http://localhost:5000"
 axios.defaults.withCredentials = true
 
 function App() {
+  const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const user = useSelector(state => state.user.data)
+
+
+useEffect(()=>{
+  dispatch(fetchUserProfile());
+
+},[])
+
+
   return (
     <GoogleOAuthProvider clientId="113038173634-mal1sarh7mrqbaq1k833nt7goushh797.apps.googleusercontent.com">
       <div className='leading-relaxed'>
         <Toaster position='bottom-center' toastOptions={{ duration: 2000 , success: { iconTheme: { primary: '#059669', secondary: 'white' }} }} />
         <Routes>
-          {/* general routes */}
-          <Route path='/' element={<Index />} />
-          <Route path='/explore' element={<Explore />} />
-          <Route path='/campaign/:id' element={<Campaign />} />
-          <Route path='/howitworks' element={<Howitworks />} />
-          <Route path='/blog' element={<Blog />} />
-          <Route path='/contact' element={<Contact />} />
-          <Route path='/s' element={<Search />} />
-          <Route path='/search/:searchTerm' element={<SearchResult />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgotPassword" element={<ForgotPassword />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
-
-          <Route path='/*' element={<Error404 />} />
-
+          
 
 
           {/* general user access */}
@@ -93,15 +87,12 @@ function App() {
               <Route path='/success' element={<Success />} />
               <Route path='/failed' element={<Failed />} />
               <Route path='/*' element={<Login />} />
-              
             </>
             :
             <>
               <Route path='/login' element={<Login />} />
             </>
           }
-
-
 
           {user?.role === 1 && isAuthenticated && 
           <>
@@ -116,14 +107,27 @@ function App() {
             <Route path='/admin/donations/donation/:id' element={<Donation />} />
             <Route path='/admin/banks' element={<Banks />} />
             <Route path='/admin/payouts' element={<Payouts />} />
-
             <Route path='/profile' element={<Profile />} />
             <Route path='/*' element={<Login />} />
-
-
           </>
           }
           <Route render={() => <Navigate to="/" />} />
+
+          {/* general routes */}
+          <Route path='/' element={<Index />} />
+          <Route path='/explore' element={<Explore />} />
+          <Route path='/campaign/:id' element={<Campaign />} />
+          <Route path='/howitworks' element={<Howitworks />} />
+          <Route path='/blog' element={<Blog />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='/s' element={<Search />} />
+          <Route path='/search/:searchTerm' element={<SearchResult />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path='/*' element={<Error404 />} />
+
 
         </Routes>
       </div>

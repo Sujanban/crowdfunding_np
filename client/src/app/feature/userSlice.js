@@ -2,10 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 
-
-
-
-
 // fetching user from local storage
 const loadUserFromLocalStorage = () => {
   const userJson = localStorage.getItem("user");
@@ -18,12 +14,11 @@ export const fetchUserProfile = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await axios.get("/api/user/profile/");
+      if(res.data.error) return rejectWithValue(res.data.error);
       return res.data;
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.error || "Server Error while fetching API";
-      toast.error(errorMessage);
-      return rejectWithValue(errorMessage);
+      toast.error(error);
+      return rejectWithValue(error);
     }
   }
 );
@@ -88,8 +83,8 @@ export const logoutUser = createAsyncThunk("logoutUser", async () => {
 const user = createSlice({
   name: "user",
   initialState: {
-    data: loadUserFromLocalStorage(),
-    isAuthenticated: loadUserFromLocalStorage() ? true : false,
+    data: null,
+    isAuthenticated: null,
     isLoading: false,
     errorMessage: null,
   },
@@ -107,6 +102,7 @@ const user = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
         state.errorMessage = action.payload;
+        state.isAuthenticated = false;
       })
       .addCase(fetchUserProfile.pending, (state) => {
         state.isLoading = true;
@@ -114,10 +110,12 @@ const user = createSlice({
       .addCase(fetchUserProfile.fulfilled, (state, action) => {
         state.isLoading = false;
         state.data = action.payload;
+        state.isAuthenticated = true;
       })
       .addCase(fetchUserProfile.rejected, (state, action) => {
         state.isLoading = false;
         state.errorMessage = action.payload;
+        state.isAuthenticated = false;
       })
       .addCase(logoutUser.pending, (state) => {
         state.isLoading = true;
@@ -130,9 +128,7 @@ const user = createSlice({
       .addCase(logoutUser.rejected, (state, action) => {
         state.isLoading = false;
         state.errorMessage = action.payload;
-      })
-      
-      ;
+      });
   },
 });
 

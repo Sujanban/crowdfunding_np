@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBanks } from "../../app/feature/bankSlice";
 import { FaStripe } from "react-icons/fa";
 import Pagination from '../../components/Pagination';
-import {IoFunnelOutline} from 'react-icons/io5'
+import { IoFunnelOutline } from 'react-icons/io5'
+import Loader from '../../components/Loader';
 
 
 
@@ -14,6 +15,7 @@ const Banks = () => {
     let count = 0;
     const dispatch = useDispatch();
     const bank = useSelector(state => state.bank.data)
+    const { isLoading } = useSelector(state => state.bank)
     const [toggleFilter, setToggleFilter] = useState(false);
 
     useEffect(() => {
@@ -29,10 +31,13 @@ const Banks = () => {
     const currentItems = bank.length && bank.slice(indexOfFirstItem, indexOfLastItem);
 
 
-    const handleSort = (sort) => {}
+    const handleSort = (sort) => { }
 
     return (
         <div className='flex max-w-7xl mx-auto w-full rounded-xl'>
+            {
+                isLoading && <Loader />
+            }
             <Navbar />
             <div className='w-full '>
                 <Search />

@@ -11,6 +11,8 @@ export const addBank = createAsyncThunk(
       const res = await axios.post("/api/bank/addBank", { stripeAccount });
       if(res.data.message){
         toast.success(res.data.message)
+      }else{
+        toast.error(res.data.error)
       }
       return res.data;
     } catch (err) {

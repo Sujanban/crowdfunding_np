@@ -105,3 +105,6 @@ app.use("/api/bank/", require("./routes/payoutRoutes"));
 app.use("/api/story/", require("./routes/storyRoutes"));
 
 app.listen(port, () => console.log(`Server running on port: ${port}`));
+
+
+console.log((__dirname) + '/client/')

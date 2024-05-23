@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { GoPeople } from 'react-icons/go'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchSingleCampaign } from '../app/feature/campaignSlice'
+import {  getCampaign } from '../app/feature/campaignSlice'
 import { addStory, getStories, deleteStory } from '../app/feature/storySlice'
 import { useNavigate, useParams } from 'react-router-dom'
 import Loader from '../components/Loader'
@@ -30,11 +30,11 @@ const CampaignStoryUpdates = () => {
   const handleStoryUpdate = (e) => {
     e.preventDefault();
     dispatch(addStory(story));
-    dispatch(fetchSingleCampaign(id));
+    dispatch(getCampaign(id));
   }
 
   useEffect(() => {
-    dispatch(fetchSingleCampaign(id));
+    dispatch(getCampaign(id));
     dispatch(getStories(id))
   }, [])
 

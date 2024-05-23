@@ -10,6 +10,7 @@ import { LuChevronRight } from "react-icons/lu";
 import { FaChevronLeft, FaChevronRight, FaSpinner } from "react-icons/fa";
 import { TiPen } from "react-icons/ti";
 import Pagination from '../../components/Pagination';
+import Loader from '../../components/Loader';
 
 const Categories = () => {
     const dispatch = useDispatch()
@@ -52,6 +53,9 @@ const Categories = () => {
 
     return (
         <div className='flex max-w-7xl mx-auto w-full'>
+            {
+                isLoading && <Loader />
+            }
             <Navbar />
             <div className='w-full'>
                 <Search />
@@ -93,9 +97,6 @@ const Categories = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {
-                                            isLoading && <div className='flex justify-center items-center'><FaSpinner className='text-emerald-600 animate-spin' size={30} /></div>
-                                        }
                                         {
                                             currentItems && currentItems.map((category, index) =>
                                                 <tr key={index} className=" text-sm text-slate-600 odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">

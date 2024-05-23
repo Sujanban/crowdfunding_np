@@ -159,18 +159,17 @@ const handleGoogleLogin = async (req, res) => {
 // fetching user profile
 const fetchUserProfile = async (req, res) => {
   try {
-    const userId = req.user._id; // Assume user information is in req.user
-    const user = await User.findById(userId).select("-password"); // Fetch user profile without password
+    const userId = req.user._id;
+    const user = await User.findById(userId).select("-password");
 
     if (!user) {
-      return res.status(404).json({ error: "User not found" }); // 404 Not Found if user doesn't exist
+      return res.json({ error: "User not found" });
     }
 
-    // If user is found, return user profile data
-    return res.status(200).json(user); // 200 OK
+    return res.json(user);
   } catch (error) {
     console.error("Error fetching user profile:", error);
-    return res.status(500).json({ error: "Internal server error" }); // 500 Internal Server Error for unexpected errors
+    return res.json({ error: "Internal server error" });
   }
 };
 
@@ -203,8 +202,10 @@ const resetPassword = async (req, res) => {
     if (!password) {
       return res.status(400).json({ error: "Password is required" });
     }
-    if(password.length < 6){
-      return res.status(400).json({ error: "Password must be at least 6 characters long" });
+    if (password.length < 6) {
+      return res
+        .status(400)
+        .json({ error: "Password must be at least 6 characters long" });
     }
     if (!token) {
       return res.status(400).json({ error: "Token is required" });

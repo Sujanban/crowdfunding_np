@@ -5,7 +5,7 @@ import { LuChevronRight } from "react-icons/lu";
 import { Link } from 'react-router-dom';
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { IoFunnelOutline } from "react-icons/io5";
-import { formatDate, formatTime } from '../../utils/dateFormater'
+import { formatDate } from '../../utils/dateFormater'
 import { useDispatch, useSelector } from 'react-redux';
 import { getDonations } from '../../app/feature/donationSlice';
 import Loader from "../../components/Loader"
@@ -34,13 +34,13 @@ const Donations = () => {
 
     return (
         <div className='flex max-w-7xl mx-auto w-full rounded-xl'>
+            {
+                isLoading && <Loader />
+            }
             <Navbar />
             <div className='w-full '>
                 <Search />
                 <div className='p-4 h-[90vh] overflow-y-auto bg-gray-100'>
-                    {
-                        isLoading && <Loader />
-                    }
                     {/* breadcrumbs */}
                     <div className='p-2'>
                         <nav className="w-full flex" aria-label="Breadcrumb">
@@ -106,7 +106,7 @@ const Donations = () => {
                                                         <tr key={item._id} className='text-slate-600 text-sm border-b'>
                                                             {/* <td scope="col" className="px-2 py-2">{++count}</td> */}
                                                             <td scope="col" className=" py-2">{formatDate(item.createdAt)}</td>
-                                                            <td scope="col" className="px-6 py-2 font-medium ">{item.userId.email}</td>
+                                                            <td scope="col" className="px-6 py-2 font-medium ">{item.userId?.email}</td>
                                                             <td scope="col" className="px-6 py-2">₹ {item.amount}</td>
                                                             <td scope="col" className="px-6 py-2">
                                                                 <Link to={`/admin/donations/donation/${item._id}`} className='py-2 px-4 flex items-center text-slate-600  transition-all duration-300 hover:text-slate-900 rounded-xl'>View<HiOutlineExternalLink className='ml-2' size={15} /></Link>

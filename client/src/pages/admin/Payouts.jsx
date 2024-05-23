@@ -254,11 +254,11 @@ const Payouts = () => {
 
     return (
         <div className='flex max-w-7xl mx-auto w-full rounded-xl'>
+            {isLoading && <Loader />}
             <Navbar />
             <div className='w-full'>
                 <Search searchQuery={searchQuery} onSearch={handleSearch} />
                 <div className='p-4 h-[90vh] overflow-y-auto bg-gray-100'>
-                    {isLoading && <Loader />}
                     <div className='p-4'>
                         <div className='col-span-2'>
                             <h1 className='pb-2 font-medium'>Payout Requests</h1>
