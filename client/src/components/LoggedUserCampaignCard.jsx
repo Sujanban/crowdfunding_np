@@ -18,8 +18,8 @@ const Card = ({ popupVisible, setPopupVisible, campaign, index }) => {
         fetchDonationByCampaign()
     }, [])
     return (
-        <div key={index}>
-            <div className='my-4 h-40 relative'>
+        <div className='rounded-xl shadow-2xl' key={index}>
+            <div className='my-4x h-40 relative '>
                 <img className='w-full h-full object-cover rounded-t-xl' src={campaign.thumbnail?.url} alt="" />
             </div>
             <div className='grid gap-1 bg-gradient-to-b from-emerald-50'>
@@ -36,7 +36,7 @@ const Card = ({ popupVisible, setPopupVisible, campaign, index }) => {
                         popupVisible && <WarningPopup setPopupVisible={setPopupVisible} id={campaign._id} delCampaign={true} />
                     }
                 </div>
-                <div className=' grid grid-cols-3 text-center'>
+                <div className='pb-2 grid grid-cols-3 text-center'>
                     <div className='p-1 ringg-1 border-r ring-emerald-100 '>
                         <p className='text-xs text-gray-500'>Raised</p>
                         <h1 className='font-medium'>₹ {donationRaised}</h1>

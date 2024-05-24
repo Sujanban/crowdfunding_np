@@ -33,18 +33,18 @@ const Donations = () => {
   return (
     <div>
       <Navbar />
-      <div className='px-8 py-20 mx-auto max-w-7xl w-full'>
+      <div className='px-4 py-20 mx-auto max-w-7xl w-full'>
         <div className='pb-4 flex items-center justify-center space-x-2'>
           <h1 className='text-xl font-medium mx-auto border-b border-gray-300'>Donation History</h1>
         </div>
         {
           isLoading && <Loader />
         }
-        <p className='py-2 text-md text-slate-500'>You have made <span className='text-emerald-600'>{donations.length} donations</span></p>
-        <div className="p-2 relative overflow-x-auto sm:rounded-lg">
+        <p className='py-2 text-center md:text-left text-md text-slate-500'>You have made <span className='text-emerald-600'>{donations.length} donations</span></p>
+        <div className="md:p-2 relative overflow-x-auto sm:rounded-lg">
           <table className="w-full text-sdm text-left rtl:text-right text-gray-500 ">
             <thead className=" text-slate-700 capitalize bg-gray-50">
-              <tr className=''>
+              <tr className='text-sm'>
                 <th scope="col" className=" py-3">Date</th>
                 <th scope="col" className="px-6 py-3">Campaign</th>
                 <th scope="col" className="px-6 py-3">Amount</th>

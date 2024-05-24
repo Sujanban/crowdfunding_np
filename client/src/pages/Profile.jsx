@@ -69,11 +69,11 @@ const Profile = () => {
                     <h1 className='py-4 text-cencter md:text-xl font-medium border-b'>Payout Accounts</h1>
                     {
                         bank ?
-                            <div className='p-4 max-w-xl'>
+                            <div className='md:p-4 max-w-xl'>
                                 <div className='text-sm md:text-md py-4 grid grid-cols-2'>
                                     <span>Account Details</span>
-                                    <span className='flex items-center'>{bank.stripeAccountId}
-                                        <button onClick={() => handleBankDelete(bank._id)} className="mx-1 p-1 text-orange-600 bg-orange-100 rounded-xl hover:bg-orange-200 transition-all duration-300">
+                                    <span className='flex items-center max-w-36 overflow-auto'>{bank.stripeAccountId}
+                                        <button onClick={() => handleBankDelete(bank._id)} className="md:mx-1 p-1 text-orange-600 bg-orange-100 rounded-xl hover:bg-orange-200 transition-all duration-300">
                                             <VscTrash />
                                         </button>
                                     </span>
@@ -84,7 +84,7 @@ const Profile = () => {
                                 </div>
                                 <div className='py-4 grid grid-cols-2'>
                                     <span>Account Balance</span>
-                                    <div className='flex items-center justify-between space-x-2'>
+                                    <div className='flex items-center flex-wrap justify-between space-x-2'>
                                         <h1>${user.accountBalance}</h1>
                                         <button onClick={() => dispatch(requestPayout(user.accountBalance))} className='text-sm px-3 py-2 rounded-xl shadow text-white bg-emerald-600'>Request Payout</button>
                                     </div>

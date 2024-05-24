@@ -16,8 +16,10 @@ const Contact = () => {
                 <div className=' flex items-center justify-center space-x-2'>
                     <h1 className='text-xl font-medium mx-auto border-b border-gray-300'>Need help? Get in touch</h1>
                 </div>
-                <p className='p-2 md:p-4 text-slate-600 text-left md:text-center'>We’re here to listen,advice and help you sucessfully realize your financial dreams</p>
+                <div className='flex items-center justify-center'>
+                    <p className='py-4 text-sm text-center md:text-md md:p-4 text-slate-600 md:text-center'>We’re here to listen, advice and help you sucessfully realize your financial dreams</p>
 
+                </div>
 
                 <div className='md:p-4 md:grid grid-cols-3 gap-4'>
                     <div className='p-4 flex space-x-4 items-center rounded  shadow'>
@@ -41,22 +43,11 @@ const Contact = () => {
                             <a className='p-2 text-sm ' href="mailto:help@collab.com">help@collab.com</a>
                         </div>
                     </div>
-
                 </div>
-
 
                 <div className='my-4 md:p-4 md:grid grid-cols-3 gap-4'>
                     <img className='hidden md:grid w-full my-auto' src={contactimg} alt="" />
                     <div className='w-full col-span-2'>
-                        {/* <form action="">
-                            <div className='p-4'>
-                                <input type="text" placeholder='Name' className='p-4 outline-none w-full border-2  focus:border-2 focus:border-yellow-500  rounded ' />
-                                <input type="email" placeholder='Email' className='p-4 outline-none w-full border-2  focus:border-2 focus:border-yellow-500  rounded mt-4' />
-                                <textarea type="text" placeholder='Message' className='p-4 outline-none w-full border-2  focus:border-2 focus:border-yellow-500  rounded mt-4' />
-                                <button className=' px-6 py-2 rounded bg-green-800 text-white mt-4'>Send</button>
-                            </div>
-                        </form> */}
-
                         <form className=''>
                             <div className=' w-full  lg:max-w-2xl md:px-4 md:py-4 block gap-2'>
                                 <div className='py-2 grid'>

@@ -66,9 +66,9 @@ const Navbar = () => {
                                 <li className='py-4'>
                                     <NavLink to='/howitworks' className={({ isActive }) => isActive ? ' underline underline-offset-4  p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>How it works</NavLink>
                                 </li>
-                                <li className='py-4'>
+                                {/* <li className='py-4'>
                                     <NavLink to='/blog' className={({ isActive }) => isActive ? ' underline underline-offset-4  p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Blog</NavLink>
-                                </li>
+                                </li> */}
                                 <li className='py-4'>
                                     <NavLink to='/contact' className={({ isActive }) => isActive ? ' underline underline-offset-4  p-2' : 'hover:bg-gray-100 transition-all duration-400 rounded-md p-2'}>Contact</NavLink>
                                 </li>
@@ -94,7 +94,7 @@ const Navbar = () => {
                                 </div>
                                 {
                                     isSubMenuVisible ?
-                                        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className=' absolute right-0 z-10 bg-white px-6 block  shadow'>
+                                        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className=' absolute right-0 z-10 w-36 bg-white px-6 block  shadow'>
                                             {user && user.role === 1 ?
                                                 <li className=' grid'>
                                                     <NavLink to='/admin/dashboard' className='p-2 w-full'>Dashboard</NavLink>
@@ -116,7 +116,7 @@ const Navbar = () => {
                             :
                             <div className='flex items-center space-x-2'>
                                 <li className=''>
-                                    <NavLink to='/s' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'><CiSearch /> <span className='hidden md:flex'>Search</span></NavLink>
+                                    <NavLink to='/s' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'><CiSearch size={20} className='text-emerald-600' /> <span className='hidden md:flex'>Search</span></NavLink>
                                 </li>
                                 <button className='md:hidden' onClick={toggleSlider}><FaBarsStaggered size={15} /></button>
                                 <li className='hidden md:flex'>

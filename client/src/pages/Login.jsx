@@ -101,7 +101,7 @@ const Login = () => {
                                 <div className='py-4  '>
                                     <Link to='/forgotPassword' className='underline'>Forgot your password?</Link>
                                 </div>
-                                <p className='text-slate-500 text-center'>or</p>
+                                {/* <p className='text-slate-500 text-center'>or</p>
                                 <div className='p-4 flex items-center justify-center'>
                                     <GoogleLogin
                                         onSuccess={credentialResponse => {
@@ -111,7 +111,7 @@ const Login = () => {
                                             console.log('Login Failed');
                                         }}
                                     />
-                                </div>
+                                </div> */}
                             </div>
 
                             <div className='p-4'>

@@ -3,13 +3,12 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { GoPeople } from 'react-icons/go'
 import { useDispatch, useSelector } from 'react-redux'
-import {  getCampaign } from '../app/feature/campaignSlice'
+import { getCampaign } from '../app/feature/campaignSlice'
 import { addStory, getStories, deleteStory } from '../app/feature/storySlice'
 import { useNavigate, useParams } from 'react-router-dom'
 import Loader from '../components/Loader'
-import Story from '../components/Story'
 import { formatDate, formatTime } from '../utils/dateFormater'
-import {VscTrash} from 'react-icons/vsc'
+import { VscTrash } from 'react-icons/vsc'
 
 const CampaignStoryUpdates = () => {
   const { id } = useParams();
@@ -41,9 +40,7 @@ const CampaignStoryUpdates = () => {
   return (
     <div className='bg-gray-100'>
       <Navbar />
-
       <div className=' max-w-7xl mx-auto w-full'>
-
         <div className=' px-8 py-20 flex justify-center '>
           <h1 className='text-2xl font-semibold border-b-2 border-green-600 text-center'>Update your Progress</h1>
         </div>
@@ -77,13 +74,12 @@ const CampaignStoryUpdates = () => {
                         <p className='ml-2'>{item.updateContent}</p>
                         <p className='ml-2 text-sm text-emerald-600'>{formatDate(item.createdAt)} - {formatTime(item.createdAt)}</p>
                       </div>
-                      <button onClick={() => dispatch(deleteStory(item._id))} className='ml-auto'><VscTrash size={25} className='text-red-600 bg-orange-100 p-1 rounded-full'/></button>
+                      <button onClick={() => dispatch(deleteStory(item._id))} className='ml-auto'><VscTrash size={25} className='text-red-600 bg-orange-100 p-1 rounded-full' /></button>
                     </div>
                   )
                 }
               </div>
             </div>
-
 
 
           </div>

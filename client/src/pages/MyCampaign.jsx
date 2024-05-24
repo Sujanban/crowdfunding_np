@@ -38,7 +38,7 @@ const MyCampaign = () => {
         <div className=' flex items-center justify-center space-x-2'>
           <h1 className='text-xl font-medium mx-auto border-b border-gray-300'>Manage campaigns</h1>
         </div>
-        <div className=' py-12 md:py-20 md:grid grid-cols-4 gap-4 '>
+        <div className=' py-12 md:py-20 grid md:grid-cols-4 gap-4 '>
           {
             myCampaigns.length > 0 && myCampaigns.map((campaign, index) =>
               <LoggedUserCampaignCard key={index} popupVisible={popupVisible} setPopupVisible={setPopupVisible} campaign={campaign} index={index} />

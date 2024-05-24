@@ -16,8 +16,8 @@ const Story = ({ story }) => {
                                     <GoPeople size={25} className='text-emerald-600' />
                                 </div>
                                 <div>
-                                    <h1 className='text-black font-black capitalize'>{item?.userId?.firstName} {item?.userId?.lastName}</h1>
-                                    <p className='pl-1 text-slate-600'>{item.updateContent}</p>
+                                    <h1 className='text-black capitalize'>{item?.userId?.firstName} {item?.userId?.lastName}</h1>
+                                    <p className='pl-1 text-sm md:text-md text-slate-600'>{item.updateContent}</p>
                                     <p className='pl-1 text-xs'>{formatDate(item.createdAt)} - {formatTime(item.createdAt)}</p>
                                 </div>
                             </div>
