@@ -31,7 +31,6 @@ const CreateCampaign = () => {
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setCampaign({ ...campaign, thumbnail: reader.result });
-      console.log(reader.result);
     };
   };
 

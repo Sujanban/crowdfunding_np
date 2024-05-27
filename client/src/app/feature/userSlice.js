@@ -14,7 +14,7 @@ export const fetchUserProfile = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await axios.get("/api/user/profile/");
-      if(res.data.error) return rejectWithValue(res.data.error);
+      if (res.data.error) return rejectWithValue(res.data.error);
       return res.data;
     } catch (error) {
       toast.error(error);
@@ -84,26 +84,13 @@ const user = createSlice({
   name: "user",
   initialState: {
     data: null,
-    isAuthenticated: null,
+    isAuthenticated: false,
     isLoading: false,
     errorMessage: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(loginUser.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.data = action.payload;
-        state.isAuthenticated = true;
-      })
-      .addCase(loginUser.rejected, (state, action) => {
-        state.isLoading = false;
-        state.errorMessage = action.payload;
-        state.isAuthenticated = false;
-      })
       .addCase(fetchUserProfile.pending, (state) => {
         state.isLoading = true;
       })
@@ -117,6 +104,20 @@ const user = createSlice({
         state.errorMessage = action.payload;
         state.isAuthenticated = false;
       })
+      .addCase(loginUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = action.payload;
+        state.isAuthenticated = true;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorMessage = action.payload;
+        state.isAuthenticated = false;
+      })
+
       .addCase(logoutUser.pending, (state) => {
         state.isLoading = true;
       })

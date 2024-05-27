@@ -11,7 +11,6 @@ const ResetPassword = () => {
     const { token } = useParams()
     const [password, setPassword] = useState(null);
     const [showPassword, setShowPassword] = useState(false);
-    console.log(token, password);
 
     const resetPassword = async (e) => {
         e.preventDefault()

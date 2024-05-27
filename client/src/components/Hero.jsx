@@ -24,8 +24,8 @@ const Hero = () => {
 
                 {/* hero stats */}
                 <div className=''>
-                    <div className='relative rounded-xl overflow-hidden'>
-                        <img className=' h-[500px] w-full object-cover rounded-xl' src="https://images.unsplash.com/photo-1505189014261-0148f9aefa85?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+                    <div className='relative md:rounded-xl overflow-hidden'>
+                        <img className=' h-[500px] w-full object-cover' src="https://images.unsplash.com/photo-1505189014261-0148f9aefa85?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
                         <div className=' flex items-center px-10 md:px-24 absolute w-full h-full bottom-0 left-0 bg-gradient-to-t from-black  text-white'>
                             <div className=' my-auto'>
                                 <div className='px-4 md:px-8 pb-14 border-l border-gray-500 relative'>

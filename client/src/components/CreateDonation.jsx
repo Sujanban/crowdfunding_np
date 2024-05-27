@@ -7,8 +7,7 @@ const CreateDonation = ({id}) => {
     const userId = useSelector((state) => state?.user?.data._id);
     const [amount, setAmount] = useState();
     const handleDonation = async (e) => {
-        e.preventDefault();
-        console.log(id, userId, amount);
+        e.preventDefault(); 
         dispatch(createDonation({ id, userId, amount }));
     }
     return (

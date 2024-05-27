@@ -37,9 +37,7 @@ const DonationStats = ({ donations }) => {
         }else{
             return "No donation found"
         }
-    }
-
-    console.log(topDonator())
+    } 
 
     return (
         <div className=' grid grid-cols-3 gap-4'>

@@ -7,6 +7,7 @@ import donationReducer from "../feature/donationSlice";
 import storySlice from "../feature/storySlice";
 import bankSlice from "../feature/bankSlice";
 import payoutSlice from "../feature/payoutSlice";
+import responsiveSlice from "../feature/responsiveSlice";
 
 const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ const store = configureStore({
     donation: donationReducer,
     bank: bankSlice,
     payout: payoutSlice,
+    responsive: responsiveSlice
   },
 });
 

@@ -82,7 +82,7 @@ const Banks = () => {
                                             </thead>
                                             <tbody>
                                                 {
-                                                    currentItems.length > 0 && currentItems.map((item) =>
+                                                    currentItems && currentItems.map((item) =>
                                                         <tr key={item._id} className='text-slate-600 text-sm border-b'>
                                                             <td scope="col" className=" py-2">{++count}</td>
                                                             <td scope="col" className="px-6 py-2 font-medium ">{item.userId.email}</td>

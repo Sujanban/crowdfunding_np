@@ -9,7 +9,7 @@ const BlogGrid = () => {
         <div className='px-4 md:py-20 max-w-7xl mx-auto'>
             <h1 className='relative px-4 text-xl md:text-2xl font-medium'>Featured Blog <span className='absolute left-0 bg-green-800 w-1.5 h-full'></span></h1>
             <div className='my-4 relative w-full h-60 md:h-[450px] '>
-                <img className='w-full h-full object-cover' src="http://localhost:5173/src/assets/help.jpg" alt="" />
+                <img className='w-full h-full object-cover' src="https://images.unsplash.com/photo-1716319487463-b3d0ea7f3d47?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
                 <Link className='absolute w-full h-full bottom-0 left-0  flex items-center justify-center bg-gradient-to-t from-black  text-white'>
                     <div>
                         <h1 className='text-md md:text-2xl p-4 font-medium '>Revolutionizing Education with Tech: The Story of ABC Learning App</h1>

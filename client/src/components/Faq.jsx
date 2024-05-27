@@ -9,8 +9,7 @@ const Faq = () => {
 
     const handleOpen = (id) => {
         setActiveFaq(id);
-        setOpen(!open);
-        console.log(id)
+        setOpen(!open); 
     };
 
     const faq = [

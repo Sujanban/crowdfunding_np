@@ -21,7 +21,6 @@ const Donation = () => {
     const { id } = useParams();
     const dispatch = useDispatch()
     const donationn = useState(state=> state.donation.data)
-    console.log(donationn)
     useEffect(() => {
         dispatch(getDonation(id))
     }, [])

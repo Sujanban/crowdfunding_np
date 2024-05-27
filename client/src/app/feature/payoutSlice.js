@@ -55,7 +55,6 @@ export const requestPayout = createAsyncThunk(
 export const handlePayout = createAsyncThunk(
   "handlePayout",
   async ({ id, status }, { rejectWithValue }) => {
-    console.log(id, status);
     try {
       const res = await axios.post("/api/bank/hanldePayoutStatus/" + id, {
         status,

@@ -28,7 +28,6 @@ const EditCampaign = () => {
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setCampaignn({ ...campaignn, thumbnail: reader.result });
-      console.log(reader.result);
     };
   };
 

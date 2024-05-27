@@ -23,7 +23,7 @@ const Users = () => {
     let count = 0;
     // fetching all users from DB
     const fetchUsers = async () => {
-        const res = await axios.get('api/user/users');
+        const res = await axios.get('/api/user/users');
         if (res.data.error) {
             toast.error(res.data.error);
         } else {

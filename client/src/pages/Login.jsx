@@ -19,19 +19,18 @@ const Login = () => {
         password: ''
     });
 
-    const handleGoogleLogin = async (credentialResponse) => {
-        const res = await axios.post('/api/auth/googlelogin',
-            {
-                credentialResponse,
-                jwtDecoded: jwtDecode(credentialResponse.credential),
-            }
-        );
-        if (res.data.message) {
-            console.log(res.data.user);
-            localStorage.setItem('user', JSON.stringify(res.data.user));
-            navigate('/');
-        }
-    }
+    // const handleGoogleLogin = async (credentialResponse) => {
+    //     const res = await axios.post('/api/auth/googlelogin',
+    //         {
+    //             credentialResponse,
+    //             jwtDecoded: jwtDecode(credentialResponse.credential),
+    //         }
+    //     );
+    //     if (res.data.message) {
+    //         localStorage.setItem('user', JSON.stringify(res.data.user));
+    //         navigate('/');
+    //     }
+    // }
 
 
     // handling user login data
@@ -39,7 +38,6 @@ const Login = () => {
         e.preventDefault();
         dispatch(loginUser(user)).then((res) => {
             if (res.payload?.email) {
-                console.log(res.payload);
                 navigate('/');
             }
         })

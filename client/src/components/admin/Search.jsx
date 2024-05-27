@@ -9,15 +9,23 @@ import { logoutUser } from '../../app/feature/userSlice';
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { getRequests } from '../../app/feature/payoutSlice';
 import { GrAnnounce } from "react-icons/gr";
+import { FaBarsStaggered } from "react-icons/fa6";
+import { handleNavbarVisibility } from '../../app/feature/responsiveSlice';
+
 
 
 const Search = ({ searchQuery, onSearch }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const navbarVisible = useSelector(state => state.responsive.navbarVisible)
     const payoutRequests = useSelector(state => state.payout.data)
     const user = useSelector(state => state.user.data)
     const [isSubMenuVisible, setSubMenuVisible] = useState(false);
     const [isNotificationVisible, setNotificationVisible] = useState(false);
+
+    const handleResponsiveNavbar = () => {
+        dispatch(handleNavbarVisibility(!navbarVisible))
+    }
 
 
 
@@ -45,19 +53,23 @@ const Search = ({ searchQuery, onSearch }) => {
         dispatch(getRequests())
     }, [])
     return (
-        <div className='p-4 w-full border-b'>
-            <div className='px-4 max-w-6xl flex justify-between items-center'>
-                <form action="">
-                    <div className='flex rounded-xl shadow border items-center bg-white px-2'><CiSearch size={20} className='text-emerald-700' />
-                        <input
-                            placeholder='Search'
-                            value={searchQuery}
-                            onChange={(e) => onSearch(e.target.value)}
-                            type="search"
-                            className='p-2 w-60 text-sm outline-none  placeholder:font-light placeholder:text-slate-800 ' />
-                    </div>
-                </form>
-                <div className='flex items-center gap-4 '>
+        <div className=' p-4 w-full border-b'>
+            <div className='px-4 md:px-4 max-w-6xl flex justify-between items-center'>
+                <div className='flex items-center space-x-4'>
+                    <FaBarsStaggered onClick={handleResponsiveNavbar} className='text-slate-600 -translate-x-4 cursor-pointer hover:text-black' />
+                    <form action="">
+                        <div className='flex rounded-xl shadow border items-center bg-white px-2'><CiSearch size={20} className='text-emerald-700' />
+                            <input
+                                placeholder='Search'
+                                value={searchQuery}
+                                onChange={(e) => onSearch(e.target.value)}
+                                type="search"
+                                className='p-2 w-[90%] md:w-60 text-sm outline-none  placeholder:font-light placeholder:text-slate-800 ' />
+                        </div>
+                    </form>
+
+                </div>
+                <div className='flex items-center md:gap-4 '>
                     <li className='p-2 relative'>
                         <button onClick={() => setNotificationVisible(!isNotificationVisible)} className='p-1 flex relative items-center'>
                             <IoMdNotificationsOutline size={20} />
@@ -90,9 +102,9 @@ const Search = ({ searchQuery, onSearch }) => {
 
 
 
-                    <li className='relative' onClick={() => setSubMenuVisible(!isSubMenuVisible)}>
+                    <li className='hidden md:flex relative' onClick={() => setSubMenuVisible(!isSubMenuVisible)}>
                         <NavLink to='' className=' flex items-center gap-1 hover:bg-gray-100 transition-all duration-400 rounded-md p-2'>
-                            <GoPeople className='' size={20} /> {user.firstName}
+                            <GoPeople className='' size={20} /> <span className='hidden md:flex'>{user.firstName}</span>
                             <IoIosArrowDown className='hover:rotate-180 transition-all duration-400' />
                         </NavLink>
                         {

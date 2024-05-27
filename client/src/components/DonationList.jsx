@@ -12,7 +12,7 @@ const DonationList = ({ donations }) => {
                         <GiLifeSupport size={25} className='text-emerald-600' />
                     </div>
                     <div>
-                        <h1 className=' font-medium capitalize'>{donation.userId.firstName} {donation.userId.lastName}</h1>
+                        <h1 className=' font-medium capitalize'>{donation.userId?.firstName} {donation.userId?.lastName}</h1>
                         <p className='text-gray-600'>${donation.amount}</p>
                         <p className='text-xs'>{formatDate(donation.createdAt)}</p>
                     </div>
