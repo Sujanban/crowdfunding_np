@@ -70,9 +70,6 @@ const updateCampaign = async (req, res) => {
       status,
     } = req.body;
 
-    // console.log(typeof thumbnail)
-    // console.log(thumbnail)
-
    
     if (
       !campaignOwner ||
@@ -92,7 +89,6 @@ const updateCampaign = async (req, res) => {
     let thumbnailData = existCampaign.thumbnail;
 
     if(typeof thumbnail === "string") {
-      console.log("can enter thumbnail")
       if (thumbnail) {
         const imageUploadResponse = await cloudinary.uploader.upload(thumbnail, {
           upload_preset: "collab-crowdfunding",

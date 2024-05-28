@@ -40,7 +40,6 @@ const getBank = async (req, res) => {
 
 const getBanks = async (req, res) => {
   try {
-    console.log("hello");
     const bank = await BankAccount.find({}).populate(
       "userId",
       "email accountBalance"
@@ -66,6 +65,7 @@ const deleteBank = async (req, res) => {
       .status(200)
       .json({ message: "Bank account deleted successfully", bank });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ error: error.message });
   }
 };
@@ -98,6 +98,7 @@ const handleRequest = async (req, res) => {
     await payoutRequest.save();
     return res.json({ message: "Payout request sent successfully" });
   } catch (err) {
+    console.log(err);
     return res.json({ error: err.message });
   }
 };
@@ -114,6 +115,7 @@ const getRequestsByUser = async (req, res) => {
     }
     return res.status(200).json(request);
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ error: error.message });
   }
 };
@@ -128,6 +130,7 @@ const getRequests = async (req, res) => {
     }
     return res.status(200).json(requests);
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ error: error.message });
   }
 };
@@ -160,6 +163,7 @@ const hanldePayoutStatus = async (req, res) => {
       .status(200)
       .json({ message: "Payout status updated", request: updatedRequest });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ error: error.message });
   }
 };

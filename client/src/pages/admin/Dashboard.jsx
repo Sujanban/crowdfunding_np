@@ -32,7 +32,7 @@ const Dashboard = () => {
                 <Search />
                 <div className='p-4 h-[90vh] overflow-y-auto bg-gray-100'>
                     {/* breadcrumbs */}
-                    <div className='p-2'>
+                    <div className='md:p-2'>
                         <nav className="w-full flex" aria-label="Breadcrumb">
                             <ol className="inline-flex items-center space-x-1 md:space-x-3">
                                 <li className="inline-flex items-center">
@@ -50,13 +50,13 @@ const Dashboard = () => {
                         </nav>
                     </div>
 
-                    <div className='p-4 '>
+                    <div className='py-2 md:py-0 md:p-4 '>
                         <div className=''>
 
                             {/* donation stats grid */}
                             <DonationStats donations={donations} />
                         </div>
-                        <div className='py-4 grid grid-cols-3 gap-4 '>
+                        <div className='md:py-4 grid grid-cols-3 gap-4 '>
                             <div className='col-span-2 rounded-xl bg-white'>
                                 <div className=''>
 

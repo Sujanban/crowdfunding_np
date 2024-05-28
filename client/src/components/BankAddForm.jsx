@@ -12,7 +12,7 @@ const BankAddForm = ({ toggleAccountAdd, setToggleAccountAdd, handleBankAdd, set
             
             <div className='popup bg-white w-[600px] p-4 max-w-md text-center rounded-xl shadow-xl '>
                 <h1 className='pt-4 font-bold'>Payout Account</h1>
-                <div className='w-full flex items-center space-x-4'>
+                <div className='w-full md:flex items-center space-x-4'>
                     <img className='w-32' src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/2560px-Stripe_Logo%2C_revised_2016.svg.png" alt="" />
                     <div className='flex-grow p-4 pb-0 grid'>
                         <h1 className='pb-2 text-left'>Stripe account ID</h1>

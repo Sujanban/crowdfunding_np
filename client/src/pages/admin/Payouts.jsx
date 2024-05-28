@@ -7,6 +7,8 @@ import { getRequests, handlePayout } from '../../app/feature/payoutSlice';
 import Loader from '../../components/Loader';
 import Pagination from '../../components/Pagination';
 import { IoFunnelOutline } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
+import { LuChevronRight } from 'react-icons/lu'
 
 const Payouts = () => {
     const dispatch = useDispatch();
@@ -76,21 +78,34 @@ const Payouts = () => {
             <div className='w-full'>
                 <Search searchQuery={searchQuery} onSearch={handleSearch} />
                 <div className='p-4 h-[90vh] overflow-y-auto bg-gray-100'>
-                    <div className='p-4'>
+                    {/* breadcrumbs */}
+                    <div className='md:p-2'>
+                        <nav className="w-full flex" aria-label="Breadcrumb">
+                            <ol className="inline-flex items-center space-x-1 md:space-x-3">
+                                <li className="inline-flex items-center">
+                                    <Link to={"/admin/dashboard"} className=" inline-flex text-sm font-medium text-gray-800 hover:underline md:ml-2" >Dashboard</Link>
+                                </li>
+                                <li>
+                                    <div className="flex items-center">
+                                        <LuChevronRight className="h-4 w-4" />
+                                        <Link to={'/admin/payouts'} className=" text-sm font-medium text-gray-800 hover:underline md:ml-2"> Payouts </Link>
+                                    </div>
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div className='md:p-4'>
                         <div className='col-span-2'>
-                            <h1 className='pb-2 font-medium'>Payout Requests</h1>
-                            <div className='p-4 bg-white w-full rounded-xl'>
-                                <div className='grid grid-cols-3 gap-4'>
+                            <h1 className='py-2 text-sm md:text-md pb-2 font-medium'>Payout Requests</h1>
+                            <div className='md:p-4 bg-white w-full rounded-xl'>
+                                <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
                                     {pendingPayouts?.length ? pendingPayouts.map((request, index) => (
                                         <div key={index} className="flex space-x-4 shadow p-4 bg-white w-full rounded-xl">
                                             <img src='https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg' className='w-10 h-10 rounded-full object-cover' alt='User' />
-                                            <div>
-                                                <div>
-                                                    <h1 className='font-bold'>{request.userId?.firstName} {request.userId?.lastName}</h1>
-                                                    <p>{request.userId?.email}</p>
-                                                </div>
+                                            <div className='text-sm md:text-md'>
+                                                <p>{request.userId?.email}</p>
                                                 <div className='flex items-center space-x-4'>
-                                                    <h1 className='font-bold'> $ {request.amount}</h1>
+                                                    <h1 className='font-medium'>{'$' + request.amount}</h1>
                                                     <div className='flex rounded-full px-1 bg-red-50 items-center space-x-1'>
                                                         <div className={`w-2 h-2 rounded-full animate-pulse bg-red-500`}></div>
                                                         <span className='text-sm'>{request.status}</span>
@@ -106,15 +121,15 @@ const Payouts = () => {
                                             </div>
                                         </div>
                                     )) : (
-                                        <h1 className='p-4 bg-white rounded-xl'>No request found.</h1>
+                                        <h1 className='p-4 bg-white text-sm rounded-xl'>No request found.</h1>
                                     )}
                                 </div>
                             </div>
 
                             {/* payout history */}
-                            <div className='mt-4 p-4 bg-white w-full rounded-xl'>
-                                <div className='px-2 flex items-center justify-between'>
-                                    <h1 className=' font-medium'>Payouts History</h1>
+                            <div className='mt-4 md:p-4 bg-white w-full rounded-xl'>
+                                <div className='p-2 flex items-center justify-between'>
+                                    <h1 className='text-sm md:text-md font-medium'>Payouts History</h1>
                                     <div className='relative'>
                                         <button onClick={() => setToggleFilter(!toggleFilter)} className='border rounded px-4 text-sm py-2 flex items-center hover:bg-gray-100'>Filter
                                             <IoFunnelOutline className='ml-2' />
@@ -137,23 +152,23 @@ const Payouts = () => {
                                         )}
                                     </div>
                                 </div>
-                                <div className="p-2 max-w-5xl relative overflow-x-auto sm:rounded-lg">
+                                <div className="md:p-2 max-w-5xl relative overflow-x-auto sm:rounded-lg">
                                     <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-                                        <thead className="text-slate-900 capitalize bg-gray-50">
+                                        <thead className="text-slate-900 capitalize bg-gray-50 text-xs sm:text-sm">
                                             <tr>
-                                                <th scope="col" className="px-4 py-4">Initiator</th>
-                                                <th scope="col" className=" py-4">Amount</th>
-                                                <th scope="col" className=" py-4">Date</th>
-                                                <th scope="col" className=" py-4">Status</th>
+                                                <th scope="col" className="px-3 md:px-6 py-3">Initiator</th>
+                                                <th scope="col" className="px-3 md:px-6 py-3">Amount</th>
+                                                <th scope="col" className="px-3 md:px-6 py-3">Date</th>
+                                                <th scope="col" className="px-3 md:px-6 py-3">Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {currentItems.map((request, index) => (
-                                                <tr key={index} className={`border-b bg-opacity-30 ${request.status === 'approved' ? 'bg-emerald-50' : 'bg-orange-50'}`}>
-                                                    <td scope="col" className="px-4 py-6 flex items-center">{request.userId?.email}</td>
-                                                    <td scope="col" className=" py-6">₹ {request.amount}</td>
-                                                    <td scope="col" className=" py-6">{formatDate(request.createdAt)}</td>
-                                                    <td scope="col" className=" py-6 text-xs">
+                                                <tr key={index} className={`border-b text-xs sm:text-sm bg-opacity-30 ${request.status === 'approved' ? 'bg-emerald-50' : 'bg-orange-50'}`}>
+                                                    <td scope="col" className="px-3 md:px-6 py-3 flex items-center">{request.userId?.email}</td>
+                                                    <td scope="col" className="px-3 md:px-6 py-3">₹ {request.amount}</td>
+                                                    <td scope="col" className="px-3 md:px-6 py-3">{formatDate(request.createdAt)}</td>
+                                                    <td scope="col" className="px-3 md:px-6 py-3 ">
                                                         <span className='flex items-center'>
                                                             <div className={`ring-1 flex items-center space-x-2 px-2 py-1 rounded-full ${request.status === 'rejected' ? 'ring-orange-600 text-orange-600' : 'ring-emerald-600 text-emerald-600'}`}>
                                                                 <div className={`w-2 h-2 rounded-full ${request.status === 'rejected' ? 'bg-red-500' : 'bg-emerald-500'}`}></div>

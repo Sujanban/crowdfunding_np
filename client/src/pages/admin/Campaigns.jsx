@@ -70,7 +70,7 @@ const Campaigns = () => {
     }
 
     return (
-        <div className='flex max-w-7xl mx-auto w-full'>
+        <div className=' flex max-w-7xl mx-auto w-full'>
             {
                 isLoading && <Loader />
             }
@@ -79,7 +79,7 @@ const Campaigns = () => {
                 <Search />
                 <div className='p-4 h-[90vh] overflow-y-auto bg-gray-100'>
                     {/* breadcrumbs */}
-                    <div className='p-2  flex justify-between items-center'>
+                    <div className='md:p-2 flex-wrap flex justify-between items-center'>
                         <nav className="flex" aria-label="Breadcrumb">
                             <ol className="inline-flex items-center space-x-1 md:space-x-3">
                                 <li className="inline-flex items-center">
@@ -98,12 +98,12 @@ const Campaigns = () => {
                         <Link to={'/admin/createcampaign'} className='mr-2 px-4 py-3 text-sm bg-emerald-600 text-white rounded-xl transition-all duration-300 hover:bg-emerald-700 cursor-pointer flex items-center '><TiPen className='mr-2' />Create</Link>
                     </div>
 
-                    {/*  */}
-                    <div className='p-4 pt-2 '>
+                    {/* table block */}
+                    <div className='md:p-4 pt-2 '>
                         <div className=''>
-                            <div className='p-4 bg-white rounded-xl'>
+                            <div className='md:p-4 bg-white rounded-xl'>
                                 <div className='p-2 flex items-center justify-between'>
-                                    <h1 className='border-b-2 border-emerald-600  font-medium'>Campaigns</h1>
+                                    <h1 className='text-sm md:text-md border-b-2 border-emerald-600  font-medium'>Campaigns</h1>
                                     <div className='relative '>
                                         <button onClick={() => setToggleFilter(!toggleFilter)} className='border rounded px-4 text-sm py-2 flex items-center hover:bg-gray-100'>Filter <IoFunnelOutline className='ml-2' /></button>
                                         {toggleFilter && (
@@ -121,25 +121,25 @@ const Campaigns = () => {
                                         )}
                                     </div>
                                 </div>
-                                <div className="p-2 relative overflow-x-auto sm:rounded-lg">
+                                <div className="md:p-2 relative overflow-x-auto sm:rounded-lg">
                                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
                                         <thead className=" text-slate-900 capitalize bg-gray-50">
                                             <tr className=''>
-                                                <th scope="col" className="px-6 py-3">Campaign</th>
-                                                <th scope="col" className="px-6 py-3">Creator</th>
-                                                <th scope="col" className="px-6 py-3">Status</th>
-                                                <th scope="col" className="px-6 py-3">Action</th>
+                                                <th scope="col" className="px-3 md:px-6 py-3">Campaign</th>
+                                                <th scope="col" className="px-3 md:px-6 py-3">Creator</th>
+                                                <th scope="col" className="px-3 md:px-6 py-3">Status</th>
+                                                <th scope="col" className="px-3 md:px-6 py-3">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
                                                 currentItems && currentItems.map((item, index) =>
                                                     <tr key={index} className={`text-slate-600 border-b bg-opacity-20 ${item.status === "active" ? "bg-emerald-50" : "bg-orange-50"}`}>
-                                                        <td scope="col" className="px-6 py-4">{item.campaignTitle.slice(0, 50)}</td>
-                                                        <td scope="col" className="px-6 py-4">
+                                                        <td scope="col" className="text-xs sm:text-sm px-3 md:px-6 py-4">{item.campaignTitle.slice(0, 50)}</td>
+                                                        <td scope="col" className="text-xs sm:text-sm px-3 md:px-6 py-4">
                                                             {users.filter(user => user._id === item.campaignOwner)[0]?.firstName + " " + users.filter(user => user._id === item.campaignOwner)[0]?.lastName}
                                                         </td>
-                                                        <td scope="col" className="px-6 py-4 text-xs">
+                                                        <td scope="col" className="text-xs sm:text-sm px-3 md:px-6 py-4">
                                                             <div className='flex items-center'>
                                                                 <span className={`px-2 py-1 ring-1 flex items-center rounded-full space-x-2 ${item.status === "active" ? " text-emerald-600  ring-emerald-600" : " text-red-600 ring-orange-600"}`}>
                                                                     <div className={`w-2 h-2 rounded-full  ${item.status === "active" ? " bg-emerald-600" : " bg-red-600"}`}></div>
@@ -147,7 +147,7 @@ const Campaigns = () => {
                                                                 </span>
                                                             </div>
                                                         </td>
-                                                        <td scope="col" className="px-6 py-4 flex items-center">
+                                                        <td scope="col" className="text-xs sm:text-sm px-3 md:px-6 py-4 flex items-center">
                                                             <Link to={`/admin/editcampaign/${item._id}`} className="m-1 px-4 py-2 bg-emerald-100 text-emerald-600 rounded-xl hover:bg-emerald-200 transition-all duration-300"><VscEdit size={20} /></Link>
                                                             <button onClick={() => handleDelete(item._id)} className="px-4 py-2 text-orange-600 bg-orange-100 rounded-xl hover:bg-orange-200 transition-all duration-300"><VscTrash size={20} /></button>
                                                             {

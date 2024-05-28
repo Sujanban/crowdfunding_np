@@ -90,7 +90,7 @@ const Users = () => {
                 <Search />
                 <div className='p-4 h-[90vh] overflow-y-auto bg-gray-100'>
                     {/* breadcrumbs */}
-                    <div className='p-2'>
+                    <div className='md:p-2'>
                         <nav className="w-full flex" aria-label="Breadcrumb">
                             <ol className="inline-flex items-center space-x-1 md:space-x-3">
                                 <li className="inline-flex items-center">
@@ -107,10 +107,10 @@ const Users = () => {
                     </div>
 
                     {/*  */}
-                    <div className='p-4 pt-2'>
-                        <div className='p-4 bg-white rounded-xl'>
+                    <div className='md:p-4 pt-2'>
+                        <div className='md:p-4 bg-white rounded-xl'>
                             <div className='p-2 flex items-center justify-between'>
-                                <h1 className='border-b-2 border-emerald-600 font-medium'>Users</h1>
+                                <h1 className='text-sm md:text-md border-b-2 border-emerald-600 font-medium'>Users</h1>
                                 <div className='relative '>
                                     <button onClick={() => setToggleFilter(!toggleFilter)} className='border rounded px-4 text-sm py-2 flex items-center hover:bg-gray-100'>Filter <IoFunnelOutline className='ml-2' /></button>
                                     {toggleFilter && (
@@ -129,16 +129,16 @@ const Users = () => {
                                 </div>
                             </div>
 
-                            <div className="p-2 relative overflow-x-auto sm:rounded-lg">
+                            <div className="md:p-2 relative overflow-x-auto sm:rounded-lg">
                                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
                                     <thead className="text-sm text-gray-700 capitalize bg-gray-50">
                                         <tr className=''>
-                                            <th scope="col" className="px-2 py-3">SN</th>
-                                            <th scope="col" className="px-6 py-3">Email</th>
-                                            <th scope="col" className="px-6 py-3">Name</th>
-                                            <th scope="col" className="px-6 py-3">Role</th>
-                                            <th scope="col" className="px-6 py-3">No. of Campaigns</th>
-                                            <th scope="col" className="px-6 py-3">Action</th>
+                                            <th scope="col" className="px-3 md:px-6 py-3">SN</th>
+                                            <th scope="col" className="px-3 md:px-6 py-3">Email</th>
+                                            <th scope="col" className="px-3 md:px-6 py-3">Name</th>
+                                            <th scope="col" className="px-3 md:px-6 py-3">Role</th>
+                                            <th scope="col" className="px-3 md:px-6 py-3">No. of Campaigns</th>
+                                            <th scope="col" className="px-3 md:px-6 py-3">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -146,14 +146,14 @@ const Users = () => {
                                             currentItems
                                             &&
                                             currentItems.map((user, index) =>
-                                                <tr key={index} className='border-b'>
-                                                    <td scope="col" className="px-2 py-2">{++count}</td>
-                                                    <td scope="col" className="px-6 py-2">{user.email}</td>
-                                                    <td scope="col" className="px-6 py-2 capitalize">{user.firstName}  {user.lastName}</td>
-                                                    <td scope="col" className="px-6 py-2">{user.role === 1 ? 'Admin' : 'User'}</td>
-                                                    <td scope="col" className="px-6 py-2">{countCampaignsByUserId(user._id)}</td>
-                                                    <td scope="col" className="px-6 py-2">
-                                                        <button onClick={() => deleteUser(user._id)} className='py-2 px-4 text-sm text-orange-600 bg-orange-100 transition-all duration-300 hover:bg-orange-200 rounded-xl'><VscTrash size={20} /></button>
+                                                <tr key={index} className='text-xs sm:text-sm border-b'>
+                                                    <td scope="col" className="px-3 md:px-6 py-2">{++count}</td>
+                                                    <td scope="col" className="px-3 md:px-6 py-2">{user.email}</td>
+                                                    <td scope="col" className="px-3 md:px-6 py-2 capitalize">{user.firstName}  {user.lastName}</td>
+                                                    <td scope="col" className="px-3 md:px-6 py-2">{user.role === 1 ? 'Admin' : 'User'}</td>
+                                                    <td scope="col" className="px-3 md:px-6 py-2">{countCampaignsByUserId(user._id)}</td>
+                                                    <td scope="col" className="px-3 md:px-6 py-2">
+                                                        <button onClick={() => deleteUser(user._id)} className='py-2 px-2 md:px-4 text-sm text-orange-600 bg-orange-100 transition-all duration-300 hover:bg-orange-200 rounded-xl'><VscTrash size={20} /></button>
                                                     </td>
                                                 </tr>)
                                         }

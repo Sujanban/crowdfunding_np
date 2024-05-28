@@ -40,32 +40,32 @@ const DonationStats = ({ donations }) => {
     } 
 
     return (
-        <div className=' grid grid-cols-3 gap-4'>
-            <div className='p-4 rounded-xl shadow flex items-center bg-white'>
+        <div className=' grid md:grid-cols-3 gap-2 md:gap-4'>
+            <div className='p-3 md:p-4 rounded-xl shadow flex items-center bg-white'>
                 <div className=''>
                     <MdOutlineAttachMoney className='text-orange-600 bg-orange-100 rounded-xl' size={30} />
                 </div>
-                <div className='p-2'>
-                    <h1 className='text-sm'>Total Donations</h1>
-                    <h1 className=' font-medium'>₹ {totalDonation()}</h1>
+                <div className='p-2 text-sm'>
+                    <h1 className=''>Total Donations</h1>
+                    <h1 className=' md:font-medium'>₹ {totalDonation()}</h1>
                 </div>
             </div>
-            <div className='p-4 rounded-xl shadow flex items-center bg-white'>
+            <div className='p-3 md:p-4 rounded-xl shadow flex items-center bg-white'>
                 <div className=''>
                     <LiaPeopleCarrySolid className='text-pink-600 bg-yellow-100 rounded-xl' size={30} />
                 </div>
-                <div className='p-2'>
-                    <h1 className='text-sm'>Top Donation</h1>
-                    <h1 className=' font-medium'>₹ {topDonation()}</h1>
+                <div className='p-2 text-sm'>
+                    <h1 className=''>Top Donation</h1>
+                    <h1 className=' md:font-medium'>₹ {topDonation()}</h1>
                 </div>
             </div>
-            <div className='p-4 rounded-xl shadow flex items-center bg-white'>
+            <div className='p-3 md:p-4 rounded-xl shadow flex items-center bg-white'>
                 <div className=''>
                     <GiGolfFlag className='text-emerald-600 bg-emerald-100 rounded-xl' size={30} />
                 </div>
-                <div className='p-2'>
-                    <h1 className='text-sm'>Top Contributer</h1>
-                    <h1 className=' font-medium capitalize'>{topDonator()}</h1>
+                <div className='p-2 text-sm'>
+                    <h1 className=''>Top Contributer</h1>
+                    <h1 className=' md:font-medium capitalize'>{topDonator()}</h1>
                 </div>
             </div>
         </div>

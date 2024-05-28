@@ -18,8 +18,6 @@ const Profile = () => {
     const [stripeAccount, setStripeAccount] = useState(null);
     const [toggleAccountAdd, setToggleAccountAdd] = useState(false);
     const user = useSelector(state => state.user.data)
-    const {isAuthenticated} = useSelector(state => state.user)
-
 
     const handleBankDelete = async (id) => {
         dispatch(deleteBank(id))

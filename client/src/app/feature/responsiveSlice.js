@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const responsiveSlice = createSlice({
     name: "responsive",
     initialState: {
-        navbarVisible: false,
+        navbarVisible: true,
     },
     reducers: {
         handleNavbarVisibility: (state, action) => {

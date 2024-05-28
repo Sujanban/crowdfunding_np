@@ -3,7 +3,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
 const Pagination = ({ currentPage, setCurrentPage, currentItems, numberOfItems }) => {
     return (
-        <div className='py-4 flex justify-between items-center'>
+        <div className='px-2 py-4 flex justify-between items-center space-y-2 flex-wrap'>
             <div className='text-xs text-slate-600'>
                 <h1>Showing {(10 * (currentPage - 1)) + 1} to {10 * (currentPage - 1) + currentItems?.length} of {currentPage} entries</h1>
             </div>
