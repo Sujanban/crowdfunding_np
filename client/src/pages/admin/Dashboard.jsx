@@ -83,7 +83,7 @@ const Dashboard = () => {
                         <DonationStats donations={donations} />
                     </div>
 
-                    <div>
+                    <div className='p-4'>
                         {/* reactjs chart */}
                         <Bar options={options} data={data} />
                     </div>
