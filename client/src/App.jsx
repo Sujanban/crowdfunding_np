@@ -44,9 +44,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUserProfile } from './app/feature/userSlice';
 
-// axios.defaults.baseURL = process.env.HOST_URL;
-axios.defaults.baseURL = "http://localhost:5000/";
-// axios.defaults.baseURL = "https://collab-9000.onrender.com/";
+axios.defaults.baseURL = 'http://localhost:5000/';
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -85,6 +83,8 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/forgotPassword' element={<ForgotPassword />} />
         <Route path='/reset-password/:token' element={<ResetPassword />} />
+        <Route path='/createCampaign' element={isAuthenticated ? <CreateCampaign /> : <Login />} />
+
         <Route path='/*' element={<Error404 />} />
 
         {/* Authenticated user routes */}

@@ -10,10 +10,10 @@ const CampaignUpdates = () => {
                 <div className='px-8 py-20  flex justify-center items-center bg-green-600 text-center'>
                     <div className='max-w-xl mx-auto '>
                         <div className='flex justify-center'>
-                            <img className='' src="https://img.icons8.com/bubbles/150/000000/trust.png" alt="trust" />
+                            <img className='w-20 md:w-36' src="https://img.icons8.com/bubbles/150/000000/trust.png" alt="trust" />
                         </div>
-                        <h1 className='p-2 text-xl font-semibold'>Started work with the collected amount?</h1>
-                        <p className=''>Let the supporters and community know about the progress of your campaign so build trust.</p>
+                        <h1 className='p-2 text-md md:text-xl font-medium'>Started work with the collected amount?</h1>
+                        <p className='text-sm md:text-md'>Let the supporters and community know about the progress of your campaign so build trust.</p>
                         <div className='flex items-center justify-center'>
                             <Link to={"/campaignStoryUpdates/" + id} className='m-4  ring-1 transition-all duration-300 hover:bg-green-100 bg-white bg-yelow-600 px-4 py-2 rounded text-black flex justify-center items-center'>Post your updates<CiEdit size={15} />
                             </Link>
@@ -27,11 +27,11 @@ const CampaignUpdates = () => {
 
                     <div className='max-w-xl mx-auto '>
                         <div className='flex justify-center'>
-                            {/* <img className='' src="https://img.icons8.com/bubbles/150/000000/trust.png" alt="trust" /> */}
-                            <img src="https://img.icons8.com/bubbles/150/edit.png" alt="edit" />
+                            {/* <img className='w-20 md:w-36' src="https://img.icons8.com/bubbles/150/000000/trust.png" alt="trust" /> */}
+                            <img className='w-20 md:w-36' src="https://img.icons8.com/bubbles/150/edit.png" alt="edit" />
                         </div>
-                        <h1 className='p-2 text-xl font-semibold'>Need to update campaign details?</h1>
-                        <p className=''>Edit your campaign details following a few simple steps.</p>
+                        <h1 className='p-2 text-md md:text-xl font-medium'>Need to update campaign details?</h1>
+                        <p className='text-sm md:text-md'>Edit your campaign details following a few simple steps.</p>
                         <div className='flex items-center justify-center'>
                             <Link to={"/editcampaign/" + id} 
                             className='m-4  ring-1 transition-all duration-300 hover:bg-green-100 bg-white bg-yelow-600 px-4 py-2 rounded text-black flex justify-center items-center'>Edit Campaign<CiEdit size={15} />
@@ -45,10 +45,10 @@ const CampaignUpdates = () => {
                 <div className='px-8 py-20  flex justify-center items-center bg-green-600 text-center'>
                     <div className='max-w-xl mx-auto '>
                         <div className='flex justify-center'>
-                            <img className='' src="https://img.icons8.com/bubbles/150/000000/trust.png" alt="trust" />
+                            <img className='w-20 md:w-36' src="https://img.icons8.com/bubbles/150/000000/trust.png" alt="trust" />
                         </div>
-                        <h1 className='p-2 text-xl font-semibold'>View Collected fund</h1>
-                        <p className=''>View the donation you received from the community</p>
+                        <h1 className='p-2 text-md md:text-xl font-medium'>View Collected fund</h1>
+                        <p className='text-sm md:text-md'>View the donation you received from the community</p>
                         <div className='flex items-center justify-center'>
                             <Link to={"/viewDonations/" + id} className='m-4  ring-1 transition-all duration-300 hover:bg-green-100 bg-white bg-yelow-600 px-4 py-2 rounded text-black flex justify-center items-center'>View
                             </Link>

@@ -3,10 +3,10 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 
 // fetching user from local storage
-const loadUserFromLocalStorage = () => {
-  const userJson = localStorage.getItem("user");
-  return userJson ? JSON.parse(userJson) : null;
-};
+// const loadUserFromLocalStorage = () => {
+//   const userJson = localStorage.getItem("user");
+//   return userJson ? JSON.parse(userJson) : null;
+// };
 
 // fetch user profile
 export const fetchUserProfile = createAsyncThunk(
@@ -32,7 +32,7 @@ export const loginUser = createAsyncThunk(
       if (res.data.message) {
         toast.success(res.data.message);
         const user = res.data.userData;
-        localStorage.setItem("user", JSON.stringify(user));
+        // localStorage.setItem("user", JSON.stringify(user));
         return user;
       }
     } catch (error) {
@@ -72,7 +72,7 @@ export const logoutUser = createAsyncThunk("logoutUser", async () => {
     }
     if (res.data) {
       toast.success("Logout Successful");
-      localStorage.removeItem("user");
+      // localStorage.removeItem("user");
     }
     return res.data;
   } catch (error) {
