@@ -1,13 +1,12 @@
-import Navbar from '../../components/admin/Navbar'
-import Search from '../../components/admin/Search'
+import React, { useEffect, useState } from 'react';
+import Navbar from '../../components/admin/Navbar';
+import Search from '../../components/admin/Search';
 import { LuChevronRight } from "react-icons/lu";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCampaign } from '../../app/feature/campaignSlice';
-import { useEffect, useState } from 'react';
-import DonationStats from '../../components/admin/DonationStats';
 import { getDonations } from '../../app/feature/donationSlice';
-
+import DonationStats from '../../components/admin/DonationStats';
 
 import {
     Chart as ChartJS,
@@ -28,31 +27,44 @@ ChartJS.register(
     Tooltip,
     Legend
 );
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-export const options = {
-    responsive: true,
-};
-
-export const data = {
-    labels,
-    datasets: [
-        {
-            label: 'Users',
-            data: [23, 45, 67, 89, 23, 45, 67],
-            backgroundColor: '#059669',
-        }
-    ],
-};
 
 const Dashboard = () => {
-    const donations = useSelector(state => state.donation.data)
-    const dispatch = useDispatch()
+    const donations = useSelector(state => state.donation.data);
+    const dispatch = useDispatch();
+    const [chartData, setChartData] = useState({ labels: [], datasets: [] });
 
     useEffect(() => {
-        dispatch(fetchCampaign())
-        dispatch(getDonations())
-    }, [])
+        dispatch(fetchCampaign());
+        dispatch(getDonations());
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (donations.length > 0) {
+            const userDonationMap = donations.reduce((acc, donation) => {
+                const userName = `${donation.userId.firstName} ${donation.userId.lastName}`;
+                if (!acc[userName]) {
+                    acc[userName] = 0;
+                }
+                acc[userName] += donation.amount;
+                return acc;
+            }, {});
+
+            const labels = Object.keys(userDonationMap);
+            const data = Object.values(userDonationMap);
+
+            setChartData({
+                labels,
+                datasets: [
+                    {
+                        label: 'Donations',
+                        data,
+                        backgroundColor: '#059669',
+                    }
+                ],
+            });
+        }
+    }, [donations]);
+
     return (
         <div className='flex max-w-7xl mx-auto w-full rounded-xl'>
             <Navbar />
@@ -70,10 +82,8 @@ const Dashboard = () => {
                                     <div className="flex items-center">
                                         <LuChevronRight className="h-4 w-4" />
                                         <Link to={'/admin/donations'} className=" text-sm font-medium text-gray-800 hover:underline md:ml-2"> Donations </Link>
-
                                     </div>
                                 </li>
-
                             </ol>
                         </nav>
                     </div>
@@ -83,14 +93,17 @@ const Dashboard = () => {
                         <DonationStats donations={donations} />
                     </div>
 
-                    <div className='p-4'>
-                        {/* reactjs chart */}
-                        <Bar options={options} data={data} />
+                    <div className='p-4 grid grid-cols-3'>
+                        <div className='p-4 bg-white col-span-2 rounded-xl shadow'>
+                            <h1 className='pb-2 font-medium'>Donation Leaderboard</h1>
+                            {/* reactjs chart */}
+                            <Bar options={{ responsive: true }} data={chartData} />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default Dashboard
+export default Dashboard;
