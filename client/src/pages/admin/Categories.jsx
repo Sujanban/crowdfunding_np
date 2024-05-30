@@ -151,7 +151,7 @@ const Categories = () => {
                             </div>
                         </div>
                         {/* campaign creation */}
-                        <div className='hidden md:flex flex-grow '>
+                        <div className='hidden md:grid flex-grow '>
                             <div className='md:p-4 bg-white rounded-xl '>
                                 <div className='p-2 flex'>
                                     <h1 className='text-sm md:text-md border-b-2 border-emerald-600 font-medium'>Create Category</h1>
