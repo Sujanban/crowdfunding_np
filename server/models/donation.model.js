@@ -17,8 +17,14 @@ const DonationSchema = new Schema({
     type: Number,
     required: true,
   },
+  paymentMethod: {
+    type: String,
+  },
+  transactionId: {
+    type: String,
+  },
   session: {
-    type: String
+    type: String,
   },
   createdAt: {
     type: Date,

@@ -51,9 +51,51 @@ const createDonation = async (req, res) => {
 };
 
 const createKhaltiPayment = async (req, res) => {
-  const KHALTI_SECRETE_KEY = "69bbe6521155459e80ccd94acb8dd37d";
+  const KHALTI_SECRETE_KEY = process.env.KHALTI_SECRETE_KEY;
   try {
-    const { payload } = req.body;
+    const strAmount = req.body.amount;
+    const amount = parseInt(strAmount);
+    const { userId } = req.body;
+    const { campaignId } = req.params;
+    console.log(amount);
+
+    if (!amount)
+      return res.json({ error: "Please enter an amount to Donate!" });
+    if (amount < 20) return res.json({ error: "Minimum Donation is 20" });
+    if (amount > 1000) return res.json({ error: "Maximum amount is 1000" });
+    if (!userId) return res.json({ error: "Please Login to Donate" });
+    if (!campaignId) {
+      return res.json({ error: "Please select a campaign to Donate" });
+    }
+
+    const campaign = await Campaign.findById(campaignId);
+    if (userId == campaign.campaignOwner) {
+      return res.json({ error: "You cannot donate to your own campaign" });
+    }
+
+    const payload = {
+      return_url: "http://localhost:5173/success/",
+      website_url: "http://localhost:5173/",
+      amount: amount * 100,
+      purchase_order_id: "test12",
+      purchase_order_name: "test",
+      customer_info: {
+        name: "Collab - Crowdfunding Platform",
+        // email: user.email
+      },
+      product_details: [
+        {
+          identity: campaignId,
+          name: campaign.campaignTitle,
+          total_price: amount,
+          quantity: 1,
+          unit_price: amount,
+        },
+      ],
+      merchant_username: "merchant_name",
+      merchant_extra: "merchant_extra",
+    };
+
     const khaltiResponse = await axios.post(
       "https://a.khalti.com/api/v2/epayment/initiate/",
       payload,
@@ -66,10 +108,22 @@ const createKhaltiPayment = async (req, res) => {
     if (khaltiResponse) {
       console.log(khaltiResponse.data);
       res.json(khaltiResponse.data);
+
+      storing the response to the database
+      const donation = new Donation({
+        campaignId: campaignId,
+        userId: userId,
+        amount: amount,
+        paymentMethod: "Khalti",
+        transactionId: khaltiResponse.data?.pidx,
+      });
+
+      await donation.save();
+
     }
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ error: "Failed to Khalti session" });
+    return res.status(500).json({ error: "Failed to khalti session" });
   }
 };
 

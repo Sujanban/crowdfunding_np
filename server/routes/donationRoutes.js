@@ -14,7 +14,7 @@ router.use(
 );
 
 router.post("/createDonation/:campaignId", checkAuth, createDonation);
-router.post("/createKhaltiPayment", createKhaltiPayment);
+router.post("/createKhaltiPayment/:campaignId", createKhaltiPayment);
 router.get("/getDonations/", checkAuth, fetchDonations);
 router.get("/fetchDonation/:id", checkAuth, fetchDonation);
 router.get("/fetchDonationByUser/:userId", checkAuth, fetchDonationByUser);

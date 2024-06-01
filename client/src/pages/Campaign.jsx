@@ -192,7 +192,7 @@ const Campaign = () => {
                                 ?
                                 <div className='grid'>
                                     <CreateDonation id={id} />
-                                    <KhaltiCheckout />
+                                    {/* <KhaltiCheckout id={id}/> */}
                                 </div>
                                 :
                                 <div className='relative'>
