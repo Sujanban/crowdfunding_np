@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const cookie_parser = require("cookie-parser");
 const { default: Stripe } = require("stripe");
+const qrcode = require("qrcode");
 
 const User = require("./models/user.model");
 const Donation = require("./models/donation.model");
@@ -106,5 +107,4 @@ app.use("/api/story/", require("./routes/storyRoutes"));
 
 app.listen(port, () => console.log(`Server running on port: ${port}`));
 
-
-console.log((__dirname) + '/client/')
+console.log(__dirname + "/client/");
