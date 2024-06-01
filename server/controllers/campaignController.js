@@ -2,6 +2,7 @@ const Campaign = require("../models/campaign.model");
 const Story = require("../models/story.model");
 const mongoose = require("mongoose");
 const cloudinary = require("../utils/cloudinary");
+const { generateQRCode } = require("../utils/qrcode");
 
 //CREATE CAMPAIGN
 const createCampaign = async (req, res) => {
@@ -45,7 +46,10 @@ const createCampaign = async (req, res) => {
     });
 
     await newCampaign.save();
-    res.status(201).json({ message: "Campaign created successfully", campaign: newCampaign });
+    res.status(201).json({
+      message: "Campaign created successfully",
+      campaign: newCampaign,
+    });
   } catch (err) {
     console.error("Error in createCampaign:", err);
     res.status(500).json({ error: "Internal server error" });
@@ -70,7 +74,6 @@ const updateCampaign = async (req, res) => {
       status,
     } = req.body;
 
-   
     if (
       !campaignOwner ||
       !campaignTitle ||
@@ -88,11 +91,14 @@ const updateCampaign = async (req, res) => {
 
     let thumbnailData = existCampaign.thumbnail;
 
-    if(typeof thumbnail === "string") {
+    if (typeof thumbnail === "string") {
       if (thumbnail) {
-        const imageUploadResponse = await cloudinary.uploader.upload(thumbnail, {
-          upload_preset: "collab-crowdfunding",
-        });
+        const imageUploadResponse = await cloudinary.uploader.upload(
+          thumbnail,
+          {
+            upload_preset: "collab-crowdfunding",
+          }
+        );
         thumbnailData = {
           public_id: imageUploadResponse.public_id,
           url: imageUploadResponse.secure_url,
@@ -102,8 +108,6 @@ const updateCampaign = async (req, res) => {
         }
       }
     }
-    
-
 
     const updatedCampaign = await Campaign.findByIdAndUpdate(
       id,
@@ -147,6 +151,11 @@ const getCampaign = async (req, res) => {
     if (!existCampaign) {
       return res.status(404).json({ error: "Campaign not found" });
     }
+
+    // generating qr code and sending it to the user
+    // const url = await generateQRCode(existCampaign);
+    // console.log(url);
+
     return res.status(200).json(existCampaign);
   } catch (err) {
     console.error("Error fetching campaign:", err);
@@ -197,7 +206,10 @@ const deleteCampaign = async (req, res) => {
     const deletedCampaign = await Campaign.findByIdAndDelete(id);
     const deleteStory = await Story.deleteMany({ campaignId: id });
     if (deletedCampaign && deleteStory) {
-      return res.status(200).json({ message: "Campaign deleted successfully", campaign: deletedCampaign });
+      return res.status(200).json({
+        message: "Campaign deleted successfully",
+        campaign: deletedCampaign,
+      });
     } else {
       return res.status(500).json({ error: "Failed to delete campaign" });
     }
