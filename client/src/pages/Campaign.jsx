@@ -16,6 +16,7 @@ import { fetchDonationByCampaign } from '../app/feature/donationSlice'
 import { getStories } from '../app/feature/storySlice'
 import CreateDonation from '../components/CreateDonation'
 import { MdOutlineReportGmailerrorred } from "react-icons/md";
+import KhaltiCheckout from '../components/KhaltiCheckout'
 
 
 const Campaign = () => {
@@ -189,7 +190,10 @@ const Campaign = () => {
                         {
                             user
                                 ?
-                                <CreateDonation id={id} />
+                                <div className='grid'>
+                                    <CreateDonation id={id} />
+                                    <KhaltiCheckout />
+                                </div>
                                 :
                                 <div className='relative'>
                                     <form className=' py-4 blur'>

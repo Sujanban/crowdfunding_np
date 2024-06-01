@@ -2,6 +2,7 @@ const Stripe = require("stripe");
 const User = require("../models/user.model");
 const Donation = require("../models/donation.model");
 const Campaign = require("../models/campaign.model");
+const axios = require("axios");
 
 // creating a donation
 const createDonation = async (req, res) => {
@@ -46,6 +47,29 @@ const createDonation = async (req, res) => {
     console.log(error);
     res.status(500).json({ error: "Failed to create Stripe session" });
     return;
+  }
+};
+
+const createKhaltiPayment = async (req, res) => {
+  const KHALTI_SECRETE_KEY = "69bbe6521155459e80ccd94acb8dd37d";
+  try {
+    const { payload } = req.body;
+    const khaltiResponse = await axios.post(
+      "https://a.khalti.com/api/v2/epayment/initiate/",
+      payload,
+      {
+        headers: {
+          Authorization: `key ${KHALTI_SECRETE_KEY}`,
+        },
+      }
+    );
+    if (khaltiResponse) {
+      console.log(khaltiResponse.data);
+      res.json(khaltiResponse.data);
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "Failed to Khalti session" });
   }
 };
 
@@ -106,9 +130,10 @@ const fetchDonation = async (req, res) => {
 
 module.exports = {
   createDonation,
-  
+
   fetchDonation,
   fetchDonationByCampaign,
   fetchDonationByUser,
-  fetchDonations
+  fetchDonations,
+  createKhaltiPayment,
 };
