@@ -28,7 +28,9 @@ const CampaignSchema = new schema(
       type: Number,
       required: true,
     },
-
+    expiryDate: {
+      type: Date,
+    },
     raisedAmount: {
       type: Number,
       default: 0,

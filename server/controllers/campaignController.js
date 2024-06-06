@@ -14,12 +14,14 @@ const createCampaign = async (req, res) => {
       location,
       thumbnail,
       goalAmount,
+      expiryDate,
       category,
     } = req.body;
     if (
       !campaignOwner ||
       !campaignTitle ||
       !campaignDescription ||
+      !expiryDate ||
       !location ||
       !thumbnail ||
       !goalAmount ||
@@ -40,12 +42,14 @@ const createCampaign = async (req, res) => {
       campaignTitle,
       campaignDescription,
       location,
+      expiryDate,
       thumbnail: thumbnailData,
       goalAmount,
       category,
     });
 
     await newCampaign.save();
+    console.log(newCampaign);
     res.status(201).json({
       message: "Campaign created successfully",
       campaign: newCampaign,
