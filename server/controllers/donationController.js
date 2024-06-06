@@ -109,7 +109,7 @@ const createKhaltiPayment = async (req, res) => {
       console.log(khaltiResponse.data);
       res.json(khaltiResponse.data);
 
-      storing the response to the database
+      // storing the response to the database
       const donation = new Donation({
         campaignId: campaignId,
         userId: userId,

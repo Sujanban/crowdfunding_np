@@ -16,7 +16,6 @@ import { fetchDonationByCampaign } from '../app/feature/donationSlice'
 import { getStories } from '../app/feature/storySlice'
 import CreateDonation from '../components/CreateDonation'
 import { MdOutlineReportGmailerrorred } from "react-icons/md";
-import KhaltiCheckout from '../components/KhaltiCheckout'
 
 
 const Campaign = () => {
