@@ -70,7 +70,6 @@ const deleteBank = async (req, res) => {
   }
 };
 
-// Payout request sextion
 // handle payout requests
 const handleRequest = async (req, res) => {
   const { _id } = req.user;
