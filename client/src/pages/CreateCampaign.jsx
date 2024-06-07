@@ -59,7 +59,7 @@ const CreateCampaign = () => {
           </div>
           <form className="max-w-5xl mx-auto" onSubmit={handleSubmit}>
             <div className='p-4'>
-              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Campaign Title *</label>
+              <label className="block mb-2 text-sm font-medium text-gray-900 ">Campaign Title *</label>
               <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " placeholder="Help me fund my college fee"
                 onChange={(e) => setCampaign({ ...campaign, campaignTitle: e.target.value })}
                 value={campaign.campaignTitle}
@@ -67,7 +67,7 @@ const CreateCampaign = () => {
             </div>
 
             <div className='p-4'>
-              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Campaign Story *</label>
+              <label className="block mb-2 text-sm font-medium text-gray-900 ">Campaign Story *</label>
               <textarea id="message" rows="12" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 " placeholder="Start typing..."
                 onChange={(e) => setCampaign({ ...campaign, campaignDescription: e.target.value })}
                 value={campaign.campaignDescription}
@@ -75,7 +75,7 @@ const CreateCampaign = () => {
             </div>
 
             <div className='p-4'>
-              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Campaign Expiry *</label>
+              <label className="block mb-2 text-sm font-medium text-gray-900 ">Campaign Expiry *</label>
               <input type="date" min={new Date().toISOString().split('T')[0]} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  "
                 onChange={(e) => setCampaign({ ...campaign, expiryDate: e.target.value })}
                 value={campaign.expiryDate}
@@ -83,7 +83,7 @@ const CreateCampaign = () => {
             </div>
 
             <div className='p-4'>
-              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Goal Amount *</label>
+              <label className="block mb-2 text-sm font-medium text-gray-900 ">Goal Amount *</label>
               <input type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  "
                 placeholder='3000$'
                 onChange={(e) => setCampaign({ ...campaign, goalAmount: e.target.value })}
@@ -92,14 +92,14 @@ const CreateCampaign = () => {
             </div>
 
             <div className='p-4'>
-              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Image *</label>
+              <label className="block mb-2 text-sm font-medium text-gray-900 ">Upload Image *</label>
               <input encType="multipart/form-data" type="file" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " placeholder="Help me fund my college fee"
                 onChange={(e) => transformFile(e)}
               />
             </div>
 
             <div className='p-4'>
-              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select your country</label>
+              <label className="block mb-2 text-sm font-medium text-gray-900 ">Select your country</label>
               <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " value={campaign.category} onChange={(e) => setCampaign({ ...campaign, category: e.target.value })}>
                 <option value="">Select a category</option>
                 {category.map((item, index) => (
@@ -111,7 +111,7 @@ const CreateCampaign = () => {
             </div>
 
             <div className='p-4'>
-              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Campaign Creator * </label>
+              <label className="block mb-2 text-sm font-medium text-gray-900 ">Campaign Creator * </label>
               <input type="text" className="bg-gray-50 disabled:bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " placeholder="Help me fund my college fee"
                 onChange={(e) => setCampaign({ ...campaign, campaignOwner: e.target.value })}
                 disabled
@@ -120,7 +120,7 @@ const CreateCampaign = () => {
             </div>
 
             <div className='p-4'>
-              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location </label>
+              <label className="block mb-2 text-sm font-medium text-gray-900 ">Location </label>
               <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " placeholder="Help me fund my college fee"
                 onChange={(e) => setCampaign({ ...campaign, location: e.target.value })}
                 value={campaign.location}
