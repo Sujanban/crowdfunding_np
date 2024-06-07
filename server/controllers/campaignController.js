@@ -73,6 +73,7 @@ const updateCampaign = async (req, res) => {
       campaignDescription,
       location,
       thumbnail,
+      expiryDate,
       goalAmount,
       category,
       status,
@@ -83,6 +84,7 @@ const updateCampaign = async (req, res) => {
       !campaignTitle ||
       !campaignDescription ||
       !location ||
+      !expiryDate ||
       !goalAmount ||
       !category
     ) {
@@ -121,6 +123,7 @@ const updateCampaign = async (req, res) => {
         campaignDescription,
         location,
         thumbnail: thumbnailData,
+        expiryDate,
         goalAmount,
         category,
         status, // Only set status if provided

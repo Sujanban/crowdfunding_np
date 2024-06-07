@@ -8,7 +8,7 @@ import axios from 'axios'
 import { LuChevronRight } from "react-icons/lu";
 import Search from '../../components/admin/Search'
 import { FaSpinner } from "react-icons/fa6";
-import {toast} from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 
 const EditCampaign = () => {
   const navigate = useNavigate();
@@ -123,6 +123,16 @@ const EditCampaign = () => {
               </div>
 
               <div className='py-4'>
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Campaign Expiry *</label>
+                <input type="date"
+                  min={new Date().toISOString().split('T')[0]}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  onChange={(e) => setCampaignn({ ...campaignn, expiryDate: e.target.value })}
+                  value={campaignn.expiryDate?.split('T')[0]}
+                />
+              </div>
+
+              <div className='py-4'>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Goal Amount *</label>
                 <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder='3000$'
@@ -164,7 +174,7 @@ const EditCampaign = () => {
                 <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   value={campaignn.campaignOwner?._id}
                   onChange={(e) => setCampaignn({ ...campaignn, campaignOwner: e.target.value })}>
-                    
+
                   {
                     users && users.map((user, index) =>
                       <option key={index} value={user._id} >{user.firstName + " " + user.lastName}</option>
