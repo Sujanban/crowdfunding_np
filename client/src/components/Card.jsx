@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { FaHeart } from 'react-icons/fa6';
 import { BsLightningCharge } from 'react-icons/bs'
+import moment from 'moment';
 
 const Card = ({ campaign, index }) => {
     const [donations, setDonations] = useState([]);
@@ -21,6 +22,9 @@ const Card = ({ campaign, index }) => {
     useEffect(() => {
         fetchDonationByCampaign()
     }, [])
+    const date = moment(campaign.createdAt).fromNow();
+    const expiryDate = moment(campaign.expiryDate).fromNow();
+    console.log(date, expiryDate)
     return (
         <div className=' shadow-lg rounded-lg'>
             <Link className='z-20' to={`/campaign/${campaign._id}`} key={index} >
@@ -34,6 +38,11 @@ const Card = ({ campaign, index }) => {
                     <div className='absolute left-2 bottom-2 p-2'>
                         <div className=' h-10 w-10 flex items-center justify-center animate-pulse text-emerald-600 bg-white rounded-full text-xl outline outline-offset-2 outline-emerald-600 outline-1'>
                             <p className='relative'>{calculateGoalPercent()}<span className='absolute text-[8px]'>%</span></p>
+                        </div>
+                    </div>
+                    <div className='absolute right-1 top-1 p-2'>
+                        <div className='px-2 py-1 text-xs flex items-center justify-center bg-orange-100 text-red-600 rounded-full'>
+                            {"expires " + expiryDate}
                         </div>
                     </div>
                     <img className='rounded-t-lg w-full h-full object-cover' src={campaign.thumbnail?.url} alt="" />
