@@ -24,7 +24,6 @@ const Card = ({ campaign, index }) => {
     }, [])
     const date = moment(campaign.createdAt).fromNow();
     const expiryDate = moment(campaign.expiryDate).fromNow();
-    console.log(date, expiryDate)
     return (
         <div className=' shadow-lg rounded-lg'>
             <Link className='z-20' to={`/campaign/${campaign._id}`} key={index} >
