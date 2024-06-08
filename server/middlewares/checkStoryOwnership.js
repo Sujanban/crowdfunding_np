@@ -8,9 +8,7 @@ const checkStoryOwnership = async (req, res, next) => {
     const userRole = req.user.role;
     const isAdmin = userRole === 1;
 
-
     const story = await Story.findById(storyId);
-
     if (!story) {
       return res.status(404).json({ error: "Story not found" });
     }
