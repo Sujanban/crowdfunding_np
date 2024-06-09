@@ -24,9 +24,9 @@ const Success = () => {
   return (
     <div>
       <Navbar />
-      <div className='px-4 pb-12 md:pb-0 md:px-8 md:py-20 max-w-7xl mx-auto'>
+      <div className=' px-4 pb-12 md:pb-0 md:px-8 max-w-7xl mx-auto'>
         <div className=' text-center'>
-          <img className='h-36 md:h-44 mx-auto' src={success} alt="" />
+          <img className=' h-36 md:h-44 mx-auto' src={success} alt="" />
           <h1 className='p-2 text-center md:text-3xl font-medium'>Payment Successfull</h1>
           <p className='md:py-4 text-sm md:text-md max-w-lg mx-auto'>Payment sucessfully completed! You're now a member of a ellite community helping others to achiev their Goal.</p>
           <div className='py-2 md:py-4 flex justify-center space-x-4 flex-wrap'>
