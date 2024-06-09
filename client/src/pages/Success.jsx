@@ -1,10 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import success from '../assets/images/success1.gif'
 import { Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
 
 const Success = () => {
+  // const { pidx, transaction_id, amount, status, username, purchase_order_id } = useParams();
+  // console.log(pidx, transaction_id, amount, status, username, purchase_order_id)
+
+  // const storeToDb = async () => {
+  //   const res = await axios.post('/api/donation/createKhaltiPayment/store',
+  //     { pidx, transaction_id, amount, status, username, purchase_order_id }
+  //   );
+  //   if (res.data.error) {
+  //     console.log("Something went wrong")
+  //   }
+  // }
+  // useEffect(() => {
+  //   storeToDb();
+  // }, [])
   return (
     <div>
       <Navbar />

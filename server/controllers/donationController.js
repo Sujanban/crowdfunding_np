@@ -106,6 +106,19 @@ const createKhaltiPayment = async (req, res) => {
       }
     );
     if (khaltiResponse) {
+      // const { data } = khaltiResponse;
+      // const {pidx} = data
+      // const checkStatus = await axios.post("https://a.khalti.com/api/v2/epayment/lookup/", {pidx}, 
+      //   {
+      //     headers: {
+      //       Authorization: `key ${KHALTI_SECRETE_KEY}`,
+      //     },
+      //   }
+      // );
+      // console.log(`Checking Status ${checkStatus.data.status}`);
+
+
+
       console.log(khaltiResponse.data);
       res.json(khaltiResponse.data);
 

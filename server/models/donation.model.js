@@ -26,6 +26,9 @@ const DonationSchema = new Schema({
   session: {
     type: String,
   },
+  status: {
+    type: String,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
