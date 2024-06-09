@@ -9,7 +9,7 @@ const Failed = () => {
   return (
     <div>
       <Navbar />
-      <div className='px-4 md:px-8 py-20 max-w-7xl mx-auto'>
+      <div className='px-4 pb-12 md:pb-0 md:px-8 max-w-7xl mx-auto'>
         <div className=' text-center'>
           <img className=' mx-auto' src={warning} alt="" />
           <h1 className='p-2 text-center md:text-3xl font-medium'>Oh Smap!</h1>
